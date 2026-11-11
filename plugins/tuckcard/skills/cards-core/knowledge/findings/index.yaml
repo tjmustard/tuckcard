@@ -224,3 +224,80 @@ findings:
     grade: D
     direction: supports
     status: active
+  - id: F-0033
+    claim: In a study of 373 seventh graders across the transition to junior high, believing intelligence is malleable predicted rising grades over two years, while believing it is fixed predicted a flat trajectory, and a short intervention teaching the malleable view reversed a decline in grades.
+    scopes:
+      - age/middle-school
+    grade: C
+    direction: supports
+    status: active
+  - id: F-0034
+    claim: Across several studies of parents and their children, parents who saw failure as debilitating focused on their children's performance and ability, and their children were more likely to see intelligence as fixed, while children could not accurately report their parents' views about intelligence itself.
+    scopes:
+      - age/middle-school
+    grade: C
+    direction: caution
+    status: active
+  - id: F-0035
+    claim: In an experiment where adolescents viewed a simulated social media feed, participants were more likely to like photos shown with many likes than the same photos shown with few likes, and the effect held for photos of risky behavior such as drinking and smoking.
+    scopes:
+      - age/middle-school
+      - age/high-school
+    grade: B
+    direction: caution
+    status: active
+  - id: F-0036
+    claim: A meta-analysis of 19 studies of adolescents aged 10 to 19 found a strong inverse relationship between self-compassion and psychological distress, including anxiety, depression and stress.
+    scopes:
+      - age/middle-school
+      - age/high-school
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0037
+    claim: Pediatric policy says adolescents need about 8.5 to 9.5 hours of sleep a night and that middle and high schools starting before 8:30 am contribute to insufficient sleep in this age group.
+    scopes:
+      - age/middle-school
+      - age/high-school
+    grade: D
+    direction: supports
+    status: active
+  - id: F-0038
+    claim: A meta-analysis of 238 studies over 30 years found that test anxiety was negatively related to performance on standardized tests, entrance exams and grade point average, and that the relation was strongest at the middle grades.
+    scopes:
+      - age/middle-school
+      - age/high-school
+    grade: A
+    direction: caution
+    status: active
+  - id: F-0039
+    claim: In a preregistered randomized trial with 604 sixth graders moving into middle school, the confirmatory main effects of a brief belonging intervention did not replicate, though exploratory analyses found smaller gains for some groups.
+    scopes:
+      - age/middle-school
+    grade: B
+    direction: mixed
+    status: contested
+  - id: F-0040
+    claim: A meta-analysis of 27 longitudinal studies with 13,497 children and adolescents found a weak positive longitudinal association between cyberbullying victimization and mental health symptoms, and the association was consistent across time and age.
+    scopes:
+      - age/middle-school
+      - age/high-school
+    grade: A
+    direction: caution
+    status: active
+  - id: F-0041
+    claim: A review of adolescent sleep finds that sleep and wake times shift later during adolescence and that a delayed sleep phase is common, with biological and social factors both involved.
+    scopes:
+      - age/middle-school
+      - age/high-school
+    grade: E
+    direction: supports
+    status: active
+  - id: F-0042
+    claim: A consensus statement from the American Academy of Sleep Medicine gives recommended amounts of sleep for children and adolescents in order to promote optimal health.
+    scopes:
+      - age/middle-school
+      - age/high-school
+    grade: D
+    direction: supports
+    status: active

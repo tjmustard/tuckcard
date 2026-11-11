@@ -1,8 +1,8 @@
 # Age band (SPEC.md Section 4). Seeded in M5.
 # The policy ladder for this band lives in ../policies.yaml.
 scope: age/middle-school
-status: stub
-description: Ages about 11–14. Identity, friends, phones and early independence.
+status: active
+description: Ages about 11–14. Early secondary school. Concrete language still helps; the reader wants to be taken seriously.
 defaults:
   reading:                # set during seeding, word-level targets for lint
     max_avg_syllables_per_word: null
@@ -12,4 +12,138 @@ defaults:
     max_title_words: null
     max_lines: null
     max_words_per_line: null
-rules: []
+rules:
+  - id: R-middle-school-001
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not turn a grade or a failure into a verdict on the reader. Name what happened and what comes next.
+    why: In a longitudinal study, a fixed view of intelligence predicted a flat grade trajectory, and person-focused praise and a fear of failure at home both predicted a more fixed view.
+    cites: [F-0033, F-0034]
+    check: judge
+    lint: null
+    examples:
+      bad: "You failed the test because you are not a maths person."
+      good: "The test went badly. The next one is different practice."
+
+  - id: R-middle-school-002
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Give the reader words for speaking to themselves the way they would speak to a friend.
+    why: A meta-analysis of adolescents found self-compassion was strongly and inversely related to anxiety, depression and stress.
+    cites: [F-0036]
+    check: judge
+    lint: null
+    examples:
+      bad: "Stop being so dramatic."
+      good: "You would not say that to a friend. Say the version you would say to them."
+
+  - id: R-middle-school-003
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Keep the reader's attention on the next small thing they control, not on the size of the outcome.
+    why: A meta-analysis of 238 studies found test anxiety was negatively related to performance, most strongly at the middle grades.
+    cites: [F-0038]
+    check: judge
+    lint: null
+    examples:
+      bad: "This test decides everything."
+      good: "Read the first question. Then the second."
+
+  - id: R-middle-school-004
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Cards can treat sleep as part of the work and name one small habit that protects it.
+    why: Pediatric policy says adolescents need about 8.5 to 9.5 hours and ties early school start times to insufficient sleep, and a consensus statement recommends enough sleep for health.
+    cites: [F-0037, F-0042]
+    check: judge
+    lint: null
+    examples:
+      bad: "Sleep is for the weak."
+      good: "Phone down at ten. The rest waits for the morning."
+
+  - id: R-middle-school-005
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not present a late bedtime as laziness or a lack of discipline.
+    why: A review finds sleep and wake times shift later during adolescence as a normal body change, with social factors as well.
+    cites: [F-0041]
+    check: judge
+    lint: null
+    examples:
+      bad: "You stay up late because you have no self-control."
+      good: "Your body wants to stay up later now. Pick the hour you stop anyway."
+
+  - id: R-middle-school-006
+    type: avoid
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Do not make being liked or getting likes the goal. Keep the reader's own judgment as the thing to act on.
+    why: In a simulated feed, adolescents were more likely to like photos that showed many likes, including photos of risky behavior.
+    cites: [F-0035]
+    check: judge
+    lint: null
+    examples:
+      bad: "Post it if it gets enough likes."
+      good: "Would you still want it there if nobody saw the number?"
+
+  - id: R-middle-school-007
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: When messages from other people turn cruel, point the reader to a trusted adult rather than to handling it alone.
+    why: A meta-analysis of longitudinal studies found cyberbullying victimization went with later mental health symptoms.
+    cites: [F-0040]
+    check: judge
+    lint: null
+    examples:
+      bad: "Block them and forget it."
+      good: "Screenshot it and show an adult you trust."
+
+  - id: R-middle-school-008
+    type: must_not
+    strength: must
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Never promise that a deck will change whether the reader fits in at a new school or how they do in class.
+    why: A preregistered trial of a belonging intervention found its confirmatory main effects did not replicate.
+    cites: [F-0039]
+    check: judge
+    lint: null
+    examples:
+      bad: "These cards will help you fit in at your new school."
+      good: "A reminder that a hard week is not the whole picture."
+
+  - id: R-middle-school-009
+    type: format
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Keep each line to one idea, and use words the reader would use out loud.
+    why: Two ideas in one line split the reader's attention, and stiff wording invites a shrug.
+    basis: template
+    check: judge
+    lint: null
+    examples:
+      bad: "Embrace discomfort and cultivate resilience in all that you undertake."
+      good: "The first try is the hard part."
