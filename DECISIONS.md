@@ -45,3 +45,14 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 **Decision.** `LICENSE` now reads "Copyright (c) 2026 TJ Mustard", the seed kit's line. The marketplace owner and the plugin author use the same name. The canonical name stays open for the person to set.
 
 **Why.** The seed kit's line is the project's own record of authorship. The earlier committed line was not this milestone's to harmonize, and an agent should not settle a name the person has not. The line is restored pending the person's word.
+
+## M1: schemas and validation
+
+### D-006: Record the in-place rewrite of the DECISIONS preamble
+
+**What changed.** On the M0 branch the preamble was edited in place to state that entries are append-only, never renumbered or rewritten, and that a later entry can supersede an earlier one and says so. No past entry was rewritten.
+
+**Decision.** The preamble stands as written, and this entry records the edit so the register's history is explicit. QA observed the rewrite during M0 sign-off, and the lead directed this entry on the M1 branch.
+
+**Why.** A register that records conscious changes should record a change to itself, even when the change only clarifies its own rules. Recording it here keeps both the fact and its reason auditable.
+
