@@ -56,3 +56,42 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 
 **Why.** A register that records conscious changes should record a change to itself, even when the change only clarifies its own rules. Recording it here keeps both the fact and its reason auditable.
 
+### D-007: The validation runtime floor is Python 3.10, not 3.9
+
+**Deviation.** The M1 brief asks for Python 3.9 compatibility unless a pinned dependency needs newer, and for the higher floor to be recorded here.
+
+**Decision.** `requirements.txt` pins `jsonschema==4.26.0`, `ruamel.yaml==0.19.1` and `pytest==9.2.0`. jsonschema 4.26.0 and pytest 9.2.0 both declare `Requires-Python >=3.10`; ruamel.yaml accepts 3.9. The floor for the test and validation path is therefore Python 3.10. The suite runs on Python 3.12.14 from `/opt/homebrew/bin/python3.12`, and CI uses `actions/setup-python` with 3.12. `validate.py` avoids syntax newer than 3.9, so only the pinned dependencies set the floor.
+
+**Why.** Pinning the versions the suite was actually run with makes the result reproducible. Downgrading jsonschema or pytest to keep a 3.9 floor would trade a tested pin for an untested one, and the runtime that matters on claude.ai is a separate platform question (Appendix C).
+
+### D-008: Provisional field names for the five token and report files
+
+**Deviation.** SPEC.md names what `layout.json`, themes, presets, `marks.json` and fit reports carry, but not their field names. The schemas have to choose names now.
+
+**Decision.** The first encoding is:
+
+- `layout.json`: `regions` (each with `x_in`, `y_in`, `width_in`, `height_in`), `font_sizes`, `shrink_steps` and `font_floors`, each keyed by `title`, `lines` and `notes`. Extra top-level keys are allowed for template geometry not yet named.
+- Themes: `name`, `background`, `ink`, `muted`, `category_palette` (category key to color) and `mark_colors` (style to color). Extra keys are allowed.
+- Presets: `name`, `fonts` (layout to title/lines/notes family), `mark_wobble`, `corner_radius`, and optional `mark_styles` and `tokens`. Extra keys are allowed.
+- `marks.json`: `styles` (name to `shape` plus free-form `params`) and `badge` (`shape: badge` plus `params`).
+- Fit report: `deck_id`, `renderer`, `generated_at`, optional `layout`, `preset` and `theme`, a `cards` list (`n`, `font_sizes`, `shrunk`, `failed`, optional `hand_edited`), `hand_edits` and `private_omitted`.
+
+**Why.** The milestone needs schemas a renderer can be held to. M3 builds the templates and both renderers, and is the first place these names meet real geometry and tokens. The schemas allow extra keys where user styles and future layout tokens are expected, so extending one does not need a schema change. M3 should confirm or amend the names, and any change gets its own entry here.
+
+### D-009: Gap files are validated one parsed entry at a time
+
+**Deviation.** SPEC.md stores gaps as Markdown headings and bullets, while the M1 inventory names a `gap` JSON Schema. There is no single JSON document in a gap file.
+
+**Decision.** `validate.py` parses each `## G-<scope>-NN` section's five bullets into an object and validates that object against `gap.schema.json`, reporting a synthetic pointer such as `/entries/0/date`. The file's `# Gaps: <scope>` heading is not validated. The template's `G-<scope>-01` and `YYYY-MM-DD` placeholders pass, so the shipped template validates before it is filled in.
+
+**Why.** A schema that never checks a real gap file is not worth having. Validating entries keeps the errors locatable and keeps the hand-written Markdown format the spec uses.
+
+### D-010: Group decks mark each personal detail with `group_level: true`
+
+**Deviation.** SPEC.md says a group deck's `personal_details` accepts only group-level details and the schema rejects entries about an individual member. JSON Schema cannot tell whether a sentence describes a person or a group, and the deck example shows no marker field.
+
+**Decision.** Each personal detail item may carry `group_level: true`. When `recipient.kind` is `group`, every item must carry it; `validate.py` then rejects an item without the marker. Person decks may omit the field.
+
+**Why.** The rule is a safety rule and needs a signal the validator can enforce. The marker makes the author assert that the detail is group-level, and review still reads the text. The field is an addition to the deck shape and is reported to the lead as a question for the person.
+
+
