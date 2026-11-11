@@ -1,6 +1,7 @@
 # A synthetic deck for the renderer parity check and the fit-report demo.
 # It contains no real person and no personal data. Card 1 is the normal case,
-# card 2 shrinks, card 3 fails, card 4 records a hand edit and card 5 is private.
+# card 2 is a full five-line card that still fits, card 3 shrinks to its floors
+# and fails, card 4 records a hand edit and card 5 is private.
 schema_version: 1
 plugin_version: 0.1.0
 id: parity-fixture
@@ -10,7 +11,7 @@ created: 2026-11-11
 example: true
 recipient:
   kind: person
-  pill: a fictional student practicing steady study habits
+  pill: High School
   age_band: high-school
   description: A made-up student used only to exercise every fit-report case.
   culture_notes: null

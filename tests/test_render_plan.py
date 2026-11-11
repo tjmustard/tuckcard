@@ -4,6 +4,7 @@ Pillow is a development dependency. Without it these tests skip instead of
 failing, and the asset tests still cover the files CI can check.
 """
 
+import copy
 import json
 import sys
 from pathlib import Path
@@ -88,6 +89,23 @@ def test_a_short_card_fits_at_its_default_sizes():
     assert plan["report"]["shrunk"] is False
     assert plan["report"]["sizes"] == {role: style.layout["font_sizes"][role]
                                        for role in SIZES}
+
+
+def test_a_card_that_needs_one_step_still_fits():
+    # The fixture's card 3 covers shrink-to-the-floor and failure. A card one
+    # line longer than card 2 needs one shrink step and still fits, so the
+    # report can say "shrunk" without "failed".
+    style = core.Style("stacked", "casual", "color")
+    card = copy.deepcopy(by_n(2))
+    card["lines"] = list(card["lines"]) + [
+        {"text": "Keep going even when the week is busy and the plan slips.",
+         "mark": None, "note": "The plan is a direction, not a test."}]
+    plan = core.build_plan(card, style)
+    report = plan["report"]
+    assert report["shrunk"] is True
+    assert report["failed"] is False
+    assert report["sizes"]["lines"] < style.layout["font_sizes"]["lines"]
+    assert report["sizes"]["lines"] >= style.layout["font_floors"]["lines"]
 
 
 def test_the_long_card_fails_at_the_floor_not_below_it():

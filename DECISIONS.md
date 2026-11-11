@@ -270,7 +270,7 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 
 **Decision.** At 1500 x 1500, the mean channel difference must be at most 12.0 and at most 8 percent of pixels may differ by more than 32. Line breaks, final font sizes and element positions must match exactly; a run may sit within 2.5 px, which is one space advance of measurement slack between Skia and FreeType. The plan comparison is the structural check: both renderers build the same dict of rows, runs, sizes, badges and mark shapes, and that dict must be equal. The pixel test is a second opinion that catches a wrong colour, a missing element or a different typeface.
 
-**Measured basis.** The worst case is the reference card that fails to fit and draws at its floors (`stacked`, `casual`, `mono`, card 3): mean 10.502 and 7.06 percent of pixels over 32. A one-CSS-pixel displacement of the body text on an ordinary card clears both limits. Skia places glyphs on a 1/64 px grid while FreeType exposes an unhinted fractional advance; the two rasterisers also hint differently.
+**Measured basis.** The worst case is the reference card that fails to fit and draws at its floors (`stacked`, `casual`, `mono`, card 3): mean 9.797 and 6.57 percent of pixels over 32. A one-CSS-pixel displacement of the body text on an ordinary card clears both limits. Skia places glyphs on a 1/64 px grid while FreeType exposes an unhinted fractional advance; the two rasterisers also hint differently.
 
 **Why.** The thresholds are high enough to accept rasterisation differences and low enough to reject a wrong rendering. The plan equality is what guarantees the printed card has the intended line breaks and sizes; the pixel number is stated so a reviewer can see how much slack it allows.
 
