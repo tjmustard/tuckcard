@@ -16,7 +16,8 @@ can decide without a judgment call:
 - help resources: every URL or phone number on a card must match a verified
   grade-D finding exactly; a number matches when its digits equal one printed
   in the finding's claim or anchor, with a single leading 1 read as the US
-  country code, and 911 and 988 are always read as phone numbers
+  country code, 911 and 988 are always read as phone numbers, and a date or a
+  year range is not
 - visibility: a card naming a confirmed personal detail should be private
 - repetition: duplicate titles and lines, and lines reused from the examples
 - hand edits: cards whose content matches neither approval hash
@@ -48,6 +49,17 @@ NUMBER_SPAN_RE = re.compile(r"(?<![\w])\+?\d[\d().\- ]*")
 SHORT_CODES = {"911", "988"}
 SHORT_CODE_RE = re.compile(r"(?<![\w])(?:911|988)(?![\w])")
 NUMBER_SEPARATOR_RE = re.compile(r"[\s.\-()]")
+# A school year or a date is not a phone number even when it holds eight digits.
+# Only the shapes below are excluded: a year range, a year-month-day date and a
+# month-day-year date, all with a hyphen, dot, slash or en dash between parts,
+# and only with a plausible 19xx or 20xx year, so 5550-0100 is still a number.
+_YEAR = r"(?:19|20)\d{2}"
+_DATE_SEP = r"[-./–]"
+DATE_SHAPES = (
+    re.compile(r"^%s%s%s$" % (_YEAR, _DATE_SEP, _YEAR)),
+    re.compile(r"^%s%s\d{1,2}%s\d{1,2}$" % (_YEAR, _DATE_SEP, _DATE_SEP)),
+    re.compile(r"^\d{1,2}%s\d{1,2}%s%s$" % (_DATE_SEP, _DATE_SEP, _YEAR)),
+)
 WORD_RE = re.compile(r"[A-Za-z']+")
 SENTENCE_SPLIT_RE = re.compile(r"[.!?]+")
 TEMPLATE_NAMES = {"_TEMPLATE.yaml", "_TEMPLATE.md"}
@@ -323,14 +335,21 @@ def check_reading(cards: Sequence[Dict[str, Any]], defaults: Dict[str, Any],
 # ---------------------------------------------------------------- help
 
 
+def is_date_token(token: str) -> bool:
+    """True for a year range or a date, which is never a phone number. D-035."""
+    return any(shape.match(token) for shape in DATE_SHAPES)
+
+
 def is_phone_token(token: str, digits: str) -> bool:
     """True when a printed number is a phone reference.
 
-    A short code is one. A number of eight digits or more is one, which keeps
-    the ten- and eleven-digit behaviour. A seven-digit number is one only when
-    it carries a separator, so 555-0100 counts while 2026 and a 3-2 score do
-    not. D-035.
+    A date-shaped token is not one. A short code is one. A number of eight
+    digits or more is one, which keeps the ten- and eleven-digit behaviour. A
+    seven-digit number is one only when it carries a separator, so 555-0100
+    counts while 2026 and a 3-2 score do not. D-035.
     """
+    if is_date_token(token):
+        return False
     if digits in SHORT_CODES:
         return True
     if len(digits) >= 8:

@@ -236,6 +236,20 @@ def test_a_formatted_seven_digit_number_is_seen():
         "phone number 5550100 does not match a verified help resource exactly"]
 
 
+def test_date_shapes_are_not_phone_numbers():
+    cards = [card(1, lines=("Tryouts run 11-11-2026 for the 2026-2027 season.",
+                            "The form is due 2026-11-11."))]
+    assert lint.check_help(cards, [], None) == []
+
+
+def test_real_numbers_are_still_phone_numbers():
+    cards = [card(1, lines=("Call 555-0100, 1-800-273-8255, 988 or 911; "
+                            "local 5550-0100.",))]
+    found = lint.check_help(cards, [], None)
+    values = {item["message"].split()[2] for item in found}
+    assert values == {"5550100", "18002738255", "988", "911", "55500100"}
+
+
 def test_a_year_a_score_and_a_url_digit_are_not_phone_numbers():
     cards = [card(1, lines=("In 2026, 98 out of 100; the score was 3-2; "
                             "see https://example.org/2026.",))]
