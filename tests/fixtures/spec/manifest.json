@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "plugin_version": "0.1.0",
+  "created": "2026-11-10T16:05:00Z",
+  "platform": "claude.ai",
+  "deck_id": "sam-hs-2027",
+  "deck_status": "drafting",
+  "contains_personal_details": true,
+  "overlay": {"findings": 3, "rules": 2, "gaps": 1, "themes": 0, "presets": 0},
+  "files": [
+    {
+      "path": "deck/deck.yaml",
+      "sha256": "5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c592"
+    }
+  ]
+}

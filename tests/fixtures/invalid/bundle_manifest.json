@@ -1,18 +1,22 @@
 {
+  "schema_version": 1,
   "plugin_version": "0.1.0",
-  "created": "2026-11-10T15:50:00Z",
+  "created": "2026-11-10T16:05:00Z",
   "platform": "web",
+  "deck_id": "field-notes-demo",
+  "deck_status": "drafting",
+  "contains_personal_details": false,
+  "overlay": {
+    "findings": 3,
+    "rules": 2,
+    "gaps": 1,
+    "themes": 0,
+    "presets": 0
+  },
   "files": [
     {
-      "path": "deck.yaml",
+      "path": "deck/deck.yaml",
       "sha256": "4444444444444444444444444444444444444444444444444444444444444444"
     }
-  ],
-  "overlay": {
-    "findings": 0,
-    "rules": 0,
-    "gaps": 0,
-    "themes": 1,
-    "presets": 0
-  }
+  ]
 }

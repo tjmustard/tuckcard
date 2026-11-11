@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://tuckcard.local/schemas/finding.schema.json",
   "title": "Finding frontmatter",
-  "description": "YAML frontmatter of one finding in knowledge/findings/. SPEC.md section 5.",
+  "description": "YAML frontmatter of one finding in knowledge/findings/. SPEC.md section 3.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -48,7 +48,7 @@
     "source": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["citation", "doi", "pmid", "url"],
+      "required": ["citation", "doi", "pmid"],
       "properties": {
         "citation": { "type": "string", "minLength": 1 },
         "doi": {
@@ -115,6 +115,59 @@
         "required": ["status"]
       },
       "then": { "required": ["quarantine_reason"] }
+    },
+    {
+      "if": {
+        "properties": { "status": { "const": "provisional" } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "verification": {
+            "anyOf": [
+              {
+                "properties": { "exists": { "const": "fetch" } },
+                "required": ["exists"]
+              },
+              {
+                "properties": { "support": { "const": "unchecked" } },
+                "required": ["support"]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "status": { "enum": ["active", "contested"] } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "verification": {
+            "properties": {
+              "exists": { "const": "script" },
+              "support": { "enum": ["abstract", "full_text"] },
+              "retraction": { "enum": ["none", "correction"] }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verification": {
+            "properties": { "retraction": { "enum": ["concern", "retracted"] } },
+            "required": ["retraction"]
+          }
+        },
+        "required": ["verification"]
+      },
+      "then": {
+        "properties": { "status": { "const": "quarantined" } }
+      }
     }
   ]
 }
