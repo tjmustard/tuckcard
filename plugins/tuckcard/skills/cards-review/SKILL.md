@@ -1,11 +1,12 @@
 ---
 name: cards-review
+license: MIT
 description: "Check a Tuckcard deck against its rules: lint, then a judgment pass for rule fit and conflicts. Use before rendering, after hand-editing a deck file, or when asked to review cards."
 ---
 
 # cards-review
 
-Prerequisite: deck `status` is `drafted` or later, or the user hand-edited a deck and wants it checked. This skill never edits cards; fixes go back through `cards-draft`.
+Prerequisite: deck `status` is `drafted` or later, or the user hand-edited a deck and wants it checked. This skill never edits cards; fixes go back through `cards-draft`. On claude.ai, unpack an attached bundle first and work from `deck/deck.yaml`.
 
 ## 1. Lint (deterministic)
 

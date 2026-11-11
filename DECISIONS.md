@@ -291,3 +291,43 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 **Decision.** `render_core.canonical_pdf` rewrites both dates to `D:20000101000000Z` after either renderer writes a PDF. The replacement keeps each date string's exact length (Pillow writes 15 characters, Chromium 24 including its `+00'00'` offset, padded with spaces), so no byte offset moves and the cross-reference table stays valid. Every other byte is left alone. The date is a fixed placeholder, not a claim about when the file was made.
 
 **Why.** The render is data: the same deck and plugin version should give the same file. Chromium gives Playwright no option to set the PDF date, and Pillow's PDF writer takes no metadata argument, so a small post-write canonicalisation is the only path that does not fork either library. The PNGs, the HTML sheet, the fit report and the PDF page content already matched byte for byte.
+
+### D-031: `lint.py` ships in M4, `migrate.py` is deferred
+
+**Deviation.** SPEC.md section 4 lists both `lint` and `migrate` under `scripts/`, while the M4 row in section 7 and the M4 queue row name only `env_probe` and the bundle script. `cards-draft` step 2 and `cards-review` step 1 call `lint.py`, so the M4 done-when ("each skill runs its steps on a fixture deck") cannot be met without it.
+
+**Decision.** `lint.py` ships in M4. It covers the checks the two skills name: schema, format and fit, reading level, help resources, visibility, repetition and example reuse, hand edits. `migrate.py` is deferred: no skill step calls it, `schema_version` is 1 with no older deck to upgrade, and the M4 done-when does not name it. It stays listed in SPEC.md section 4 for a later milestone.
+
+**Why.** A script a skill step calls must exist for the skill to run. A script with no caller is not needed to meet this gate, and writing a migration path before a second schema version exists would fix a format we cannot yet design.
+
+### D-032: The bundle tree, manifest and byte-identical re-bundle
+
+**Deviation.** SPEC.md section 6 fixes the bundle tree and the manifest fields but does not say how an overlay folder maps into the bundle, how `created` is set, whether a re-bundle is byte-identical, or what happens when two sources claim one path.
+
+**Decision.** `bundle.py` copies `deck/deck.yaml`, `deck/effective-rules.yaml` and `deck/review.md` when present, plus an optional `renders/` folder. An overlay is root-shaped like `local/`: `knowledge/findings/*.md`, `knowledge/rules/**/*.yaml`, `knowledge/gaps/*.md`, `themes/*.json` and `presets/*.json`, with template files left out and the overlay counts written into the manifest. Shipped knowledge is never copied, because it belongs to the plugin. The deck is schema-checked and the manifest is checked against `bundle_manifest` before the zip is written. File entries are sorted, each carries its sha256, and the manifest is written last and listed like every other file. `--created` takes an ISO 8601 value, defaults to the current UTC time and is normalised to the same shape the schema accepts. Zip entries are written in sorted order with a fixed 1980-01-01 timestamp, so the same inputs and the same `--created` give the same bytes. Two sources claiming one path, or a source outside the deck and overlay folders, stop the run with one line.
+
+**Why.** A bundle is how a deck moves between claude.ai and Claude Code, so a re-bundle has to be comparable. Fixed timestamps and sorted entries are what make that true while keeping the zip ordinary.
+
+### D-033: `env_probe.py` reports four facts, uses the standard library, and always exits 0
+
+**Deviation.** SPEC.md section 7 says every skill runs `env_probe.py` first and that it reports whether files can be written, whether Crossref and PubMed are reachable and whether Chromium can launch. It does not give the report's shape, the exit code, or what a failed probe prints.
+
+**Decision.** The report is one JSON object: `python`, `platform`, `writable`, `crossref`, `pubmed`, `chromium` and `ok`. Each fact is `{ok, detail}`, with the probed URL or path and what happened. `--text` prints one line per fact for a person. The script uses only the standard library so it runs where Pillow, Playwright and the network are absent. It writes a small file into the target folder and removes it, makes one bounded HTTP request per endpoint, and checks Chromium by asking Playwright for its version. A missing module, a refused connection or an HTTP error is a fact with `ok: false`, not a crash, and the exit code is 0 even when a fact is false; the skills read the facts and decide.
+
+**Why.** The probe exists to tell a skill what it can do. Exiting non-zero on an unavoidable absence would make the skill's first step fail on a platform where it is supposed to keep working.
+
+### D-034: The approval hash covers what the user approved
+
+**Deviation.** SPEC.md section 6 says `approved_hash` and `linted_hash` hold the card's content and that a card matching neither was edited by hand, but does not list which fields are in the hash.
+
+**Decision.** The hash covers `title`, `lines` (each line's `text`, `mark` target and occurrence, optional mark `style`, and `note`), `category` and `visibility`. It excludes `n`, `basis`, `approval` and other bookkeeping. The fields are serialised as canonical JSON (sorted keys, compact separators, UTF-8, non-ASCII kept as characters) and hashed with sha256; the hex digest is the value. A leading `sha256:` is accepted and stripped on both sides, because the spec's example shows that prefix.
+
+**Why.** Approval is about the words the person read. Changing the card's number or a rule ID reference is not a change to the copy, so it should not read as a hand edit and send the card back through a round.
+
+### D-035: A help resource's phone number is matched from its finding, which is a spec gap
+
+**Deviation.** SPEC.md section 5 says any phone number or URL on a card must exactly match a verified resource, and section 3 stores help resources as grade-D findings. `finding.schema.json` has no phone-number field: `source` holds a citation, DOI, PMID and optional URL, and `verification` holds how the URL was checked and an anchor excerpt.
+
+**Decision used in M4.** `lint.py` accepts a card's phone number when its digits appear in a verified resource's `claim` or `verification.anchor`, for an active grade-D finding whose URL was verified by fetch or script. The URL match is exact against `source.url`. The number is otherwise a lint error. This reading is recorded here rather than invented as a schema change, because the schema belongs to the spec.
+
+**Why it needs the maintainer.** Reading digits out of prose is weaker than comparing a dedicated field: a number typed in a claim could match text that is not the number the resource publishes. If the maintainer agrees, a `phone` field on the finding (or on `source`) would make the check exact in a later schema version. Until then, M4 ships the documented reading and no schema change.

@@ -1,11 +1,14 @@
 ---
 name: cards-research
+license: MIT
 description: "Research a Tuckcard age band or context (for example high school, athletics, managing a team): plans questions, finds and verifies sources, records gaps, and proposes card-writing rules. Use when a deck's coverage check reports a missing scope, or the user asks to research a new audience or topic."
 ---
 
 # cards-research
 
 Follow `../cards-core/knowledge/RESEARCH-GUIDE.md` step by step. It is the procedure; this file only adds the run's framing. Follow `../cards-core/ROUNDS.md` for every approval round.
+
+On claude.ai, unpack an attached bundle first and work from `deck/deck.yaml`.
 
 ## Before starting
 

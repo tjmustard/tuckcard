@@ -1,5 +1,6 @@
 ---
 name: cards-core
+license: MIT
 description: Shared knowledge, schemas, templates and scripts for the Tuckcard skills. Not for direct use; other Tuckcard skills load files from it.
 ---
 
@@ -21,8 +22,8 @@ This skill is a library. Don't run it on its own. If a user invokes it directly,
 | `schemas/` | JSON Schemas for every file type |
 | `templates/` | `stacked/`, `notebook/`, `index/`: card HTML, CSS and `layout.json` |
 | `marks.json`, `themes/`, `presets/`, `fonts/` | Rendering assets |
-| `scripts/` | `env_probe`, `validate`, `verify_citations`, `index`, `validate_rules`, `compile_rules`, `lint`, `bundle`, `promote`, `migrate`, renderers |
-| `examples/` | Four fictional example decks |
+| `scripts/` | `env_probe`, `validate`, `verify_citations`, `index`, `validate_rules`, `compile_rules`, `lint`, `bundle`, `promote`, renderers |
+| `examples/` | Fictional example decks, for tone and length only |
 
 ## How other skills use it
 

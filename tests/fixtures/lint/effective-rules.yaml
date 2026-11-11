@@ -1,0 +1,43 @@
+# The compiled rules the lint fixtures are checked against. It mirrors the
+# shape compile_rules.py writes, with two rules a lint run can decide.
+schema_version: 1
+deck_id: lint-fixture
+age_band: high-school
+plugin_version: 0.1.0
+scopes: [core]
+rules:
+  - id: R-core-L001
+    scope: core
+    type: copy
+    strength: must
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Do not use the word never on a card.
+    why: Absolute words undercut a card's tone.
+    cites: [F-0001]
+    basis: []
+    lint:
+      pattern: "\\bnever\\b"
+    check: lint
+    provenance:
+      scope: core
+      file: tests/fixtures/lint/effective-rules.yaml
+      plugin_version: 0.1.0
+  - id: R-core-J001
+    scope: core
+    type: copy
+    strength: should
+    applies_to: [title]
+    when: null
+    overrides: []
+    text: Titles read better as a phrase than a sentence.
+    why: A phrase leaves room for the reader.
+    cites: [F-0001]
+    basis: []
+    lint: null
+    check: judge
+    provenance:
+      scope: core
+      file: tests/fixtures/lint/effective-rules.yaml
+      plugin_version: 0.1.0

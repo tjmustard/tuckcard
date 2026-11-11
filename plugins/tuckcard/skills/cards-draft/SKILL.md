@@ -1,11 +1,12 @@
 ---
 name: cards-draft
+license: MIT
 description: Write a Tuckcard deck's copy in approval rounds, one category at a time, linting each batch against the deck's rules. Use after intake and any research are done, or to add or rewrite cards.
 ---
 
 # cards-draft
 
-Prerequisite: deck `status` is `drafting` (or the user is adding or rewriting cards in a later-stage deck). Follow `../cards-core/ROUNDS.md` for every round, including the crisis stop.
+Prerequisite: deck `status` is `drafting` (or the user is adding or rewriting cards in a later-stage deck). Follow `../cards-core/ROUNDS.md` for every round, including the crisis stop. On claude.ai, unpack an attached bundle first and work from `deck/deck.yaml`.
 
 ## Before drafting
 

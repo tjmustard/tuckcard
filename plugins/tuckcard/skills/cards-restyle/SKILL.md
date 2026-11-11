@@ -1,11 +1,12 @@
 ---
 name: cards-restyle
+license: MIT
 description: Change a Tuckcard deck's layout, style preset, theme, colors, fonts or spacing, previewing one card before re-rendering. Use for a different look, a black-and-white or dark version, or a more professional style.
 ---
 
 # cards-restyle
 
-Prerequisite: a deck with approved cards. Restyling never changes card content, so approvals stay valid. Follow `../cards-core/ROUNDS.md` for the preview round.
+Prerequisite: a deck with approved cards. Restyling never changes card content, so approvals stay valid. Follow `../cards-core/ROUNDS.md` for the preview round. On claude.ai, unpack an attached bundle first and work from `deck/deck.yaml`.
 
 ## 1. What to change
 

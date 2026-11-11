@@ -1,11 +1,12 @@
 ---
 name: cards-render
+license: MIT
 description: Render an approved Tuckcard deck to a print sheet, PDF, lock screens and single-card PNGs, with a fit report. Use when the user wants files to print or use as wallpapers.
 ---
 
 # cards-render
 
-Prerequisite: deck `status` is `reviewed` or `rendered`. If it isn't, say which skill to run first. Rendering never blocks on hand edits; it flags them.
+Prerequisite: deck `status` is `reviewed` or `rendered`. If it isn't, say which skill to run first. Rendering never blocks on hand edits; it flags them. On claude.ai, unpack an attached bundle first and work from `deck/deck.yaml`.
 
 ## 1. Choose the path
 

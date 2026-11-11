@@ -1,0 +1,80 @@
+# A clean lint fixture: schema-valid, inside every rule, and nothing to warn
+# about. Card content is written for this test and appears nowhere else.
+schema_version: 1
+plugin_version: 0.1.0
+id: lint-clean
+title: Lint Clean
+status: drafted
+created: 2026-11-11
+example: true
+recipient:
+  kind: person
+  pill: a junior
+  age_band: high-school
+  description: A fictional student used only to exercise the lint checks.
+  culture_notes: null
+sender:
+  voice: parents
+  pronouns: they/them
+  signoff: With love
+policies:
+  substances: omit
+  sex_relationships: omit
+  faith: neutral
+  register:
+    humor: light
+    slang: some
+  help_resources: none
+personal_details: []
+categories:
+  - key: habits
+    label: Habits
+    color: orange
+    contexts: [academics]
+numbering:
+  mode: weekly
+  count: 2
+  week_rule: contains_jan_1
+  week_start: sunday
+outputs: [print_sheet, phone]
+page_size: letter
+style:
+  layout: stacked
+  preset: casual
+  theme: color
+  tokens: {}
+rules_snapshot:
+  file: effective-rules.yaml
+  compiled_at: 2026-11-11T10:00:00Z
+  plugin_version: 0.1.0
+  sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+cards:
+  - n: 1
+    category: habits
+    title: A steady pace
+    lines:
+      - text: Two minutes is enough to begin.
+        mark:
+          target: Two minutes
+        note: A small start is a real start.
+    basis: [R-core-L001]
+    visibility: public
+    approval:
+      approved_hash: fc3dc2eecf66789e0c6607f4e206d70b9e6dd12dfaddc6299d4aa50c64137c8d
+      approved_by: round
+      approved_round: 1
+      linted_hash: fc3dc2eecf66789e0c6607f4e206d70b9e6dd12dfaddc6299d4aa50c64137c8d
+  - n: 2
+    category: habits
+    title: Tomorrow again
+    lines:
+      - text: Tomorrow is a new chance to start.
+        mark: null
+        note: null
+    basis: [R-core-L001]
+    visibility: public
+    approval:
+      approved_hash: 1ee6bb358ccbb37f97d2d4878f49704d7e2ec42f0ace94dc09cb64d5c61cee45
+      approved_by: round
+      approved_round: 1
+      linted_hash: 1ee6bb358ccbb37f97d2d4878f49704d7e2ec42f0ace94dc09cb64d5c61cee45

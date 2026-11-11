@@ -1,5 +1,6 @@
 ---
 name: cards-new
+license: MIT
 description: "Start a motivational or encouragement card deck for a person or group: runs the intake interview and creates the deck file. Use when someone wants to make motivational, encouragement, habit or pep-talk cards, or attaches a Tuckcard bundle without naming a step."
 ---
 
