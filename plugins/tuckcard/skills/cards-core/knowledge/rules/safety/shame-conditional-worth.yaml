@@ -1,7 +1,36 @@
 # Fixed safety topic (SPEC.md Section 4). Seeded in M5 at grade D or better.
 # No deck policy or other scope can override these rules. No rule here may require a phone number.
 scope: safety/shame-conditional-worth
-status: stub
+status: active
 description: >
   Shame, threats and conditional worth: no guilt, threats, or worth tied to winning or grades; in manager decks, no job-security pressure.
-rules: []
+rules:
+  - id: R-shame-conditional-worth-001
+    type: avoid
+    strength: should
+    applies_to: [title, lines, notes]
+    when: null
+    overrides: []
+    text: Never tie the sender's approval or the reader's worth to a win, a grade or a result.
+    why: Approval that arrives only with a result comes with a cost in how the person feels about themselves.
+    cites: [F-0022]
+    check: judge
+    lint: null
+    examples:
+      bad: "We are proud of you when you win."
+      good: "We are proud of you for showing up."
+
+  - id: R-shame-conditional-worth-002
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Never threaten to withdraw regard, a place on the team or a job as a way to push the reader.
+    why: The same research links approval that is withdrawn when a standard is missed to resentment and lower well-being.
+    cites: [F-0022]
+    check: judge
+    lint: null
+    examples:
+      bad: "Miss the target and the spot is gone."
+      good: "The spot is yours while you want it."

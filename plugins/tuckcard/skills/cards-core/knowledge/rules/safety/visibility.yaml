@@ -1,7 +1,21 @@
 # Fixed safety topic (SPEC.md Section 4). Seeded in M5 at grade D or better.
 # No deck policy or other scope can override these rules. No rule here may require a phone number.
 scope: safety/visibility
-status: stub
+status: active
 description: >
   Visibility: cards naming a code word, a health detail or a private struggle are marked private and left off fridge and lock-screen outputs.
-rules: []
+rules:
+  - id: R-visibility-001
+    type: format
+    strength: must
+    applies_to: [title, lines, notes]
+    when: null
+    overrides: []
+    text: Mark a card private when it names a code word, a health detail or a private struggle, and leave it off fridge and lock-screen outputs.
+    why: A fridge card or a lock screen can be read by anyone who walks past.
+    basis: template
+    check: judge
+    lint: null
+    examples:
+      bad: "The word is 'lighthouse.' It is taped to the fridge."
+      good: "You know the word. It works anywhere you need it."

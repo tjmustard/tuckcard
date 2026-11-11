@@ -1,7 +1,36 @@
 # Fixed safety topic (SPEC.md Section 4). Seeded in M5 at grade D or better.
 # No deck policy or other scope can override these rules. No rule here may require a phone number.
 scope: safety/eating-body-image
-status: stub
+status: active
 description: >
   Eating, weight and body image: no weight, calorie or body-shape goals or praise; fuel and health framed around function.
-rules: []
+rules:
+  - id: R-eating-body-image-001
+    type: avoid
+    strength: should
+    applies_to: [title, lines, notes]
+    when: null
+    overrides: []
+    text: Steer away from weight, calorie, size or body-shape goals, and from praise for a body changing shape.
+    why: Pediatric guidance on healthy weight puts the focus on a healthy lifestyle rather than on weight.
+    cites: [F-0015]
+    check: judge
+    lint: null
+    examples:
+      bad: "Ten pounds down before the season starts."
+      good: "Eat enough to train well and sleep well."
+
+  - id: R-eating-body-image-002
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Frame food and movement around what the reader's body lets them do.
+    why: The same guidance keeps the focus on healthy habits and what the body can do, not on weight.
+    cites: [F-0015]
+    check: judge
+    lint: null
+    examples:
+      bad: "Eat less so you look leaner."
+      good: "Eat so you can run the whole second half."

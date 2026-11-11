@@ -1,7 +1,53 @@
 # Fixed safety topic (SPEC.md Section 4). Seeded in M5 at grade D or better.
 # No deck policy or other scope can override these rules. No rule here may require a phone number.
 scope: safety/sex-consent-online
-status: stub
+status: active
 description: >
   Sex, consent and online sexual exploitation: consent and online-safety content as the policy allows; no sexual content for minors.
-rules: []
+rules:
+  - id: R-sex-consent-online-001
+    type: do
+    strength: should
+    applies_to: [lines]
+    when:
+      sex_relationships: [safety_only, harm_reduction]
+    overrides: []
+    text: Say plainly that a yes counts only when it is free, and that pressure is not consent.
+    why: Guidance for teenagers names pressure and coercion directly when it explains consent.
+    cites: [F-0017]
+    check: judge
+    lint: null
+    examples:
+      bad: "Keep asking until they agree."
+      good: "A yes only counts when they give it freely."
+
+  - id: R-sex-consent-online-002
+    type: do
+    strength: should
+    applies_to: [lines]
+    when:
+      sex_relationships: [safety_only, harm_reduction]
+    overrides: []
+    text: If a card touches a sexual image or a threat online, say it is not the reader's fault and that telling someone is the way out.
+    why: Guidance for a young person being blackmailed says the blackmailer is to blame and that getting help comes first.
+    cites: [F-0018]
+    check: judge
+    lint: null
+    examples:
+      bad: "Never tell anyone what you sent."
+      good: "Telling someone is the first step out. It is not your fault."
+
+  - id: R-sex-consent-online-003
+    type: must_not
+    strength: must
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Never blame the reader for an image being shared, and never suggest that paying or complying will end a threat.
+    why: Guidance says paying or complying rarely stops the blackmail, and the blame belongs to the person making the threat.
+    cites: [F-0018]
+    check: judge
+    lint: null
+    examples:
+      bad: "You should have known better than to send it."
+      good: "Whoever is threatening you is the one in the wrong."

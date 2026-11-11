@@ -1,7 +1,37 @@
 # Fixed safety topic (SPEC.md Section 4). Seeded in M5 at grade D or better.
 # No deck policy or other scope can override these rules. No rule here may require a phone number.
 scope: safety/alcohol-drugs
-status: stub
+status: active
 description: >
   Alcohol and other drugs: framing only as the deck's policy and the age band's ladder allow; never instructions for obtaining or using.
-rules: []
+rules:
+  - id: R-alcohol-drugs-001
+    type: must_not
+    strength: must
+    applies_to: [title, lines, notes]
+    when: null
+    overrides: []
+    text: Never tell the reader how to get, use, hide or mix alcohol or another drug, and never present a substance as a way to handle a feeling.
+    why: Prevention guidance builds refusal and coping skills and gives accurate information, not instructions for use.
+    cites: [F-0016]
+    check: judge
+    lint: null
+    examples:
+      bad: "One drink takes the edge off the night."
+      good: "When the night gets loud, step outside and call me."
+
+  - id: R-alcohol-drugs-002
+    type: do
+    strength: should
+    applies_to: [lines]
+    when:
+      substances: [safety_only, abstain, harm_reduction]
+    overrides: []
+    text: When a card touches a substance, build the skills prevention guidance names. Name the feeling, plan the no, and leave early.
+    why: Prevention works on social, emotional and refusal skills rather than on warnings alone.
+    cites: [F-0016]
+    check: judge
+    lint: null
+    examples:
+      bad: "Just say no."
+      good: "Decide your answer before you walk in. You can always leave."

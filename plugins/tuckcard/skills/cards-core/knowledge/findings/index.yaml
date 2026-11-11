@@ -84,3 +84,73 @@ findings:
     grade: A
     direction: supports
     status: active
+  - id: F-0013
+    claim: A systematic review of 31 studies found that suicides rose by about 13 percent after media reports of a celebrity death by suicide, and when the method used was reported, deaths by that same method rose by about 30 percent.
+    scopes:
+      - safety/self-harm-suicide
+    grade: A
+    direction: caution
+    status: active
+  - id: F-0014
+    claim: National mental health guidance for someone worried about another person says asking directly whether they are thinking about suicide does not increase suicidal thoughts or behavior, and recommends asking, staying with them, reducing access to lethal means, connecting them to help and following up.
+    scopes:
+      - safety/self-harm-suicide
+    grade: D
+    direction: supports
+    status: active
+  - id: F-0015
+    claim: An American Academy of Pediatrics clinical report on preventing both obesity and eating disorders in teenagers says prevention messages should focus on a healthy lifestyle rather than on weight, because some teenagers trying to lose weight go on to develop an eating disorder.
+    scopes:
+      - safety/eating-body-image
+    grade: D
+    direction: caution
+    status: active
+  - id: F-0016
+    claim: Federal prevention guidance for children and adolescents centers on warm, supportive family relationships and on teaching social, emotional and substance-refusal skills alongside accurate information about drugs.
+    scopes:
+      - safety/alcohol-drugs
+    grade: D
+    direction: supports
+    status: active
+  - id: F-0017
+    claim: Pediatric guidance for parents of teenagers defines consent as a clear yes rather than the absence of a no, given without pressure, given when thinking clearly, and given each time, and says it can be withdrawn.
+    scopes:
+      - safety/sex-consent-online
+    grade: D
+    direction: supports
+    status: active
+  - id: F-0018
+    claim: Guidance for a young person who is being blackmailed with a sexual image says the blackmailer is to blame, paying or complying rarely stops it, and the person should get help first, report the account, block the sender and not delete the messages.
+    scopes:
+      - safety/sex-consent-online
+    grade: D
+    direction: supports
+    status: active
+  - id: F-0019
+    claim: School psychology guidance frames bullying as unacceptable behavior that both adults and students have a responsibility to stop, with timely and consistent intervention and support for the children involved.
+    scopes:
+      - safety/abuse-bullying-unsafe-adults
+    grade: D
+    direction: supports
+    status: active
+  - id: F-0020
+    claim: Pediatric guidance on preventing child sexual abuse tells parents to teach body autonomy, to separate safe secrets from secrets that should always be shared with a trusted adult, and to make clear that a child will not be in trouble for telling.
+    scopes:
+      - safety/abuse-bullying-unsafe-adults
+    grade: D
+    direction: supports
+    status: active
+  - id: F-0021
+    claim: National mental health guidance says a qualified mental health professional makes the diagnosis and the treatment plan, because symptoms such as psychosis can have several causes and a diagnosis is reached by ruling others out.
+    scopes:
+      - safety/medical-claims
+    grade: D
+    direction: supports
+    status: active
+  - id: F-0022
+    claim: In a three-generation study and a study of college students, parents' use of conditional regard, where approval depends on meeting a standard, related to the children feeling internally compelled, to swings in self-esteem, to resentment and to lower well-being, while still shaping the behavior.
+    scopes:
+      - safety/shame-conditional-worth
+    grade: C
+    direction: caution
+    status: active

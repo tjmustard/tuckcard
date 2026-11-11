@@ -1,7 +1,51 @@
 # Fixed safety topic (SPEC.md Section 4). Seeded in M5 at grade D or better.
 # No deck policy or other scope can override these rules. No rule here may require a phone number.
 scope: safety/abuse-bullying-unsafe-adults
-status: stub
+status: active
 description: >
   Abuse, bullying and unsafe adults: point to trusted adults; never promise secrecy from parents or caregivers for a minor.
-rules: []
+rules:
+  - id: R-abuse-bullying-unsafe-adults-001
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Point the reader to a trusted adult and say that telling will not get them in trouble.
+    why: Child-abuse guidance tells parents to make clear that a child will not be in trouble for telling, and to name more than one adult.
+    cites: [F-0020]
+    check: judge
+    lint: null
+    examples:
+      bad: "Keep it to yourself until you are sure."
+      good: "Tell an adult you trust. You will not be in trouble."
+
+  - id: R-abuse-bullying-unsafe-adults-002
+    type: must_not
+    strength: must
+    applies_to: [title, lines, notes]
+    when: null
+    overrides: []
+    text: Never promise that what the reader says will stay secret from a parent or caregiver.
+    why: The same guidance sends a child to a trusted adult, and a promise of secrecy can close that route.
+    cites: [F-0020]
+    check: judge
+    lint: null
+    examples:
+      bad: "Whatever you tell me stays between us."
+      good: "Tell me, and we will find the right adult together."
+
+  - id: R-abuse-bullying-unsafe-adults-003
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Put the responsibility for stopping bullying on adults and the school, not on the reader alone.
+    why: School psychology guidance says bullying is unacceptable and that adults and students share a responsibility to stop it.
+    cites: [F-0019]
+    check: judge
+    lint: null
+    examples:
+      bad: "Ignore them and they will stop."
+      good: "Tell an adult at school. Stopping it is their job too."

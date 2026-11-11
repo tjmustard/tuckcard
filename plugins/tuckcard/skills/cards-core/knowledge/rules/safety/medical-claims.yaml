@@ -1,7 +1,36 @@
 # Fixed safety topic (SPEC.md Section 4). Seeded in M5 at grade D or better.
 # No deck policy or other scope can override these rules. No rule here may require a phone number.
 scope: safety/medical-claims
-status: stub
+status: active
 description: >
   Medical and mental-health claims: no diagnosing, and no claims that a card treats or prevents anything.
-rules: []
+rules:
+  - id: R-medical-claims-001
+    type: must_not
+    strength: must
+    applies_to: [title, lines, notes]
+    when: null
+    overrides: []
+    text: Never diagnose the reader, name a condition as theirs, or say a card treats or prevents anything.
+    why: A diagnosis and a treatment plan belong with a clinician who can assess the person.
+    cites: [F-0021]
+    check: judge
+    lint: null
+    examples:
+      bad: "You have anxiety, and this card will calm it."
+      good: "If the worry will not ease, a clinician can help you sort it out."
+
+  - id: R-medical-claims-002
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: If a card touches a mental-health condition, point the reader to a clinician for assessment and a treatment plan.
+    why: Guidance on psychosis says a clinician can make a diagnosis and help develop a treatment plan.
+    cites: [F-0021]
+    check: judge
+    lint: null
+    examples:
+      bad: "Try harder and the voices will stop."
+      good: "A clinician can work out what is happening and what helps."
