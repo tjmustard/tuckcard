@@ -90,7 +90,7 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 
 **Deviation.** SPEC.md says a group deck's `personal_details` accepts only group-level details and the schema rejects entries about an individual member. JSON Schema cannot tell whether a sentence describes a person or a group, and the deck example shows no marker field.
 
-**Decision.** Each personal detail item may carry `group_level: true`. When `recipient.kind` is `group`, every item must carry it; `validate.py` then rejects an item without the marker. Person decks may omit the field.
+**Decision.** Each personal detail item may carry `group_level: true`. When `recipient.kind` is `group`, the `allOf` in `deck.schema.json` rejects an item without the marker; `validate.py` only runs the schema. Person decks may omit the field.
 
 **Why.** The rule is a safety rule and needs a signal the validator can enforce. The marker makes the author assert that the detail is group-level, and review still reads the text. The field is an addition to the deck shape and is reported to the lead as a question for the person.
 
@@ -106,11 +106,35 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 
 ### D-012: Record the in-place correction to D-003's release description
 
-**What changed.** In the M0 review fix at 0031e73, D-003's Why paragraph was edited in place. The sentence "its GitHub releases carry no uploaded assets" became "the 2.1.5 release page carries no Assets entries; its binaries are attached as file links in the release notes". No other part of D-003 changed.
+**What changed.** In the M0 review fix at 0031e73, D-003's Why paragraph was edited in place. The second sentence changed from "its GitHub releases carry no uploaded assets, so the project's published binary tarball is the original project's own build" to "the 2.1.5 release page carries no Assets entries; its binaries are attached as file links in the release notes. The ttf tarball linked there is the original project's own build." The rest of D-003 is unchanged.
 
 **Decision.** The corrected paragraph stands. This entry records the edit so the register's history stays explicit, following D-006. The M0 review checked the release API and page, found the original sentence inaccurate, and the lead directed the correction.
 
 **Why.** The API's assets array is empty, but the release notes link two uploaded binaries. A register that is append-only should record a change to one of its own entries, as D-006 does for the preamble, even when the change only corrects a description.
+
+### D-013: `approval` is required on every card written to `deck.yaml`
+
+**Deviation.** SPEC.md section 6 shows an approval block on its card example but does not say whether a deck may hold a card that is not yet approved, and a deck can be in status `drafting`.
+
+**Decision.** `deck.schema.json` and `card.schema.json` require `approval` on every card. A drafting round's proposed cards live in the conversation until the user approves the batch; only approved cards are written to `deck.yaml`. The approval hash is what the render step compares, so a card without one has nothing to compare.
+
+**Why.** One card shape for both the standalone card and the deck avoids a second set of rules for unapproved cards, and the schema is then itself the check that no unapproved card reaches a render. `cards-draft` is where this is carried out next: it returns the batch in chat and writes only after approval.
+
+### D-014: The manifest sample's `...` hashes are illustrative
+
+**Deviation.** SPEC.md section 6 shows `"sha256": "..."` in the bundle manifest sample.
+
+**Decision.** `bundle_manifest.schema.json` requires a real SHA-256 digest, with or without the `sha256:` prefix, and rejects a literal `...`. The sample's fields are all required: `schema_version`, `plugin_version`, `created`, `platform`, `deck_id`, `deck_status`, `contains_personal_details`, `overlay` and `files`.
+
+**Why.** A manifest exists so a bundle's files can be compared with their recorded digests; a placeholder would defeat the comparison. The test fixture carries the sample's field set with a real digest, and another test proves a literal ellipsis fails.
+
+### D-015: Finding status is enforced by the schema, not deferred to M2
+
+**Deviation.** SPEC.md section 3 states status as a function of the verification block but does not say which check enforces it. The M1 review offered the schema now or `validate_rules.py` at M2.
+
+**Decision.** `finding.schema.json` ties status to the verification block with `allOf`: `provisional` requires `exists: fetch` or `support: unchecked`; `active` and `contested` require `exists: script`, support at `abstract` or `full_text`, and retraction `none` or `correction`; a retraction of `concern` or `retracted` requires `quarantined`, which already requires `quarantine_reason`. M2's `validate_rules.py` still checks which statuses may back which rule strengths.
+
+**Why.** The finding file is what a rule cites, and a hand edit gets no other check. Enforcing the record's own status in its schema closes the gap at the file rather than a milestone later, and leaves rule-level consequences where they belong. Whether replication is mixed or failed, or a related finding points the opposite way, stays a research judgment: the schema enforces the active base that `contested` rests on, not the direction of another file.
 
 
 
