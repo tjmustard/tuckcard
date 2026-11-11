@@ -267,6 +267,7 @@ findings:
     scopes:
       - age/middle-school
       - age/high-school
+      - context/academics
     grade: A
     direction: caution
     status: active
@@ -320,6 +321,7 @@ findings:
     scopes:
       - age/high-school
       - age/college
+      - context/academics
     grade: A
     direction: caution
     status: active
@@ -386,6 +388,7 @@ findings:
     claim: A meta-analysis of 691 correlations found that procrastination was predicted most strongly by task aversiveness, task delay, low self-efficacy, impulsiveness and low conscientiousness, while neuroticism and rebelliousness mattered little.
     scopes:
       - age/college
+      - context/academics
     grade: A
     direction: caution
     status: active
@@ -475,5 +478,56 @@ findings:
       - context/athletics
       - age/grade-school
     grade: D
+    direction: supports
+    status: active
+  - id: F-0067
+    claim: A meta-analysis found that taking a test on studied material improved later retention compared with restudying it, with larger benefits when the first test was recall rather than recognition.
+    scopes:
+      - context/academics
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0068
+    claim: A meta-analysis of 317 experiments found that spacing study episodes apart improved retention compared with massing them into one block, and that the best gap between sessions grew when the material had to be remembered longer.
+    scopes:
+      - context/academics
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0069
+    claim: A meta-analysis of 59 studies found that mixing different kinds of problems during practice gave a moderate overall benefit over practising one kind in a block, and the benefit was larger when the material was similar and complex.
+    scopes:
+      - context/academics
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0070
+    claim: A meta-analysis of cross-sectional studies found that total screen time was not clearly associated with academic performance, but television viewing and video game playing were each associated with lower scores.
+    scopes:
+      - context/academics
+    grade: A
+    direction: caution
+    status: active
+  - id: F-0071
+    claim: A meta-analysis of 241 datasets on university grades found medium-sized correlations for academic self-efficacy, a grade goal and effort regulation, and performance self-efficacy was the strongest of 50 correlates.
+    scopes:
+      - context/academics
+      - age/college
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0072
+    claim: A meta-analysis of 344 samples with 72,431 college students found that study habits, skills and attitudes predicted grades about as well as admissions tests and earlier grades, with study motivation and study skills the strongest constructs.
+    scopes:
+      - context/academics
+      - age/college
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0073
+    claim: A meta-analysis of 435 studies found a medium overall effect of feedback on student learning, with the effect depending strongly on what the feedback said and larger for cognitive and motor skills than for motivation.
+    scopes:
+      - context/academics
+    grade: A
     direction: supports
     status: active

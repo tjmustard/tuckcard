@@ -2,7 +2,142 @@
 # Context rules apply only to cards in categories mapped to this context, and must be age-neutral:
 # anything age-specific goes in the age-band file or is gated with when: {age_band: [...]}.
 scope: context/academics
-status: stub
-description: School, studying, teachers and grades.
+status: active
+description: School and university work, study and exams.
 typical_relationship: null   # e.g. coach to player, parent to child
-rules: []
+rules:
+  - id: R-academics-001
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: A card can suggest recalling the material from memory and spreading practice over several days.
+    why: Meta-analyses found that testing yourself on studied material improved later retention, and that spacing study episodes apart beat one long block.
+    cites: [F-0067, F-0068]
+    check: judge
+    lint: null
+    examples:
+      bad: "Read the chapter again until it feels familiar."
+      good: "Close the book and write what you remember. Do it again on Thursday."
+
+  - id: R-academics-002
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Suggest mixing the kinds of problem in one practice session rather than drilling one kind twenty times.
+    why: A meta-analysis found interleaved practice gave a moderate overall benefit over blocked practice, and it was larger when the material was similar.
+    cites: [F-0069]
+    check: judge
+    lint: null
+    examples:
+      bad: "Do all the fraction questions first, then all the decimals next week."
+      good: "Mix them. The hard part is spotting which one it is."
+
+  - id: R-academics-003
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not name a phone or screens as the reason a student's marks are low.
+    why: A meta-analysis found total screen time was not clearly associated with academic performance, and a large study of adolescents found digital technology use explained very little of their well-being.
+    cites: [F-0070, F-0048]
+    check: judge
+    lint: null
+    examples:
+      bad: "Put the phone down and your grades will recover."
+      good: "Which part of the work did you actually do last night?"
+
+  - id: R-academics-004
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Frame a comment on work as what to try next, not as a judgment of the person.
+    why: A meta-analysis of 435 studies found feedback had a medium effect on learning, and the effect depended on what the feedback said.
+    cites: [F-0073]
+    check: judge
+    lint: null
+    examples:
+      bad: "You are not a writer."
+      good: "The argument is there. Cut the second paragraph and it will show."
+
+  - id: R-academics-005
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not make a single test or exam larger than it is.
+    why: A meta-analysis of 238 studies found test anxiety was negatively related to performance, with the relation strongest at the middle grades.
+    cites: [F-0038]
+    check: judge
+    lint: null
+    examples:
+      bad: "This exam decides your whole future."
+      good: "One paper. Two hours. Then lunch."
+
+  - id: R-academics-006
+    type: must_not
+    strength: must
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Never promise that a change in mindset or attitude will raise grades.
+    why: Two meta-analyses covering 273 correlational studies and 43 intervention studies found overall mindset effects were weak.
+    cites: [F-0045]
+    check: judge
+    lint: null
+    examples:
+      bad: "Believe in yourself and the marks will come."
+      good: "A mark is information about the last attempt."
+
+  - id: R-academics-007
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: For work the reader keeps avoiding, shrink the first step instead of asking for more willpower.
+    why: A meta-analysis found procrastination was most strongly predicted by how unpleasant the task seemed, delay and low confidence in doing it.
+    cites: [F-0054]
+    check: judge
+    lint: null
+    examples:
+      bad: "Stop putting it off."
+      good: "Set a timer. One paragraph, then stop."
+
+  - id: R-academics-008
+    type: do
+    strength: should
+    applies_to: [lines]
+    when:
+      age_band: [college]
+    overrides: []
+    text: Name the study habit or the sense of capability rather than talent, since those are the things a student can change.
+    why: Meta-analyses of university students found study skills and academic self-efficacy correlated with grades as much as admissions tests did.
+    cites: [F-0071, F-0072]
+    check: judge
+    lint: null
+    examples:
+      bad: "Some people are just good at this."
+      good: "You know how to start now. That is the skill."
+
+  - id: R-academics-009
+    type: format
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Keep each line to one instruction, small enough to do today.
+    why: A card that asks for a whole new routine is harder to act on than one that names a single move.
+    basis: template
+    check: judge
+    lint: null
+    examples:
+      bad: "Organise your notes, revise daily and sleep well."
+      good: "Write three questions from today's notes."
