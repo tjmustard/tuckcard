@@ -1,7 +1,7 @@
 # Age band (SPEC.md Section 4). Seeded in M5.
 # The policy ladder for this band lives in ../policies.yaml.
 scope: age/grade-school
-status: stub
+status: active
 description: Ages about 5–10. Independent reading at the low end; concrete, short, warm.
 defaults:
   reading:                # set during seeding, word-level targets for lint
@@ -12,4 +12,123 @@ defaults:
     max_title_words: null
     max_lines: null
     max_words_per_line: null
-rules: []
+rules:
+  - id: R-grade-school-001
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Praise what the child did, not what the child is.
+    why: In an experiment with kindergarteners, praise that named the action related to more persistence after failure than praise of the child.
+    cites: [F-0024]
+    check: judge
+    lint: null
+    examples:
+      bad: "You are so smart."
+      good: "You kept going after the first one fell."
+
+  - id: R-grade-school-002
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not call the child smart or good at something as a trait. Name the effort or the action instead.
+    why: Person praise predicted a more fixed view of ability and more avoidance of challenge in a six-month study of children around age 10.
+    cites: [F-0025]
+    check: judge
+    lint: null
+    examples:
+      bad: "You are a natural at maths."
+      good: "The way you counted on your fingers worked."
+
+  - id: R-grade-school-003
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Offer the child a real choice, such as which one to do first or when to start.
+    why: A meta-analysis found choice raised intrinsic motivation, with a larger effect for children than adults, and parent autonomy support went with better engagement.
+    cites: [F-0027, F-0026]
+    check: judge
+    lint: null
+    examples:
+      bad: "Do your reading now."
+      good: "You can pick the book or the puzzle first."
+
+  - id: R-grade-school-004
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Cards about reading can name a shared routine, like a book together before bed.
+    why: Training parents to share picture books improved young children's language, and pediatric policy recommends shared reading from birth through kindergarten.
+    cites: [F-0028, F-0029]
+    check: judge
+    lint: null
+    examples:
+      bad: "Read ten pages by yourself."
+      good: "Pick the book, and we will read it together."
+
+  - id: R-grade-school-005
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Cards can point to play with a parent or a friend as real work on growing up.
+    why: Pediatric guidance says play with parents and peers builds social, language and self-regulation skills.
+    cites: [F-0030]
+    check: judge
+    lint: null
+    examples:
+      bad: "Finish your work before you play."
+      good: "Build the tower, then tell me how it stayed up."
+
+  - id: R-grade-school-006
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Keep bedtime and sleep steady, and name a small habit that comes before it.
+    why: A nightly routine is linked to better sleep and development, and pediatric guidance says children need enough sleep to grow, learn and play.
+    cites: [F-0032, F-0031]
+    check: judge
+    lint: null
+    examples:
+      bad: "Stay up and finish it."
+      good: "Book, then bed. The rest can wait for morning."
+
+  - id: R-grade-school-007
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Never frame staying up late or giving up sleep as trying hard.
+    why: Pediatric guidance says children need enough sleep to grow, learn and play.
+    cites: [F-0032]
+    check: judge
+    lint: null
+    examples:
+      bad: "Champions stay up late to practise."
+      good: "Rest is part of the practice."
+
+  - id: R-grade-school-008
+    type: format
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Keep each line to one idea and a handful of words, and choose words a young reader can sound out.
+    why: A young reader loses the point when a line carries two ideas or long words.
+    basis: template
+    check: judge
+    lint: null
+    examples:
+      bad: "Stay curious and keep trying and never give up."
+      good: "Keep trying."
