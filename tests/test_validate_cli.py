@@ -94,3 +94,58 @@ def test_one_failure_makes_the_whole_run_fail():
     assert result.returncode == 1
     assert "valid (card)" in result.stdout
     assert "/visibility" in result.stdout
+
+
+def test_snapshot_with_no_rule_ids_reports_the_skip(tmp_path):
+    deck = deck_copy(tmp_path, snapshot="# no rules here\n")
+    result = run(deck)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "basis check skipped" in result.stdout
+    assert "no rule ids" in result.stdout
+
+
+def test_age_band_ladder_rejects_a_value_the_band_does_not_allow(tmp_path):
+    deck = deck_copy(tmp_path)
+    text = deck.read_text(encoding="utf-8").replace(
+        "age_band: high-school", "age_band: grade-school"
+    ).replace("substances: omit", "substances: harm_reduction")
+    deck.write_text(text, encoding="utf-8")
+    result = run(deck)
+    assert result.returncode == 1, result.stdout + result.stderr
+    assert "/policies/substances" in result.stdout
+    assert "grade-school" in result.stdout
+    assert "harm_reduction" in result.stdout
+
+
+def test_unlisted_age_band_allows_only_omit_for_sensitive_topics(tmp_path):
+    deck = deck_copy(tmp_path)
+    text = deck.read_text(encoding="utf-8").replace(
+        "age_band: high-school", "age_band: overlay-band"
+    ).replace("substances: omit", "substances: safety_only")
+    deck.write_text(text, encoding="utf-8")
+    result = run(deck)
+    assert result.returncode == 1, result.stdout + result.stderr
+    assert "/policies/substances" in result.stdout
+    assert "overlay-band" in result.stdout
+
+
+def test_unlisted_age_band_accepts_omit(tmp_path):
+    deck = deck_copy(tmp_path)
+    text = deck.read_text(encoding="utf-8").replace(
+        "age_band: high-school", "age_band: overlay-band"
+    )
+    deck.write_text(text, encoding="utf-8")
+    result = run(deck)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_card_category_must_be_declared_by_the_deck(tmp_path):
+    deck = deck_copy(tmp_path)
+    text = deck.read_text(encoding="utf-8").replace(
+        "    category: habits", "    category: game-day", 1
+    )
+    deck.write_text(text, encoding="utf-8")
+    result = run(deck)
+    assert result.returncode == 1, result.stdout + result.stderr
+    assert "/cards/0/category" in result.stdout
+    assert "game-day" in result.stdout

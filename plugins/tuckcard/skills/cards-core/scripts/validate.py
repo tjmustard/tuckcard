@@ -9,10 +9,12 @@ document's own shape, unless --schema names one of the thirteen schemas.
 Errors print as: path: /json/pointer: message. Exit status is 1 when any
 file fails and 0 when every file passes.
 
-Deck files get three extra checks that JSON Schema cannot express:
+Deck files get these extra checks that JSON Schema cannot express:
 each basis rule must appear in the deck's rules snapshot when that file
-is available, every mark must have a note, and each mark target must
-occur at least as many times as its occurrence number says.
+is available, every mark must have a note, each mark target must occur
+at least as many times as its occurrence number says, each card's
+category must be declared by the deck, and each policy value must be
+allowed by the age band's ladder in the shipped policies.yaml.
 """
 
 from __future__ import annotations
@@ -26,9 +28,13 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Set
 
 from jsonschema import Draft202012Validator, FormatChecker
+from referencing import Registry, Resource
 from ruamel.yaml import YAML
 
 SCHEMA_DIR = Path(__file__).resolve().parent.parent / "schemas"
+POLICIES_PATH = Path(__file__).resolve().parent.parent / "knowledge/rules/policies.yaml"
+
+_REGISTRY: Optional[Registry] = None
 
 KINDS = (
     "deck",
@@ -203,12 +209,27 @@ def pointer(path_parts: Sequence[Any], prefix: str = "") -> str:
     return (prefix + body) if prefix else (body or "/")
 
 
+def schema_registry() -> Registry:
+    """Load every schema by its $id so one schema can $ref another."""
+    global _REGISTRY
+    if _REGISTRY is None:
+        resources = []
+        for path in sorted(SCHEMA_DIR.glob("*.schema.json")):
+            with path.open("r", encoding="utf-8") as handle:
+                schema = json.load(handle)
+            resources.append((schema["$id"], Resource.from_contents(schema)))
+        _REGISTRY = Registry().with_resources(resources)
+    return _REGISTRY
+
+
 def schema_errors(
     data: Any, schema_name: str, prefix: str = ""
 ) -> List[str]:
     with (SCHEMA_DIR / (schema_name + ".schema.json")).open("r", encoding="utf-8") as handle:
         schema = json.load(handle)
-    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    validator = Draft202012Validator(
+        schema, registry=schema_registry(), format_checker=FormatChecker()
+    )
     errors = sorted(
         validator.iter_errors(data),
         key=lambda error: list(error.absolute_path),
@@ -253,16 +274,76 @@ def collect_rule_ids(data: Any) -> Set[str]:
     return {rule_id for rule_id in ids if RULE_ID_RE.match(rule_id)}
 
 
-def deck_cross_errors(deck_path: Path, deck: Dict[str, Any]) -> List[str]:
+def band_policy_errors(deck: Dict[str, Any]) -> List[str]:
+    """Check each policy value against the age band's ladder in policies.yaml."""
     errors: List[str] = []
+    recipient = deck.get("recipient")
+    policies = deck.get("policies")
+    band = recipient.get("age_band") if isinstance(recipient, dict) else None
+    if not isinstance(band, str) or not isinstance(policies, dict):
+        return errors
+    if not POLICIES_PATH.is_file():
+        return errors
+    try:
+        data = load_yaml(POLICIES_PATH)
+    except Exception:
+        return errors
+    if not isinstance(data, dict):
+        return errors
+    ladder = data.get("ladder")
+    defaults = data.get("unlisted_band_default")
+    allowed_for_band = None
+    if isinstance(ladder, dict):
+        allowed_for_band = ladder.get(band, defaults)
+    if not isinstance(allowed_for_band, dict):
+        return errors
+    for key, allowed in allowed_for_band.items():
+        if not isinstance(allowed, list) or key not in policies:
+            continue
+        value = policies[key]
+        if value not in allowed:
+            errors.append(
+                "{}: age band {!r} allows {} for {}; got {!r}".format(
+                    pointer(["policies", key]),
+                    band,
+                    ", ".join(str(item) for item in allowed),
+                    key,
+                    value,
+                )
+            )
+    return errors
+
+
+def deck_cross_errors(deck_path: Path, deck: Dict[str, Any]) -> List[str]:
+    errors: List[str] = band_policy_errors(deck)
     cards = deck.get("cards")
     if not isinstance(cards, list):
         return errors
+
+    categories = deck.get("categories")
+    known_categories: Set[str] = set()
+    if isinstance(categories, list):
+        for category in categories:
+            if isinstance(category, dict) and isinstance(category.get("key"), str):
+                known_categories.add(category["key"])
 
     for card_index, card in enumerate(cards):
         if not isinstance(card, dict):
             continue
         card_number = card.get("n", card_index + 1)
+        category = card.get("category")
+        if (
+            isinstance(category, str)
+            and known_categories
+            and category not in known_categories
+        ):
+            errors.append(
+                "{}: card {}: category {!r} is not declared in the deck's categories".format(
+                    pointer([card_index, "category"], "/cards"),
+                    card_number,
+                    category,
+                )
+            )
         lines = card.get("lines")
         if isinstance(lines, list):
             for line_index, line in enumerate(lines):
@@ -396,12 +477,22 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 deck = document["data"]
                 snapshot = deck.get("rules_snapshot") if isinstance(deck, dict) else None
                 filename = snapshot.get("file") if isinstance(snapshot, dict) else None
-                if isinstance(filename, str) and resolve_snapshot(path, filename) is None:
-                    print(
-                        "{}: note: basis check skipped (rules snapshot not found: {})".format(
-                            path, filename
+                if isinstance(filename, str):
+                    reason = None
+                    snapshot_path = resolve_snapshot(path, filename)
+                    if snapshot_path is None:
+                        reason = "rules snapshot not found: {}".format(filename)
+                    else:
+                        try:
+                            snapshot_ids = collect_rule_ids(load_yaml(snapshot_path))
+                        except Exception:
+                            snapshot_ids = set()
+                        if not snapshot_ids:
+                            reason = "rules snapshot has no rule ids: {}".format(filename)
+                    if reason:
+                        print(
+                            "{}: note: basis check skipped ({})".format(path, reason)
                         )
-                    )
 
     return 1 if failures else 0
 
