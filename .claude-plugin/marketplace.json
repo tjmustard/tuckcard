@@ -2,7 +2,7 @@
   "name": "tuckcard",
   "description": "Research-informed motivational cards for someone you know, written with Claude and printed for the fridge or set as a lock screen.",
   "owner": {
-    "name": "Thomas Mustard"
+    "name": "TJ Mustard"
   },
   "plugins": [
     {

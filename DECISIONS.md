@@ -1,6 +1,6 @@
 # Decisions
 
-A numbered, append-only register of conscious deviations from `SPEC.md` or from the seed kit, with the reason for each. Entries are never renumbered, rewritten or removed. If a milestone makes no deviation, its section says so. No entry is invented.
+A numbered, append-only register of conscious deviations from `SPEC.md` or from the seed kit, with the reason for each. Entries are never renumbered, rewritten or removed. A later entry can supersede an earlier one, and the later entry says so. If a milestone makes no deviation, its section says so. No entry is invented.
 
 ## M0: skeleton
 
@@ -35,3 +35,13 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 **Decision.** The scheduled workflow is created now. While no `F-*.md` files exist, it prints that there is nothing to re-check and that no check ran, then exits 0. If findings exist before the script does, it exits 1 rather than report a pass.
 
 **Why.** The schedule should exist before findings arrive, and a placeholder that claims a pass would be a false signal. Exiting 1 on unexpected findings keeps the gap visible.
+
+### D-005: Restore the seed kit's LICENSE copyright line
+
+**Supersedes.** D-002.
+
+**Deviation.** D-002 kept the committed "Thomas Mustard" copyright line. The lead, from the operator, directs restoring the seed kit's line instead.
+
+**Decision.** `LICENSE` now reads "Copyright (c) 2026 TJ Mustard", the seed kit's line. The marketplace owner and the plugin author use the same name. The canonical name stays open for the person to set.
+
+**Why.** The seed kit's line is the project's own record of authorship. The earlier committed line was not this milestone's to harmonize, and an agent should not settle a name the person has not. The line is restored pending the person's word.

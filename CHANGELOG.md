@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.
 ### Added
 
 - The hand-written seed kit at the repo root, copied without content changes: `SPEC.md`, `BOOTSTRAP.md`, `CLAUDE.md`, the seed `README.md`, `.gitignore`, the `local/` overlay folders, the seven skill drafts with `ROUNDS.md`, `RESEARCH-GUIDE.md`, the knowledge templates and rule stubs, `reference/layouts/` (14 files) and `tools/probe-plugin/` (6 files). The seed-kit commit holds 66 files.
-- Marketplace and plugin manifests. `.claude-plugin/marketplace.json` declares marketplace `tuckcard` with one plugin sourced from `./plugins/tuckcard`. `plugins/tuckcard/.claude-plugin/plugin.json` declares `tuckcard` 0.1.0, MIT, author Thomas Mustard. `claude plugin validate` reported Validation passed at exit 0 for both. In an isolated config, the marketplace added from the local repo and `claude plugin install tuckcard@tuckcard` succeeded.
+- Marketplace and plugin manifests. `.claude-plugin/marketplace.json` declares marketplace `tuckcard` with one plugin sourced from `./plugins/tuckcard`. `plugins/tuckcard/.claude-plugin/plugin.json` declares `tuckcard` 0.1.0, MIT, author TJ Mustard. `claude plugin validate` reported Validation passed at exit 0 for both. In an isolated config, the marketplace added from the local repo and `claude plugin install tuckcard@tuckcard` succeeded.
 - Nine SIL OFL 1.1 font families under `plugins/tuckcard/skills/cards-core/fonts/`: 31 files, of which 22 are font files and 9 are `OFL.txt`. Every license file names the SIL Open Font License 1.1.
 
   | Family | Font files | Primary file sha256 |
@@ -28,3 +28,7 @@ The format is based on [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.
 - `.github/workflows/ci.yml`: parses both manifests as JSON, checks nine font families each have a font file and `OFL.txt`, and fails on a committed `deck.yaml` outside `examples/`, a `*.tuckcard.zip`, or a file under `renders/` or `out/`. The three checks pass locally.
 - `.github/workflows/weekly-recheck.yml`: scheduled weekly and on demand. It reports that no shipped findings exist yet and that no check ran, and it exits 1 rather than claim a pass if findings appear before the check script exists.
 - `CHANGELOG.md` and `DECISIONS.md` at the repo root, on the person's instruction of 2026-11-11 02:57Z.
+
+### Changed
+
+- `LICENSE` copyright line restored to the seed kit's "Copyright (c) 2026 TJ Mustard", pending the person's word on which name is canonical. The manifests use the same name. `DECISIONS.md` D-005 records it and supersedes D-002.
