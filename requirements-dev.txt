@@ -1,0 +1,12 @@
+# Development-only dependencies for the renderer and the parity check.
+# They are not part of the shipped runtime: the plugin's render path on
+# claude.ai uses Pillow, which the user installs in their own environment,
+# and the print sheet is plain HTML. See DECISIONS.md D-023.
+#
+# After installing, download the browser Playwright drives:
+#     python -m playwright install chromium
+#
+# Pinned for reproducible renders. Both support Python 3.9.
+Pillow==11.3.0
+playwright==1.60.0
+pytest==8.4.2
