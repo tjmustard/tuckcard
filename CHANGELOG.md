@@ -30,12 +30,13 @@ The format is based on [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.
 - `CHANGELOG.md` and `DECISIONS.md` at the repo root, on the person's instruction of 2026-11-11 02:57Z.
 - Thirteen JSON Schema 2020-12 files in `plugins/tuckcard/skills/cards-core/schemas/`: `deck`, `card`, `finding`, `rule_file`, `policies`, `gap`, `index`, `bundle_manifest`, `layout`, `marks`, `theme`, `preset` and `fit_report`. Every file passes `Draft202012Validator.check_schema`. Deck and card enforce the approval hashes, the mark-with-a-note rule and the visibility values; rule files enforce the evidence floor shape (non-format rules cite findings, format rules set `basis: template`); findings enforce the verification block and a 15-word anchor; policies enforce the seven keys and the age-band ladder.
 - `plugins/tuckcard/skills/cards-core/scripts/validate.py`: picks a schema from the file name, folder or document shape, accepts `--schema` to override, prints one line per problem as `path: /json/pointer: message`, and exits 1 on any problem or 0 when every file passes. Deck files get three cross-file checks: each basis rule appears in the deck's `rules_snapshot` file when it is reachable (the skip is reported), every mark has a note, and each mark target occurs at least `occurrence` times in its line.
-- `requirements.txt` pinned to `jsonschema==4.26.0`, `ruamel.yaml==0.19.1` and `pytest==9.2.0`. They require Python 3.10 or newer; `DECISIONS.md` D-007 records the floor.
-- `tests/`: one valid and one invalid fixture for each of the 13 schemas, a fictional `field-notes-demo` deck with its rules snapshot, and pytest coverage of the CLI, the three deck cross-file checks, the `--schema` override and the 26 seed-kit rule, policy, finding and gap templates. `pytest -q` on Python 3.12.14 reported `35 passed in 5.69s`. All 26 kit files pass `validate.py` at exit 0.
+- `requirements.txt` pinned to `jsonschema==4.25.1`, `ruamel.yaml==0.19.1` and `pytest==8.4.2`. All three support Python 3.9, which is the floor for the validation path; `DECISIONS.md` D-011 supersedes D-007 and records it.
+- `tests/`: one valid and one invalid fixture for each of the 13 schemas, a fictional `field-notes-demo` deck with its rules snapshot, and pytest coverage of the CLI, the three deck cross-file checks, the `--schema` override and the 26 seed-kit rule, policy, finding and gap templates. `pytest -q` on Python 3.12.14 reported `35 passed in 7.25s`, and `ast.parse(feature_version=(3, 9))` accepts `validate.py` and every test file. All 26 kit files pass `validate.py` at exit 0.
 
 ### Changed
 
 - `LICENSE` copyright line restored to the seed kit's "Copyright (c) 2026 TJ Mustard", pending the person's word on which name is canonical. The manifests use the same name. `DECISIONS.md` D-005 records it and supersedes D-002.
+- Validation dependencies repinned from jsonschema 4.26.0 and pytest 9.2.0 to jsonschema 4.25.1 and pytest 8.4.2, so the validation path keeps a Python 3.9 floor while the claude.ai sandbox Python is unknown. `DECISIONS.md` D-011 supersedes D-007. The suite passes and all 26 kit files still validate under the new pins.
 
 ### Fixed
 

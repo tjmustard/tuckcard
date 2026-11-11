@@ -94,4 +94,15 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 
 **Why.** The rule is a safety rule and needs a signal the validator can enforce. The marker makes the author assert that the detail is group-level, and review still reads the text. The field is an addition to the deck shape and is reported to the lead as a question for the person.
 
+### D-011: Keep the Python 3.9 floor by pinning older test dependencies
+
+**Supersedes.** D-007.
+
+**Deviation.** D-007 accepted a Python 3.10 floor because jsonschema 4.26.0 and pytest 9.2.0 require it. SPEC.md Appendix C leaves the claude.ai sandbox Python unknown, so the baseline must not depend on a 3.10 floor.
+
+**Decision.** `requirements.txt` pins `jsonschema==4.25.1`, `ruamel.yaml==0.19.1` and `pytest==8.4.2`, all of which declare `Requires-Python >=3.9`. Under those pins the suite still passes on Python 3.12.14 (35 passed in 7.25s), all 26 kit rule, policy and template files still validate at exit 0, and `validate.py` plus every test file parses with `ast.parse(feature_version=(3, 9))`.
+
+**Why.** The 3.9 floor removes an avoidable dependency on a runtime the target platform has not been measured to have. The two older pins keep the same APIs and the same tests; the cost is being two versions behind current, which a later milestone can revisit if a needed feature appears.
+
+
 

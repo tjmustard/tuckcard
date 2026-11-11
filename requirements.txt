@@ -1,5 +1,5 @@
-# Pinned for reproducible validation. Python 3.10 or newer is required by
-# jsonschema 4.26.0 and pytest 9.2.0; DECISIONS.md D-007 records the floor.
-jsonschema==4.26.0
+# Pinned for reproducible validation. All three support Python 3.9, which is
+# the floor for the validation path. DECISIONS.md D-011 supersedes D-007.
+jsonschema==4.25.1
 ruamel.yaml==0.19.1
-pytest==9.2.0
+pytest==8.4.2
