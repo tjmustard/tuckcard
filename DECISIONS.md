@@ -136,6 +136,22 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 
 **Why.** The finding file is what a rule cites, and a hand edit gets no other check. Enforcing the record's own status in its schema closes the gap at the file rather than a milestone later, and leaves rule-level consequences where they belong. Whether replication is mixed or failed, or a related finding points the opposite way, stays a research judgment: the schema enforces the active base that `contested` rests on, not the direction of another file.
 
+### D-016: The manifest repeats the deck's id pattern and status set
+
+**Deviation.** None from SPEC.md, which gives no separate rule for the manifest's `deck_id` and `deck_status`.
+
+**Decision.** `bundle_manifest.schema.json` repeats the deck's `id` pattern and its six-value `deck_status` enum rather than `$ref`-ing `deck.schema.json`, because those two fields sit in a manifest that is otherwise independent of the deck file. The duplication is provisional: M3 or M4 must revisit it when the deck status set settles, and either point both at one shared definition or record why they differ.
+
+**Why.** A manifest is opened without its deck, so it carries the values it needs, but two copies drift. Recording the repetition now keeps it a choice rather than an accident. The M1 review raised it as a non-blocking finding; no code changed this round.
+
+### D-017: The D-010 and D-012 wording corrections stay visible
+
+**What changed.** At 3d4dd62, on the lead's direction, D-010 and D-012 were corrected in place. D-010's original sentence was "When `recipient.kind` is `group`, every item must carry it; `validate.py` then rejects an item without the marker." It became "When `recipient.kind` is `group`, the `allOf` in `deck.schema.json` rejects an item without the marker; `validate.py` only runs the schema." D-012's original text said D-003's sentence "its GitHub releases carry no uploaded assets" became "the 2.1.5 release page carries no Assets entries; its binaries are attached as file links in the release notes", followed by "No other part of D-003 changed." It now quotes the whole second sentence, including the move of "so the project's published binary tarball is the original project's own build" into "The ttf tarball linked there is the original project's own build", and closes "The rest of D-003 is unchanged."
+
+**Decision.** The corrected entries stand. This entry records what they said before, so the wrong versions stay readable. The convention applies from here: a future correction to a register entry gets its own entry, as D-006 and D-012 did for D-003, rather than a silent in-place edit. The two corrections in D-010 and D-012 were made under this round's explicit direction and are recorded here instead of being undone.
+
+**Why.** An append-only register that allows quiet edits to its own entries is not append-only. Keeping the earlier wording visible lets a reader see what changed and why, and the convention gives the next correction an obvious form.
+
 
 
 

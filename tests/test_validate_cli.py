@@ -1,5 +1,6 @@
 """Behaviour the schemas cannot express: deck cross-file checks and CLI choices."""
 
+import importlib.util
 import shutil
 import subprocess
 import sys
@@ -19,6 +20,13 @@ def run(paths, extra=()):
         capture_output=True,
         text=True,
     )
+
+
+def load_validate_module():
+    spec = importlib.util.spec_from_file_location("tuckcard_validate", VALIDATE)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def deck_copy(tmp_path, snapshot=None):
@@ -137,6 +145,45 @@ def test_unlisted_age_band_accepts_omit(tmp_path):
     deck.write_text(text, encoding="utf-8")
     result = run(deck)
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_unresolvable_ref_is_one_line_naming_the_ref():
+    module = load_validate_module()
+    errors = module.schema_errors_for(
+        {}, {"$ref": "https://tuckcard.local/schemas/common.schema.json"}
+    )
+    assert len(errors) == 1, errors
+    assert errors[0].startswith("/: could not resolve a $ref:")
+    assert "common.schema.json" in errors[0]
+
+
+def _deck_with_snapshot(tmp_path):
+    deck = tmp_path / "deck.yaml"
+    shutil.copy(VALID / "deck.fixture.yaml", deck)
+    shutil.copy(VALID / "effective-rules.yaml", tmp_path / "effective-rules.yaml")
+    return deck
+
+
+def test_missing_policies_reports_the_ladder_skip(tmp_path, monkeypatch, capsys):
+    module = load_validate_module()
+    monkeypatch.setattr(module, "POLICIES_PATH", tmp_path / "missing-policies.yaml")
+    deck = _deck_with_snapshot(tmp_path)
+    assert module.main([str(deck)]) == 0
+    out = capsys.readouterr().out
+    assert "ladder check skipped" in out
+    assert "not found" in out
+
+
+def test_unreadable_policies_reports_the_ladder_skip(tmp_path, monkeypatch, capsys):
+    module = load_validate_module()
+    policies = tmp_path / "policies.yaml"
+    policies.write_text("ladder: [\n", encoding="utf-8")
+    monkeypatch.setattr(module, "POLICIES_PATH", policies)
+    deck = _deck_with_snapshot(tmp_path)
+    assert module.main([str(deck)]) == 0
+    out = capsys.readouterr().out
+    assert "ladder check skipped" in out
+    assert "unreadable" in out
 
 
 def test_card_category_must_be_declared_by_the_deck(tmp_path):

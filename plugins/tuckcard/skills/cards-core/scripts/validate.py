@@ -25,10 +25,11 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence, Set
+from typing import Any, Dict, List, Optional, Sequence, Set, Tuple
 
 from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
+from referencing.exceptions import Unresolvable
 from ruamel.yaml import YAML
 
 SCHEMA_DIR = Path(__file__).resolve().parent.parent / "schemas"
@@ -222,22 +223,29 @@ def schema_registry() -> Registry:
     return _REGISTRY
 
 
+def schema_errors_for(data: Any, schema: Any, prefix: str = "") -> List[str]:
+    try:
+        validator = Draft202012Validator(
+            schema, registry=schema_registry(), format_checker=FormatChecker()
+        )
+        errors = sorted(
+            validator.iter_errors(data),
+            key=lambda error: list(error.absolute_path),
+        )
+    except Unresolvable as error:
+        return ["{}: could not resolve a $ref: {}".format(prefix or "/", error)]
+    return [
+        "{}: {}".format(pointer(error.absolute_path, prefix), error.message)
+        for error in errors
+    ]
+
+
 def schema_errors(
     data: Any, schema_name: str, prefix: str = ""
 ) -> List[str]:
     with (SCHEMA_DIR / (schema_name + ".schema.json")).open("r", encoding="utf-8") as handle:
         schema = json.load(handle)
-    validator = Draft202012Validator(
-        schema, registry=schema_registry(), format_checker=FormatChecker()
-    )
-    errors = sorted(
-        validator.iter_errors(data),
-        key=lambda error: list(error.absolute_path),
-    )
-    return [
-        "{}: {}".format(pointer(error.absolute_path, prefix), error.message)
-        for error in errors
-    ]
+    return schema_errors_for(data, schema, prefix)
 
 
 def resolve_snapshot(deck_path: Path, filename: str) -> Optional[Path]:
@@ -274,6 +282,19 @@ def collect_rule_ids(data: Any) -> Set[str]:
     return {rule_id for rule_id in ids if RULE_ID_RE.match(rule_id)}
 
 
+def load_policies() -> Tuple[Any, Optional[str]]:
+    """Return the shipped policies mapping, or None with a skip reason."""
+    if not POLICIES_PATH.is_file():
+        return None, "policies.yaml not found: {}".format(POLICIES_PATH)
+    try:
+        data = load_yaml(POLICIES_PATH)
+    except Exception as error:
+        return None, "policies.yaml unreadable: {}".format(error)
+    if not isinstance(data, dict):
+        return None, "policies.yaml is not a mapping: {}".format(POLICIES_PATH)
+    return data, None
+
+
 def band_policy_errors(deck: Dict[str, Any]) -> List[str]:
     """Check each policy value against the age band's ladder in policies.yaml."""
     errors: List[str] = []
@@ -282,13 +303,8 @@ def band_policy_errors(deck: Dict[str, Any]) -> List[str]:
     band = recipient.get("age_band") if isinstance(recipient, dict) else None
     if not isinstance(band, str) or not isinstance(policies, dict):
         return errors
-    if not POLICIES_PATH.is_file():
-        return errors
-    try:
-        data = load_yaml(POLICIES_PATH)
-    except Exception:
-        return errors
-    if not isinstance(data, dict):
+    data, _ = load_policies()
+    if data is None:
         return errors
     ladder = data.get("ladder")
     defaults = data.get("unlisted_band_default")
@@ -493,6 +509,13 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                         print(
                             "{}: note: basis check skipped ({})".format(path, reason)
                         )
+                _, policy_reason = load_policies()
+                if policy_reason:
+                    print(
+                        "{}: note: ladder check skipped ({})".format(
+                            path, policy_reason
+                        )
+                    )
 
     return 1 if failures else 0
 
