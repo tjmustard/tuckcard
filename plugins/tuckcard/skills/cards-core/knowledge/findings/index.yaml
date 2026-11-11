@@ -346,3 +346,60 @@ findings:
     grade: A
     direction: caution
     status: active
+  - id: F-0049
+    claim: A review of sleep among college students reports that daytime sleepiness and insufficient sleep are widespread in this group and that the consequences include lower grade point averages, impaired learning, worse mood and higher crash risk.
+    scopes:
+      - age/college
+    grade: E
+    direction: caution
+    status: active
+  - id: F-0050
+    claim: Three double-blind randomized experiments with more than 9,500 students found that a short online programme before college, teaching that early struggles are common and temporary, raised full-time enrolment and first-year grades for students from disadvantaged backgrounds.
+    scopes:
+      - age/college
+    grade: B
+    direction: supports
+    status: active
+  - id: F-0051
+    claim: A cross-temporal meta-analysis of 164 samples and 41,641 college students found that self-oriented, socially prescribed and other-oriented perfectionism all rose between 1989 and 2016, with socially prescribed perfectionism rising most.
+    scopes:
+      - age/college
+    grade: A
+    direction: caution
+    status: active
+  - id: F-0052
+    claim: A series of meta-analyses of gratitude exercises found they did better than doing nothing on well-being, and did better than a neutral activity on gratitude and well-being, but they were no better than another active exercise.
+    scopes:
+      - age/college
+      - context/personal-growth
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0053
+    claim: A meta-analysis of 20 samples from 14 studies found a large inverse association between self-compassion and psychopathology, with higher self-compassion going with lower distress.
+    scopes:
+      - age/college
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0054
+    claim: A meta-analysis of 691 correlations found that procrastination was predicted most strongly by task aversiveness, task delay, low self-efficacy, impulsiveness and low conscientiousness, while neuroticism and rebelliousness mattered little.
+    scopes:
+      - age/college
+    grade: A
+    direction: caution
+    status: active
+  - id: F-0055
+    claim: In a randomized trial with 92 college freshmen, a brief exercise framing social adversity as common and temporary raised African American students' grade point average over three years and halved the achievement gap.
+    scopes:
+      - age/college
+    grade: B
+    direction: supports
+    status: active
+  - id: F-0056
+    claim: A meta-analysis of 11 randomized trials with 1,824 university students found small improvements in depression, anxiety, stress and sleep quality from mindfulness programmes, with no significant change in measured mindfulness itself.
+    scopes:
+      - age/college
+    grade: A
+    direction: supports
+    status: active

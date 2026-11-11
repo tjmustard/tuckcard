@@ -1,8 +1,8 @@
 # Age band (SPEC.md Section 4). Seeded in M5.
 # The policy ladder for this band lives in ../policies.yaml.
 scope: age/college
-status: stub
-description: Ages about 18–22, living away from home. New freedoms and risks.
+status: active
+description: Ages about 18–22. Higher education. The reader values directness and does not need to be managed.
 defaults:
   reading:                # set during seeding, word-level targets for lint
     max_avg_syllables_per_word: null
@@ -12,4 +12,153 @@ defaults:
     max_title_words: null
     max_lines: null
     max_words_per_line: null
-rules: []
+rules:
+  - id: R-college-001
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Cards can say that a hard first term is common and does not mean the reader does not belong there.
+    why: Two randomized trials found that framing early academic and social difficulty as normal and temporary raised enrolment and grades for students from disadvantaged backgrounds.
+    cites: [F-0050, F-0055]
+    check: judge
+    lint: null
+    examples:
+      bad: "If it is hard, this place is not for you."
+      good: "The first term is hard for most people. That is the term, not you."
+
+  - id: R-college-002
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Give the reader the sentence they would say to a friend in the same spot.
+    why: A meta-analysis found a large inverse association between self-compassion and psychopathology across 20 samples.
+    cites: [F-0053]
+    check: judge
+    lint: null
+    examples:
+      bad: "You should know better by now."
+      good: "A friend would say: that was a bad week, not a bad person."
+
+  - id: R-college-003
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: For work the reader keeps putting off, make the first step smaller and less unpleasant.
+    why: A meta-analysis of 691 correlations found procrastination was most strongly predicted by task aversiveness, task delay and low self-efficacy.
+    cites: [F-0054]
+    check: judge
+    lint: null
+    examples:
+      bad: "Just sit down and finish the essay."
+      good: "Open the document and write one bad sentence."
+
+  - id: R-college-004
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: A card can suggest noticing one ordinary thing that went fine, and should describe it as a small habit.
+    why: A meta-analysis found gratitude exercises did better than doing nothing on well-being, but no better than another active exercise.
+    cites: [F-0052]
+    check: judge
+    lint: null
+    examples:
+      bad: "Gratitude will change your life."
+      good: "Name one thing that went fine today. That is the whole exercise."
+
+  - id: R-college-005
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not treat a flawless result as the standard to chase.
+    why: A cross-temporal meta-analysis found perfectionism among college students rose for nearly three decades, with the pressure from other people rising most.
+    cites: [F-0051]
+    check: judge
+    lint: null
+    examples:
+      bad: "Good enough is not enough."
+      good: "Done and handed in beats perfect and unopened."
+
+  - id: R-college-006
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not promise that a change in how the reader thinks about ability will improve their marks.
+    why: Two meta-analyses covering 273 correlational studies and 43 intervention studies found overall mindset effects were weak.
+    cites: [F-0045]
+    check: judge
+    lint: null
+    examples:
+      bad: "Adopt a growth mindset and your grades will follow."
+      good: "A mark is feedback about the last attempt."
+
+  - id: R-college-007
+    type: avoid
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Do not tell the reader to get through a hard time alone. Name one person or service.
+    why: A systematic review found stigma and a preference for self-reliance were the main barriers to young people asking for help.
+    cites: [F-0046]
+    check: judge
+    lint: null
+    examples:
+      bad: "Only you can fix this."
+      good: "The counselling service takes fifteen minutes to book. That is the whole ask."
+
+  - id: R-college-008
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not present an all-nighter as dedication.
+    why: A review of college sleep found daytime sleepiness and insufficient sleep are widespread and linked to lower grade point averages and impaired learning.
+    cites: [F-0049]
+    check: judge
+    lint: null
+    examples:
+      bad: "Sleep is what happens after the deadline."
+      good: "Stop at midnight. The draft reads better in the morning."
+
+  - id: R-college-009
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: A card can offer one short practice, such as a few slow breaths before starting, as something ordinary to try.
+    why: A meta-analysis of 11 randomized trials found small improvements in depression, anxiety, stress and sleep quality from mindfulness programmes.
+    cites: [F-0056]
+    check: judge
+    lint: null
+    examples:
+      bad: "Meditate for an hour every morning."
+      good: "Three breaths before you open the laptop."
+
+  - id: R-college-010
+    type: format
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Keep each line to one idea, in plain words the reader would use out loud.
+    why: Two ideas in one line split the reader's attention, and stiff wording reads as a lecture.
+    basis: template
+    check: judge
+    lint: null
+    examples:
+      bad: "Actualize your potential through disciplined self-cultivation."
+      good: "One thing at a time."
