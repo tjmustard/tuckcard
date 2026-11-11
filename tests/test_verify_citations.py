@@ -60,6 +60,8 @@ def test_fake_doi_is_quarantined_and_nothing_is_left_behind(tmp_path):
     assert "did not resolve" in data["quarantine_reason"]
     assert "HTTP 404" in data["quarantine_reason"]
     assert data["verification"]["checked_on"] == "2026-11-11"
+    # exists records whether the source resolved, not whether it passed.
+    assert data["verification"]["exists"] == "none"
 
 
 def test_retracted_doi_is_quarantined(tmp_path):
@@ -104,6 +106,8 @@ def test_metadata_mismatch_names_field_expected_and_found(tmp_path, changes, exp
     assert data["status"] == "quarantined"
     assert expected in data["quarantine_reason"]
     assert "metadata mismatch" in data["quarantine_reason"]
+    # The source resolved; the mismatch is why it was quarantined.
+    assert data["verification"]["exists"] == "script"
 
 
 def test_valid_source_with_all_three_metadata_fields_stays(tmp_path):
@@ -186,3 +190,38 @@ def test_pmid_resolves_through_pubmed(tmp_path):
         "year",
         "first_author",
     ]
+
+
+def test_a_passing_check_moves_provisional_to_active(tmp_path):
+    root = knowledge(tmp_path)
+    support.write_finding(
+        root / "findings",
+        support.finding(
+            "F-0001",
+            source={"doi": "10.1234/example.valid"},
+            verification={"exists": "fetch"},
+            status="provisional",
+        ),
+    )
+    assert run(root) == 0
+    data = shipped(root)
+    assert data["status"] == "active"
+    assert data["verification"]["exists"] == "script"
+
+
+def test_a_passing_check_leaves_an_incomplete_record_provisional(tmp_path, capsys):
+    root = knowledge(tmp_path)
+    support.write_finding(
+        root / "findings",
+        support.finding(
+            "F-0001",
+            source={"doi": "10.1234/example.valid"},
+            verification={"exists": "fetch", "support": "unchecked"},
+            status="provisional",
+        ),
+    )
+    assert run(root) == 0
+    data = shipped(root)
+    assert data["status"] == "provisional"
+    assert data["verification"]["exists"] == "script"
+    assert "status left provisional" in capsys.readouterr().out

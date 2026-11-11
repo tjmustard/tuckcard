@@ -100,6 +100,24 @@ def test_compile_applies_scope_when_and_overrides(tmp_path):
     assert not (tmp_path / "effective-rules.yaml").read_text().count("compiled_at")
 
 
+def test_a_mutual_override_pair_stops_the_compile(tmp_path, capsys):
+    knowledge, overlay = tree(tmp_path)
+    support.write_rule_file(
+        knowledge / "rules/core.yaml",
+        "core",
+        [
+            support.rule("R-core-001", "avoid", cites=("F-0002",), overrides=["R-core-002"]),
+            support.rule("R-core-002", "avoid", cites=("F-0002",), overrides=["R-core-001"]),
+        ],
+    )
+    deck = support.write_deck(tmp_path)
+    assert compile_once(deck, knowledge, overlay) == 1
+    out = capsys.readouterr().out
+    assert "override cycle" in out
+    assert "R-core-001" in out and "R-core-002" in out
+    assert not (tmp_path / "effective-rules.yaml").exists()
+
+
 def test_compile_is_byte_identical_on_repeat_runs(tmp_path, capsys):
     knowledge, overlay = tree(tmp_path)
     deck = support.write_deck(tmp_path)

@@ -419,7 +419,10 @@ def verify_finding(
         )
 
     checked = {
-        "exists": "script" if resolved or reasons else "none",
+        # exists records whether the source resolved, not whether it
+        # passed: a 404 or a metadata mismatch is a reason, not a
+        # different kind of resolution.
+        "exists": "script" if resolved else "none",
         "metadata_match": [field for field in METADATA_FIELDS if field in compared],
         "retraction": retraction,
         "checked_on": today or datetime.date.today().isoformat(),
@@ -434,13 +437,44 @@ def verify_finding(
     }
 
 
+ACTIVE_SUPPORT = {"abstract", "full_text"}
+ACTIVE_RETRACTION = {"none", "correction"}
+
+
+def active_shortfall(verification: Dict[str, Any]) -> Optional[str]:
+    """What keeps this verification block short of the active condition."""
+    missing = []
+    if verification.get("exists") != "script":
+        missing.append("exists is {}".format(verification.get("exists")))
+    if verification.get("support") not in ACTIVE_SUPPORT:
+        missing.append("support is {}".format(verification.get("support")))
+    if verification.get("retraction") not in ACTIVE_RETRACTION:
+        missing.append("retraction is {}".format(verification.get("retraction")))
+    return "; ".join(missing) or None
+
+
 def apply_checked(data: Dict[str, Any], result: Dict[str, Any]) -> Dict[str, Any]:
+    """Write the check result, and the status that result now supports.
+
+    A passing script check moves a provisional finding to active when the
+    record meets the active condition (SPEC.md section 3). A contested
+    finding stays contested: only the researcher changes that. Nothing
+    else moves on its own.
+    """
     updated = copy.deepcopy(data)
     verification = updated.setdefault("verification", {})
     if not isinstance(verification, dict):
         verification = {}
         updated["verification"] = verification
     verification.update(result["checked"])
+    if updated.get("status") == "provisional":
+        shortfall = active_shortfall(verification)
+        if shortfall is None:
+            updated["status"] = "active"
+        elif result["ok"]:
+            result["notes"].append(
+                "status left provisional: the check passed but {}".format(shortfall)
+            )
     return updated
 
 

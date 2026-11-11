@@ -108,6 +108,107 @@ def test_a_core_rule_cannot_override_a_context_rule(tmp_path, capsys):
     assert "higher-precedence scope" in out
 
 
+def test_a_core_do_rule_accepts_grade_d_guidance(tmp_path):
+    root = tmp_path / "knowledge"
+    support.write_finding(
+        root / "findings",
+        support.finding("F-0001", grade="D", scopes=["core"]),
+    )
+    support.write_rule_file(
+        root / "rules/core.yaml",
+        "core",
+        [support.rule("R-core-001", "do", cites=("F-0001",))],
+    )
+    assert run(root) == 0
+
+
+def test_a_contested_finding_can_back_a_must_not_rule(tmp_path):
+    for grade in ("A", "B", "D"):
+        root = tmp_path / grade / "knowledge"
+        support.write_finding(
+            root / "findings",
+            support.finding("F-0001", status="contested", grade=grade),
+        )
+        support.write_rule_file(
+            root / "rules/core.yaml",
+            "core",
+            [
+                support.rule(
+                    "R-core-001", "must_not", strength="must", cites=("F-0001",)
+                )
+            ],
+        )
+        assert run(root) == 0, grade
+
+
+def test_a_contested_finding_cannot_back_a_must_rule(tmp_path, capsys):
+    root = tmp_path / "knowledge"
+    support.write_finding(
+        root / "findings",
+        support.finding("F-0001", status="contested", grade="A"),
+    )
+    support.write_rule_file(
+        root / "rules/core.yaml",
+        "core",
+        [
+            support.rule(
+                "R-core-001", "must", strength="must", cites=("F-0001",)
+            )
+        ],
+    )
+    assert run(root) == 1
+    out = capsys.readouterr().out
+    assert "R-core-001" in out
+    assert "contested" in out
+
+
+def test_a_safety_rule_cannot_override_another_safety_rule(tmp_path, capsys):
+    root = tmp_path / "knowledge"
+    support.write_finding(
+        root / "findings",
+        support.finding("F-0001", scopes=["safety/self-harm-suicide"], grade="D"),
+    )
+    support.write_rule_file(
+        root / "rules/safety/self-harm-suicide.yaml",
+        "safety/self-harm-suicide",
+        [
+            support.rule(
+                "R-self-harm-suicide-001",
+                "must_not",
+                strength="must",
+                cites=("F-0001",),
+            ),
+            support.rule(
+                "R-self-harm-suicide-002",
+                "must_not",
+                strength="must",
+                cites=("F-0001",),
+                overrides=["R-self-harm-suicide-001"],
+            ),
+        ],
+    )
+    assert run(root) == 1
+    out = capsys.readouterr().out
+    assert "may not override safety rule R-self-harm-suicide-001" in out
+
+
+def test_a_mutual_override_pair_is_reported(tmp_path, capsys):
+    root = tmp_path / "knowledge"
+    support.write_finding(root / "findings", support.finding("F-0001"))
+    support.write_rule_file(
+        root / "rules/core.yaml",
+        "core",
+        [
+            support.rule("R-core-001", "avoid", cites=("F-0001",), overrides=["R-core-002"]),
+            support.rule("R-core-002", "avoid", cites=("F-0001",), overrides=["R-core-001"]),
+        ],
+    )
+    assert run(root) == 1
+    out = capsys.readouterr().out
+    assert "override cycle" in out
+    assert "R-core-001" in out and "R-core-002" in out
+
+
 def test_the_fixture_tree_passes(tmp_path):
     root = support.base_knowledge(tmp_path / "knowledge")
     assert run(root) == 0

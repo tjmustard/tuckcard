@@ -16,7 +16,10 @@ This is a maintainer step and normally runs with live network access.
 --responses replays recorded HTTP responses for the offline tests.
 
 Nothing is deleted: the overlay copies are left where they are, so the
-maintainer can remove them deliberately after reviewing the result.
+maintainer can remove them deliberately after reviewing the result. An
+incoming finding whose DOI is already shipped or quarantined is refused
+by name, which is what stops a second run from duplicating it. A new
+finding ID never lands on an existing file.
 Exit status is 1 when promotion is refused or a check fails.
 """
 
@@ -68,6 +71,7 @@ def source_findings(source: Path) -> List[Tuple[Path, Dict[str, Any], str]]:
 
 
 def existing_ids(directories: Sequence[Path]) -> List[int]:
+    """Every shipped or quarantined F- number, by file name and by id."""
     numbers: List[int] = []
     for directory in directories:
         if not directory.is_dir():
@@ -76,7 +80,32 @@ def existing_ids(directories: Sequence[Path]) -> List[int]:
             match = re.match(r"^F-([0-9]{4})\.md$", path.name)
             if match:
                 numbers.append(int(match.group(1)))
+            try:
+                data, _ = files.read_frontmatter(path)
+            except Exception:  # noqa: BLE001 - the pool is checked elsewhere
+                continue
+            match = re.match(r"^F-([0-9]{4})$", str(data.get("id", "")))
+            if match:
+                numbers.append(int(match.group(1)))
     return numbers
+
+
+def existing_dois(directories: Sequence[Path]) -> Dict[str, str]:
+    """Map each source DOI already in the pool to the finding id holding it."""
+    held: Dict[str, str] = {}
+    for directory in directories:
+        if not directory.is_dir():
+            continue
+        for path in files.finding_paths(directory):
+            try:
+                data, _ = files.read_frontmatter(path)
+            except Exception:  # noqa: BLE001 - the pool is checked elsewhere
+                continue
+            source = data.get("source")
+            doi = source.get("doi") if isinstance(source, dict) else None
+            if isinstance(doi, str) and doi.strip():
+                held.setdefault(doi.strip().casefold(), str(data.get("id", path.name)))
+    return held
 
 
 def rewrite_text(text: str, finding_map: Dict[str, str], rule_map: Dict[str, str]) -> str:
@@ -173,29 +202,48 @@ def promote(
         knowledge / "sources-allowlist.yaml"
     )
 
+    held_dois = existing_dois([findings_dir, quarantine_dir])
+    seen_incoming: Dict[str, str] = {}
     results = []
     for path, data, body in incoming:
         result = verify_citations.verify_finding(
             data, transport, domains, allowlist_error, today
         )
-        if result["ok"] and data.get("status") not in ("active", "contested"):
+        updated = verify_citations.apply_checked(data, result)
+        record = data.get("source") if isinstance(data.get("source"), dict) else {}
+        doi = record.get("doi")
+        if isinstance(doi, str) and doi.strip():
+            key = doi.strip().casefold()
+            holder = held_dois.get(key) or seen_incoming.get(key)
+            if holder:
+                errors.append(
+                    "{}: DOI {} is already held by {}; refusing to promote a duplicate".format(
+                        path, doi, holder
+                    )
+                )
+            else:
+                seen_incoming[key] = str(data.get("id"))
+        if result["ok"] and updated.get("status") not in ("active", "contested"):
             errors.append(
                 "{}: {} is {}; only active or contested findings may ship "
                 "(SPEC.md section 3, invariant 1)".format(
-                    path, data.get("id"), data.get("status")
+                    path, data.get("id"), updated.get("status")
                 )
             )
-        results.append((path, data, body, result))
+        results.append((path, data, body, result, updated))
     if errors:
         return summary, errors
 
-    # Finding IDs: the next free F- numbers across shipped and quarantine.
-    next_number = files.next_free(
-        existing_ids([findings_dir, quarantine_dir]), 1
-    )
+    # Finding IDs: the next free F- number, skipping every id already in
+    # the shipped pool or in quarantine before each allocation.
+    used = set(existing_ids([findings_dir, quarantine_dir]))
+    next_number = 1
     finding_map: Dict[str, str] = {}
-    for path, data, _, _ in results:
+    for path, data, _, _, _ in results:
+        while next_number in used:
+            next_number += 1
         finding_map[str(data["id"])] = "F-{:04d}".format(next_number)
+        used.add(next_number)
         next_number += 1
 
     # Rule documents: shipped plus overlay, kept as text for validation.
@@ -324,8 +372,7 @@ def promote(
             final_findings[data["id"]] = data
 
     written_findings = []
-    for path, data, body, result in results:
-        updated = verify_citations.apply_checked(data, result)
+    for path, data, body, result, updated in results:
         updated["id"] = finding_map[str(data["id"])]
         if result["ok"]:
             destination = findings_dir / "{}.md".format(updated["id"])
@@ -348,6 +395,12 @@ def promote(
             )
 
     for destination, updated, _ in written_findings:
+        if destination.exists():
+            errors.append(
+                "{}: already exists; refusing to overwrite a finding".format(
+                    destination
+                )
+            )
         schema_errors = validate.schema_errors(updated, "finding")
         for line in schema_errors:
             errors.append("{}: {}".format(destination, line))

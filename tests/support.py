@@ -126,7 +126,7 @@ def base_knowledge(root, with_safety=True):
         findings,
         finding(
             "F-0001",
-            source={"doi": "10.1234/example.valid"},
+            source={"doi": "10.1234/example.shipped"},
         ),
     )
     write_finding(findings, finding("F-0002", grade="C"))

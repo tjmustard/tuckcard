@@ -13,12 +13,14 @@ Checks, from SPEC.md section 4:
 - every rule file and rule passes rule_file.schema.json
 - every cited finding exists in the pool and is live: provisional and
   quarantined can back nothing, contested only avoid and must_not
-- the evidence floor: do needs an active A or B finding (D when the
-  rule is a safety rule); avoid needs an active or contested finding;
-  must and must_not need an active A, B or D finding; format cites none
+- the evidence floor: do needs an active A, B or D finding (D is
+  guidance from a public-health or professional body, whatever the
+  rule's scope); avoid needs an active or contested finding; must
+  needs an active A, B or D finding; must_not needs an active or
+  contested A, B or D finding; format cites none
 - an override names a rule that exists, is lower in precedence
-  (safety > age band > context > core), and is never a safety rule
-  unless the overriding rule is a safety rule too.
+  (safety > age band > context > core), and never targets a safety
+  rule; overrides that form a cycle are reported, not resolved.
 
 Exit status is 1 on any problem and 0 when every rule passes.
 """
@@ -35,12 +37,15 @@ import validate
 
 SCOPE_RANK = {"safety": 5, "age": 3, "context": 2, "core": 1}
 FLOOR_GRADES = {
-    "do": {"A", "B"},
+    "do": {"A", "B", "D"},
     "avoid": set(),
     "must": {"A", "B", "D"},
     "must_not": {"A", "B", "D"},
 }
 CONTESTS_ALLOWED = {"avoid", "must_not"}
+# A contested finding can forbid a behaviour, never require one
+# (SPEC.md section 3: contested backs "only avoid and must_not rules").
+CONTESTED_FLOOR_TYPES = {"must_not"}
 
 
 def scope_rank(scope: Any) -> int:
@@ -124,8 +129,6 @@ def citation_errors(
         return ["{}: {} must cite at least one finding".format(rule_id, rule_type)]
 
     allowed_grades = set(FLOOR_GRADES.get(str(rule_type), set()))
-    if rule_type == "do" and str(scope).startswith("safety/"):
-        allowed_grades.add("D")
 
     live: List[Dict[str, Any]] = []
     for finding_id in cites:
@@ -164,20 +167,27 @@ def citation_errors(
             )
         return errors
 
+    accepted = {"active"}
+    if rule_type in CONTESTED_FLOOR_TYPES:
+        accepted.add("contested")
     matching = [
         finding
         for finding in live
-        if finding.get("status") == "active"
+        if finding.get("status") in accepted
         and finding.get("grade") in allowed_grades
     ]
     if not matching:
-        grades = sorted(str(finding.get("grade")) for finding in live)
+        cited = sorted(
+            "{}/{}".format(finding.get("grade"), finding.get("status"))
+            for finding in live
+        )
         errors.append(
-            "{}: evidence floor: {} needs an active {} finding; cited grades are {}".format(
+            "{}: evidence floor: {} needs {} {} finding; cited are {}".format(
                 rule_id,
                 rule_type,
+                "an active or contested" if "contested" in accepted else "an active",
                 " or ".join(sorted(allowed_grades)) or "(none)",
-                ", ".join(grades) if grades else "none",
+                ", ".join(cited) if cited else "none",
             )
         )
     return errors
@@ -217,9 +227,11 @@ def override_errors(
             continue
         target_scope = target.get("scope")
         target_rank = scope_rank(target_scope)
-        if str(target_scope).split("/")[0] == "safety" and str(scope).split("/")[0] != "safety":
+        if str(target_scope).split("/")[0] == "safety":
             errors.append(
-                "{}: may not override safety rule {}".format(rule_id, target_id)
+                "{}: may not override safety rule {}; nothing overrides safety".format(
+                    rule_id, target_id
+                )
             )
             continue
         if source_rank < target_rank:
@@ -229,6 +241,39 @@ def override_errors(
                 )
             )
     return errors
+
+
+def override_cycles(
+    rule_index: Dict[str, Dict[str, Any]],
+    wanted: Optional[set] = None,
+) -> List[List[str]]:
+    """Every group of rules that override each other in a loop."""
+    graph: Dict[str, List[str]] = {}
+    for rule_id, entry in rule_index.items():
+        if wanted is not None and str(entry["path"].resolve()) not in wanted:
+            continue
+        targets = entry["rule"].get("overrides")
+        graph[rule_id] = (
+            [str(target) for target in targets if str(target) in rule_index]
+            if isinstance(targets, list)
+            else []
+        )
+    cycles: List[List[str]] = []
+    seen = set()
+    for start in sorted(graph):
+        stack = [(start, [start])]
+        while stack:
+            node, path = stack.pop()
+            for target in graph.get(node, []):
+                if target in path:
+                    cycle = path[path.index(target):]
+                    key = tuple(sorted(cycle))
+                    if key not in seen:
+                        seen.add(key)
+                        cycles.append(cycle)
+                else:
+                    stack.append((target, path + [target]))
+    return cycles
 
 
 def check_documents(
@@ -250,6 +295,13 @@ def check_documents(
         if check_paths is not None
         else None
     )
+    for cycle in override_cycles(rule_index, wanted):
+        loop = cycle + [cycle[0]]
+        problems.append(
+            "rules {} form an override cycle: {}".format(
+                " and ".join(cycle), " -> ".join(loop)
+            )
+        )
     for path, data in documents:
         if wanted is not None and str(path.resolve()) not in wanted:
             continue
