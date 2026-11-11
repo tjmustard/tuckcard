@@ -104,5 +104,14 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 
 **Why.** The 3.9 floor removes an avoidable dependency on a runtime the target platform has not been measured to have. The two older pins keep the same APIs and the same tests; the cost is being two versions behind current, which a later milestone can revisit if a needed feature appears.
 
+### D-012: Record the in-place correction to D-003's release description
+
+**What changed.** In the M0 review fix at 0031e73, D-003's Why paragraph was edited in place. The sentence "its GitHub releases carry no uploaded assets" became "the 2.1.5 release page carries no Assets entries; its binaries are attached as file links in the release notes". No other part of D-003 changed.
+
+**Decision.** The corrected paragraph stands. This entry records the edit so the register's history stays explicit, following D-006. The M0 review checked the release API and page, found the original sentence inaccurate, and the lead directed the correction.
+
+**Why.** The API's assets array is empty, but the release notes link two uploaded binaries. A register that is append-only should record a change to one of its own entries, as D-006 does for the preamble, even when the change only corrects a description.
+
+
 
 
