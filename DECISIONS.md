@@ -26,7 +26,7 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 
 **Decision.** The seven Google Fonts families are pinned to Google Fonts commit `5bb28733cec313b63fbd415b574b5ae35c8aa8b8`, downloaded from `https://raw.githubusercontent.com/google/fonts/5bb28733cec313b63fbd415b574b5ae35c8aa8b8/ofl/<family>/`. Liberation Serif and Liberation Sans come from liberation-fonts 2.1.5, from the binary tarball linked in that release's notes: `https://github.com/liberationfonts/liberation-fonts/files/7261482/liberation-fonts-ttf-2.1.5.tar.gz`. Variable font files ship where the family publishes one: Source Serif 4, Shantell Sans, Fraunces, Literata and Caveat. Static files ship for Archivo Black, Atkinson Hyperlegible (Regular, Bold, Italic, BoldItalic) and Liberation (Regular, Bold, Italic, BoldItalic).
 
-**Why.** A pinned commit makes the downloaded bytes reproducible and auditable. The liberation-fonts repository tree holds only `.sfd` sources, and its GitHub releases carry no uploaded assets, so the project's published binary tarball is the original project's own build. Shipping the files each family actually publishes avoids generating missing styles ourselves.
+**Why.** A pinned commit makes the downloaded bytes reproducible and auditable. The liberation-fonts repository tree holds only `.sfd` sources, and the 2.1.5 release page carries no Assets entries; its binaries are attached as file links in the release notes. The ttf tarball linked there is the original project's own build. Shipping the files each family actually publishes avoids generating missing styles ourselves.
 
 ### D-004: `weekly-recheck.yml` reports that it has nothing to check until M5
 

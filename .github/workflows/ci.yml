@@ -43,7 +43,7 @@ jobs:
           set -euo pipefail
           decks=$(git ls-files | grep -E '(^|/)deck\.yaml$' | grep -v '^plugins/tuckcard/skills/cards-core/examples/' || true)
           bundles=$(git ls-files '*.tuckcard.zip' || true)
-          renders=$(git ls-files 'renders/*' 'out/*' || true)
+          renders=$(git ls-files | grep -E '(^|/)(renders|out)/' || true)
           for hit in $decks $bundles $renders; do
             echo "committed private output: $hit"
           done

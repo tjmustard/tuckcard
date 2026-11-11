@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.
 
 ### Added
 
-- The hand-written seed kit at the repo root, copied without content changes: `SPEC.md`, `BOOTSTRAP.md`, `CLAUDE.md`, the seed `README.md`, `.gitignore`, the `local/` overlay folders, the seven skill drafts with `ROUNDS.md`, `RESEARCH-GUIDE.md`, the knowledge templates and rule stubs, `reference/layouts/` (14 files) and `tools/probe-plugin/` (6 files). The seed-kit commit holds 66 files.
+- The hand-written seed kit at the repo root, copied without content changes: `SPEC.md`, `BOOTSTRAP.md`, `CLAUDE.md`, the seed `README.md`, `.gitignore`, the `local/` overlay folders, the seven skill drafts with `ROUNDS.md`, `RESEARCH-GUIDE.md`, the knowledge templates and rule stubs, `reference/layouts/` (14 files) and `tools/probe-plugin/` (6 files). The seed-kit commit adds 66 files.
 - Marketplace and plugin manifests. `.claude-plugin/marketplace.json` declares marketplace `tuckcard` with one plugin sourced from `./plugins/tuckcard`. `plugins/tuckcard/.claude-plugin/plugin.json` declares `tuckcard` 0.1.0, MIT, author TJ Mustard. `claude plugin validate` reported Validation passed at exit 0 for both. In an isolated config, the marketplace added from the local repo and `claude plugin install tuckcard@tuckcard` succeeded.
 - Nine SIL OFL 1.1 font families under `plugins/tuckcard/skills/cards-core/fonts/`: 31 files, of which 22 are font files and 9 are `OFL.txt`. Every license file names the SIL Open Font License 1.1.
 
@@ -32,3 +32,8 @@ The format is based on [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.
 ### Changed
 
 - `LICENSE` copyright line restored to the seed kit's "Copyright (c) 2026 TJ Mustard", pending the person's word on which name is canonical. The manifests use the same name. `DECISIONS.md` D-005 records it and supersedes D-002.
+
+### Fixed
+
+- `.github/workflows/ci.yml` now matches `renders/` and `out/` at any depth, not only at the repo root, so a force-committed `local/renders/page1.png` or `local/out/x.pdf` fails. Proved by force-adding both files: the step printed both paths and exited 1; after `git rm --cached` it exited 0.
+- `CHANGELOG.md` now says the seed-kit commit adds 66 files, the measured count; the tree holds 67 because `LICENSE` predates that commit. `DECISIONS.md` D-003 now describes the liberation-fonts 2.1.5 release accurately: no Assets entries, with binaries attached as file links in the release notes. The decision, URL and files are unchanged. The M0 review raised both wording nits.
