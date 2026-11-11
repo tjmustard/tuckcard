@@ -1,0 +1,48 @@
+/* Shared card page. Every colour, font, radius and mark weight comes from a
+   CSS variable set by the theme and preset in card.js. */
+@import "fonts.css";
+
+html, body { margin: 0; padding: 0; background: #888888; }
+body { display: flex; align-items: flex-start; justify-content: center; }
+
+.card {
+  position: relative;
+  width: 480px;
+  height: 480px;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: var(--bg);
+  color: var(--ink);
+  border-radius: var(--corner-radius, 0);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+  /* The plan measures whole pixels with kerning and ligatures off, matching
+     Pillow's basic layout. Rendered text must use the same advances or the
+     runs drift from their planned positions. See DECISIONS.md D-027. */
+  font-kerning: none;
+  font-feature-settings: "kern" 0, "liga" 0;
+}
+
+.marks { position: absolute; inset: 0; pointer-events: none; }
+.mark { position: absolute; left: 0; top: 0; overflow: visible; }
+
+.row, .title-run, .title-highlight, .header, .header-number, .try-this, .number, .watermark, .badge, .note-number {
+  position: absolute;
+  margin: 0;
+  white-space: pre;
+}
+
+.badge, .note-number {
+  border-radius: 50%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.note-number { border-radius: 4px; }
+
+.watermark { display: block; font-family: "Archivo Black"; }
+.margin-rule { position: absolute; top: 0; bottom: 0; }
+.band { position: absolute; }
+.notes-rule { position: absolute; }
+
+.measurer { position: absolute; left: -9999px; top: 0; visibility: hidden; }

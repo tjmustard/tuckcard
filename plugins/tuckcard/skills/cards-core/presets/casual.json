@@ -1,0 +1,18 @@
+{
+  "name": "casual",
+  "fonts": {
+    "stacked": { "title": "Archivo Black", "lines": "Source Serif 4", "notes": "Shantell Sans" },
+    "notebook": { "title": "Fraunces", "lines": "Literata", "notes": "Caveat" },
+    "index": { "title": "Atkinson Hyperlegible", "lines": "Atkinson Hyperlegible", "notes": "Atkinson Hyperlegible" }
+  },
+  "mark_wobble": 1,
+  "corner_radius": 6,
+  "mark_styles": {},
+  "tokens": {
+    "mark_stroke": 2.4,
+    "spacing": 1,
+    "title_weight": 400,
+    "lines_weight": 400,
+    "notes_weight": 400
+  }
+}

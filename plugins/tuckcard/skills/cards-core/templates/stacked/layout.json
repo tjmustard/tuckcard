@@ -1,0 +1,61 @@
+{
+  "card_in": 5,
+  "regions": {
+    "header": {
+      "x_in": 0.3125,
+      "y_in": 0.2917,
+      "width_in": 4.375,
+      "height_in": 0.5
+    },
+    "title": {
+      "x_in": 0.3125,
+      "y_in": 0.88,
+      "width_in": 3.3,
+      "height_in": 0.95
+    },
+    "body": {
+      "x_in": 0.3125,
+      "y_in": 1.62,
+      "width_in": 4.375,
+      "height_in": 3.12
+    }
+  },
+  "font_sizes": {
+    "title": 33,
+    "lines": 19.5,
+    "notes": 13.5
+  },
+  "shrink_steps": {
+    "title": [
+      30,
+      27
+    ],
+    "lines": [
+      18,
+      16.5,
+      15
+    ],
+    "notes": [
+      12.5,
+      11.5
+    ]
+  },
+  "font_floors": {
+    "title": 27,
+    "lines": 15,
+    "notes": 11.5
+  },
+  "line_height": {
+    "title": 1.08,
+    "lines": 1.35,
+    "notes": 1.25
+  },
+  "gaps": {
+    "line": 8,
+    "note": 3
+  },
+  "note_indent_px": 18,
+  "note_prefix": "\u21b3 ",
+  "notes_inline": true,
+  "mark_style": "swash"
+}

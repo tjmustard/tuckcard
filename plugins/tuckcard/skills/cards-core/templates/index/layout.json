@@ -1,0 +1,74 @@
+{
+  "card_in": 5,
+  "regions": {
+    "band": {
+      "x_in": 0,
+      "y_in": 0,
+      "width_in": 5,
+      "height_in": 1.35
+    },
+    "header": {
+      "x_in": 0.2917,
+      "y_in": 0.208,
+      "width_in": 4.42,
+      "height_in": 0.35
+    },
+    "title": {
+      "x_in": 0.2917,
+      "y_in": 0.58,
+      "width_in": 4.42,
+      "height_in": 0.7
+    },
+    "body": {
+      "x_in": 0.2917,
+      "y_in": 1.6,
+      "width_in": 4.42,
+      "height_in": 1.85
+    },
+    "notes": {
+      "x_in": 0.2917,
+      "y_in": 3.55,
+      "width_in": 4.42,
+      "height_in": 1.15
+    }
+  },
+  "font_sizes": {
+    "title": 34,
+    "lines": 20,
+    "notes": 12.5
+  },
+  "shrink_steps": {
+    "title": [
+      30,
+      27
+    ],
+    "lines": [
+      18,
+      16,
+      15
+    ],
+    "notes": [
+      11.5,
+      11
+    ]
+  },
+  "font_floors": {
+    "title": 27,
+    "lines": 15,
+    "notes": 11
+  },
+  "line_height": {
+    "title": 1.1,
+    "lines": 1.65,
+    "notes": 1.3
+  },
+  "gaps": {
+    "line": 0,
+    "note": 4
+  },
+  "note_indent_px": 0,
+  "note_prefix": "",
+  "notes_inline": false,
+  "numbered_notes": false,
+  "mark_style": "underline"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "dark",
+  "background": "#24211e",
+  "ink": "#f4efe7",
+  "muted": "#a9a39a",
+  "category_palette": {
+    "orange": "#f2a54a",
+    "teal": "#5eead4",
+    "blue": "#93c5fd",
+    "green": "#86efac",
+    "purple": "#c4b5fd",
+    "red": "#fca5a5",
+    "pink": "#f9a8d4",
+    "amber": "#fcd34d"
+  },
+  "mark_colors": {
+    "swash": "$category",
+    "highlight": "$tint",
+    "underline": "$category",
+    "badge": "$category"
+  },
+  "tint": "#5a3e1f",
+  "rule": "#3a3530",
+  "on_accent": "#241d16"
+}

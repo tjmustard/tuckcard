@@ -1,0 +1,18 @@
+{
+  "name": "professional",
+  "fonts": {
+    "stacked": { "title": "Liberation Sans", "lines": "Liberation Serif", "notes": "Liberation Sans" },
+    "notebook": { "title": "Liberation Serif", "lines": "Liberation Serif", "notes": "Liberation Sans" },
+    "index": { "title": "Liberation Sans", "lines": "Liberation Serif", "notes": "Liberation Sans" }
+  },
+  "mark_wobble": 0,
+  "corner_radius": 0,
+  "mark_styles": { "swash": "underline" },
+  "tokens": {
+    "mark_stroke": 2.2,
+    "spacing": 1,
+    "title_weight": 700,
+    "lines_weight": 400,
+    "notes_weight": 400
+  }
+}

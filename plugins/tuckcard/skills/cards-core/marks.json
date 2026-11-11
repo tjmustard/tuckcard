@@ -1,0 +1,41 @@
+{
+  "styles": {
+    "swash": {
+      "shape": "cubic",
+      "params": {
+        "points": 6,
+        "amplitude_px": 1.2,
+        "stroke_width": 2.4,
+        "offset_px": 4,
+        "height_px": 4
+      }
+    },
+    "highlight": {
+      "shape": "highlight",
+      "params": {
+        "top": 0.52,
+        "bottom": 0.92,
+        "inset_px": 2,
+        "amplitude_px": 1.4,
+        "points": 6
+      }
+    },
+    "underline": {
+      "shape": "line",
+      "params": {
+        "stroke_width": 2.2,
+        "offset_px": 4,
+        "amplitude_px": 0
+      }
+    }
+  },
+  "badge": {
+    "shape": "badge",
+    "params": {
+      "diameter_px": 15,
+      "font_size": 10,
+      "gap_px": 2,
+      "lift_px": 5
+    }
+  }
+}

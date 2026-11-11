@@ -1,0 +1,25 @@
+{
+  "name": "mono",
+  "background": "#ffffff",
+  "ink": "#111111",
+  "muted": "#555555",
+  "category_palette": {
+    "orange": "#111111",
+    "teal": "#111111",
+    "blue": "#111111",
+    "green": "#111111",
+    "purple": "#111111",
+    "red": "#111111",
+    "pink": "#111111",
+    "amber": "#111111"
+  },
+  "mark_colors": {
+    "swash": "#111111",
+    "highlight": "#d9d9d9",
+    "underline": "#111111",
+    "badge": "#111111"
+  },
+  "tint": "#d9d9d9",
+  "rule": "#bbbbbb",
+  "on_accent": "#ffffff"
+}

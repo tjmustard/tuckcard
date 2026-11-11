@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tuckcard: notebook</title>
+<link rel="stylesheet" href="card.css">
+</head>
+<body>
+<main id="card" aria-label="Tuckcard"></main>
+<script src="../shared/card.js"></script>
+<script>
+/* The card is built from a plan computed by this page's card.js. Call
+   render(card, style, format) and read window.__report. The style object
+   carries the layout, preset, theme and marks JSON plus an ascent table. */
+window.__ready = false;
+window.render = async function (card, style, format) {
+  await window.Tuckcard.loadFonts();
+  window.Tuckcard.render(card, style, format);
+  window.__ready = true;
+  return window.__report;
+};
+</script>
+</body>
+</html>
