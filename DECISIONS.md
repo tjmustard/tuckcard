@@ -179,12 +179,23 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 **Decision.**
 
 - `effective-rules.yaml` carries `deck_id`, `age_band`, `plugin_version`, `scopes` and `rules`. Each rule keeps its source fields, gains `categories` when it is a context rule, and carries a `provenance` block with `scope`, `file` and `plugin_version`. There is no timestamp, so the same deck and plugin version give identical bytes.
-- Override legality ranks safety above age band above context above core. A rule may override a rule in the same scope or a lower one; it may not override a higher one, and only a safety rule may override a safety rule. A shipped rule may not override an overlay rule.
-- Evidence floor: a `do` rule accepts an active A or B finding, and D only when the rule's own scope is `safety/`. `must` and `must_not` accept active A, B or D anywhere. `contested` backs only `avoid` and `must_not`.
+- Override legality ranks safety above age band above context above core. A rule may override a rule in the same scope or a lower one; it may not override a higher one, and no rule may override a safety rule, not even another safety rule. A shipped rule may not override an overlay rule. An override loop is reported with the rule ids that form it and stops the run; no rule is dropped silently.
+- Evidence floor: a `do` rule accepts an active A, B or D finding in any scope, because D is guidance from a public-health or professional body whatever the rule's file. `must` accepts active A, B or D. `must_not` accepts active or contested A, B or D (see D-021). `contested` backs only `avoid` and `must_not`.
 - `validate_rules.py` skips `_TEMPLATE.yaml` files because they are scaffolds, not shipped rules. Every other rule file is checked regardless of its `status`.
-- Promotion copies overlay files into the shipped tree and leaves the overlay copies in place, because SPEC.md invariant 3 says nothing is deleted automatically. It refuses to ship a finding that is not `active` or `contested`, because invariant 1 says every shipped finding is one of those. The maintainer removes the overlay copies after review.
+- Promotion copies overlay files into the shipped tree and leaves the overlay copies in place, because SPEC.md invariant 3 says nothing is deleted automatically. It refuses to ship a finding that is not `active` or `contested`, because invariant 1 says every shipped finding is one of those. It refuses an incoming finding whose DOI is already held in `findings/` or `quarantine/`, naming the id that holds it, which stops a second run over the same overlay from duplicating the record. The maintainer removes the overlay copies after review.
+- A passing script check writes the status that check now supports: a provisional finding whose record meets the active condition becomes `active`. A record that falls short stays provisional and the run prints what is missing. `contested` is never changed by a script.
 
 **Why.** These are the smallest choices that satisfy the SPEC's stated outcomes. Recording them keeps a later milestone from treating an unnamed output shape as an accident.
+
+### D-021: A contested finding backs a `must_not` rule but not a `must` rule
+
+**Contradiction.** SPEC.md section 3's status table says of `contested`: "Only `avoid` and `must_not` rules". SPEC.md section 4's evidence floor says `must` and `must_not` need an "Active finding graded A, B or D". Read together, a contested finding may back a `must_not` rule by the table and may not by the floor.
+
+**Decision.** The status table wins, because it is the more specific statement about contested findings. A `must_not` rule may cite an active or contested finding graded A, B or D. A `must` rule still needs an active finding: contested evidence can forbid a behaviour but cannot require one. `avoid` accepts any active or contested finding, as the floor already says, and `do` keeps its active A or B, plus D for guidance. `validate_rules.py` encodes both readings of the floor and the table.
+
+**Why.** A `must_not` says "do not do this", which is what weak or mixed evidence can still support; dropping contested from `must_not` would forbid using findings the research skill is told to ship. A `must` says "always do this", and a contested finding is by definition one the evidence does not settle.
+
+**Carried forward.** This resolves a SPEC contradiction by reading, not by editing the SPEC. It goes to the person at the M3 gate, alongside the D-019 question, so the wording can be settled in the spec itself or the reading confirmed.
 
 
 
