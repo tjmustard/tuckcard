@@ -176,6 +176,74 @@ def test_help_resources_must_match_a_verified_finding():
     assert {item["level"] for item in found} == {"error"}
 
 
+def test_a_partial_number_does_not_match_a_resource():
+    resources = lint.verified_help([{
+        "id": "L-9001", "status": "active", "grade": "D",
+        "claim": "A helpline answers calls.",
+        "source": {"url": "https://example.org/helpline"},
+        "verification": {"exists": "fetch", "anchor": "Call 1-800-273-8255."},
+    }])
+    found = lint.check_help(
+        [card(1, lines=("Call 273-8255 and keep going.",))], resources, None)
+    assert [item["message"] for item in found] == [
+        "phone number 2738255 does not match a verified help resource exactly"]
+
+
+def test_a_leading_country_code_may_be_omitted():
+    resources = lint.verified_help([{
+        "id": "L-9001", "status": "active", "grade": "D",
+        "claim": "A helpline answers calls.",
+        "source": {"url": "https://example.org/helpline"},
+        "verification": {"exists": "fetch", "anchor": "Call 1-800-273-8255."},
+    }])
+    with_code = [card(1, lines=("Call 1-800-273-8255.",))]
+    without_code = [card(1, lines=("Call 800-273-8255.",))]
+    assert lint.check_help(with_code, resources, None) == []
+    assert lint.check_help(without_code, resources, None) == []
+
+
+def test_a_leading_one_does_not_bridge_different_numbers():
+    resources = lint.verified_help([{
+        "id": "L-9001", "status": "active", "grade": "D",
+        "claim": "A helpline answers calls.",
+        "source": {"url": "https://example.org/helpline"},
+        "verification": {"exists": "fetch", "anchor": "Call 988-273-8255."},
+    }])
+    found = lint.check_help(
+        [card(1, lines=("Call 1-800-273-8255.",))], resources, None)
+    assert [item["message"] for item in found] == [
+        "phone number 18002738255 does not match a verified help resource exactly"]
+
+
+def test_short_codes_are_read_as_phone_numbers():
+    found = lint.check_help(
+        [card(1, lines=("Call 988 or 911, or dial 988 911.",))], [], None)
+    values = {item["message"].split()[2] for item in found}
+    assert values == {"988", "911"}
+    resources = lint.verified_help([{
+        "id": "L-9001", "status": "active", "grade": "D",
+        "claim": "Call 988 or 911 at any hour.",
+        "source": {"url": "https://example.org/helpline"},
+        "verification": {"exists": "fetch", "anchor": "Call 988 or 911."},
+    }])
+    assert lint.check_help(
+        [card(1, lines=("Call 988 or 911.",))], resources, None) == []
+
+
+def test_a_formatted_seven_digit_number_is_seen():
+    found = lint.check_help([card(1, lines=("Call 555-0100.",))], [], None)
+    assert [item["message"] for item in found] == [
+        "phone number 5550100 does not match a verified help resource exactly"]
+
+
+def test_a_year_a_score_and_a_url_digit_are_not_phone_numbers():
+    cards = [card(1, lines=("In 2026, 98 out of 100; the score was 3-2; "
+                            "see https://example.org/2026.",))]
+    found = lint.check_help(cards, [], None)
+    assert len(found) == 1
+    assert found[0]["message"].startswith("URL ")
+
+
 def test_an_unverified_finding_does_not_authorise_a_url():
     resources = lint.verified_help([{
         "id": "F-0001", "status": "provisional", "grade": "D",

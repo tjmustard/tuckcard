@@ -14,7 +14,9 @@ can decide without a judgment call:
 - format limits and reading targets from the deck's age-band file
 - fit against the deck's layout, when Pillow is installed
 - help resources: every URL or phone number on a card must match a verified
-  grade-D finding exactly
+  grade-D finding exactly; a number matches when its digits equal one printed
+  in the finding's claim or anchor, with a single leading 1 read as the US
+  country code, and 911 and 988 are always read as phone numbers
 - visibility: a card naming a confirmed personal detail should be private
 - repetition: duplicate titles and lines, and lines reused from the examples
 - hand edits: cards whose content matches neither approval hash
@@ -37,7 +39,15 @@ import knowledge_files as files
 import validate
 
 URL_RE = re.compile(r"https?://[^\s<>\"']+")
-PHONE_RE = re.compile(r"\+?\d[\d().\- ]{6,}\d")
+# A number as printed, separators included. The span starts at a digit that is
+# not glued to a word, so an identifier or a URL path is not a phone reference.
+NUMBER_SPAN_RE = re.compile(r"(?<![\w])\+?\d[\d().\- ]*")
+# Bare short codes are phone references wherever they stand. D-035 names the
+# list; do not widen it to every three-digit number, which would make a year or
+# a score a phone number.
+SHORT_CODES = {"911", "988"}
+SHORT_CODE_RE = re.compile(r"(?<![\w])(?:911|988)(?![\w])")
+NUMBER_SEPARATOR_RE = re.compile(r"[\s.\-()]")
 WORD_RE = re.compile(r"[A-Za-z']+")
 SENTENCE_SPLIT_RE = re.compile(r"[.!?]+")
 TEMPLATE_NAMES = {"_TEMPLATE.yaml", "_TEMPLATE.md"}
@@ -313,9 +323,64 @@ def check_reading(cards: Sequence[Dict[str, Any]], defaults: Dict[str, Any],
 # ---------------------------------------------------------------- help
 
 
-def verified_help(findings: Iterable[Dict[str, Any]]) -> List[Dict[str, str]]:
+def is_phone_token(token: str, digits: str) -> bool:
+    """True when a printed number is a phone reference.
+
+    A short code is one. A number of eight digits or more is one, which keeps
+    the ten- and eleven-digit behaviour. A seven-digit number is one only when
+    it carries a separator, so 555-0100 counts while 2026 and a 3-2 score do
+    not. D-035.
+    """
+    if digits in SHORT_CODES:
+        return True
+    if len(digits) >= 8:
+        return True
+    return len(digits) == 7 and bool(NUMBER_SEPARATOR_RE.search(token))
+
+
+def phone_tokens(text: str) -> List[str]:
+    """The digit strings of the phone references in text.
+
+    Each printed number is trimmed of trailing separators before its digits are
+    counted. A span that holds two short codes separated only by spaces, such
+    as "988 911", is split when the span as a whole is not a phone number.
+    """
+    found: List[str] = []
+    for match in NUMBER_SPAN_RE.finditer(text):
+        token = match.group(0).rstrip(" ().-")
+        digits = re.sub(r"\D", "", token)
+        if is_phone_token(token, digits):
+            found.append(digits)
+        else:
+            found.extend(SHORT_CODE_RE.findall(token))
+    return found
+
+
+def digit_forms(digits: str) -> set:
+    """The forms one printed number may take.
+
+    A single leading 1 is the US country code, so 800-273-8255 and
+    1-800-273-8255 are the same number. Nothing else is stripped, so a partial
+    number never equals a complete one. D-035.
+    """
+    forms = {digits} if digits else set()
+    if len(digits) == 11 and digits.startswith("1"):
+        forms.add(digits[1:])
+    return forms
+
+
+def resource_numbers(text: str) -> set:
+    """Every number printed in a resource's claim or anchor, in all its forms."""
+    numbers: set = set()
+    for match in NUMBER_SPAN_RE.finditer(text):
+        digits = re.sub(r"\D", "", match.group(0).rstrip(" ().-"))
+        numbers |= digit_forms(digits)
+    return numbers
+
+
+def verified_help(findings: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Active grade-D findings with a URL check, the resources a card may name."""
-    resources: List[Dict[str, str]] = []
+    resources: List[Dict[str, Any]] = []
     for data in findings:
         source = data.get("source") if isinstance(data.get("source"), dict) else {}
         verification = data.get("verification") if isinstance(data.get("verification"), dict) else {}
@@ -324,11 +389,12 @@ def verified_help(findings: Iterable[Dict[str, Any]]) -> List[Dict[str, str]]:
             continue
         if verification.get("exists") not in ("fetch", "script"):
             continue
+        spoken = " ".join([clean_text(data.get("claim")),
+                           clean_text(verification.get("anchor"))])
         resources.append({
             "id": str(data.get("id") or ""),
             "url": url,
-            "digits": re.sub(r"\D", "", " ".join(
-                [clean_text(data.get("claim")), clean_text(verification.get("anchor"))])),
+            "numbers": resource_numbers(spoken),
         })
     return resources
 
@@ -356,22 +422,25 @@ def card_help_refs(card: Dict[str, Any]) -> List[Tuple[str, str]]:
     text = joined_text(card)
     for match in URL_RE.finditer(text):
         refs.append(("url", match.group(0).rstrip(".,;:)")))
-    for match in PHONE_RE.finditer(text):
-        refs.append(("phone", re.sub(r"\D", "", match.group(0))))
+    for digits in phone_tokens(URL_RE.sub(" ", text)):
+        refs.append(("phone", digits))
     return refs
 
 
 def check_help(cards: Sequence[Dict[str, Any]],
-               resources: Sequence[Dict[str, str]],
+               resources: Sequence[Dict[str, Any]],
                selected: Optional[set]) -> List[Dict[str, Any]]:
     findings: List[Dict[str, Any]] = []
     urls = {resource["url"] for resource in resources}
+    numbers: set = set()
+    for resource in resources:
+        numbers |= set(resource.get("numbers") or ())
     for card in cards:
         if selected is not None and card.get("n") not in selected:
             continue
         for kind, value in card_help_refs(card):
-            matched = value in urls if kind == "url" else any(
-                value and value in resource["digits"] for resource in resources)
+            matched = value in urls if kind == "url" else bool(
+                digit_forms(value) & numbers)
             if matched:
                 continue
             findings.append(finding(
