@@ -215,6 +215,45 @@ def test_a_leading_one_does_not_bridge_different_numbers():
         "phone number 18002738255 does not match a verified help resource exactly"]
 
 
+def test_a_phone_field_is_the_exact_source_when_present():
+    resources = lint.verified_help([{
+        "id": "L-9001", "status": "active", "grade": "D",
+        "claim": "A helpline answers calls.",
+        "source": {"url": "https://example.org/helpline", "phone": "+1 800-273-8255"},
+        "verification": {"exists": "fetch", "anchor": "Call 1-800-273-8255."},
+    }])
+    with_code = [card(1, lines=("Call 1-800-273-8255.",))]
+    without_code = [card(1, lines=("Call 800-273-8255.",))]
+    assert lint.check_help(with_code, resources, None) == []
+    assert lint.check_help(without_code, resources, None) == []
+
+
+def test_a_present_phone_field_overrides_the_prose_reading():
+    resources = lint.verified_help([{
+        "id": "L-9001", "status": "active", "grade": "D",
+        "claim": "Call 1-800-555-0100 for the line.",
+        "source": {"url": "https://example.org/helpline", "phone": "1-800-273-8255"},
+        "verification": {"exists": "fetch", "anchor": "Call 1-800-555-0100."},
+    }])
+    found = lint.check_help(
+        [card(1, lines=("Call 1-800-555-0100.",))], resources, None)
+    assert [item["message"] for item in found] == [
+        "phone number 18005550100 does not match a verified help resource exactly"]
+
+
+def test_an_absent_or_null_phone_field_falls_back_to_the_prose():
+    for source in ({"url": "https://example.org/helpline"},
+                   {"url": "https://example.org/helpline", "phone": None}):
+        resources = lint.verified_help([{
+            "id": "L-9001", "status": "active", "grade": "D",
+            "claim": "A helpline answers calls.",
+            "source": source,
+            "verification": {"exists": "fetch", "anchor": "Call 1-800-555-0100."},
+        }])
+        assert lint.check_help(
+            [card(1, lines=("Call 800-555-0100.",))], resources, None) == []
+
+
 def test_short_codes_are_read_as_phone_numbers():
     found = lint.check_help(
         [card(1, lines=("Call 988 or 911, or dial 988 911.",))], [], None)

@@ -348,8 +348,12 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 
 **Why it needs the maintainer.** Reading digits out of prose is weaker than comparing a dedicated field: a number typed in a claim could match text that is not the number the resource publishes. A `phone` field on the finding (or on `source`) would make the check exact in a later schema version. Until then, M4 ships the documented reading and no schema change. D-036 records the person's answer.
 
+**Landed in M5.** `finding.schema.json` carries the optional `phone` string on `source`, and `lint.py` prefers it, falling back to the claim and anchor digits only when it is absent. The exact-match sentence in SPEC.md section 5 is now true wherever the field is set; the prose reading above still applies to findings without one.
+
 ### D-036: A finding may carry a phone field, which lands with M5
 
 **Decision.** The person chose Option A for the gap D-035 records: an optional `phone` string on the finding's `source`, with `lint.py` preferring it and falling back to the claim/anchor digit reading only when it is absent. `finding.schema.json` has no version field, so the compatibility boundary is the plugin version. The schema edit and the lint preference belong with M5's findings work, not M4. M4 ships the digits reading unchanged, and no schema or lint code changes here.
 
 **Why.** The exact-match sentence in SPEC.md section 5 is overstated where a phone exists only in prose: until the field exists, such a number is compared as text, so the sentence promises more than the check can do. D-035 stays as the gap entry; this entry answers it.
+
+**Landed in M5.** The optional `phone` string is in `finding.schema.json`, `knowledge/findings/_TEMPLATE.md` shows it, and `lint.py` reads it first and falls back to the claim and anchor digits only when it is absent. A card number that appears in the prose but not in a present field fails, because the field is the exact source.

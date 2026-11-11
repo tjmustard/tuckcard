@@ -14,10 +14,10 @@ can decide without a judgment call:
 - format limits and reading targets from the deck's age-band file
 - fit against the deck's layout, when Pillow is installed
 - help resources: every URL or phone number on a card must match a verified
-  grade-D finding exactly; a number matches when its digits equal one printed
-  in the finding's claim or anchor, with a single leading 1 read as the US
-  country code, 911 and 988 are always read as phone numbers, and a date or a
-  year range is not
+  grade-D finding exactly; a number matches when its digits equal the finding's
+  `source.phone` when that field is set, and otherwise a number printed in its
+  claim or anchor, with a single leading 1 read as the US country code, 911 and
+  988 are always read as phone numbers, and a date or a year range is not
 - visibility: a card naming a confirmed personal detail should be private
 - repetition: duplicate titles and lines, and lines reused from the examples
 - hand edits: cards whose content matches neither approval hash
@@ -411,10 +411,16 @@ def verified_help(findings: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
             continue
         spoken = " ".join([clean_text(data.get("claim")),
                            clean_text(verification.get("anchor"))])
+        phone = clean_text(source.get("phone"))
+        # A present phone field is the exact source: the prose reading applies
+        # only when the field is absent, so a number typed into a claim cannot
+        # authorise a card on its own. D-036.
+        numbers = (digit_forms(re.sub(r"\D", "", phone)) if phone
+                   else resource_numbers(spoken))
         resources.append({
             "id": str(data.get("id") or ""),
             "url": url,
-            "numbers": resource_numbers(spoken),
+            "numbers": numbers,
         })
     return resources
 

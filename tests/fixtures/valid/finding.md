@@ -15,6 +15,7 @@ source:
   doi: null
   pmid: null
   url: null
+  phone: "+1-800-555-0100"
 verification:
   exists: none
   metadata_match: []
