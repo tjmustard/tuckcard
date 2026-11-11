@@ -12,7 +12,7 @@ VALID = ROOT / "tests/fixtures/valid"
 INVALID = ROOT / "tests/fixtures/invalid"
 
 CASES = {
-    "deck": ("deck.yaml", "deck.yaml", "/status", "is not one of"),
+    "deck": ("deck.fixture.yaml", "deck.fixture.yaml", "/status", "is not one of"),
     "card": ("card.yaml", "card.yaml", "/visibility", "is not one of"),
     "finding": ("finding.md", "finding.md", "/grade", "is not one of"),
     "rule_file": ("rule_file.yaml", "rule_file.yaml", "/rules/0", "'cites' is a required property"),

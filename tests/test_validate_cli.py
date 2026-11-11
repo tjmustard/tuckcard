@@ -23,7 +23,7 @@ def run(paths, extra=()):
 
 def deck_copy(tmp_path, snapshot=None):
     deck = tmp_path / "deck.yaml"
-    shutil.copy(VALID / "deck.yaml", deck)
+    shutil.copy(VALID / "deck.fixture.yaml", deck)
     if snapshot is None:
         shutil.copy(VALID / "effective-rules.yaml", tmp_path / "effective-rules.yaml")
     else:
@@ -67,7 +67,7 @@ def test_mark_occurrence_beyond_matches_is_rejected(tmp_path):
 
 def test_snapshot_missing_skips_the_basis_check(tmp_path):
     deck = tmp_path / "deck.yaml"
-    shutil.copy(VALID / "deck.yaml", deck)
+    shutil.copy(VALID / "deck.fixture.yaml", deck)
     result = run(deck)
     assert result.returncode == 0, result.stdout + result.stderr
     assert "basis check skipped" in result.stdout
@@ -75,7 +75,7 @@ def test_snapshot_missing_skips_the_basis_check(tmp_path):
 
 def test_schema_override_applies(tmp_path):
     deck = tmp_path / "deck.yaml"
-    shutil.copy(VALID / "deck.yaml", deck)
+    shutil.copy(VALID / "deck.fixture.yaml", deck)
     result = run(deck, ("--schema", "card"))
     assert result.returncode == 1, result.stdout + result.stderr
     assert "'n' is a required property" in result.stdout
