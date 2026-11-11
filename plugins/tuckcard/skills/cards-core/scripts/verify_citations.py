@@ -20,12 +20,31 @@ a quarantine_reason naming the check, the expected value and the value
 found. Nothing is deleted. Findings that pass keep their place and
 have their verification block updated.
 
+A check that cannot be completed now is not a finding about the source.
+HTTP 429, any 5xx, a timeout, a connection error or an unparseable
+response is retried with a short increasing backoff and then reported
+as `could not check`, leaving the finding file exactly where it is.
+The script then exits non-zero so the run is visibly incomplete, and
+nothing is quarantined or unlinked for a service that was busy.
+
+Only paths inside the knowledge directory are checked. A path given
+outside it is refused, because quarantining it would move a file into
+this tree and unlink the file named in another. A template name from
+knowledge_files.TEMPLATE_NAMES is skipped, never verified, so a folder
+sweep or an explicit path cannot quarantine `_TEMPLATE.md`.
+
+Set TUCK_CARD_MAILTO to a contact address to add `mailto` to Crossref
+requests and `email` to NCBI requests. Without it, Crossref gets no
+contact parameter and NCBI gets `tool=tuckcard` only. Never commit a
+personal address: take it from the environment.
+
 --responses PATH replays recorded HTTP responses from a JSON file (or
 from responses.json inside a directory) and never touches the network.
 That is how the tests and the default pytest run stay offline. With no
 --responses, the script uses the live network.
 
-Exit status is 1 when any finding was quarantined, 0 otherwise.
+Exit status is 1 when any finding was quarantined or any check could
+not be completed, 0 otherwise.
 """
 
 from __future__ import annotations
@@ -34,8 +53,10 @@ import argparse
 import copy
 import datetime
 import json
+import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -49,6 +70,8 @@ import validate
 CROSSREF_WORK = "https://api.crossref.org/works/"
 PUBMED_ESUMMARY = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi"
 USER_AGENT = "tuckcard-verify/0.1 (knowledge citation check)"
+MAILTO_ENV = "TUCK_CARD_MAILTO"
+RETRY_DELAYS = (1.0, 3.0)
 
 RETRACTION_SEVERITY = {
     "none": 0,
@@ -69,6 +92,15 @@ METADATA_FIELDS = ("title", "year", "first_author")
 
 class VerifyError(Exception):
     """A check could not be completed; the message goes in the reason."""
+
+
+class CouldNotCheck(VerifyError):
+    """The service did not answer, so the finding is not at fault.
+
+    Raised for a rate limit, a server error, a timeout, a connection
+    error or an unparseable response. It never quarantines a finding:
+    the check is retried, then reported and the run fails loudly.
+    """
 
 
 class Response(NamedTuple):
@@ -107,11 +139,12 @@ class LiveTransport:
             with urllib.request.urlopen(request, timeout=30) as handle:
                 return Response(int(handle.status), handle.read().decode("utf-8", "replace"))
         except urllib.error.HTTPError as error:
+            if transient_status(int(error.code)):
+                raise CouldNotCheck("HTTP {}".format(error.code))
             return Response(int(error.code), error.read().decode("utf-8", "replace"))
-        except urllib.error.URLError as error:
-            raise VerifyError("network error: {}".format(error.reason))
-        except OSError as error:
-            raise VerifyError("network error: {}".format(error))
+        except (urllib.error.URLError, OSError) as error:
+            reason = getattr(error, "reason", error)
+            raise CouldNotCheck("network error: {}".format(reason))
 
 
 def recorded_mapping(path: Path) -> Dict[str, Any]:
@@ -125,14 +158,59 @@ def recorded_mapping(path: Path) -> Dict[str, Any]:
 
 def crossref_url(doi: str) -> str:
     doi = re.sub(r"^https?://(dx\.)?doi\.org/", "", str(doi).strip())
-    return CROSSREF_WORK + urllib.parse.quote(doi, safe="")
+    url = CROSSREF_WORK + urllib.parse.quote(doi, safe="")
+    mailto = os.environ.get(MAILTO_ENV, "").strip()
+    if mailto:
+        url += "?mailto=" + urllib.parse.quote(mailto, safe="")
+    return url
 
 
 def pubmed_url(pmid: Any) -> str:
-    return "{}?db=pubmed&id={}&retmode=json".format(PUBMED_ESUMMARY, pmid)
+    params = {"db": "pubmed", "id": str(pmid), "retmode": "json", "tool": "tuckcard"}
+    email = os.environ.get(MAILTO_ENV, "").strip()
+    if email:
+        params["email"] = email
+    return PUBMED_ESUMMARY + "?" + urllib.parse.urlencode(params)
+
+
+def transient_status(status: int) -> bool:
+    """A status that says try later, not that the record is missing."""
+    return status == 429 or 500 <= status <= 599
+
+
+def _wait(seconds: float) -> None:
+    time.sleep(seconds)
+
+
+def fetch_response(
+    transport: Any, url: str, delays: Sequence[float] = RETRY_DELAYS
+) -> Response:
+    """Fetch once, retrying a rate limit, a server error or no answer."""
+    last: Optional[CouldNotCheck] = None
+    for attempt in range(len(delays) + 1):
+        try:
+            response = transport.get(url)
+            if transient_status(response.status):
+                raise CouldNotCheck("HTTP {}".format(response.status))
+            return response
+        except CouldNotCheck as error:
+            last = error
+            if attempt < len(delays):
+                _wait(delays[attempt])
+    raise CouldNotCheck("{} after {} attempts".format(last, len(delays) + 1))
+
+
+def fetch_json(
+    transport: Any, url: str, label: str, delays: Sequence[float] = RETRY_DELAYS
+) -> Any:
+    """Fetch a JSON body. A definitive status stays a VerifyError."""
+    response = fetch_response(transport, url, delays)
+    return json_body(response, label)
 
 
 def json_body(response: Response, label: str) -> Any:
+    if transient_status(response.status):
+        raise CouldNotCheck("HTTP {}".format(response.status))
     if response.status != 200:
         raise VerifyError("HTTP {}".format(response.status))
     body = response.body
@@ -141,7 +219,7 @@ def json_body(response: Response, label: str) -> Any:
     try:
         return json.loads(body)
     except (TypeError, ValueError):
-        raise VerifyError("{} returned a body that is not JSON".format(label))
+        raise CouldNotCheck("{} returned a body that is not JSON".format(label))
 
 
 def first(value: Any) -> Any:
@@ -335,23 +413,23 @@ def verify_finding(
 
     if doi:
         try:
-            response = transport.get(crossref_url(str(doi)))
             metadata, found_retraction, found_detail = crossref_metadata(
-                json_body(response, "Crossref")
+                fetch_json(transport, crossref_url(str(doi)), "Crossref")
             )
             resolved = True
             primary = ("Crossref", metadata)
             if RETRACTION_SEVERITY[found_retraction] > RETRACTION_SEVERITY[retraction]:
                 retraction = found_retraction
                 detail = found_detail
+        except CouldNotCheck:
+            raise
         except VerifyError as error:
             reasons.append("DOI {} did not resolve ({})".format(doi, error))
 
     if pmid:
         try:
-            response = transport.get(pubmed_url(pmid))
             metadata, found_retraction, found_detail = pubmed_metadata(
-                json_body(response, "PubMed"), pmid
+                fetch_json(transport, pubmed_url(pmid), "PubMed"), pmid
             )
             resolved = True
             if primary is None:
@@ -359,6 +437,8 @@ def verify_finding(
             if RETRACTION_SEVERITY[found_retraction] > RETRACTION_SEVERITY[retraction]:
                 retraction = found_retraction
                 detail = found_detail
+        except CouldNotCheck:
+            raise
         except VerifyError as error:
             reasons.append("PMID {} did not resolve ({})".format(pmid, error))
 
@@ -377,7 +457,7 @@ def verify_finding(
                 )
             else:
                 try:
-                    response = transport.get(str(url))
+                    response = fetch_response(transport, str(url))
                     if response.status != 200:
                         raise VerifyError("HTTP {}".format(response.status))
                     resolved = True
@@ -395,6 +475,8 @@ def verify_finding(
                                     expected_title, found
                                 )
                             )
+                except CouldNotCheck:
+                    raise
                 except VerifyError as error:
                     reasons.append("URL {} did not resolve ({})".format(url, error))
 
@@ -519,7 +601,11 @@ def check_path(
         data, body = files.read_frontmatter(path)
     except Exception as error:  # noqa: BLE001 - one line
         return False, ["{}: could not read finding: {}".format(path, error)]
-    result = verify_finding(data, transport, domains, allowlist_error, today)
+    try:
+        result = verify_finding(data, transport, domains, allowlist_error, today)
+    except CouldNotCheck as error:
+        # The source may be fine. Leave the file alone and fail loudly.
+        return False, ["could not check: {}: {}".format(path, error)]
     if result["ok"]:
         updated = apply_checked(data, result)
         files.write_frontmatter(path, updated, body)
@@ -577,6 +663,16 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         print("no findings to check in {}".format(findings_dir))
         return 0
 
+    root = knowledge.resolve()
+    for path in paths:
+        try:
+            path.resolve().relative_to(root)
+        except ValueError:
+            # Quarantining a path from another tree would write into this
+            # knowledge folder and unlink the file the caller named.
+            print("refusing to check {}: not inside {}".format(path, knowledge))
+            return 1
+
     if args.responses:
         try:
             transport: Any = RecordedTransport(recorded_mapping(Path(args.responses)))
@@ -589,6 +685,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     domains, allowlist_error = load_allowlist(knowledge / "sources-allowlist.yaml")
     failures = 0
     for path in paths:
+        if path.name in files.TEMPLATE_NAMES:
+            print("{}: skipped template".format(path))
+            continue
         passed, lines = check_path(
             path,
             transport,

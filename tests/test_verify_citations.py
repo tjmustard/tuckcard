@@ -225,3 +225,137 @@ def test_a_passing_check_leaves_an_incomplete_record_provisional(tmp_path, capsy
     assert data["status"] == "provisional"
     assert data["verification"]["exists"] == "script"
     assert "status left provisional" in capsys.readouterr().out
+
+
+def no_sleep(monkeypatch):
+    """Record retry delays instead of sleeping through them."""
+    waits = []
+    monkeypatch.setattr(verify_citations, "_wait", waits.append)
+    return waits
+
+
+@pytest.mark.parametrize(
+    "doi, status",
+    [
+        ("10.1234/example.rate-limited", 429),
+        ("10.1234/example.server-error", 503),
+    ],
+)
+def test_a_busy_service_leaves_the_finding_in_place(tmp_path, capsys, monkeypatch, doi, status):
+    waits = no_sleep(monkeypatch)
+    root = knowledge(tmp_path)
+    path = support.write_finding(
+        root / "findings", support.finding("F-0001", source={"doi": doi})
+    )
+    assert run(root) == 1
+    assert path.is_file()
+    assert not any((root / "quarantine").iterdir())
+    out = capsys.readouterr().out
+    assert "could not check: {}".format(path) in out
+    assert "HTTP {}".format(status) in out
+    # One attempt plus two retries, so two waits.
+    assert len(waits) == 2
+
+
+def test_a_timeout_leaves_the_finding_in_place(tmp_path, monkeypatch):
+    no_sleep(monkeypatch)
+
+    class Refusing:
+        def __init__(self):
+            self.calls = 0
+
+        def get(self, url):
+            self.calls += 1
+            raise verify_citations.CouldNotCheck("network error: timed out")
+
+    root = knowledge(tmp_path)
+    path = support.write_finding(
+        root / "findings",
+        support.finding("F-0001", source={"doi": "10.1234/example.valid"}),
+    )
+    transport = Refusing()
+    passed, lines = verify_citations.check_path(
+        path, transport, None, None, root / "quarantine", "2026-11-11", move=True
+    )
+    assert passed is False
+    assert lines[0].startswith("could not check: ")
+    assert "timed out" in lines[0]
+    assert path.is_file()
+    assert not any((root / "quarantine").iterdir())
+    assert transport.calls == 3
+
+
+def test_no_move_never_writes(tmp_path, monkeypatch, capsys):
+    no_sleep(monkeypatch)
+    root = knowledge(tmp_path)
+    path = support.write_finding(
+        root / "findings",
+        support.finding("F-0001", source={"doi": "10.1234/example.fake"}),
+    )
+    before = path.read_text()
+    args = [
+        "--knowledge",
+        str(root),
+        "--responses",
+        str(support.RESPONSES),
+        "--today",
+        "2026-11-11",
+        "--no-move",
+    ]
+    assert verify_citations.main(args) == 1
+    assert path.read_text() == before
+    assert not any((root / "quarantine").iterdir())
+    assert "would quarantine" in capsys.readouterr().out
+
+
+def test_a_path_outside_the_knowledge_folder_is_refused(tmp_path, capsys):
+    root = knowledge(tmp_path)
+    outside = support.write_finding(
+        tmp_path / "elsewhere",
+        support.finding("F-0002", source={"doi": "10.1234/example.valid"}),
+    )
+    args = [
+        "--knowledge",
+        str(root),
+        "--responses",
+        str(support.RESPONSES),
+        str(outside),
+    ]
+    assert verify_citations.main(args) == 1
+    assert outside.is_file()
+    assert not any((root / "quarantine").iterdir())
+    out = capsys.readouterr().out
+    assert "refusing to check" in out
+    assert str(root) in out
+
+
+def test_a_template_is_skipped_not_quarantined(tmp_path, capsys):
+    root = knowledge(tmp_path)
+    template = root / "findings/_TEMPLATE.md"
+    shutil.copy(support.CORE / "knowledge/findings/_TEMPLATE.md", template)
+    real = support.write_finding(
+        root / "findings",
+        support.finding("F-0001", source={"doi": "10.1234/example.valid"}),
+    )
+    assert real.is_file()
+    assert run(root) == 0
+    assert template.is_file()
+    assert shipped(root)["verification"]["exists"] == "script"
+    # Naming the template explicitly is skipped too, not verified.
+    assert run(root, template) == 0
+    assert template.is_file()
+    assert "{}: skipped template".format(template) in capsys.readouterr().out
+    assert not any((root / "quarantine").iterdir())
+
+
+def test_contact_parameters_come_from_the_environment(monkeypatch):
+    monkeypatch.delenv("TUCK_CARD_MAILTO", raising=False)
+    assert "mailto" not in verify_citations.crossref_url("10.1234/example.valid")
+    assert "tool=tuckcard" in verify_citations.pubmed_url(12345678)
+    assert "email" not in verify_citations.pubmed_url(12345678)
+    monkeypatch.setenv("TUCK_CARD_MAILTO", "contact@example.org")
+    assert "mailto=contact%40example.org" in verify_citations.crossref_url(
+        "10.1234/example.valid"
+    )
+    assert "email=contact%40example.org" in verify_citations.pubmed_url(12345678)
+

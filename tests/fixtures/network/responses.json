@@ -25,6 +25,14 @@
     "status": 404,
     "body": "Resource not found."
   },
+  "https://api.crossref.org/works/10.1234%2Fexample.rate-limited": {
+    "status": 429,
+    "body": "Too many requests."
+  },
+  "https://api.crossref.org/works/10.1234%2Fexample.server-error": {
+    "status": 503,
+    "body": "Service unavailable."
+  },
   "https://api.crossref.org/works/10.1016%2FS0140-6736%2897%2911096-0": {
     "status": 200,
     "body": {
@@ -40,7 +48,7 @@
       }
     }
   },
-  "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=12345678&retmode=json": {
+  "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=12345678&retmode=json&tool=tuckcard": {
     "status": 200,
     "body": {
       "result": {
