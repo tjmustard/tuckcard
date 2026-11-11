@@ -1,0 +1,61 @@
+{
+  "https://api.crossref.org/works/10.1234%2Fexample.valid": {
+    "status": 200,
+    "body": {
+      "message": {
+        "title": ["A small start helps"],
+        "issued": {"date-parts": [[2020]]},
+        "author": [{"family": "Rivera"}],
+        "type": "journal-article"
+      }
+    }
+  },
+  "https://api.crossref.org/works/10.1234%2Fexample.mismatch": {
+    "status": 200,
+    "body": {
+      "message": {
+        "title": ["A different title"],
+        "issued": {"date-parts": [[2020]]},
+        "author": [{"family": "Rivera"}],
+        "type": "journal-article"
+      }
+    }
+  },
+  "https://api.crossref.org/works/10.1234%2Fexample.fake": {
+    "status": 404,
+    "body": "Resource not found."
+  },
+  "https://api.crossref.org/works/10.1016%2FS0140-6736%2897%2911096-0": {
+    "status": 200,
+    "body": {
+      "message": {
+        "title": ["Retracted example paper"],
+        "issued": {"date-parts": [[1997]]},
+        "author": [{"family": "Smith"}],
+        "type": "journal-article",
+        "updated-by": [
+          {"type": "correction", "source": "publisher"},
+          {"type": "retraction", "source": "retraction-watch"}
+        ]
+      }
+    }
+  },
+  "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=12345678&retmode=json": {
+    "status": 200,
+    "body": {
+      "result": {
+        "uids": ["12345678"],
+        "12345678": {
+          "title": "Sleep habits in teenagers",
+          "pubdate": "2021 Mar",
+          "authors": [{"name": "Lee J"}],
+          "pubtype": ["Journal Article"]
+        }
+      }
+    }
+  },
+  "https://www.cdc.gov/example/sleep.html": {
+    "status": 200,
+    "body": "<html><head><title>Sleep and Your Child</title></head><body><p>Guidance.</p></body></html>"
+  }
+}

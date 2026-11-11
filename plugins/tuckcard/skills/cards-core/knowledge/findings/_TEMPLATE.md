@@ -14,6 +14,9 @@ distance: adjacent          # direct | adjacent | distal: how close the setting 
 replication: unknown        # replicated | mixed | failed | unknown
 source:
   citation: "Author, Author & Author (Year). Journal Volume(Issue):pages."
+  title: null               # expected title; compared when present
+  year: null                # expected four-digit year; compared when present
+  first_author: null        # expected family name only; compared when present
   doi: null                 # 10.xxxx/...
   pmid: null
   url: null                 # for guidance documents without a DOI; domain must be on sources-allowlist.yaml
