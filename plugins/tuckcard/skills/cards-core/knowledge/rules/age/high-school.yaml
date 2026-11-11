@@ -1,8 +1,8 @@
 # Age band (SPEC.md Section 4). Seeded in M5.
 # The policy ladder for this band lives in ../policies.yaml.
 scope: age/high-school
-status: stub
-description: Ages about 14–18. Autonomy, pressure, relationships, planning ahead.
+status: active
+description: Ages about 14–18. Secondary school. Language can carry some abstraction; the reader wants respect and specifics.
 defaults:
   reading:                # set during seeding, word-level targets for lint
     max_avg_syllables_per_word: null
@@ -12,4 +12,168 @@ defaults:
     max_title_words: null
     max_lines: null
     max_words_per_line: null
-rules: []
+rules:
+  - id: R-high-school-001
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Cards for a school subject can ask the reader to connect the material to something already in their own life.
+    why: A randomized field experiment found that writing about those connections raised interest and grades in high school science, most for students who expected to fail.
+    cites: [F-0043]
+    check: judge
+    lint: null
+    examples:
+      bad: "Study harder and the results will come."
+      good: "Where does this idea show up in your own week?"
+
+  - id: R-high-school-002
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Treat ability as something that grows, and name that the people around the reader shape what feels possible.
+    why: A national randomized trial found grade gains for lower-achieving students from a short mindset programme, with effects only where peer norms matched the message.
+    cites: [F-0044]
+    check: judge
+    lint: null
+    examples:
+      bad: "Talent is fixed. Find your lane."
+      good: "You are not stuck at this level, and the room you are in matters too."
+
+  - id: R-high-school-003
+    type: must_not
+    strength: must
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Never promise that thinking differently about ability will raise the reader's grades.
+    why: A meta-analysis of 43 intervention studies and 273 correlational studies found the overall effects of mindset were weak.
+    cites: [F-0045]
+    check: judge
+    lint: null
+    examples:
+      bad: "Believe you can improve and your marks will follow."
+      good: "The way you talk to yourself after a bad mark is worth practising."
+
+  - id: R-high-school-004
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Name one small move that protects sleep, such as leaving the phone outside the bed.
+    why: Pediatric policy ties early school start times to insufficient sleep in adolescents, and a meta-analysis found bedtime device access went with less sleep and more daytime sleepiness.
+    cites: [F-0037, F-0047]
+    check: judge
+    lint: null
+    examples:
+      bad: "Sleep more. You need it."
+      good: "Phone on the desk, not the pillow."
+
+  - id: R-high-school-005
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not blame screen time for a reader's low mood or low grades.
+    why: An analysis of three large datasets found the association between digital technology use and adolescent well-being was negative but tiny.
+    cites: [F-0048]
+    check: judge
+    lint: null
+    examples:
+      bad: "Your phone is why you feel flat."
+      good: "Notice what you were doing before the mood changed. That is the useful clue."
+
+  - id: R-high-school-006
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Give the reader words for talking to themselves the way they would talk to a friend.
+    why: A meta-analysis of adolescents found self-compassion was strongly and inversely related to anxiety, depression and stress.
+    cites: [F-0036]
+    check: judge
+    lint: null
+    examples:
+      bad: "That was a stupid mistake."
+      good: "What would you say to a friend who did that?"
+
+  - id: R-high-school-007
+    type: avoid
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Do not tell the reader to handle a hard time alone. Name one person they could tell.
+    why: A systematic review of young people's views found stigma and a preference for self-reliance were the main barriers to asking for help.
+    cites: [F-0046]
+    check: judge
+    lint: null
+    examples:
+      bad: "You have everything you need inside you."
+      good: "Tell one person. It can be a friend, a coach or a counsellor."
+
+  - id: R-high-school-008
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Keep a card about exams on the next thing the reader controls, not on the size of the result.
+    why: A meta-analysis of 238 studies found test anxiety was negatively related to performance, and the relation was strongest at the middle grades.
+    cites: [F-0038]
+    check: judge
+    lint: null
+    examples:
+      bad: "This exam decides your future."
+      good: "Open the paper. Read question one twice."
+
+  - id: R-high-school-009
+    type: avoid
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Do not make being liked or getting likes the goal of a card.
+    why: In a simulated feed, adolescents were more likely to like photos that showed many likes, including photos of risky behavior.
+    cites: [F-0035]
+    check: judge
+    lint: null
+    examples:
+      bad: "Say the thing that gets the reaction."
+      good: "Say the thing you would still stand behind tomorrow."
+
+  - id: R-high-school-010
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: When messages from other people turn cruel, point the reader to a trusted adult and to keeping the evidence.
+    why: A meta-analysis of longitudinal studies found cyberbullying victimization went with later mental health symptoms.
+    cites: [F-0040]
+    check: judge
+    lint: null
+    examples:
+      bad: "Just ignore them."
+      good: "Save the messages and tell an adult you trust."
+
+  - id: R-high-school-011
+    type: format
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Keep each line to one idea, in the words the reader would use out loud.
+    why: Two ideas in one line split the reader's attention, and stiff wording invites a shrug.
+    basis: template
+    check: judge
+    lint: null
+    examples:
+      bad: "Cultivate equanimity in the face of academic adversity."
+      good: "One question at a time."

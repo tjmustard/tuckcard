@@ -301,3 +301,48 @@ findings:
     grade: D
     direction: supports
     status: active
+  - id: F-0043
+    claim: In a randomized field experiment in high school science classes, an activity that asked students to connect the course material to their own lives raised interest and grades, and the gain was larger for students who did not expect to succeed.
+    scopes:
+      - age/high-school
+    grade: B
+    direction: supports
+    status: active
+  - id: F-0044
+    claim: In a national randomized trial with secondary school students in the United States, a short online programme teaching that ability can be developed improved grades for lower-achieving students and raised enrolment in advanced mathematics, and the effects appeared where peer norms matched the message.
+    scopes:
+      - age/high-school
+    grade: B
+    direction: supports
+    status: active
+  - id: F-0045
+    claim: Two meta-analyses covering hundreds of studies found that the link between a growth mindset and academic achievement, and the effect of mindset interventions on achievement, were weak overall, though students at academic risk or from low socioeconomic backgrounds appeared to benefit more.
+    scopes:
+      - age/high-school
+      - age/college
+    grade: A
+    direction: caution
+    status: active
+  - id: F-0046
+    claim: A systematic review of 22 studies of young people found that stigma and embarrassment, trouble recognising symptoms, and a preference for handling things alone were the main barriers to seeking help for mental health problems.
+    scopes:
+      - age/high-school
+      - age/college
+    grade: E
+    direction: caution
+    status: active
+  - id: F-0047
+    claim: A meta-analysis of 20 studies of school-age children and adolescents found that having a phone or tablet at bedtime, even without using it, was associated with less sleep, poorer sleep quality and more daytime sleepiness.
+    scopes:
+      - age/high-school
+      - age/middle-school
+    grade: A
+    direction: caution
+    status: active
+  - id: F-0048
+    claim: An analysis of three large datasets with 355,358 adolescents found that the association between digital technology use and well-being was negative but small, explaining at most 0.4 percent of the variation in well-being.
+    scopes:
+      - age/high-school
+    grade: A
+    direction: caution
+    status: active
