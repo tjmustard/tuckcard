@@ -1,0 +1,9 @@
+{
+  "name": "tuckcard",
+  "version": "0.1.0",
+  "description": "Create one deck of short, research-informed motivational cards for a specific person or group, and render it for print and lock screens.",
+  "author": {
+    "name": "Thomas Mustard"
+  },
+  "license": "MIT"
+}
