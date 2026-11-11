@@ -1,0 +1,50 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  skeleton:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Manifests are valid JSON
+        run: |
+          python3 - <<'PY'
+          import json
+          import pathlib
+
+          for path in (
+              ".claude-plugin/marketplace.json",
+              "plugins/tuckcard/.claude-plugin/plugin.json",
+          ):
+              data = json.loads(pathlib.Path(path).read_text())
+              print(f"{path}: ok (name={data['name']})")
+          PY
+
+      - name: Every font family ships a font file and its OFL license
+        run: |
+          set -euo pipefail
+          fonts=plugins/tuckcard/skills/cards-core/fonts
+          families=$(find "$fonts" -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')
+          for dir in "$fonts"/*/; do
+            family=$(basename "$dir")
+            test -f "$dir/OFL.txt" || { echo "missing OFL.txt in $family"; exit 1; }
+            test -n "$(find "$dir" -maxdepth 1 -name '*.ttf' -print -quit)" \
+              || { echo "missing font file in $family"; exit 1; }
+            echo "$family: ok"
+          done
+          test "$families" -eq 9 || { echo "expected 9 font families, found $families"; exit 1; }
+
+      - name: No personal decks, bundles or renders are committed
+        run: |
+          set -euo pipefail
+          decks=$(git ls-files | grep -E '(^|/)deck\.yaml$' | grep -v '^plugins/tuckcard/skills/cards-core/examples/' || true)
+          bundles=$(git ls-files '*.tuckcard.zip' || true)
+          renders=$(git ls-files 'renders/*' 'out/*' || true)
+          for hit in $decks $bundles $renders; do
+            echo "committed private output: $hit"
+          done
+          test -z "$decks$bundles$renders"

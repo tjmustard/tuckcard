@@ -1,0 +1,29 @@
+name: weekly-recheck
+
+# The weekly existence and retraction check for shipped findings.
+# The shipped findings arrive with milestone M5. Until then this workflow has
+# nothing to re-check, and it says so instead of reporting a pass.
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  recheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Report whether there are findings to re-check
+        run: |
+          findings=plugins/tuckcard/skills/cards-core/knowledge/findings
+          count=$(find "$findings" -maxdepth 1 -name 'F-*.md' | wc -l | tr -d ' ')
+          if [ "$count" -eq 0 ]; then
+            echo "Nothing to re-check yet: no shipped findings exist (milestone M5)."
+            echo "No check ran in this run, so this is not a pass."
+            exit 0
+          fi
+          echo "Found $count shipped findings, but the re-check script does not exist yet (milestone M2/M5)."
+          echo "No check ran in this run, so this is not a pass."
+          exit 1
