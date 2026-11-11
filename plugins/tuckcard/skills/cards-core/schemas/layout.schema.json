@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://tuckcard.local/schemas/layout.schema.json",
   "title": "Layout geometry",
-  "description": "One templates/<layout>/layout.json. The spec names layout geometry, font sizes, shrink steps and font floors but not their field names; this encoding is provisional until M3. See DECISIONS.md.",
+  "description": "One templates/<layout>/layout.json. The spec names layout geometry, font sizes, shrink steps and font floors but not their field names; this encoding is fixed at M3. See DECISIONS.md D-024.",
   "type": "object",
   "additionalProperties": true,
   "required": ["regions", "font_sizes", "shrink_steps", "font_floors"],

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://tuckcard.local/schemas/preset.schema.json",
   "title": "Style preset",
-  "description": "One file in presets/ or local/presets/. The spec names colors, fonts, corner radius, spacing, mark stroke weight and mark wobble but not their field names; this encoding is provisional until M3. See DECISIONS.md.",
+  "description": "One file in presets/ or local/presets/. The spec names colors, fonts, corner radius, spacing, mark stroke weight and mark wobble but not their field names; this encoding is fixed at M3. See DECISIONS.md D-024.",
   "type": "object",
   "additionalProperties": true,
   "required": ["name", "fonts", "mark_wobble", "corner_radius"],
