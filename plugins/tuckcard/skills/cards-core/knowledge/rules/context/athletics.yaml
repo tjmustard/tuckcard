@@ -2,7 +2,142 @@
 # Context rules apply only to cards in categories mapped to this context, and must be age-neutral:
 # anything age-specific goes in the age-band file or is gated with when: {age_band: [...]}.
 scope: context/athletics
-status: stub
+status: active
 description: Sports and other competitive activities.
 typical_relationship: null   # e.g. coach to player, parent to child
-rules: []
+rules:
+  - id: R-athletics-001
+    type: do
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Put getting better and enjoying the sport at the centre, not the scoreboard or the selection.
+    why: Pediatric guidance says parental support focused on development and fun is a key factor in enjoyment, and a review links taking part with better self-esteem and social contact.
+    cites: [F-0066, F-0057]
+    check: judge
+    lint: null
+    examples:
+      bad: "Winning is the only thing that counts."
+      good: "You moved better today than last week."
+
+  - id: R-athletics-002
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: A card can offer one short cue the athlete says to themselves before a skill.
+    why: A meta-analysis of 32 studies found self-talk had a moderate positive effect on sport performance, largest for fine motor tasks and new skills.
+    cites: [F-0061]
+    check: judge
+    lint: null
+    examples:
+      bad: "Think about everything at once."
+      good: "Elbow high. Say it once, then throw."
+
+  - id: R-athletics-003
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Offer one short attention practice, such as a few breaths before training, as another skill to practise.
+    why: A meta-analytical review found moderate to large gains in psychological performance measures from mindfulness practice in athletes, with very high heterogeneity.
+    cites: [F-0062]
+    check: judge
+    lint: null
+    examples:
+      bad: "Clear your mind completely."
+      good: "Three slow breaths before the first rep."
+
+  - id: R-athletics-004
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not present lost sleep or constant training as proof of commitment.
+    why: In adolescent athletes, sleeping under eight hours a night was associated with more injuries, and a review of sleep and performance finds sleep loss harms sport-specific performance.
+    cites: [F-0058, F-0064]
+    check: judge
+    lint: null
+    examples:
+      bad: "Champions train on five hours of sleep."
+      good: "Rest is on the training plan too."
+
+  - id: R-athletics-005
+    type: must_not
+    strength: must
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Never say that an injury or a bad performance means the athlete is weak or not committed.
+    why: A set of meta-analyses found stress responses were associated with higher injury rates, and consensus guidance links mental health with physical injury.
+    cites: [F-0063, F-0059]
+    check: judge
+    lint: null
+    examples:
+      bad: "You got hurt because you did not want it enough."
+      good: "The injury is not a verdict on how hard you work."
+
+  - id: R-athletics-006
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not tie the athlete's worth to their results or to their place on the team.
+    why: A review of athlete burnout centres on social perceptions and perfectionism and recommends prevention within how training is organised.
+    cites: [F-0060]
+    check: judge
+    lint: null
+    examples:
+      bad: "You are your personal best."
+      good: "The time is one number. It is not the whole of you."
+
+  - id: R-athletics-007
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: When a hard stretch lasts, point the athlete to a coach, a doctor or a counsellor rather than to pushing through alone.
+    why: An Olympic Committee consensus statement recommends treating mental health in athletes and adjusting the environments they train in.
+    cites: [F-0059]
+    check: judge
+    lint: null
+    examples:
+      bad: "Push through it. That is what athletes do."
+      good: "Tell your coach and your doctor. Both are part of your team."
+
+  - id: R-athletics-008
+    type: do
+    strength: should
+    applies_to: [lines]
+    when:
+      age_band: [high-school]
+    overrides: []
+    text: For a school-age athlete, treat time on a team as part of a life that holds together, not as time stolen from schoolwork.
+    why: A meta-analysis of 115 studies found sport participation had a small positive association with academic performance.
+    cites: [F-0065]
+    check: judge
+    lint: null
+    examples:
+      bad: "Quit the team if you want better marks."
+      good: "Training and homework both belong in the week."
+
+  - id: R-athletics-009
+    type: format
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Keep each line to one action or one idea, in the words the athlete uses on the field.
+    why: Two instructions in one line compete for attention at the moment the athlete needs one cue.
+    basis: template
+    check: judge
+    lint: null
+    examples:
+      bad: "Stay relaxed, stay focused, stay positive and trust the process."
+      good: "Breathe out. Then go."

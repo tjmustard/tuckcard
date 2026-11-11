@@ -403,3 +403,77 @@ findings:
     grade: A
     direction: supports
     status: active
+  - id: F-0057
+    claim: A systematic review of 30 studies found that sport participation by children and adolescents was linked to many psychological and social benefits, most often improved self-esteem, better social interaction and fewer depressive symptoms.
+    scopes:
+      - context/athletics
+      - age/high-school
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0058
+    claim: In a study of 112 adolescent athletes, sleeping less than eight hours a night was associated with a higher rate of sports injury, with those athletes 1.7 times as likely to have been injured.
+    scopes:
+      - context/athletics
+      - age/high-school
+    grade: C
+    direction: caution
+    status: active
+  - id: F-0059
+    claim: An International Olympic Committee consensus statement says mental health symptoms are common among elite athletes, can show up in sport-specific ways, and are linked to physical injury and slower recovery.
+    scopes:
+      - context/athletics
+    grade: D
+    direction: caution
+    status: active
+  - id: F-0060
+    claim: A review of athlete burnout describes its symptoms, causes and consequences, with social perceptions and perfectionism as central, and argues that prevention should be built into how training is organised.
+    scopes:
+      - context/athletics
+    grade: E
+    direction: caution
+    status: active
+  - id: F-0061
+    claim: A meta-analysis of 32 studies with 62 effect sizes found a moderate positive effect of self-talk on sport task performance, with larger effects for tasks that need fine motor control and for new skills.
+    scopes:
+      - context/athletics
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0062
+    claim: A meta-analytical review of mindfulness practice in athletes over 15 found moderate to large improvements in psychological performance measures and in precision-sport outcomes, with very high heterogeneity across studies.
+    scopes:
+      - context/athletics
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0063
+    claim: A set of meta-analyses of 48 studies found that stress responses and a history of stressors were associated with higher injury rates in athletes, and that the few prevention studies found lower injury rates in the groups given psychological support.
+    scopes:
+      - context/athletics
+    grade: A
+    direction: caution
+    status: active
+  - id: F-0064
+    claim: A review of sleep and athletic performance reports that sleep loss before competition is common in athletes, that sport-specific performance tends to fall after poor sleep, and that cognitive performance is slower and less accurate.
+    scopes:
+      - context/athletics
+    grade: E
+    direction: caution
+    status: active
+  - id: F-0065
+    claim: A meta-analysis of 115 studies found that sport participation had a small positive association with academic performance, strongest at a moderate dose of one to two hours a week, with most studies at high risk of bias.
+    scopes:
+      - context/athletics
+      - age/high-school
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0066
+    claim: Pediatric guidance on organized sport says parental support focused on development and fun rather than winning is a key factor in whether young athletes enjoy it, and that offering several levels of play keeps more young people in sport.
+    scopes:
+      - context/athletics
+      - age/grade-school
+    grade: D
+    direction: supports
+    status: active
