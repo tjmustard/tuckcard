@@ -14,6 +14,7 @@ import datetime
 import json
 import math
 import re
+import unicodedata
 from pathlib import Path
 
 from PIL import ImageFont
@@ -654,6 +655,23 @@ HEADER_SIZE = 11
 HEADER_TRACKING = 1.6
 HEADER_GAP_PX = 8
 ELLIPSIS = "…"
+ZWJ = "\u200d"
+# A code point above U+FFFF gets its glyph from a system fallback in the
+# browser, whose width the header face cannot report. Both engines reserve this
+# fixed advance for such a code point so they truncate at the same character.
+HEADER_ASTRAL_ADVANCE = 14.0
+
+
+def _header_zero_width(ch: str) -> bool:
+    """True for a code point that draws nothing of its own.
+
+    The joiner and the variation selectors have no glyph in the header face, so
+    Pillow measures their .notdef advance, while the browser gives them zero.
+    They carry the tracking but no advance in both engines. D-030.
+    """
+    point = ord(ch)
+    return (ch == ZWJ or 0xFE00 <= point <= 0xFE0F
+            or 0xE0100 <= point <= 0xE01EF)
 
 
 def _category_label(card):
@@ -667,7 +685,9 @@ def tracked_width(text: str) -> int:
     tracking, so a whole-string measure would not match what is drawn. Each
     glyph is rounded to the whole pixel the browser's Math.round gives.
     """
-    return (sum(whole_px(advance(ch, HEADER_FONT, HEADER_WEIGHT, HEADER_SIZE))
+    return (sum(0.0 if _header_zero_width(ch)
+                else HEADER_ASTRAL_ADVANCE if ord(ch) > 0xFFFF
+                else whole_px(advance(ch, HEADER_FONT, HEADER_WEIGHT, HEADER_SIZE))
                 for ch in text)
             + HEADER_TRACKING * len(text))
 
@@ -689,12 +709,57 @@ def header_room(card: dict, style: "Style") -> int:
     return whole_px(right - HEADER_GAP_PX - x)
 
 
+def _is_regional_indicator(ch: str) -> bool:
+    return 0x1F1E6 <= ord(ch) <= 0x1F1FF
+
+
+def _is_continuation(ch: str) -> bool:
+    """True for a code point that cannot start a cut: it belongs to the one before."""
+    point = ord(ch)
+    if ch == ZWJ or unicodedata.category(ch).startswith("M"):
+        return True
+    return (0xFE00 <= point <= 0xFE0F or 0xE0100 <= point <= 0xE01EF
+            or 0x1F3FB <= point <= 0x1F3FF or point == 0x20E3)
+
+
+def _safe_cut(points: "list[str]", cut: int) -> int:
+    """Move a cut left until it splits no grapheme cluster.
+
+    A cut is safe when the character after it is not a combining mark,
+    variation selector, skin-tone modifier, keycap or zero-width joiner, when
+    the character before it is not a joiner, and when it does not split a
+    regional-indicator pair (a flag). Both renderers use this same rule.
+    """
+    while 0 < cut < len(points):
+        before, after = points[cut - 1], points[cut]
+        if before == ZWJ or _is_continuation(after):
+            cut -= 1
+            continue
+        if _is_regional_indicator(before) and _is_regional_indicator(after):
+            run = 0
+            index = cut - 1
+            while index >= 0 and _is_regional_indicator(points[index]):
+                run += 1
+                index -= 1
+            if run % 2:
+                cut -= 1
+                continue
+        break
+    return cut
+
+
+def _trim_end(text: str) -> str:
+    """Drop every ellipsis and collapse spaces, so the cut adds the only one."""
+    return " ".join(text.replace(ELLIPSIS, "").split())
+
+
 def header_label(card: dict, style: "Style") -> str:
     """The header label, with an over-long pill cut to one ellipsis.
 
     The category and separator stay; only the pill loses characters. The
     ellipsis is the last character, never repeated, and the result is the
-    longest prefix that fits the room header_room leaves. D-030.
+    longest prefix that fits the room header_room leaves, cut only at a
+    grapheme boundary. D-030.
     """
     label = _category_label(card)
     pill = card.get("pill")
@@ -705,8 +770,10 @@ def header_label(card: dict, style: "Style") -> str:
     if tracked_width(full.upper()) <= room:
         return full
     fixed = label + " · "
-    for cut in range(len(pill), -1, -1):
-        candidate = fixed + pill[:cut].rstrip() + ELLIPSIS
+    points = list(pill)
+    for cut in range(len(points), -1, -1):
+        prefix = _trim_end("".join(points[:_safe_cut(points, cut)]))
+        candidate = fixed + prefix + ELLIPSIS
         if tracked_width(candidate.upper()) <= room:
             return candidate
     # Even the bare ellipsis does not fit. Keep one, so the label still says

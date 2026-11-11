@@ -207,6 +207,99 @@ def test_no_fitting_card_paints_its_title_over_the_body():
 
 
 LONG_PILL = "A very long age label that should never fit the header line"
+PILL_CASES = (
+    "A very long age label that should… never fit the header line",
+    "A very long … age label that should never fit the header line",
+    "A very long age label that should never fit…",
+    "…" * 40,
+    "\U0001d544" * 60,
+    "\U0001f600" * 20,
+    "\U0001f468‍\U0001f469‍\U0001f467‍\U0001f466" * 8,
+    "\U0001f1fa\U0001f1f8" * 20,
+    "é" * 30,
+    "\U0001f44b\U0001f3fd" * 10,
+    "\U0001f393" * 12,
+    "Class of 2026 \U0001f393 and friends \U0001f469‍\U0001f469‍\U0001f467 " * 3,
+)
+# The cases whose kept prefix is a literal slice of the pill, so the
+# longest-cut check can append one more cluster and expect it to overflow.
+SLICE_CASES = (
+    "\U0001d544" * 60,
+    "\U0001f600" * 20,
+    "\U0001f468‍\U0001f469‍\U0001f467‍\U0001f466" * 8,
+    "\U0001f1fa\U0001f1f8" * 20,
+    "é" * 30,
+    "\U0001f44b\U0001f3fd" * 10,
+    "\U0001f393" * 12,
+)
+
+
+def pill_card(pill):
+    card = copy.deepcopy(by_n(1))
+    card["pill"] = pill
+    return card
+
+
+def grapheme_end(points, cut):
+    """The index after the cluster that starts at ``cut``."""
+    end = cut + 1
+    while end < len(points):
+        if points[end] == core.ZWJ:
+            end += 1
+            if end < len(points):
+                end += 1
+            continue
+        if core._is_continuation(points[end]):
+            end += 1
+            continue
+        break
+    if (core._is_regional_indicator(points[cut]) and end < len(points)
+            and core._is_regional_indicator(points[end])):
+        end += 1
+    return end
+
+
+def test_an_over_long_pill_keeps_one_ellipsis_and_a_whole_grapheme():
+    for layout in LAYOUTS:
+        style = core.Style(layout, "casual", "color")
+        for pill in PILL_CASES:
+            card = pill_card(pill)
+            label = core.header_label(card, style)
+            room = core.header_room(card, style)
+            full = "Growth · " + pill
+            if core.tracked_width(full.upper()) <= room:
+                assert label == full, (layout, pill)
+                continue
+            assert label.count(core.ELLIPSIS) == 1, (layout, pill)
+            assert label.endswith(core.ELLIPSIS), (layout, pill)
+            assert "�" not in label, (layout, pill)
+            assert not any(0xD800 <= ord(ch) <= 0xDFFF for ch in label), (layout, pill)
+            label.encode("utf-8")
+            assert core.tracked_width(label.upper()) <= room, (layout, pill)
+            prefix = label[len("Growth · "):-len(core.ELLIPSIS)]
+            assert core._safe_cut(list(pill), len(prefix)) == len(prefix), (layout, pill)
+            assert not prefix.endswith(core.ZWJ), (layout, pill)
+
+
+def test_the_cut_keeps_the_longest_prefix_that_fits():
+    for layout in LAYOUTS:
+        style = core.Style(layout, "casual", "color")
+        for pill in SLICE_CASES:
+            card = pill_card(pill)
+            room = core.header_room(card, style)
+            if core.tracked_width(("Growth · " + pill).upper()) <= room:
+                continue
+            label = core.header_label(card, style)
+            prefix = label[len("Growth · "):-len(core.ELLIPSIS)]
+            points = list(pill)
+            assert pill.startswith(prefix), (layout, pill)
+            cut = len(prefix)
+            assert cut < len(points), (layout, pill)
+            end = grapheme_end(points, cut)
+            wider = "Growth · " + "".join(points[:end]) + core.ELLIPSIS
+            assert core.tracked_width(wider.upper()) > core.header_room(card, style), (
+                layout, pill)
+
 
 
 def test_a_short_pill_is_unchanged():

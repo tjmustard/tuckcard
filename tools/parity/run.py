@@ -7,12 +7,15 @@ Renders a reference set through Playwright and Pillow and compares:
 - the pixels at 1500 by 1500, within the threshold below.
 
 The reference set is every combination of layout (3), preset (2) and theme
-(3), 18 combinations, with the five fixture cards and one synthetic card whose
-pill is too long for any header, so both engines must truncate it the same way
-(D-030). Plus each layout token at its default and extreme
-values: mark wobble, corner radius, mark stroke weight and spacing, and the
-layout file's own regions, sizes, steps, floors, line heights, gaps and note
-tokens. See SPEC.md section 7 and DECISIONS.md D-028.
+(3), 18 combinations, with the five fixture cards and thirteen synthetic cards
+whose pills are too long for any header, so both engines must truncate them the
+same way (D-030): five ASCII and ellipsis cases and six astral, combining and
+joined cases. The plans of all sixteen are compared exactly; the pixels of a
+card whose label needs a browser fallback glyph are skipped, because Pillow
+draws .notdef where Chromium draws the fallback. Plus each layout token at its
+default and extreme values: mark wobble, corner radius, mark stroke weight and
+spacing, and the layout file's own regions, sizes, steps, floors, line heights,
+gaps and note tokens. See SPEC.md section 7 and DECISIONS.md D-028.
 
     python tools/parity/run.py
     python tools/parity/run.py --out /tmp/parity --json /tmp/parity/report.json --keep
@@ -69,19 +72,38 @@ FRAC_OVER_32_MAX = 0.08
 TOL_POS = 2.5       # one space advance of measurement slack
 
 
-# A pill far wider than any header allows, so the truncation rule in D-030 is
-# exercised in both engines in every combination. This card is added in memory;
-# the fixture deck and its fit report are unchanged.
-LONG_PILL = "A very long age label that should never fit the header line"
+# Pills far wider than any header allows, so the truncation rule in D-030 is
+# exercised in both engines in every combination. The astral, combining and
+# joiner cases check that both engines measure code points and cut only at a
+# grapheme boundary. These cards are added in memory; the fixture deck and its
+# fit report are unchanged.
+PILL_CASES = (
+    ("long ascii", "A very long age label that should never fit the header line"),
+    ("ellipsis at the cut", "A very long age label that should… never fit the header line"),
+    ("ellipsis at the end", "A very long age label that should never fit…"),
+    ("ellipsis in the middle", "A very long … age label that should never fit the header line"),
+    ("ellipsis only", "………"),
+    ("astral maths", "\U0001d544" * 30),
+    ("emoji", "\U0001f600" * 20),
+    ("zwj family", "\U0001f468‍\U0001f469‍\U0001f467‍\U0001f466" * 8),
+    ("combining accent", "é" * 30),
+    ("flag", "\U0001f1fa\U0001f1f8" * 20),
+    ("skin tone", "\U0001f44b\U0001f3fd" * 10),
+    ("graduation caps", "\U0001f393" * 12),
+    ("mixed", "Class of 2026 \U0001f393 and friends \U0001f469‍\U0001f469‍\U0001f467 " * 3),
+)
 
 
 def _load_cards():
     deck = core.load_deck(DECK)
     cards = core.deck_cards(deck)
-    long_pill = copy.deepcopy(cards[0])
-    long_pill["n"] = 6
-    long_pill["pill"] = LONG_PILL
-    return deck, cards + [long_pill]
+    synthetic = []
+    for index, (name, pill) in enumerate(PILL_CASES):
+        case = copy.deepcopy(cards[0])
+        case["n"] = 6 + index
+        case["pill"] = pill
+        synthetic.append(case)
+    return deck, cards + synthetic
 
 
 def _js_plan(page, card, bundle):
@@ -320,18 +342,35 @@ def _render_both(work, name, card, style, bundle, page):
     return py_plan, distance, problem
 
 
+def _needs_browser_fallback(label):
+    """True when the label holds a code point the header face cannot draw.
+
+    A code point above U+FFFF has no glyph in Atkinson Hyperlegible. Chromium
+    draws it from a system fallback, Pillow draws .notdef, so the two plans can
+    agree while the pixels cannot. Those cards still compare their plans.
+    """
+    return any(ord(ch) > 0xFFFF for ch in label)
+
+
 def _check_one(work, name, card, style, bundle, page):
     py_plan = core.build_plan(card, style)
     js_plan = _js_plan(page, card, bundle)
     diffs = compare_plans(py_plan, js_plan, card["n"])
-    _, distance, problem = _render_both(work, name, card, style, bundle, page)
     entry = {"n": card["n"], "plan_ok": not diffs, "differences": diffs,
-             "mean": round(distance[0], 3) if distance else None,
-             "frac_over_32": round(distance[1], 4) if distance else None,
-             "pixel_ok": problem is None, "problem": problem,
+             "header": py_plan["labels"]["header"],
              "sizes": py_plan["report"]["sizes"],
              "shrunk": py_plan["report"]["shrunk"],
              "failed": py_plan["report"]["failed"]}
+    if _needs_browser_fallback(entry["header"]):
+        entry.update({"mean": None, "frac_over_32": None, "pixel_ok": None,
+                      "problem": "pixel check skipped: a code point above U+FFFF "
+                                 "is drawn from a browser fallback and as .notdef "
+                                 "by Pillow"})
+        return entry, not diffs
+    _, distance, problem = _render_both(work, name, card, style, bundle, page)
+    entry.update({"mean": round(distance[0], 3) if distance else None,
+                  "frac_over_32": round(distance[1], 4) if distance else None,
+                  "pixel_ok": problem is None, "problem": problem})
     return entry, (not diffs and problem is None)
 
 
@@ -479,7 +518,9 @@ def main(argv=None):
                                       entry.get("theme") or entry.get("case"))
             if entry["ok"]:
                 worst_mean = max((c["mean"] or 0) for c in entry["cards"])
-                print("  PASS %-56s worst mean %.2f" % (label, worst_mean))
+                plan_only = sum(1 for c in entry["cards"] if c["pixel_ok"] is None)
+                extra = ", %d plan-only" % plan_only if plan_only else ""
+                print("  PASS %-56s worst mean %.2f%s" % (label, worst_mean, extra))
             else:
                 print("  FAIL %s" % label)
                 for card in entry["cards"]:
@@ -489,6 +530,15 @@ def main(argv=None):
                         print("       card %d pixels: %s" % (card["n"], card["problem"]))
     print("Threshold: mean channel difference <= %.2f and <= %.2f%% of pixels over 32."
           % (MEAN_MAX, FRAC_OVER_32_MAX * 100))
+    all_cards = [card for key in ("combinations", "layout_cases", "preset_cases")
+                 for entry in results[key] for card in entry["cards"]]
+    plan_only = [card for card in all_cards if card["pixel_ok"] is None]
+    if plan_only:
+        print("Plan-only cards: %d of %d. Their labels contain a code point above "
+              "U+FFFF, so the plans are compared exactly and the pixels are not."
+              % (len(plan_only), len(all_cards)))
+        for card in plan_only[:3]:
+            print("  card %d header %r" % (card["n"], card["header"]))
     if failures:
         print("%d case(s) failed." % len(failures))
     if not args.keep:
