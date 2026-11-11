@@ -288,11 +288,20 @@ def test_a_timeout_leaves_the_finding_in_place(tmp_path, monkeypatch):
 def test_no_move_never_writes(tmp_path, monkeypatch, capsys):
     no_sleep(monkeypatch)
     root = knowledge(tmp_path)
-    path = support.write_finding(
+    failing = support.write_finding(
         root / "findings",
         support.finding("F-0001", source={"doi": "10.1234/example.fake"}),
     )
-    before = path.read_text()
+    # A normal run refreshes this one: today is not its recorded checked_on.
+    passing = support.write_finding(
+        root / "findings",
+        support.finding(
+            "F-0002",
+            source={"doi": "10.1234/example.valid"},
+            verification={"checked_on": "2026-11-10"},
+        ),
+    )
+    before = {path: path.read_text() for path in (failing, passing)}
     args = [
         "--knowledge",
         str(root),
@@ -303,9 +312,12 @@ def test_no_move_never_writes(tmp_path, monkeypatch, capsys):
         "--no-move",
     ]
     assert verify_citations.main(args) == 1
-    assert path.read_text() == before
+    for path, text in before.items():
+        assert path.read_text() == text
     assert not any((root / "quarantine").iterdir())
-    assert "would quarantine" in capsys.readouterr().out
+    out = capsys.readouterr().out
+    assert "{}: ok".format(passing) in out
+    assert "would quarantine" in out
 
 
 def test_a_path_outside_the_knowledge_folder_is_refused(tmp_path, capsys):

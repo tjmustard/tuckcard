@@ -20,6 +20,11 @@ a quarantine_reason naming the check, the expected value and the value
 found. Nothing is deleted. Findings that pass keep their place and
 have their verification block updated.
 
+--no-move makes the run read-only: a passing finding is reported and
+left byte-identical, a failing one is reported as `would quarantine`,
+and no file is written, moved or unlinked. Without it, a passing
+finding's verification block is refreshed and a failing one is moved.
+
 A check that cannot be completed now is not a finding about the source.
 HTTP 429, any 5xx, a timeout, a connection error or an unparseable
 response is retried with a short increasing backoff and then reported
@@ -607,8 +612,9 @@ def check_path(
         # The source may be fine. Leave the file alone and fail loudly.
         return False, ["could not check: {}: {}".format(path, error)]
     if result["ok"]:
-        updated = apply_checked(data, result)
-        files.write_frontmatter(path, updated, body)
+        if move:
+            updated = apply_checked(data, result)
+            files.write_frontmatter(path, updated, body)
         line = "{}: ok ({}; metadata {}; retraction {})".format(
             path,
             result["checked"]["exists"],
@@ -647,7 +653,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser.add_argument(
         "--no-move",
         action="store_true",
-        help="report what would be quarantined without moving files",
+        help="report results without writing, moving or unlinking any file",
     )
     args = parser.parse_args(argv)
 
