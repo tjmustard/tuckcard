@@ -1042,3 +1042,17 @@ Filled in after P2. Until then, every row is unknown and the design must not dep
 | Standard frontmatter accepted on upload? | unknown | | Assumption F |
 | Where skills are mounted | unknown | | Path resolution in scripts |
 | Plugin install from "Add from a repository" works for this repo | unknown | | Acceptance test 1 |
+
+### Claude Code / this Mac, 2026-11-11
+
+These facts come from the person's operator on this machine, not from a claude.ai skill sandbox. Every claude.ai row above stays unknown.
+
+- Python 3.9.6 on Darwin arm64.
+- A skill can read its sibling skill's files: yes. This is a filesystem read, not a sandbox, so it says nothing about the claude.ai row.
+- The skill folder and the current working directory are writable.
+- Pillow, ruamel.yaml, PyYAML, jsonschema and Playwright are not importable.
+- `pip install` into a temporary folder works.
+- No Chromium is on PATH; launching it was not attempted.
+- Crossref, PubMed, PyPI and Google Fonts are reachable.
+
+The standard frontmatter row is self-referential on this machine: the harness reads the frontmatter it is given, so a local success settles nothing about what claude.ai accepts.
