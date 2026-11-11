@@ -42,7 +42,7 @@ import validate
 URL_RE = re.compile(r"https?://[^\s<>\"']+")
 # A number as printed, separators included. The span starts at a digit that is
 # not glued to a word, so an identifier or a URL path is not a phone reference.
-NUMBER_SPAN_RE = re.compile(r"(?<![\w])\+?\d[\d().\- ]*")
+NUMBER_SPAN_RE = re.compile(r"(?<![\w])\+?\d[\d().\-– ]*")
 # Bare short codes are phone references wherever they stand. D-035 names the
 # list; do not widen it to every three-digit number, which would make a year or
 # a score a phone number.
@@ -51,10 +51,11 @@ SHORT_CODE_RE = re.compile(r"(?<![\w])(?:911|988)(?![\w])")
 NUMBER_SEPARATOR_RE = re.compile(r"[\s.\-()]")
 # A school year or a date is not a phone number even when it holds eight digits.
 # Only the shapes below are excluded: a year range, a year-month-day date and a
-# month-day-year date, all with a hyphen, dot, slash or en dash between parts,
-# and only with a plausible 19xx or 20xx year, so 5550-0100 is still a number.
+# month-day-year date, with a hyphen, dot, slash or en dash between parts and
+# optional spaces around it, and only with a plausible 19xx or 20xx year, so
+# 5550-0100 and 555 - 0100 are still numbers.
 _YEAR = r"(?:19|20)\d{2}"
-_DATE_SEP = r"[-./–]"
+_DATE_SEP = r"\s*[-./–]\s*"
 DATE_SHAPES = (
     re.compile(r"^%s%s%s$" % (_YEAR, _DATE_SEP, _YEAR)),
     re.compile(r"^%s%s\d{1,2}%s\d{1,2}$" % (_YEAR, _DATE_SEP, _DATE_SEP)),
