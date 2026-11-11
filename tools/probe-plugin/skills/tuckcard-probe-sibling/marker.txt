@@ -1,0 +1,1 @@
+tuckcard-probe-sibling marker: if you can read this from tuckcard-probe, sibling skills can share files.

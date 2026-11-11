@@ -1,0 +1,17 @@
+# Private decks, bundles and renders (never commit)
+local/decks/
+*.tuckcard.zip
+renders/
+out/
+
+# Private legacy assets, if unpacked for M6
+private-legacy/
+private-legacy.zip
+
+# Tooling
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.pytest_cache/
+.DS_Store

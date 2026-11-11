@@ -1,0 +1,9 @@
+# Seeded in M5 (SPEC.md Section 3). Applies to every deck.
+scope: core
+status: stub
+description: Language rules that apply to every deck, including never inferring anything about the recipient from categories the user didn't supply.
+seed_questions:
+  - Which message features (specificity, believability, behavioral framing, effort and strategy framing) help motivation or behavior?
+  - Which features backfire (global self-praise, unreasonably positive self-statements, controlling language, comparison)?
+  - How should autonomy and choice be framed so it works across family and cultural norms the user describes?
+rules: []

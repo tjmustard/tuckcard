@@ -1,0 +1,7 @@
+# Fixed safety topic (SPEC.md Section 4). Seeded in M5 at grade D or better.
+# No deck policy or other scope can override these rules. No rule here may require a phone number.
+scope: safety/visibility
+status: stub
+description: >
+  Visibility: cards naming a code word, a health detail or a private struggle are marked private and left off fridge and lock-screen outputs.
+rules: []

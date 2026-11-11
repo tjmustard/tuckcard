@@ -1,0 +1,7 @@
+# Template for a new context. Copy to <name>.yaml and run cards-research on it.
+# Keep rules age-neutral; gate any age-specific rule with when: {age_band: [...]}.
+scope: context/<name>
+status: stub
+description: The domain this context covers.
+typical_relationship: null
+rules: []

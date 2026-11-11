@@ -1,0 +1,64 @@
+# Intake policies: keys, allowed values, defaults, and which age bands may use each value.
+# Hand-written; a safety decision. See SPEC.md Section 4. Validated by schemas/policies.schema.json.
+
+schema_version: 1
+
+keys:
+  voice:
+    description: Who is speaking on the cards, their relationship to the recipient, and pronouns.
+    values: [parents, one_person, coach, mentor, manager, self]
+    default: null          # always asked at intake
+    pronouns: {parents: "we/us", one_person: "I/me", coach: "I/me", mentor: "I/me", manager: "I/me", self: "I/me"}
+
+  substances:
+    description: Alcohol and other drugs.
+    values: [omit, safety_only, abstain, harm_reduction]
+    default: omit
+
+  sex_relationships:
+    description: Sex, dating and relationships.
+    values: [omit, safety_only, harm_reduction]
+    default: omit
+
+  faith:
+    description: Faith references, only as the user supplies them.
+    values: [neutral, include]
+    default: neutral
+
+  register:
+    description: Humor level and slang tolerance.
+    humor: [none, light, playful]
+    slang: [none, some, lots]
+    default: {humor: light, slang: some}
+
+  help_resources:
+    description: Help lines and hotlines on cards. Off by default for every age band; the user supplies any they want and each is verified.
+    values: [none, custom]
+    default: none
+
+  personal_details:
+    description: Only facts the user confirms. Never inferred.
+    default: []
+
+# The ladder: which values each age band allows. A band not listed here (for example one a user
+# adds in their overlay) allows only `omit` for every sensitive topic until its ladder is set.
+ladder:
+  grade-school:
+    substances: [omit, safety_only]
+    sex_relationships: [omit]          # body safety and boundaries are covered by the safety topics
+  middle-school:
+    substances: [omit, safety_only]
+    sex_relationships: [omit, safety_only]
+  high-school:
+    substances: [omit, safety_only, abstain]   # "call me, no questions asked" counts as safety_only
+    sex_relationships: [omit, safety_only]
+  college:
+    substances: [omit, safety_only, abstain, harm_reduction]
+    sex_relationships: [omit, safety_only, harm_reduction]
+  adult:
+    substances: [omit, safety_only, abstain, harm_reduction]
+    sex_relationships: [omit, safety_only, harm_reduction]
+
+unlisted_band_default:
+  substances: [omit]
+  sex_relationships: [omit]

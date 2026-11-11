@@ -1,0 +1,8 @@
+# Context (SPEC.md Section 4). Ships as a stub in v1.
+# Context rules apply only to cards in categories mapped to this context, and must be age-neutral:
+# anything age-specific goes in the age-band file or is gated with when: {age_band: [...]}.
+scope: context/managing-a-team
+status: stub
+description: A manager writing for the people who report to them.
+typical_relationship: null   # e.g. coach to player, parent to child
+rules: []

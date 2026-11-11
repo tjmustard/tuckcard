@@ -1,0 +1,15 @@
+# Age band (SPEC.md Section 4). Seeded in M5.
+# The policy ladder for this band lives in ../policies.yaml.
+scope: age/college
+status: stub
+description: Ages about 18–22, living away from home. New freedoms and risks.
+defaults:
+  reading:                # set during seeding, word-level targets for lint
+    max_avg_syllables_per_word: null
+    familiarity_list: null
+    deck_fk_grade_warning: null
+  card:
+    max_title_words: null
+    max_lines: null
+    max_words_per_line: null
+rules: []

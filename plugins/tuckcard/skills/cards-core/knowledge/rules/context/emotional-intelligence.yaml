@@ -1,0 +1,8 @@
+# Context (SPEC.md Section 4). Seeded in M5.
+# Context rules apply only to cards in categories mapped to this context, and must be age-neutral:
+# anything age-specific goes in the age-band file or is gated with when: {age_band: [...]}.
+scope: context/emotional-intelligence
+status: stub
+description: Naming feelings, regulation, empathy and communication.
+typical_relationship: null   # e.g. coach to player, parent to child
+rules: []

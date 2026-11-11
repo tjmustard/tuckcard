@@ -1,0 +1,8 @@
+{
+  "name": "tuckcard-probe",
+  "version": "0.0.1",
+  "description": "Platform probe for building Tuckcard: reports what a claude.ai skill sandbox can do (Python, packages, network, Chromium, sibling-skill file access).",
+  "author": {
+    "name": "TJ Mustard"
+  }
+}

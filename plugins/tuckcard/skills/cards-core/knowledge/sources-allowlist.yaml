@@ -1,0 +1,26 @@
+# Domains accepted as sources for guidance documents without a DOI (grade D).
+# Starter list; adding a domain is a maintainer decision (SPEC.md assumption W).
+# Subdomains of a listed domain are accepted.
+schema_version: 1
+domains:
+  # US federal health and safety
+  - cdc.gov
+  - nih.gov            # includes niaaa.nih.gov, nida.nih.gov, nimh.nih.gov
+  - samhsa.gov
+  - hhs.gov
+  - nhtsa.gov
+  - dea.gov
+  - ed.gov             # includes ies.ed.gov (What Works Clearinghouse)
+  # Crisis and help organizations
+  - 988lifeline.org
+  - missingkids.org    # includes takeitdown.ncmec.org via its own entry below
+  - takeitdown.ncmec.org
+  - rainn.org
+  # International and professional bodies
+  - who.int
+  - aap.org
+  - healthychildren.org
+  - apa.org
+  - nasponline.org
+  - casel.org
+  - ncaa.org

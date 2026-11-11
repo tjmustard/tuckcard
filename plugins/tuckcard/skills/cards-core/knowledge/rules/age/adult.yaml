@@ -1,0 +1,15 @@
+# Age band (SPEC.md Section 4). Ships as a stub in v1.
+# The policy ladder for this band lives in ../policies.yaml.
+scope: age/adult
+status: stub
+description: Adults, including teams of professionals. Stub in v1.
+defaults:
+  reading:                # set during seeding, word-level targets for lint
+    max_avg_syllables_per_word: null
+    familiarity_list: null
+    deck_fk_grade_warning: null
+  card:
+    max_title_words: null
+    max_lines: null
+    max_words_per_line: null
+rules: []

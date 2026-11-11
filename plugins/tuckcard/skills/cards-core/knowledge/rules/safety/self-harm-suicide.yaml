@@ -1,0 +1,7 @@
+# Fixed safety topic (SPEC.md Section 4). Seeded in M5 at grade D or better.
+# No deck policy or other scope can override these rules. No rule here may require a phone number.
+scope: safety/self-harm-suicide
+status: stub
+description: >
+  Self-harm and suicide: never romanticize or describe methods; cards that touch dark feelings point to people the recipient trusts.
+rules: []

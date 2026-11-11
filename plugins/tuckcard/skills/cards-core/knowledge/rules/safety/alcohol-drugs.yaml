@@ -1,0 +1,7 @@
+# Fixed safety topic (SPEC.md Section 4). Seeded in M5 at grade D or better.
+# No deck policy or other scope can override these rules. No rule here may require a phone number.
+scope: safety/alcohol-drugs
+status: stub
+description: >
+  Alcohol and other drugs: framing only as the deck's policy and the age band's ladder allow; never instructions for obtaining or using.
+rules: []

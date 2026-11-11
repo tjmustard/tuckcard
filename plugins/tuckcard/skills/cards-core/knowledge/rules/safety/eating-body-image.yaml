@@ -1,0 +1,7 @@
+# Fixed safety topic (SPEC.md Section 4). Seeded in M5 at grade D or better.
+# No deck policy or other scope can override these rules. No rule here may require a phone number.
+scope: safety/eating-body-image
+status: stub
+description: >
+  Eating, weight and body image: no weight, calorie or body-shape goals or praise; fuel and health framed around function.
+rules: []

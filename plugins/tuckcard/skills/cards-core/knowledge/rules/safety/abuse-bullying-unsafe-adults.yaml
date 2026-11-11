@@ -1,0 +1,7 @@
+# Fixed safety topic (SPEC.md Section 4). Seeded in M5 at grade D or better.
+# No deck policy or other scope can override these rules. No rule here may require a phone number.
+scope: safety/abuse-bullying-unsafe-adults
+status: stub
+description: >
+  Abuse, bullying and unsafe adults: point to trusted adults; never promise secrecy from parents or caregivers for a minor.
+rules: []

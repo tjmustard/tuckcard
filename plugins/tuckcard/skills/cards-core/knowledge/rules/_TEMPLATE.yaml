@@ -1,0 +1,25 @@
+# Rule file template. One file per scope. See SPEC.md Section 4.
+scope: core                    # core | safety/<topic> | age/<band> | context/<name>
+status: stub                   # active | stub
+description: What this scope covers, in one sentence.
+rules:
+  - id: R-core-001             # R-<last scope segment>-NNN shipped; R-<segment>-LNNN overlay
+    type: avoid                # do | avoid | must | must_not | format
+    strength: should           # must = lint error, should = warning
+    applies_to: [title, lines, notes]
+    when: null                 # gate on policy and/or age band, e.g. {substances: harm_reduction} or {age_band: [grade-school]}
+    overrides: []              # lower-precedence rule IDs this replaces; never a safety rule
+    text: The rule, as an instruction to the writer.
+    why: One sentence for the user explaining the reason.
+    cites: [F-0000]            # active (or, for avoid/must_not, contested) findings only
+    check: judge               # lint | judge | both
+    lint: null                 # pattern spec when check includes lint
+    examples:
+      bad: "An example that breaks the rule."
+      good: "An example that follows it."
+
+# Evidence floor (validate_rules.py enforces it):
+#   do         -> at least one active A or B finding, or D for practical safety guidance
+#   avoid      -> any active or contested finding
+#   must/must_not -> active A, B or D
+#   format     -> no citation; set `basis: template` instead of `cites`

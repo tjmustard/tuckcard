@@ -1,0 +1,9 @@
+# Template for a new age band. Copy to <band>.yaml, then add the band to ../policies.yaml.
+# Until its ladder is set there, the band allows only `omit` for every sensitive topic.
+scope: age/<band>
+status: stub
+description: Who this band covers and what's developmentally distinct about it.
+defaults:
+  reading: {max_avg_syllables_per_word: null, familiarity_list: null, deck_fk_grade_warning: null}
+  card: {max_title_words: null, max_lines: null, max_words_per_line: null}
+rules: []
