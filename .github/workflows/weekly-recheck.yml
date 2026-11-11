@@ -1,8 +1,9 @@
 name: weekly-recheck
 
-# The weekly existence and retraction check for shipped findings.
-# The shipped findings arrive with milestone M5. Until then this workflow has
-# nothing to re-check, and it says so instead of reporting a pass.
+# The weekly existence and retraction check for shipped findings
+# (SPEC.md section 3, invariant 1). It runs verify_citations.py with live
+# network access. Until milestone M5 ships findings there is nothing to
+# re-check, and the run says so instead of claiming a pass.
 
 on:
   schedule:
@@ -15,8 +16,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Report whether there are findings to re-check
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install pinned validation dependencies
+        run: python -m pip install --requirement requirements.txt
+
+      - name: Re-check every shipped finding
         run: |
+          set -euo pipefail
           findings=plugins/tuckcard/skills/cards-core/knowledge/findings
           count=$(find "$findings" -maxdepth 1 -name 'F-*.md' | wc -l | tr -d ' ')
           if [ "$count" -eq 0 ]; then
@@ -24,6 +34,5 @@ jobs:
             echo "No check ran in this run, so this is not a pass."
             exit 0
           fi
-          echo "Found $count shipped findings, but the re-check script does not exist yet (milestone M2/M5)."
-          echo "No check ran in this run, so this is not a pass."
-          exit 1
+          echo "Re-checking $count shipped findings against Crossref and PubMed."
+          python plugins/tuckcard/skills/cards-core/scripts/verify_citations.py
