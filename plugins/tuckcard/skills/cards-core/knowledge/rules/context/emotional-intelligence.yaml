@@ -2,7 +2,160 @@
 # Context rules apply only to cards in categories mapped to this context, and must be age-neutral:
 # anything age-specific goes in the age-band file or is gated with when: {age_band: [...]}.
 scope: context/emotional-intelligence
-status: stub
-description: Naming feelings, regulation, empathy and communication.
+status: active
+description: Recognising, naming and handling feelings, in oneself and in other people.
 typical_relationship: null   # e.g. coach to player, parent to child
-rules: []
+rules:
+  - id: R-emotional-intelligence-001
+    type: do
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Offer one small way to work with a difficult feeling, such as naming it in a plain word or writing a few lines about what happened.
+    why: A review of affect labeling finds that putting feelings into words can soften the experience, and a meta-analysis of disclosure studies found a small reliable benefit from writing about thoughts and feelings.
+    cites: [F-0079, F-0076]
+    check: judge
+    lint: null
+    examples:
+      bad: "Just stop thinking about it."
+      good: "Write one line about what happened. One line is enough."
+
+  - id: R-emotional-intelligence-002
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Treat working out what someone else might be feeling as a skill to practise, not a talent some people have.
+    why: A meta-analysis of 18 randomized trials found empathy training had a medium effect, which fell to small to medium after adjusting for likely publication bias.
+    cites: [F-0077]
+    check: judge
+    lint: null
+    examples:
+      bad: "You are either an empath or you are not."
+      good: "Ask what the day was like from where they stood."
+
+  - id: R-emotional-intelligence-003
+    type: do
+    strength: should
+    applies_to: [title, lines]
+    when:
+      age_band: [grade-school, middle-school, high-school]
+    overrides: []
+    text: For a young reader, frame handling feelings as something taught and practised, the same way a subject is learned.
+    why: A meta-analysis of 213 school programmes with 270,034 students found gains in skills, attitudes and behaviour, and achievement equal to 11 percentile points.
+    cites: [F-0075]
+    check: judge
+    lint: null
+    examples:
+      bad: "Some kids are just bad at emotions."
+      good: "Naming the feeling is a skill. It takes practice like anything else."
+
+  - id: R-emotional-intelligence-004
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not tell the reader to keep a feeling from the people close to them, or treat hiding it as strength.
+    why: In laboratory conversations, hiding emotional responses disrupted communication, raised the partner's blood pressure and reduced rapport.
+    cites: [F-0080]
+    check: judge
+    lint: null
+    examples:
+      bad: "Real strength is never letting anyone see you upset."
+      good: "Saying it out loud is part of staying close."
+
+  - id: R-emotional-intelligence-005
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not offer going over the same upsetting scene again as the way to work it out.
+    why: A meta-analysis of 114 studies found rumination had the largest association with psychopathology of the strategies examined.
+    cites: [F-0074]
+    check: judge
+    lint: null
+    examples:
+      bad: "Replay the moment until you find what you did wrong."
+      good: "Note what happened once, then decide the next small step."
+
+  - id: R-emotional-intelligence-006
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Tie handling a feeling to an ordinary support, such as asking someone for help or getting enough sleep.
+    why: A meta-analysis of 106 studies found trait emotional intelligence had large associations with social support and sleep quality, and medium ones with diet and physical activity.
+    cites: [F-0078]
+    check: judge
+    lint: null
+    examples:
+      bad: "Feelings are yours to sort out alone."
+      good: "Tell one person, then go to bed on time."
+
+  - id: R-emotional-intelligence-007
+    type: do
+    strength: should
+    applies_to: [title, lines]
+    when:
+      age_band: [middle-school, high-school]
+    overrides: []
+    text: Let the card speak to a young reader the way they would speak to a friend, and treat a setback as something they can act on.
+    why: A meta-analysis of 19 studies of adolescents found a strong inverse association between self-compassion and psychological distress.
+    cites: [F-0036]
+    check: judge
+    lint: null
+    examples:
+      bad: "You always ruin things like this."
+      good: "That went badly. What would you say to a friend who did the same?"
+
+  - id: R-emotional-intelligence-008
+    type: do
+    strength: should
+    applies_to: [lines]
+    when:
+      age_band: [college]
+    overrides: []
+    text: Offer one short attention practice, such as a few slow breaths, as something to try rather than a cure.
+    why: A meta-analysis of 11 randomized trials with university students found small improvements in depression, anxiety, stress and sleep quality.
+    cites: [F-0056]
+    check: judge
+    lint: null
+    examples:
+      bad: "Meditation will fix your anxiety."
+      good: "Try four slow breaths before the seminar. Then see how the hour goes."
+
+  - id: R-emotional-intelligence-009
+    type: do
+    strength: should
+    applies_to: [title, lines]
+    when:
+      age_band: [college]
+    overrides: []
+    text: Say that how a student speaks to themselves about a hard week is part of how that week feels.
+    why: A meta-analysis of 20 samples found a large inverse association between self-compassion and psychopathology.
+    cites: [F-0053]
+    check: judge
+    lint: null
+    examples:
+      bad: "Be harder on yourself and you will do better."
+      good: "A hard week is a hard week. Talk to yourself like you would to a friend in it."
+
+  - id: R-emotional-intelligence-010
+    type: format
+    strength: must
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Keep each card short, use plain words, and avoid clinical terms for a diagnosis.
+    why: Template rule. Card length and reading level come from the deck's format settings.
+    basis: template
+    check: judge
+    lint: null
+    examples:
+      bad: "Your affect dysregulation suggests a comorbid anxiety presentation."
+      good: "The worry is loud today. Here is one thing that helps."

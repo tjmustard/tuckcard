@@ -251,6 +251,7 @@ findings:
     scopes:
       - age/middle-school
       - age/high-school
+      - context/emotional-intelligence
     grade: A
     direction: supports
     status: active
@@ -381,6 +382,7 @@ findings:
     claim: A meta-analysis of 20 samples from 14 studies found a large inverse association between self-compassion and psychopathology, with higher self-compassion going with lower distress.
     scopes:
       - age/college
+      - context/emotional-intelligence
     grade: A
     direction: supports
     status: active
@@ -403,6 +405,7 @@ findings:
     claim: A meta-analysis of 11 randomized trials with 1,824 university students found small improvements in depression, anxiety, stress and sleep quality from mindfulness programmes, with no significant change in measured mindfulness itself.
     scopes:
       - age/college
+      - context/emotional-intelligence
     grade: A
     direction: supports
     status: active
@@ -530,4 +533,53 @@ findings:
       - context/academics
     grade: A
     direction: supports
+    status: active
+  - id: F-0074
+    claim: A meta-analysis of 114 studies found that rumination had the strongest association with psychopathology, with avoidance, problem solving and suppression next, and reappraisal and acceptance showing smaller associations.
+    scopes:
+      - context/emotional-intelligence
+    grade: A
+    direction: caution
+    status: active
+  - id: F-0075
+    claim: A meta-analysis of 213 school-based social and emotional learning programmes with 270,034 students found improved social and emotional skills, attitudes and behaviour, and academic performance equal to an 11 percentile point gain.
+    scopes:
+      - context/emotional-intelligence
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0076
+    claim: A meta-analysis of 146 randomized studies found that writing about personal thoughts and feelings produced a small but reliable improvement in health and psychological outcomes.
+    scopes:
+      - context/emotional-intelligence
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0077
+    claim: A meta-analysis of 18 randomized trials with 1,018 participants found that empathy training had a medium effect, which shrank to small to medium after adjusting for likely publication bias.
+    scopes:
+      - context/emotional-intelligence
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0078
+    claim: A correlational meta-analysis of 106 studies with 45,262 people found that trait emotional intelligence had large associations with social support, sleep quality and stress-hormone activity under challenge, and medium associations with diet, physical activity and substance use.
+    scopes:
+      - context/emotional-intelligence
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0079
+    claim: A review finds that putting feelings into words can reduce the intensity of the emotional experience, with effects on what people feel, their body responses and their behaviour that look like deliberate emotion regulation.
+    scopes:
+      - context/emotional-intelligence
+    grade: E
+    direction: supports
+    status: active
+  - id: F-0080
+    claim: In two laboratory studies where pairs of women discussed an upsetting topic, hiding emotional responses disrupted communication, raised blood pressure in both partners and reduced rapport.
+    scopes:
+      - context/emotional-intelligence
+    grade: B
+    direction: caution
     status: active
