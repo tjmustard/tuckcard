@@ -112,6 +112,9 @@ def render_deck(deck, out_dir: Path, formats=("png",), page_size="letter"):
     style = core.style_from_deck(deck)
     cards = core.deck_cards(deck)
     bundle = core.style_bundle(style)
+    # Chromium loads the print sheet by file URI, and a URI has to be
+    # absolute. Resolve here so --out renders/ works as the docstring says.
+    out_dir = Path(out_dir).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
     written, reports = [], []
     visible = [c for c in cards if c.get("visibility") != "private"]
