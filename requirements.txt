@@ -1,0 +1,5 @@
+# Pinned for reproducible validation. Python 3.10 or newer is required by
+# jsonschema 4.26.0 and pytest 9.2.0; DECISIONS.md D-007 records the floor.
+jsonschema==4.26.0
+ruamel.yaml==0.19.1
+pytest==9.2.0

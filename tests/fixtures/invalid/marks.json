@@ -1,0 +1,6 @@
+{
+  "styles": {
+    "swash": { "shape": "path", "params": { "wobble": 0.4 } }
+  },
+  "badge": { "shape": "sticker", "params": { "size_in": 0.2 } }
+}

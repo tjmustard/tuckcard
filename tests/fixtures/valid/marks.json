@@ -1,0 +1,7 @@
+{
+  "styles": {
+    "swash": { "shape": "path", "params": { "wobble": 0.4 } },
+    "highlight": { "shape": "highlight", "params": { "opacity": 0.5 } }
+  },
+  "badge": { "shape": "badge", "params": { "size_in": 0.2 } }
+}

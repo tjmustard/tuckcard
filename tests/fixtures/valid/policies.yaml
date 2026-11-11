@@ -1,0 +1,41 @@
+schema_version: 1
+keys:
+  voice:
+    description: Who is speaking.
+    values: [parents, one_person, coach, mentor, manager, self]
+    default: null
+    pronouns: {parents: "we/us", one_person: "I/me", coach: "I/me", mentor: "I/me", manager: "I/me", self: "I/me"}
+  substances:
+    description: Alcohol and other drugs.
+    values: [omit, safety_only, abstain, harm_reduction]
+    default: omit
+  sex_relationships:
+    description: Sex, dating and relationships.
+    values: [omit, safety_only, harm_reduction]
+    default: omit
+  faith:
+    description: Faith references.
+    values: [neutral, include]
+    default: neutral
+  register:
+    description: Humor and slang.
+    humor: [none, light, playful]
+    slang: [none, some, lots]
+    default: {humor: light, slang: some}
+  help_resources:
+    description: Help lines on cards.
+    values: [none, custom]
+    default: none
+  personal_details:
+    description: Only facts the user confirms.
+    default: []
+ladder:
+  high-school:
+    substances: [omit, safety_only, abstain]
+    sex_relationships: [omit, safety_only]
+  adult:
+    substances: [omit, safety_only, abstain, harm_reduction]
+    sex_relationships: [omit, safety_only, harm_reduction]
+unlisted_band_default:
+  substances: [omit]
+  sex_relationships: [omit]

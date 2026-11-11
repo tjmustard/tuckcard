@@ -1,0 +1,9 @@
+{
+  "regions": {
+    "title": { "x_in": 0.4, "y_in": 0.4, "width_in": 4.2, "height_in": 1.2 },
+    "lines": { "x_in": 0.4, "y_in": 1.8, "width_in": 4.2, "height_in": 2.6 }
+  },
+  "font_sizes": { "title": 28, "lines": 20, "notes": 11 },
+  "shrink_steps": { "title": [1, 0.9], "lines": [1, 0.9], "notes": [1] },
+  "font_floors": { "title": 18, "lines": 13, "notes": 8 }
+}

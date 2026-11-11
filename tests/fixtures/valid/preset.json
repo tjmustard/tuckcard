@@ -1,0 +1,14 @@
+{
+  "name": "casual",
+  "fonts": {
+    "stacked": {
+      "title": "Fraunces",
+      "lines": "Source Serif 4",
+      "notes": "Caveat"
+    }
+  },
+  "mark_wobble": 0.4,
+  "corner_radius": 4,
+  "mark_styles": { "swash": "swash" },
+  "tokens": { "spacing": 1.1 }
+}

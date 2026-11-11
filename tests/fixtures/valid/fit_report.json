@@ -1,0 +1,19 @@
+{
+  "deck_id": "field-notes-demo",
+  "renderer": "playwright",
+  "generated_at": "2026-11-10T15:55:00Z",
+  "layout": "stacked",
+  "preset": "casual",
+  "theme": "color",
+  "cards": [
+    {
+      "n": 1,
+      "font_sizes": { "title": 28, "lines": 20, "notes": 11 },
+      "shrunk": false,
+      "failed": false,
+      "hand_edited": false
+    }
+  ],
+  "hand_edits": [],
+  "private_omitted": []
+}

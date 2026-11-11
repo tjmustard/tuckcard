@@ -1,0 +1,81 @@
+schema_version: 1
+plugin_version: 0.1.0
+id: field-notes-demo
+title: Field Notes
+status: drafted
+created: 2026-11-10
+example: true
+recipient:
+  kind: person
+  pill: a junior working on study habits
+  age_band: high-school
+  description: A fictional junior at a fictional school, practicing steady study habits.
+  culture_notes: null
+sender:
+  voice: parents
+  pronouns: they/them
+  signoff: With love
+policies:
+  substances: omit
+  sex_relationships: omit
+  faith: neutral
+  register:
+    humor: light
+    slang: some
+  help_resources: none
+personal_details:
+  - id: P-01
+    text: Plays on the school team.
+    confirmed: true
+categories:
+  - key: habits
+    label: Habits
+    color: orange
+    contexts: [academics]
+numbering:
+  mode: weekly
+  count: 2
+  week_rule: contains_jan_1
+  week_start: sunday
+outputs: [print_sheet, phone]
+page_size: letter
+style:
+  layout: stacked
+  preset: casual
+  theme: color
+  tokens: {}
+rules_snapshot:
+  file: effective-rules.yaml
+  compiled_at: 2026-11-10T15:50:00Z
+  plugin_version: 0.1.0
+  sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+cards:
+  - n: 1
+    category: habits
+    title: One small start
+    lines:
+      - text: You do the first two minutes, no more.
+        mark:
+          target: first two minutes
+        note: Starting beats waiting for motivation.
+    basis: [R-core-001]
+    visibility: public
+    approval:
+      approved_hash: "1111111111111111111111111111111111111111111111111111111111111111"
+      approved_by: round
+      approved_round: 3
+      linted_hash: "1111111111111111111111111111111111111111111111111111111111111111"
+  - n: 2
+    category: habits
+    title: After a miss
+    lines:
+      - text: A missed day is a data point, not a verdict.
+        mark: null
+        note: null
+    basis: [R-core-001, R-high-school-001]
+    visibility: public
+    approval:
+      approved_hash: "2222222222222222222222222222222222222222222222222222222222222222"
+      approved_by: round
+      approved_round: 3
+      linted_hash: "2222222222222222222222222222222222222222222222222222222222222222"

@@ -1,0 +1,20 @@
+scope: core
+status: active
+description: Applies to every deck.
+rules:
+  - id: R-core-001
+    type: do
+    strength: must
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Keep each line to one idea.
+    why: A second idea makes the card harder to remember.
+    cites: [F-0001]
+    check: both
+    lint:
+      pattern: "\\band\\b.*\\band\\b"
+      level: warning
+    examples:
+      bad: "Rest, study and call your friend."
+      good: "Rest first."

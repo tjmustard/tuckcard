@@ -1,0 +1,8 @@
+{
+  "name": "color",
+  "background": "#fffdf8",
+  "ink": "#2b2a27",
+  "muted": "#6b6a66",
+  "category_palette": { "habits": "#d97706", "focus": "#0f766e" },
+  "mark_colors": { "swash": "#d97706", "highlight": "#fde68a" }
+}

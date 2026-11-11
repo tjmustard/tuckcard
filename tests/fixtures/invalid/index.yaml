@@ -1,0 +1,6 @@
+findings:
+  - id: F-0001
+    claim: A fictional claim naming a fictional population and outcome.
+    scopes: [core]
+    grade: B
+    direction: supports

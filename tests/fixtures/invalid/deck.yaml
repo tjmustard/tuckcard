@@ -1,0 +1,47 @@
+schema_version: 1
+plugin_version: 0.1.0
+id: field-notes-demo
+title: Field Notes
+status: finished
+created: 2026-11-10
+example: true
+recipient:
+  kind: person
+  pill: a junior working on study habits
+  age_band: high-school
+  description: A fictional junior at a fictional school.
+  culture_notes: null
+sender:
+  voice: parents
+  pronouns: they/them
+  signoff: With love
+policies:
+  substances: omit
+  sex_relationships: omit
+  faith: neutral
+  register:
+    humor: light
+    slang: some
+  help_resources: none
+personal_details: []
+categories:
+  - key: habits
+    label: Habits
+    color: orange
+    contexts: [academics]
+numbering:
+  mode: weekly
+  count: 2
+outputs: [print_sheet]
+page_size: letter
+style:
+  layout: stacked
+  preset: casual
+  theme: color
+  tokens: {}
+rules_snapshot:
+  file: effective-rules.yaml
+  compiled_at: 2026-11-10T15:50:00Z
+  plugin_version: 0.1.0
+  sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+cards: []

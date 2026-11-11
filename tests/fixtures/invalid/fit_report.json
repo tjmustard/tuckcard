@@ -1,0 +1,15 @@
+{
+  "deck_id": "field-notes-demo",
+  "renderer": "browser",
+  "generated_at": "2026-11-10T15:55:00Z",
+  "cards": [
+    {
+      "n": 1,
+      "font_sizes": { "title": 28, "lines": 20, "notes": 11 },
+      "shrunk": false,
+      "failed": false
+    }
+  ],
+  "hand_edits": [],
+  "private_omitted": []
+}

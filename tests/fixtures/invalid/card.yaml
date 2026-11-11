@@ -1,0 +1,14 @@
+n: 3
+category: habits
+title: Before a test
+lines:
+  - text: Write down what you already know.
+    mark: null
+    note: null
+basis: [R-core-001]
+visibility: secret
+approval:
+  approved_hash: "3333333333333333333333333333333333333333333333333333333333333333"
+  approved_by: round
+  approved_round: 4
+  linted_hash: "3333333333333333333333333333333333333333333333333333333333333333"
