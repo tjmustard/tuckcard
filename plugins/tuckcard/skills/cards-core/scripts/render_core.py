@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import datetime
 import json
+import math
 import re
 from pathlib import Path
 
@@ -150,9 +151,12 @@ def measure(text: str, family: str, weight: int, size: float) -> int:
     banker's rounding, which would give 40 for a width of 40.5 where the
     browser gives 41.
     """
-    import math
+    return whole_px(advance(text, family, weight, size))
 
-    return int(math.floor(advance(text, family, weight, size) + 0.5))
+
+def whole_px(value: float) -> int:
+    """Round half up to whole pixels, as JavaScript's Math.round does."""
+    return int(math.floor(value + 0.5))
 
 
 # ---------------------------------------------------------------- randomness
@@ -470,17 +474,27 @@ def plan_card(card: dict, style: Style, *, with_marks: bool = True) -> dict:
 
 
 def _fit_title(card, style, region, size_default, steps, floor):
+    """Choose the largest title size whose box fits the declared region.
+
+    The box must end before the next region starts. Both heights are rounded
+    to the whole pixel the block is drawn on, so a two-line title that ends on
+    the body's top edge touches it rather than intruding. A ``None`` height
+    means no size in the ladder fits, and the card fails.
+    """
     family, weight = style.font("title")
     lh = style.layout["line_height"]["title"]
     words = card["title"].split()
+    room = whole_px(region["h"])
     for size in [size_default] + list(steps):
         if size < floor:
             break
         lines = _wrap(words, family, weight, size, region["w"], set())
-        height = len(lines) * size * lh
-        if height <= region["h"]:
+        height = whole_px(len(lines) * size * lh)
+        if height <= room:
             return size, lines, height
-    return max(floor, size), _wrap(words, family, weight, max(floor, size), region["w"], set()), None
+    size = max(floor, size)
+    lines = _wrap(words, family, weight, size, region["w"], set())
+    return size, lines, None
 
 
 def _plan_stacked(card, style, with_marks):
@@ -495,8 +509,9 @@ def _plan_stacked(card, style, with_marks):
     gaps = style.layout.get("gaps", {})
     spacing = float(style.tokens.get("spacing", 1))
 
-    title_size, title_lines, _ = _fit_title(card, style, regions["title"], sizes["title"],
-                                            steps["title"], floors["title"])
+    title_size, title_lines, title_height = _fit_title(card, style, regions["title"],
+                                                      sizes["title"], steps["title"],
+                                                      floors["title"])
     title_block = _block(card["title"], title_family, title_weight, title_size,
                          regions["title"]["w"], lh["title"], None, 0)
 
@@ -516,7 +531,7 @@ def _plan_stacked(card, style, with_marks):
                 break
         if chosen:
             break
-    failed = chosen is None
+    failed = chosen is None or title_height is None
     if failed:
         # A failed card is rendered at the floors so its overflow is visible;
         # the renderer does not shrink past the floor.
@@ -647,8 +662,9 @@ def _plan_notebook(card, style, with_marks):
     sizes, steps, floors = style.layout["font_sizes"], style.layout["shrink_steps"], style.layout["font_floors"]
     lh = style.layout["line_height"]
 
-    title_size, title_lines, _ = _fit_title(card, style, regions["title"], sizes["title"],
-                                            steps["title"], floors["title"])
+    title_size, title_lines, title_height = _fit_title(card, style, regions["title"],
+                                                      sizes["title"], steps["title"],
+                                                      floors["title"])
     title_block = _block(card["title"], title_family, title_weight, title_size,
                          regions["title"]["w"], lh["title"], None, 0)
 
@@ -668,7 +684,7 @@ def _plan_notebook(card, style, with_marks):
                 break
         if chosen:
             break
-    failed = chosen is None
+    failed = chosen is None or title_height is None
     if failed:
         line_size = floors["lines"]
         note_size = floors["notes"]
@@ -779,8 +795,9 @@ def _plan_index(card, style, with_marks):
     sizes, steps, floors = style.layout["font_sizes"], style.layout["shrink_steps"], style.layout["font_floors"]
     lh = style.layout["line_height"]
 
-    title_size, title_lines, _ = _fit_title(card, style, regions["title"], sizes["title"],
-                                            steps["title"], floors["title"])
+    title_size, title_lines, title_height = _fit_title(card, style, regions["title"],
+                                                      sizes["title"], steps["title"],
+                                                      floors["title"])
     title_block = _block(card["title"], title_family, title_weight, title_size,
                          regions["title"]["w"], lh["title"], None, 0)
 
@@ -800,7 +817,7 @@ def _plan_index(card, style, with_marks):
                 break
         if chosen:
             break
-    failed = chosen is None
+    failed = chosen is None or title_height is None
     if failed:
         line_size = floors["lines"]
         note_size = floors["notes"]

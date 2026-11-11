@@ -66,6 +66,22 @@ def test_layout_json_validates_and_describes_five_inches(layout):
         assert all(step >= floor for step in data["shrink_steps"][role])
 
 
+@pytest.mark.parametrize("layout", LAYOUTS)
+def test_a_title_region_ends_before_the_content_below_it(layout):
+    """A title must not be declared over the region it sits above.
+
+    The stacked layout once declared 0.95 in of title where only 0.74 in
+    existed, so a long title could paint over the first body line while the
+    fit test still passed. SPEC.md section 7 gives the title its own region.
+    """
+    regions = read(TEMPLATES / layout / "layout.json")["regions"]
+    title = regions["title"]
+    bottom = title["y_in"] + title["height_in"]
+    for name in ("body", "lines", "notes"):
+        if name in regions:
+            assert bottom <= regions[name]["y_in"] + 1e-9, (layout, name)
+
+
 @pytest.mark.parametrize("path", [
     CORE / "marks.json",
     *(CORE / "themes" / (name + ".json") for name in THEMES),

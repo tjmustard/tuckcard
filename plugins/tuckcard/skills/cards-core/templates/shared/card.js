@@ -239,18 +239,23 @@
     return { runs: runs, lines: lines.length, widths: widths };
   }
 
+  // The title box must end before the next region starts. Both heights are
+  // rounded to the whole pixel the block is drawn on, as render_core does, so
+  // a two-line title that ends on the body's top edge touches it rather than
+  // intruding. fits false means no size in the ladder fits, and the card fails.
   function fitTitle(card, layout, fonts, weights, maxWidth) {
     var family = fonts.title, weight = weights.title;
     var lh = layout.line_height.title;
     var words = card.title.split(/\s+/).filter(Boolean);
     var sizes = [layout.font_sizes.title].concat(layout.shrink_steps.title);
+    var room = Math.round(region(layout, "title").h);
     for (var i = 0; i < sizes.length; i++) {
       var size = sizes[i];
       if (size < layout.font_floors.title) break;
       var lines = wrap(words, family, weight, size, maxWidth, new Set());
-      if (lines.length * size * lh <= region(layout, "title").h) return size;
+      if (Math.round(lines.length * size * lh) <= room) return { size: size, fits: true };
     }
-    return Math.max(layout.font_floors.title, sizes[sizes.length - 1]);
+    return { size: Math.max(layout.font_floors.title, sizes[sizes.length - 1]), fits: false };
   }
 
   function prepareLines(card, defaultStyle) {
@@ -274,7 +279,8 @@
     var layout = style.layout, fonts = style.fonts, weights = style.weights;
     var lh = layout.line_height, gaps = layout.gaps || {}, spacing = style.spacing || 1;
     var titleReg = region(layout, "title"), bodyReg = region(layout, "body");
-    var titleSize = fitTitle(card, layout, fonts, weights, titleReg.w);
+    var titleFit = fitTitle(card, layout, fonts, weights, titleReg.w);
+    var titleSize = titleFit.size;
     var titleBlock = block(card.title, fonts.title, weights.title, titleSize, titleReg.w, lh.title);
     var prepared = prepareLines(card, layout.mark_style || "swash");
     var chosen = null;
@@ -289,7 +295,7 @@
       }
       if (chosen) break;
     }
-    var failed = !chosen;
+    var failed = !chosen || !titleFit.fits;
     if (failed) {
       var ls = layout.font_floors.lines;
       var ns = layout.font_floors.notes;
@@ -352,7 +358,8 @@
     var layout = style.layout, fonts = style.fonts, weights = style.weights;
     var lh = layout.line_height;
     var regs = { title: region(layout, "title"), lines: region(layout, "lines"), notes: region(layout, "notes") };
-    var titleSize = fitTitle(card, layout, fonts, weights, regs.title.w);
+    var titleFit = fitTitle(card, layout, fonts, weights, regs.title.w);
+    var titleSize = titleFit.size;
     var titleBlock = block(card.title, fonts.title, weights.title, titleSize, regs.title.w, lh.title);
     var prepared = prepareLines(card, layout.mark_style || "highlight");
     var reserve = badgeReserve(style);
@@ -370,7 +377,7 @@
       }
       if (chosen) break;
     }
-    var failed = !chosen;
+    var failed = !chosen || !titleFit.fits;
     if (failed) {
       var ls = layout.font_floors.lines;
       var ns = layout.font_floors.notes;
@@ -450,7 +457,8 @@
     var lh = layout.line_height;
     var regs = { band: region(layout, "band"), title: region(layout, "title"),
       body: region(layout, "body"), notes: region(layout, "notes") };
-    var titleSize = fitTitle(card, layout, fonts, weights, regs.title.w);
+    var titleFit = fitTitle(card, layout, fonts, weights, regs.title.w);
+    var titleSize = titleFit.size;
     var titleBlock = block(card.title, fonts.title, weights.title, titleSize, regs.title.w, lh.title);
     var prepared = prepareLines(card, layout.mark_style || "underline");
     var reserve = badgeReserve(style);
@@ -468,7 +476,7 @@
       }
       if (chosen) break;
     }
-    var failed = !chosen;
+    var failed = !chosen || !titleFit.fits;
     if (failed) {
       var ls = layout.font_floors.lines;
       var ns = layout.font_floors.notes;

@@ -146,6 +146,66 @@ def test_a_deck_token_overrides_the_preset_mark_wobble():
     assert core.Style("stacked", "professional", "color").wobble() == 0
 
 
+def title_with_rows(rows, style):
+    """A title that wraps to exactly ``rows`` lines at the default title size."""
+    family, weight = style.font("title")
+    width = style.region("title")["w"]
+    size = style.layout["font_sizes"]["title"]
+    for count in range(1, 200):
+        title = " ".join(["Steady"] * count)
+        lines = core._wrap(title.split(), family, weight, size, width, set())
+        if len(lines) == rows:
+            return title
+    raise AssertionError("no title wraps to %d rows" % rows)
+
+
+@pytest.mark.parametrize("rows,title_size,failed", [
+    (1, 33, False),
+    (2, 33, False),
+    (3, 27, True),
+    (4, 27, True),
+])
+def test_the_stacked_title_must_end_before_the_body(rows, title_size, failed):
+    # The stacked title region is 0.740 in, the space between its top edge and
+    # the body's top edge. A one- or two-line title still fits at 33 px because
+    # a title that ends on the body's top edge touches it, not intrudes.
+    style = core.Style("stacked", "casual", "color")
+    card = copy.deepcopy(by_n(1))
+    card["title"] = title_with_rows(rows, style)
+    card["lines"] = [{"text": "One short line.", "mark": None, "note": None}]
+    plan = core.build_plan(card, style)
+    report = plan["report"]
+    assert report["sizes"]["title"] == title_size
+    assert report["failed"] is failed
+    if not failed:
+        fitted = max(run["row"] for run in plan["title"]["runs"]) + 1
+        bottom = plan["title"]["y"] + fitted * plan["title"]["line_height"]
+        assert bottom <= plan["body"]["y"] + 0.5
+
+
+def test_a_four_row_title_with_a_short_body_is_reported_as_failed():
+    # The case the old predicate missed: the body fits, so the card reported
+    # failed: false while its fourth title line painted over the body.
+    style = core.Style("stacked", "casual", "color")
+    card = copy.deepcopy(by_n(1))
+    card["title"] = title_with_rows(4, style)
+    card["lines"] = [{"text": "One short line.", "mark": None, "note": None}]
+    plan = core.build_plan(card, style)
+    assert plan["report"]["failed"] is True
+    assert plan["body"]["height"] <= style.region("body")["h"]
+
+
+def test_no_fitting_card_paints_its_title_over_the_body():
+    style = core.Style("stacked", "casual", "color")
+    for card in cards():
+        plan = core.build_plan(card, style)
+        if plan["report"]["failed"]:
+            continue
+        rows = max(run["row"] for run in plan["title"]["runs"]) + 1
+        bottom = plan["title"]["y"] + rows * plan["title"]["line_height"]
+        assert bottom <= plan["body"]["y"] + 0.5, card["n"]
+
+
 def test_mark_seed_is_keyed_to_the_card_and_line():
     assert core.mark_seed(1, 0) != core.mark_seed(2, 0)
     assert core.mark_seed(1, 0) != core.mark_seed(1, 1)
