@@ -34,6 +34,9 @@ The format is based on [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.
 - `tests/`: one valid and one invalid fixture for each of the 13 schemas, the SPEC section 3 finding and section 6 manifest examples as they are written, negative cases for each finding status rule and for the manifest's illustrative ellipsis hash, a fictional `field-notes-demo` deck with its rules snapshot, and pytest coverage of the CLI, the five deck cross-file checks, the `--schema` override and the 26 seed-kit rule, policy, finding and gap templates. The deck fixtures are named `deck.fixture.yaml`, not `deck.yaml`, so the private-output guard keeps failing on any committed `deck.yaml` outside `examples/`. `pytest -q` on Python 3.12.14 reported `53 passed in 10.57s`, and `ast.parse(feature_version=(3, 9))` accepts `validate.py` and every test file. All 26 kit files pass `validate.py` at exit 0.
 - `DECISIONS.md` D-013 to D-017 record choices and corrections from the M1 review. D-013 keeps `approval` on every card in `deck.yaml` and puts unapproved drafts in the conversation. D-014 records that the manifest sample's `...` hashes are illustrative, so only real digests validate. D-015 records that finding status is enforced by the finding schema now, with rule-level consequences left to M2. D-016 records the manifest's duplicate of the deck's `deck_id` pattern and `deck_status` set as provisional until M3 or M4. D-017 quotes the earlier D-010 and D-012 wording and sets the convention that a future correction to an entry gets its own entry.
 
+- `SPEC.md` Appendix C records a labeled `Claude Code / this Mac, 2026-11-11` block: Python 3.9.6 on Darwin arm64, a filesystem read of a sibling skill, writable skill folder and cwd, no Pillow, ruamel.yaml, PyYAML, jsonschema or Playwright importable, `pip install` into a temp folder works, no Chromium on PATH, and Crossref, PubMed, PyPI and Google Fonts reachable. Every claude.ai row stays unknown.
+- `DECISIONS.md` D-018 records the person's confirmation that the LICENSE holder is `TJ Mustard`, closing the question D-005 left open. The file is unchanged.
+
 ### Changed
 
 - `LICENSE` copyright line restored to the seed kit's "Copyright (c) 2026 TJ Mustard", pending the person's word on which name is canonical. The manifests use the same name. `DECISIONS.md` D-005 records it and supersedes D-002.
@@ -41,6 +44,7 @@ The format is based on [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.
 
 ### Fixed
 
+- The ladder skip note for an unreadable `policies.yaml` is collapsed to one line, matching the missing-file case. The test asserts a two-line run. This folds in the M1 nit that review and QA raised at 189d3a3.
 - `validate.py` now reports an unresolvable schema `$ref` as one line naming the reference, exit 1, instead of a traceback. The age-band ladder check prints a one-line skip note and still exits 0 when `knowledge/rules/policies.yaml` is missing or unreadable, the same visibility as the basis skip. Both were raised as non-blocking nits by the M1 review.
 - `DECISIONS.md` corrects two wordings on the M1 branch: D-010 now says the `allOf` in `deck.schema.json` rejects a personal detail without `group_level`, not `validate.py`, and D-012 now quotes both D-003 sentences that changed at 0031e73.
 - The two deck fixtures were named `deck.yaml`, which the M0 private-output guard correctly flagged on every push. Renamed to `deck.fixture.yaml` so the guard and the SPEC section 9 invariant stay strict; schema detection finds them by shape. QA raised it as a regression against the M1 branch.

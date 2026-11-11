@@ -152,6 +152,16 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 
 **Why.** An append-only register that allows quiet edits to its own entries is not append-only. Keeping the earlier wording visible lets a reader see what changed and why, and the convention gives the next correction an obvious form.
 
+## M2: knowledge tooling
+
+### D-018: The LICENSE holder is TJ Mustard
+
+**Deviation.** None from SPEC.md. This closes the question D-005 left open.
+
+**Decision.** On 2026-11-11 the person confirmed the LICENSE holder is `TJ Mustard`, the seed kit's line already committed at 189d3a3. `LICENSE` stays unchanged. The marketplace owner and plugin author use the same name, and `Thomas Mustard` is not used anywhere.
+
+**Why.** D-005 restored the seed kit's line pending the person's word. The M1 gate answer supplies that word, so this entry records the confirmation without editing D-005 or the legal file.
+
 
 
 
