@@ -550,7 +550,7 @@ def _plan_stacked(card, style, with_marks):
                    "muted": style.theme["muted"], "accent": style.category_color(card),
                    "tint": style.theme.get("tint"), "rule": style.theme.get("rule"),
                    "on_accent": style.theme.get("on_accent", "#ffffff")},
-        "labels": {"header": _header_text(card), "watermark": str(card["n"])},
+        "labels": {"header": header_label(card, style), "watermark": str(card["n"])},
         "title": {"x": regions["title"]["x"], "y": regions["title"]["y"],
                   "runs": title_block["runs"], "size": title_size,
                   "family": title_family, "weight": title_weight,
@@ -648,10 +648,70 @@ def _badge_reserve(style):
     return float(params.get("diameter_px", 15)) + float(params.get("gap_px", 2))
 
 
-def _header_text(card):
-    label = card.get("category_label") or card.get("category", "").replace("-", " ").title()
+HEADER_FONT = "Atkinson Hyperlegible Bold"
+HEADER_WEIGHT = 700
+HEADER_SIZE = 11
+HEADER_TRACKING = 1.6
+HEADER_GAP_PX = 8
+ELLIPSIS = "…"
+
+
+def _category_label(card):
+    return card.get("category_label") or card.get("category", "").replace("-", " ").title()
+
+
+def tracked_width(text: str) -> int:
+    """Width of the header label with its letter spacing.
+
+    Both engines draw the header one glyph at a time at 11 px with 1.6 px of
+    tracking, so a whole-string measure would not match what is drawn. Each
+    glyph is rounded to the whole pixel the browser's Math.round gives.
+    """
+    return (sum(whole_px(advance(ch, HEADER_FONT, HEADER_WEIGHT, HEADER_SIZE))
+                for ch in text)
+            + HEADER_TRACKING * len(text))
+
+
+def header_room(card: dict, style: "Style") -> int:
+    """Pixels between the header's left edge and what the right side reserves.
+
+    Stacked reserves the watermark's width, index reserves the number's, both
+    measured at their drawn font. Notebook draws its number on a higher
+    baseline, so its header may use the whole declared region. D-030.
+    """
+    x = style.region("header")["x"]
+    if style.layout_name == "stacked":
+        right = CARD_PX - 26 - measure(str(card["n"]), "Archivo Black", 400, 64)
+    elif style.layout_name == "index":
+        right = CARD_PX - 28 - tracked_width("No. " + str(card["n"]))
+    else:
+        return whole_px(style.region("header")["w"])
+    return whole_px(right - HEADER_GAP_PX - x)
+
+
+def header_label(card: dict, style: "Style") -> str:
+    """The header label, with an over-long pill cut to one ellipsis.
+
+    The category and separator stay; only the pill loses characters. The
+    ellipsis is the last character, never repeated, and the result is the
+    longest prefix that fits the room header_room leaves. D-030.
+    """
+    label = _category_label(card)
     pill = card.get("pill")
-    return label + (" · " + pill if pill else "")
+    if not pill:
+        return label
+    full = label + " · " + pill
+    room = header_room(card, style)
+    if tracked_width(full.upper()) <= room:
+        return full
+    fixed = label + " · "
+    for cut in range(len(pill), -1, -1):
+        candidate = fixed + pill[:cut].rstrip() + ELLIPSIS
+        if tracked_width(candidate.upper()) <= room:
+            return candidate
+    # Even the bare ellipsis does not fit. Keep one, so the label still says
+    # the pill was cut; the header height is unchanged either way.
+    return fixed + ELLIPSIS
 
 
 def _plan_notebook(card, style, with_marks):
@@ -710,7 +770,7 @@ def _plan_notebook(card, style, with_marks):
                    "muted": style.theme["muted"], "accent": style.category_color(card),
                    "tint": style.theme.get("tint"), "rule": style.theme.get("rule"),
                    "on_accent": style.theme.get("on_accent", "#ffffff")},
-        "labels": {"header": _header_text(card), "number": str(card["n"])},
+        "labels": {"header": header_label(card, style), "number": str(card["n"])},
         "title": {"x": regions["title"]["x"], "y": regions["title"]["y"],
                   "runs": title_block["runs"], "size": title_size,
                   "family": title_family, "weight": title_weight,
@@ -833,7 +893,7 @@ def _plan_index(card, style, with_marks):
                    "muted": style.theme["muted"], "accent": style.category_color(card),
                    "tint": style.theme.get("tint"), "rule": style.theme.get("rule"),
                    "on_accent": style.theme.get("on_accent", "#ffffff")},
-        "labels": {"header": _header_text(card), "number": "No. " + str(card["n"]),
+        "labels": {"header": header_label(card, style), "number": "No. " + str(card["n"]),
                    "try_this": "Try this"},
         "band": {"x": 0, "y": 0, "w": CARD_PX, "h": regions["band"]["h"]},
         "title": {"x": regions["title"]["x"], "y": regions["title"]["y"],

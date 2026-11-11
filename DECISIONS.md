@@ -291,3 +291,19 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 **Decision.** `render_core.canonical_pdf` rewrites both dates to `D:20000101000000Z` after either renderer writes a PDF. The replacement keeps each date string's exact length (Pillow writes 15 characters, Chromium 24 including its `+00'00'` offset, padded with spaces), so no byte offset moves and the cross-reference table stays valid. Every other byte is left alone. The date is a fixed placeholder, not a claim about when the file was made.
 
 **Why.** The render is data: the same deck and plugin version should give the same file. Chromium gives Playwright no option to set the PDF date, and Pillow's PDF writer takes no metadata argument, so a small post-write canonicalisation is the only path that does not fork either library. The PNGs, the HTML sheet, the fit report and the PDF page content already matched byte for byte.
+
+### D-030: An over-long age label is cut with one ellipsis, and the header does not move
+
+**Deviation.** SPEC.md section 6 calls `recipient.pill` the card's age label and sets no maximum length, and section 7 does not say what happens when the header label outgrows its line. The M3 templates left it alone, so a long value ran under the watermark or the index number. The M3 gate carried it as an open question (PROOF.md, open question 1). At the gate the person answered "Accept all three", the first of the three being ellipsis truncation for an over-long `recipient.pill` with the header height held stable.
+
+**Decision.**
+
+- The header label is the category label, a middle dot and the pill, uppercased with 1.6 px tracking. Its available width runs from the header region's left edge to whatever the layout reserves on the right, less an 8 px gap. Stacked reserves the watermark's measured width (Archivo Black 400 at 64 px, its right edge 26 px from the card's right edge). Index reserves the index number, `No. N` at the header's own font (Atkinson Hyperlegible Bold 700 at 11 px, right edge 28 px from the card's right edge). Notebook draws its number on a higher baseline, so its header may use the whole declared region width.
+- Width is measured a glyph at a time, each glyph rounded to the whole pixel the browser's `Math.round` gives, plus the tracking for every character. This is the same whole-pixel measurement D-027 applies to text runs.
+- A label that fits is drawn unchanged, character for character. A label that does not fit keeps the category label and the separator, and cuts the pill at the longest prefix, with trailing spaces removed, whose label plus a single U+2026 ellipsis still fits. If no prefix fits, the label is still the category label, the separator and the ellipsis: the header keeps its line and the overflow stays as it is. The rule cuts only the pill, because the pill is the value a user enters free-form.
+- Only the header string changes. No box, font size, row, header height or body position moves, so short labels render byte for byte as before.
+- `render_core.header_label` holds the rule and `templates/shared/card.js` `headerText` mirrors it, so the Pillow renderer, the Playwright renderer and the HTML print sheet all apply it. `tools/parity/run.py` adds a synthetic long-pill card to the parity case and compares the header labels exactly.
+
+**Why.** One line with one ellipsis is the only answer that cannot push the body down or change the header's height, which is what the gate asked for. Truncating at a glyph boundary keeps both renderers on the same string, and measuring the way the browser rounds keeps the cut identical in both.
+
+**Supersedes.** The open question in the M3 gate row. The question offered truncation, shrinking or wrapping; the person chose truncation.

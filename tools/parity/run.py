@@ -7,7 +7,9 @@ Renders a reference set through Playwright and Pillow and compares:
 - the pixels at 1500 by 1500, within the threshold below.
 
 The reference set is every combination of layout (3), preset (2) and theme
-(3), 18 combinations, plus each layout token at its default and extreme
+(3), 18 combinations, with the five fixture cards and one synthetic card whose
+pill is too long for any header, so both engines must truncate it the same way
+(D-030). Plus each layout token at its default and extreme
 values: mark wobble, corner radius, mark stroke weight and spacing, and the
 layout file's own regions, sizes, steps, floors, line heights, gaps and note
 tokens. See SPEC.md section 7 and DECISIONS.md D-028.
@@ -67,9 +69,19 @@ FRAC_OVER_32_MAX = 0.08
 TOL_POS = 2.5       # one space advance of measurement slack
 
 
+# A pill far wider than any header allows, so the truncation rule in D-030 is
+# exercised in both engines in every combination. This card is added in memory;
+# the fixture deck and its fit report are unchanged.
+LONG_PILL = "A very long age label that should never fit the header line"
+
+
 def _load_cards():
     deck = core.load_deck(DECK)
-    return deck, core.deck_cards(deck)
+    cards = core.deck_cards(deck)
+    long_pill = copy.deepcopy(cards[0])
+    long_pill["n"] = 6
+    long_pill["pill"] = LONG_PILL
+    return deck, cards + [long_pill]
 
 
 def _js_plan(page, card, bundle):
@@ -115,6 +127,8 @@ def _compare_rows(py_rows, js_rows, label, out):
 def compare_plans(py, js, card_n):
     """Return a list of differences. Empty means the plans match."""
     out = []
+    if py["labels"] != js["labels"]:
+        out.append("card %d labels %r != %r" % (card_n, py["labels"], js["labels"]))
     if py["title"]["size"] != js["title"]["size"]:
         out.append("card %d title size %s != %s"
                    % (card_n, py["title"]["size"], js["title"]["size"]))

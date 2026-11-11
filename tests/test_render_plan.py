@@ -206,6 +206,76 @@ def test_no_fitting_card_paints_its_title_over_the_body():
         assert bottom <= plan["body"]["y"] + 0.5, card["n"]
 
 
+LONG_PILL = "A very long age label that should never fit the header line"
+
+
+def test_a_short_pill_is_unchanged():
+    for layout in LAYOUTS:
+        style = core.Style(layout, "casual", "color")
+        assert core.header_label(by_n(1), style) == "Growth · High School", layout
+
+
+def test_a_pill_that_exactly_fits_is_unchanged():
+    # The longest run of "x" that fits is untouched; one more character is
+    # cut to a single ellipsis and still fits. This is the boundary the rule
+    # turns on, not a width tolerance.
+    for layout in LAYOUTS:
+        style = core.Style(layout, "casual", "color")
+        card = copy.deepcopy(by_n(1))
+        room = core.header_room(card, style)
+        fixed = "Growth · "
+        length = 0
+        while core.tracked_width((fixed + "x" * (length + 1)).upper()) <= room:
+            length += 1
+        assert length > 0, layout
+        card["pill"] = "x" * length
+        assert core.header_label(card, style) == fixed + "x" * length, layout
+        card["pill"] = "x" * (length + 1)
+        label = core.header_label(card, style)
+        assert label.endswith(core.ELLIPSIS), layout
+        assert label.count(core.ELLIPSIS) == 1, layout
+        assert core.tracked_width(label.upper()) <= room, layout
+
+
+def test_a_long_pill_is_truncated_without_moving_the_header_or_body():
+    for layout in LAYOUTS:
+        style = core.Style(layout, "casual", "color")
+        card = copy.deepcopy(by_n(1))
+        card["pill"] = LONG_PILL
+        label = core.header_label(card, style)
+        assert label.startswith("Growth · A very long"), layout
+        assert label.endswith(core.ELLIPSIS), layout
+        assert label.count(core.ELLIPSIS) == 1, layout
+        assert core.tracked_width(label.upper()) <= core.header_room(card, style), layout
+
+        long_plan = core.build_plan(card, style)
+        short_plan = core.build_plan(by_n(1), style)
+        assert long_plan["labels"]["header"] == label
+        # Only the header string changes: every box, size and row is the same,
+        # so the header height and the body position cannot move.
+        long_rest = copy.deepcopy(long_plan)
+        short_rest = copy.deepcopy(short_plan)
+        long_rest["labels"] = short_rest["labels"] = None
+        assert long_rest == short_rest, layout
+        # Same deck, same bytes: the cut is a pure function of the card.
+        assert core.build_plan(copy.deepcopy(card), style)["labels"] == \
+            long_plan["labels"], layout
+
+
+def test_the_header_room_leaves_the_watermark_and_number_clear():
+    # Stacked and index reserve the right-hand element; notebook draws its
+    # number on a higher baseline, so its header may use the whole region.
+    for layout in LAYOUTS:
+        style = core.Style(layout, "casual", "color")
+        card = by_n(1)
+        room = core.header_room(card, style)
+        region_width = style.region("header")["w"]
+        if layout == "notebook":
+            assert room == core.whole_px(region_width)
+        else:
+            assert room < region_width, layout
+
+
 def test_mark_seed_is_keyed_to_the_card_and_line():
     assert core.mark_seed(1, 0) != core.mark_seed(2, 0)
     assert core.mark_seed(1, 0) != core.mark_seed(1, 1)

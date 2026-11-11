@@ -303,7 +303,7 @@
     }
     return {
       layout: "stacked", card: { w: CARD_PX, h: CARD_PX },
-      labels: { header: headerText(card), watermark: String(card.n) },
+      labels: { header: headerText(card, style), watermark: String(card.n) },
       title: { x: titleReg.x, y: titleReg.y, runs: titleBlock.runs, size: titleSize,
         family: fonts.title, weight: weights.title, line_height: titleSize * lh.title,
         color: "var(--ink)" },
@@ -396,7 +396,7 @@
     }
     return {
       layout: "notebook", card: { w: CARD_PX, h: CARD_PX },
-      labels: { header: headerText(card), number: String(card.n) },
+      labels: { header: headerText(card, style), number: String(card.n) },
       title: { x: regs.title.x, y: regs.title.y, runs: titleBlock.runs, size: titleSize,
         family: fonts.title, weight: weights.title, line_height: titleLineH,
         color: "var(--ink)", highlight: highlight },
@@ -484,7 +484,7 @@
     }
     return {
       layout: "index", card: { w: CARD_PX, h: CARD_PX },
-      labels: { header: headerText(card), number: "No. " + card.n, try_this: "Try this" },
+      labels: { header: headerText(card, style), number: "No. " + card.n, try_this: "Try this" },
       band: { x: 0, y: 0, w: CARD_PX, h: regs.band.h },
       title: { x: regs.title.x, y: regs.title.y, runs: titleBlock.runs, size: titleSize,
         family: fonts.title, weight: weights.title, line_height: titleSize * lh.title,
@@ -535,9 +535,50 @@
       notes_height: Math.max(cursors[0], cursors[1]) - regs.notes.y };
   }
 
-  function headerText(card) {
+  var ELLIPSIS = "…";
+  var HEADER_FAMILY = "Atkinson Hyperlegible", HEADER_WEIGHT = 700,
+      HEADER_SIZE = 11, HEADER_TRACKING = 1.6, HEADER_GAP = 8;
+
+  // The header is drawn one glyph at a time at 11 px with 1.6 px of tracking,
+  // so each glyph is rounded the way render_core.tracked_width does.
+  function trackedWidth(text) {
+    var width = 0;
+    for (var i = 0; i < text.length; i++) {
+      width += Math.round(measureExact(text.charAt(i), HEADER_FAMILY, HEADER_WEIGHT, HEADER_SIZE));
+    }
+    return width + HEADER_TRACKING * text.length;
+  }
+
+  // Stacked reserves the watermark's width, index the number's. Notebook draws
+  // its number on a higher baseline, so its header may use the whole region.
+  // DECISIONS.md D-030.
+  function headerRoom(card, style) {
+    var layout = style.layout;
+    var x = region(layout, "header").x;
+    var right;
+    if (style.layout_name === "stacked") {
+      right = CARD_PX - 26 - measure(String(card.n), "Archivo Black", 400, 64);
+    } else if (style.layout_name === "index") {
+      right = CARD_PX - 28 - trackedWidth("No. " + card.n);
+    } else {
+      return Math.round(layout.regions.header.width_in * PPI);
+    }
+    return Math.round(right - HEADER_GAP - x);
+  }
+
+  function headerText(card, style) {
     var label = card.category_label || (card.category || "").replace(/-/g, " ").replace(/\b\w/g, function (c) { return c.toUpperCase(); });
-    return label + (card.pill ? " · " + card.pill : "");
+    var pill = card.pill;
+    if (!pill) return label;
+    var full = label + " · " + pill;
+    var room = headerRoom(card, style);
+    if (trackedWidth(full.toUpperCase()) <= room) return full;
+    var fixed = label + " · ";
+    for (var cut = pill.length; cut >= 0; cut--) {
+      var candidate = fixed + pill.slice(0, cut).replace(/\s+$/, "") + ELLIPSIS;
+      if (trackedWidth(candidate.toUpperCase()) <= room) return candidate;
+    }
+    return fixed + ELLIPSIS;
   }
 
   // ---------------------------------------------------------------- marks
