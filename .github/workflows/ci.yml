@@ -50,7 +50,11 @@ jobs:
           test -z "$decks$bundles$renders"
 
   validation:
-    runs-on: ubuntu-latest
+    # Pinned, not ubuntu-latest: the label moved to Ubuntu 26.04, whose
+    # actions/python-versions manifest carries no Python 3.9 build, so the 3.9
+    # leg failed at setup-python before running a single project step.
+    # ubuntu-24.04 still has 3.9, which keeps the SPEC floor exercised.
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         python-version: ["3.9", "3.12"]

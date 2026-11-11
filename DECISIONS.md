@@ -196,6 +196,15 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 **Why.** A `must_not` says "do not do this", which is what weak or mixed evidence can still support; dropping contested from `must_not` would forbid using findings the research skill is told to ship. A `must` says "always do this", and a contested finding is by definition one the evidence does not settle.
 
 **Carried forward.** This resolves a SPEC contradiction by reading, not by editing the SPEC. It goes to the person at the M3 gate, alongside the D-019 question, so the wording can be settled in the spec itself or the reading confirmed.
+### D-022: The app icon lives in `media/icons/` and keeps its generator
+
+**Deviation.** SPEC.md section 2's tree names no icon and no `media/` folder, and the seed kit ships neither.
+
+**Decision.** The icon the person asked for on 2026-11-11 lands at `media/icons/icon-1024.png` and `media/icons/icon-1024.webp`, with `media/icons/web/icon-{128,192,256,512}.png` and `.webp` beside them, and `tools/icon.py` as the source that regenerates every size. `media/` was left out at M0 only because no local asset existed to put in it, and that reason no longer holds. The files are repo furniture: they stay out of `plugins/tuckcard/` and never enter a plugin bundle. The PNGs are kept deliberately beside the WebPs so a person who opens the folder can double-click one, while a page uses the WebPs at the same sizes. The folder shape follows the exemplar project's icon layout, not its artwork; the drawing is the person's own and was copied byte for byte.
+
+**Why.** A size set without its generator is a pile of bitmaps nobody can reproduce, and a mark that changes would have to be redrawn at every size by hand. The spec's silence is why this entry exists, not a licence to add assets freely: the entry names who asked, what landed, where it may not go, and why M0 skipped the folder.
+
+**Numbering.** D-018 to D-021 are recorded on the M2 branch, which is not an ancestor of this one, and D-021 there is that branch's contested-findings entry. This entry takes the next free number, so merging both branches leaves no hole and no repeated number.
 
 
 
