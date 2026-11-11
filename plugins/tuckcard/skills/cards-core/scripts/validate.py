@@ -289,7 +289,8 @@ def load_policies() -> Tuple[Any, Optional[str]]:
     try:
         data = load_yaml(POLICIES_PATH)
     except Exception as error:
-        return None, "policies.yaml unreadable: {}".format(error)
+        detail = " ".join(str(error).split()) or type(error).__name__
+        return None, "policies.yaml unreadable: {}".format(detail)
     if not isinstance(data, dict):
         return None, "policies.yaml is not a mapping: {}".format(POLICIES_PATH)
     return data, None

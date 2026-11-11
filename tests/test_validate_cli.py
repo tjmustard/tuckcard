@@ -184,6 +184,7 @@ def test_unreadable_policies_reports_the_ladder_skip(tmp_path, monkeypatch, caps
     out = capsys.readouterr().out
     assert "ladder check skipped" in out
     assert "unreadable" in out
+    assert len(out.splitlines()) == 2, out
 
 
 def test_card_category_must_be_declared_by_the_deck(tmp_path):
