@@ -35,7 +35,7 @@ Rules:
 ## 3. Write each finding
 
 1. Copy `knowledge/findings/_TEMPLATE.md`.
-2. One claim per file. The claim names the population and the outcome.
+2. One claim per file. The claim names the population and the outcome. A `source.phone` field holds at most one help number; when a source publishes several, use the one the cards will name, and a different number needs its own citation, such as a page for that number, because promotion refuses a duplicate DOI.
 3. Paraphrase everything except the single anchor excerpt (15 words or fewer, from the text you checked).
 4. Fill any field you couldn't extract with `unknown` or `not extracted`. Never estimate an effect size.
 5. Grade by study design (A–E), then set `distance`, `direction`, `replication` and the limits.

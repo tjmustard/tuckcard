@@ -238,7 +238,9 @@ def test_a_present_phone_field_overrides_the_prose_reading():
     found = lint.check_help(
         [card(1, lines=("Call 1-800-555-0100.",))], resources, None)
     assert [item["message"] for item in found] == [
-        "phone number 18005550100 does not match a verified help resource exactly"]
+        "phone number 18005550100 does not match a verified help resource "
+        "exactly; a phone field carries one number, so a second current number "
+        "needs its own citation"]
 
 
 def test_an_absent_or_null_phone_field_falls_back_to_the_prose():
@@ -252,6 +254,34 @@ def test_an_absent_or_null_phone_field_falls_back_to_the_prose():
         }])
         assert lint.check_help(
             [card(1, lines=("Call 800-555-0100.",))], resources, None) == []
+
+
+def test_the_second_number_hint_appears_only_when_a_resource_has_a_phone():
+    def resources(phone):
+        source = {"url": "https://example.org/helpline"}
+        if phone:
+            source["phone"] = phone
+        return lint.verified_help([{
+            "id": "L-9001", "status": "active", "grade": "D",
+            "claim": "A helpline answers calls.",
+            "source": source,
+            "verification": {"exists": "fetch", "anchor": "Call 1-800-555-0100."},
+        }])
+
+    plain = "phone number 5550100 does not match a verified help resource exactly"
+    hinted = (plain + "; a phone field carries one number, so a second current "
+                      "number needs its own citation")
+    unmatched = [card(1, lines=("Call 555-0100.",))]
+    assert [item["message"] for item in lint.check_help(
+        unmatched, resources(None), None)] == [plain]
+    assert [item["message"] for item in lint.check_help(
+        unmatched, resources("1-800-555-0100"), None)] == [hinted]
+
+    # The clause is for phone numbers only, never for a URL.
+    bad_url = [card(1, lines=("See https://example.org/other.",))]
+    assert [item["message"] for item in lint.check_help(
+        bad_url, resources("1-800-555-0100"), None)] == [
+        "URL https://example.org/other does not match a verified help resource exactly"]
 
 
 def test_short_codes_are_read_as_phone_numbers():

@@ -20,7 +20,7 @@ source:
   doi: null                 # 10.xxxx/...
   pmid: null
   url: null                 # for guidance documents without a DOI; domain must be on sources-allowlist.yaml
-  phone: null               # optional help number, E.164 or digits with separators; when set, a card's number must equal it
+  phone: null               # optional help number, E.164 or digits with ASCII separators only; when set, a card's number must equal it
 verification:
   exists: none              # none | fetch | script
   metadata_match: []        # title, year, first_author

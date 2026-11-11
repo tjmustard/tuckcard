@@ -421,6 +421,7 @@ def verified_help(findings: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
             "id": str(data.get("id") or ""),
             "url": url,
             "numbers": numbers,
+            "phone": bool(phone),
         })
     return resources
 
@@ -461,6 +462,11 @@ def check_help(cards: Sequence[Dict[str, Any]],
     numbers: set = set()
     for resource in resources:
         numbers |= set(resource.get("numbers") or ())
+    # The hint only makes sense when a resource in play carries a phone field;
+    # without one the old message stays byte for byte. D-036.
+    has_phone = any(resource.get("phone") for resource in resources)
+    hint = ("; a phone field carries one number, so a second current number "
+            "needs its own citation")
     for card in cards:
         if selected is not None and card.get("n") not in selected:
             continue
@@ -469,11 +475,11 @@ def check_help(cards: Sequence[Dict[str, Any]],
                 digit_forms(value) & numbers)
             if matched:
                 continue
-            findings.append(finding(
-                "error", "help",
-                "{} does not match a verified help resource exactly".format(
-                    "URL " + value if kind == "url" else "phone number " + value),
-                card=card.get("n")))
+            message = "{} does not match a verified help resource exactly".format(
+                "URL " + value if kind == "url" else "phone number " + value)
+            if kind == "phone" and has_phone:
+                message += hint
+            findings.append(finding("error", "help", message, card=card.get("n")))
     return findings
 
 
