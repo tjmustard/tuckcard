@@ -162,6 +162,30 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 
 **Why.** D-005 restored the seed kit's line pending the person's word. The M1 gate answer supplies that word, so this entry records the confirmation without editing D-005 or the legal file.
 
+### D-019: Finding metadata expectations are optional source fields
+
+**Deviation.** SPEC.md section 3 says `verify_citations.py` "compares title, year and first author against the finding" and that a guidance document's "page title matches", but the finding frontmatter in the section 3 example, `knowledge/findings/_TEMPLATE.md` and `finding.schema.json` stores only `citation`, `doi`, `pmid` and `url`. There is no expected title, year or first author to compare a source record with, and no expected page title for a guidance URL.
+
+**Decision.** `source.title`, `source.year` (a four-digit integer) and `source.first_author` (a family name) are optional properties in `finding.schema.json` and placeholders in `_TEMPLATE.md`. `verify_citations.py` compares only the fields present, records exactly those keys in `verification.metadata_match` (empty when none is present), and quarantines a mismatch with a reason naming the field, the expected value and the value found. Title comparison ignores whitespace and case; first author is trimmed and case-folded; year is exact. For a guidance URL, `source.title` is the expected page title; when it is absent the script checks resolution and the allowlist only and prints that the title comparison was skipped. The SPEC.md example stays unchanged and remains valid, because the fields are optional.
+
+**Provisional.** The shape is provisional until M5 writes real findings. If a real source record shows the fields are the wrong shape, M5 records the change in a new entry.
+
+**Why.** A comparison needs a stored expectation. Optional fields let the existing example, template and shipped files stay valid while making the check meaningful when a researcher records what the source says.
+
+### D-020: Shapes the knowledge scripts choose where the SPEC leaves them open
+
+**Deviation.** None from a stated rule, but SPEC.md does not name the `effective-rules.yaml` field shape, the rank used to test an override, or how promotion treats the overlay copy.
+
+**Decision.**
+
+- `effective-rules.yaml` carries `deck_id`, `age_band`, `plugin_version`, `scopes` and `rules`. Each rule keeps its source fields, gains `categories` when it is a context rule, and carries a `provenance` block with `scope`, `file` and `plugin_version`. There is no timestamp, so the same deck and plugin version give identical bytes.
+- Override legality ranks safety above age band above context above core. A rule may override a rule in the same scope or a lower one; it may not override a higher one, and only a safety rule may override a safety rule. A shipped rule may not override an overlay rule.
+- Evidence floor: a `do` rule accepts an active A or B finding, and D only when the rule's own scope is `safety/`. `must` and `must_not` accept active A, B or D anywhere. `contested` backs only `avoid` and `must_not`.
+- `validate_rules.py` skips `_TEMPLATE.yaml` files because they are scaffolds, not shipped rules. Every other rule file is checked regardless of its `status`.
+- Promotion copies overlay files into the shipped tree and leaves the overlay copies in place, because SPEC.md invariant 3 says nothing is deleted automatically. It refuses to ship a finding that is not `active` or `contested`, because invariant 1 says every shipped finding is one of those. The maintainer removes the overlay copies after review.
+
+**Why.** These are the smallest choices that satisfy the SPEC's stated outcomes. Recording them keeps a later milestone from treating an unnamed output shape as an accident.
+
 
 
 
