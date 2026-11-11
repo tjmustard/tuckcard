@@ -17,7 +17,15 @@ def test_writable_reports_a_folder_it_can_write(tmp_path):
     result = env_probe.probe_writable(target)
     assert result["ok"] is True
     assert target.is_dir()
+    assert result["detail"] == "created {} and wrote a small file".format(target)
     assert list(target.iterdir()) == []
+
+
+def test_writable_does_not_claim_it_created_an_existing_folder(tmp_path):
+    result = env_probe.probe_writable(tmp_path)
+    assert result["ok"] is True
+    assert result["detail"] == "wrote and removed a small file"
+    assert "created" not in result["detail"]
 
 
 def test_writable_says_no_when_the_path_is_a_file(tmp_path):
@@ -26,6 +34,17 @@ def test_writable_says_no_when_the_path_is_a_file(tmp_path):
     result = env_probe.probe_writable(target)
     assert result["ok"] is False
     assert "cannot create folder" in result["detail"]
+
+
+def test_writable_reports_a_read_only_parent(monkeypatch, tmp_path):
+    def refuse(self, parents=False, exist_ok=False):
+        raise PermissionError("Permission denied")
+
+    monkeypatch.setattr(env_probe.Path, "mkdir", refuse)
+    result = env_probe.probe_writable(tmp_path / "child")
+    assert result["ok"] is False
+    assert "cannot create folder" in result["detail"]
+    assert "Permission denied" in result["detail"]
 
 
 def test_a_url_probe_failure_is_a_fact(monkeypatch):

@@ -34,6 +34,7 @@ TIMEOUT_DEFAULT = 5.0
 
 def probe_writable(directory: Path) -> Dict[str, Any]:
     """Write and remove a small file, the same permission a render needs."""
+    existed = directory.is_dir()
     try:
         directory.mkdir(parents=True, exist_ok=True)
     except OSError as error:
@@ -52,8 +53,11 @@ def probe_writable(directory: Path) -> Dict[str, Any]:
     except OSError as error:
         return {"ok": False, "path": str(directory),
                 "detail": "cannot write: {}".format(error)}
-    return {"ok": True, "path": str(directory),
-            "detail": "wrote and removed a small file"}
+    if existed:
+        detail = "wrote and removed a small file"
+    else:
+        detail = "created {} and wrote a small file".format(directory)
+    return {"ok": True, "path": str(directory), "detail": detail}
 
 
 def probe_url(url: str, timeout: float) -> Dict[str, Any]:
