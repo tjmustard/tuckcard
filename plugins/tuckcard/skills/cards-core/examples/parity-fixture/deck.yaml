@@ -1,0 +1,176 @@
+# A synthetic deck for the renderer parity check and the fit-report demo.
+# It contains no real person and no personal data. Card 1 is the normal case,
+# card 2 shrinks, card 3 fails, card 4 records a hand edit and card 5 is private.
+schema_version: 1
+plugin_version: 0.1.0
+id: parity-fixture
+title: Parity Fixture
+status: drafted
+created: 2026-11-11
+example: true
+recipient:
+  kind: person
+  pill: a fictional student practicing steady study habits
+  age_band: high-school
+  description: A made-up student used only to exercise every fit-report case.
+  culture_notes: null
+sender:
+  voice: parents
+  pronouns: they/them
+  signoff: With love
+policies:
+  substances: omit
+  sex_relationships: omit
+  faith: neutral
+  register:
+    humor: light
+    slang: some
+  help_resources: none
+personal_details:
+  - id: P-01
+    text: Plays on the school team.
+    confirmed: true
+categories:
+  - key: habits
+    label: Habits
+    color: orange
+    contexts: [academics]
+  - key: growth
+    label: Growth
+    color: teal
+    contexts: [academics]
+numbering:
+  mode: sequential
+  count: 5
+outputs: [print_sheet, pdf, phone, tablet, png]
+page_size: letter
+style:
+  layout: stacked
+  preset: casual
+  theme: color
+  tokens: {}
+rules_snapshot:
+  file: effective-rules.yaml
+  compiled_at: 2026-11-11T00:00:00Z
+  plugin_version: 0.1.0
+  sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+cards:
+  - n: 1
+    category: growth
+    title: The power of yet
+    lines:
+      - text: You can't do it yet.
+        mark:
+          target: yet
+        note: That's not the same as can't.
+      - text: Add "yet" after every "I can't."
+        mark:
+          target: Add "yet"
+        note: Practice a bit each day.
+      - text: and when you're stuck, ask.
+        mark:
+          target: ask
+        note: Asking for help is a strong move.
+      - text: '"Got it" is on its way.'
+        mark: null
+        note: null
+    basis: [R-core-001]
+    visibility: public
+    approval:
+      approved_hash: "1111111111111111111111111111111111111111111111111111111111111111"
+      approved_by: round
+      approved_round: 3
+      linted_hash: "1111111111111111111111111111111111111111111111111111111111111111"
+  - n: 2
+    category: habits
+    title: Small steps, repeated
+    lines:
+      - text: You do the first two minutes, no more.
+        mark:
+          target: first two minutes
+        note: Starting beats waiting for motivation.
+      - text: A missed day is a data point, not a verdict.
+        mark:
+          target: data point
+        note: Look at the trend, not one bad day.
+      - text: Choose the smallest next action you can see.
+        mark: null
+        note: Small is easier to repeat.
+      - text: Put the book where you sit down.
+        mark:
+          target: where you sit
+        note: Make the first move easy to find.
+      - text: Keep the streak visible.
+        mark: null
+        note: A calendar works.
+    basis: [R-core-001, R-high-school-001]
+    visibility: public
+    approval:
+      approved_hash: "2222222222222222222222222222222222222222222222222222222222222222"
+      approved_by: round
+      approved_round: 3
+      linted_hash: "2222222222222222222222222222222222222222222222222222222222222222"
+  - n: 3
+    category: growth
+    title: A long card that will not fit at the smallest size
+    lines:
+      - text: >-
+          This line is deliberately long so the fit algorithm has to keep shrinking and still runs
+          out of room at the floor. It keeps going with more words about practice, patience, and the
+          ordinary work of showing up on a day when the work feels dull and the result is not visible
+          yet, because that is exactly the kind of sentence a real draft can produce when the writer
+          has more to say than the card can hold.
+        mark: null
+        note: This note is also long enough to use several lines in the notes column.
+      - text: >-
+          Another long line follows, with another full sentence that spends words freely and does not
+          reach a stopping point early. The fit report should mark this card as failed rather than
+          quietly cutting the text or shrinking past the floor.
+        mark: null
+        note: A second long note pushes the notes block further down the card.
+      - text: >-
+          A third long line keeps adding clauses about the same ordinary idea, because a card that
+          overflows at the smallest size is a case the renderer has to report rather than hide.
+        mark: null
+        note: A third note adds more height to the notes column.
+      - text: >-
+          A fourth long line closes the loop, still spending words on the same point, so the fit
+          check runs out of room at the floor and the card is marked as failed.
+        mark: null
+        note: The notes keep stacking until the card cannot hold them.
+    basis: [R-core-001]
+    visibility: public
+    approval:
+      approved_hash: "3333333333333333333333333333333333333333333333333333333333333333"
+      approved_by: round
+      approved_round: 3
+      linted_hash: "3333333333333333333333333333333333333333333333333333333333333333"
+  - n: 4
+    category: habits
+    title: One line edited by hand
+    lines:
+      - text: Keep the first step small.
+        mark:
+          target: first step
+        note: Edited after the round closed.
+    basis: [R-core-001]
+    visibility: public
+    approval:
+      approved_hash: "4444444444444444444444444444444444444444444444444444444444444444"
+      approved_by: hand-edit
+      approved_round: null
+      linted_hash: "4444444444444444444444444444444444444444444444444444444444444444"
+  - n: 5
+    category: growth
+    title: A private card
+    lines:
+      - text: This card stays off the fridge and the lock screen.
+        mark: null
+        note: It stays in the deck and in the single-card PNG.
+    basis: [R-core-001]
+    visibility: private
+    approval:
+      approved_hash: "5555555555555555555555555555555555555555555555555555555555555555"
+      approved_by: round
+      approved_round: 3
+      linted_hash: "5555555555555555555555555555555555555555555555555555555555555555"
