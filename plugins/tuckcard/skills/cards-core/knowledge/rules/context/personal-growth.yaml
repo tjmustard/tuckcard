@@ -2,7 +2,141 @@
 # Context rules apply only to cards in categories mapped to this context, and must be age-neutral:
 # anything age-specific goes in the age-band file or is gated with when: {age_band: [...]}.
 scope: context/personal-growth
-status: stub
+status: active
 description: Habits, effort, setbacks and character.
 typical_relationship: null   # e.g. coach to player, parent to child
-rules: []
+rules:
+  - id: R-personal-growth-001
+    type: do
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Give the reader one step to write down and look at again at the end of the day.
+    why: A meta-analysis of 138 randomized studies with 19,951 participants found progress monitoring improved goal attainment, with larger effects when progress was recorded or made public.
+    cites: [F-0081]
+    check: judge
+    lint: null
+    examples:
+      bad: "Visualise your success every morning."
+      good: "Write the one step on a note. Look at it tonight."
+
+  - id: R-personal-growth-002
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Name one specific goal and how the reader will know it is reached.
+    why: A meta-analysis of goal-setting trials found a small positive effect, larger for difficult goals, and a summary of goal-setting theory reports that specific, difficult goals are more effective.
+    cites: [F-0082, F-0089]
+    check: judge
+    lint: null
+    examples:
+      bad: "Do better this term."
+      good: "Finish the first chapter by Friday."
+
+  - id: R-personal-growth-003
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Attach a new action to something already in the reader's day, and say that a missed day is not a restart.
+    why: In a 12-week study of habit formation the time to near-automaticity ranged from 18 to 254 days, and missing one opportunity did not materially affect the process.
+    cites: [F-0086]
+    check: judge
+    lint: null
+    examples:
+      bad: "Day one. Do not break the streak."
+      good: "After breakfast, two minutes. Miss a day and carry on."
+
+  - id: R-personal-growth-004
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not claim that practice hours alone explain who gets good at something.
+    why: A meta-analysis found deliberate practice explained 26% of performance variance in games, 21% in music, 18% in sports, 4% in education and under 1% in professions.
+    cites: [F-0083]
+    check: judge
+    lint: null
+    examples:
+      bad: "Ten thousand hours and anyone can be great."
+      good: "Practice is one part. Coaching and feedback are the others."
+
+  - id: R-personal-growth-005
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not label the reader as gritty, or as lacking grit, as though it were a fixed trait.
+    why: A meta-analysis of 584 effect sizes found grit only moderately related to performance and very strongly related to conscientiousness, so the label carries little of its own.
+    cites: [F-0084]
+    check: judge
+    lint: null
+    examples:
+      bad: "You just do not have the grit for this."
+      good: "You came back to it three times this week. That is the part to keep."
+
+  - id: R-personal-growth-006
+    type: do
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Present a hard week as something the reader's body and mind can meet, without calling the stress good.
+    why: Three studies found stress mindsets can be changed, and a stress-is-enhancing mindset went with moderate cortisol reactivity and a high desire for feedback.
+    cites: [F-0085]
+    check: judge
+    lint: null
+    examples:
+      bad: "Stress is always harmful, so avoid it."
+      good: "This week is heavy. Your body is built to meet heavy weeks."
+
+  - id: R-personal-growth-007
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Invite the reader to name one small thing that went well, without requiring them to call the day good.
+    why: Three experiments found grateful listing improved well-being on several outcomes, and a meta-analysis of gratitude interventions found benefits over a measurement-only control.
+    cites: [F-0087, F-0052]
+    check: judge
+    lint: null
+    examples:
+      bad: "Write down everything you are thankful for and be happy."
+      good: "One thing that went all right today. It can be small."
+
+  - id: R-personal-growth-008
+    type: avoid
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Do not choose the reader's values for them. Ask what matters to them and leave the answer open.
+    why: A review describes self-affirmation interventions in which people write about their own core personal values, with benefits across education, health and relationships.
+    cites: [F-0088]
+    check: judge
+    lint: null
+    examples:
+      bad: "Family comes first. Write about that."
+      good: "What matters to you? Write one line about it."
+
+  - id: R-personal-growth-009
+    type: format
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Keep each line to one action or one idea, in words the reader would use out loud.
+    why: A line with two instructions gives the reader nothing to do first.
+    basis: template
+    check: judge
+    lint: null
+    examples:
+      bad: "Set a goal, track it, review it and celebrate."
+      good: "Write the one step. Look at it tonight."

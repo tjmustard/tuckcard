@@ -583,3 +583,66 @@ findings:
     grade: B
     direction: caution
     status: active
+  - id: F-0081
+    claim: A meta-analysis of 138 randomized studies with 19,951 participants found that interventions prompting people to monitor their goal progress improved goal attainment, with larger effects when progress was recorded or made public.
+    scopes:
+      - context/personal-growth
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0082
+    claim: A meta-analysis of 141 randomized studies found that goal setting had a small unique effect on behaviour change, and worked better when the goal was difficult and set publicly.
+    scopes:
+      - context/personal-growth
+    grade: A
+    direction: supports
+    status: active
+  - id: F-0083
+    claim: A meta-analysis found that deliberate practice explained 26% of the variance in performance for games, 21% for music, 18% for sports, 4% for education and under 1% for professions.
+    scopes:
+      - context/personal-growth
+    grade: A
+    direction: caution
+    status: active
+  - id: F-0084
+    claim: A meta-analysis of 584 effect sizes from 88 samples found grit was only moderately related to performance and retention and very strongly related to conscientiousness, leaving its distinctness in question.
+    scopes:
+      - context/personal-growth
+    grade: A
+    direction: caution
+    status: active
+  - id: F-0085
+    claim: Three studies found that stress mindsets can be changed by short film clips, and that a stress-is-enhancing mindset went with moderate cortisol reactivity and a high desire for feedback under stress.
+    scopes:
+      - context/personal-growth
+    grade: B
+    direction: supports
+    status: active
+  - id: F-0086
+    claim: In a 12-week study of 96 volunteers starting a daily habit, the time to reach 95% of the automaticity asymptote ranged from 18 to 254 days, and missing one opportunity did not materially affect habit formation.
+    scopes:
+      - context/personal-growth
+    grade: B
+    direction: supports
+    status: active
+  - id: F-0087
+    claim: Three experiments with random assignment found that listing things to be grateful for improved well-being on several outcomes, most robustly positive affect, compared with listing hassles or neutral events.
+    scopes:
+      - context/personal-growth
+    grade: B
+    direction: supports
+    status: active
+  - id: F-0088
+    claim: A review finds that self-affirmation interventions, in which people write about their own core personal values, can improve education, health and relationship outcomes, sometimes for months or years.
+    scopes:
+      - context/personal-growth
+    grade: E
+    direction: supports
+    status: active
+  - id: F-0089
+    claim: A summary of 35 years of goal-setting research reports that specific, difficult goals are more effective, and sets out the mechanisms, moderators and limitations of that finding.
+    scopes:
+      - context/personal-growth
+    grade: E
+    direction: supports
+    status: active
