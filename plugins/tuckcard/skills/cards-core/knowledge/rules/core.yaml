@@ -1,9 +1,141 @@
 # Seeded in M5 (SPEC.md Section 3). Applies to every deck.
 scope: core
-status: stub
+status: active
 description: Language rules that apply to every deck, including never inferring anything about the recipient from categories the user didn't supply.
 seed_questions:
   - Which message features (specificity, believability, behavioral framing, effort and strategy framing) help motivation or behavior?
   - Which features backfire (global self-praise, unreasonably positive self-statements, controlling language, comparison)?
   - How should autonomy and choice be framed so it works across family and cultural norms the user describes?
-rules: []
+rules:
+  - id: R-core-001
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Avoid praising who someone is or how able they are. Name the effort, the choice or the strategy instead.
+    why: Praise for ability can leave someone less willing to take on a challenge after a setback, while praise for what they did does not carry that risk.
+    cites: [F-0001, F-0002, F-0009]
+    check: judge
+    lint: null
+    examples:
+      bad: "You are so smart."
+      good: "You kept going after the first try."
+
+  - id: R-core-002
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not measure the reader against another person, a classmate, a sibling or a rank.
+    why: Comparing yourself with someone else tends to leave people rating themselves lower, whichever of you comes out ahead.
+    cites: [F-0002, F-0008]
+    check: judge
+    lint: null
+    examples:
+      bad: "Better than most of the class."
+      good: "Better than you were last week."
+
+  - id: R-core-003
+    type: avoid
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Do not frame the effort as something paid for, graded or rewarded.
+    why: Wording that turns the work into a transaction points the reader at the kind of motivation that goes with lower well-being.
+    cites: [F-0005, F-0007]
+    check: judge
+    lint: null
+    examples:
+      bad: "Finish it and you have earned a treat."
+      good: "Finish it because you chose to."
+
+  - id: R-core-004
+    type: must_not
+    strength: must
+    applies_to: [title, lines, notes]
+    when: null
+    overrides: []
+    text: Never name a group the reader belongs to and then state or imply how they will perform.
+    why: Naming a group beside an expectation about performance is the pattern that research on group stereotypes links to a drop in test scores.
+    cites: [F-0010]
+    check: judge
+    lint: null
+    examples: null
+
+  - id: R-core-005
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Write toward the reader's own reason for the work, their interest in it or the value they see in it.
+    why: Motivation that comes from interest or personal value goes with better outcomes than motivation driven by reward or pressure.
+    cites: [F-0005, F-0006]
+    check: judge
+    lint: null
+    examples:
+      bad: "Do it because you have to."
+      good: "Do it because it matters to you."
+
+  - id: R-core-006
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Where a card asks for an action, name the moment it happens and the action itself.
+    why: A plan that names when and what is easier to act on than a general resolve.
+    cites: [F-0012]
+    check: judge
+    lint: null
+    examples:
+      bad: "Eat better this week."
+      good: "When I open the fridge at night, I take the fruit first."
+
+  - id: R-core-007
+    type: must_not
+    strength: must
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Never promise an outcome, such as a grade, a result or a change in how someone will feel.
+    why: The evidence for short motivation exercises is modest and uneven, so a promised result overstates what a card can do.
+    cites: [F-0003, F-0004]
+    check: judge
+    lint: null
+    examples:
+      bad: "This will change your life."
+      good: "The next step is yours."
+
+  - id: R-core-008
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Leave the choice with the reader and give the reason rather than an order.
+    why: Wording that supports the reader's own choice fits the picture of motivation linked to better outcomes.
+    cites: [F-0002, F-0006]
+    check: judge
+    lint: null
+    examples:
+      bad: "You must study tonight."
+      good: "You can pick the hour that suits you."
+
+  - id: R-core-009
+    type: format
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Keep one idea on each card.
+    why: A card is read in one glance, and two ideas split the attention.
+    basis: template
+    check: judge
+    lint: null
+    examples:
+      bad: "Stay curious and never give up."
+      good: "Stay curious."
