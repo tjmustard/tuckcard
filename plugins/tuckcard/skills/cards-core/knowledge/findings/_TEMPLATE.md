@@ -1,6 +1,6 @@
 ---
 id: F-0000                  # F- shipped, L- overlay; next free number in the target folder
-claim: >
+claim: >-
   One claim, naming the population and the outcome, in your own words.
 direction: supports         # supports | caution | null | mixed
 scopes: [core]              # core | safety/<topic> | age/<band> | context/<name>
