@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tuckcard.local/schemas/policies.schema.json",
+  "title": "Intake policies",
+  "description": "knowledge/rules/policies.yaml: keys, allowed values, defaults and the age-band ladder. SPEC.md section 4.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "keys", "ladder", "unlisted_band_default"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "keys": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "voice",
+        "substances",
+        "sex_relationships",
+        "faith",
+        "register",
+        "help_resources",
+        "personal_details"
+      ],
+      "properties": {
+        "voice": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["description", "values", "default", "pronouns"],
+          "properties": {
+            "description": { "type": "string", "minLength": 1 },
+            "values": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "enum": ["parents", "one_person", "coach", "mentor", "manager", "self"] }
+            },
+            "default": { "type": "null" },
+            "pronouns": {
+              "type": "object",
+              "additionalProperties": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "substances": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["description", "values", "default"],
+          "properties": {
+            "description": { "type": "string", "minLength": 1 },
+            "values": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "enum": ["omit", "safety_only", "abstain", "harm_reduction"] }
+            },
+            "default": { "enum": ["omit", "safety_only", "abstain", "harm_reduction"] }
+          }
+        },
+        "sex_relationships": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["description", "values", "default"],
+          "properties": {
+            "description": { "type": "string", "minLength": 1 },
+            "values": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "enum": ["omit", "safety_only", "harm_reduction"] }
+            },
+            "default": { "enum": ["omit", "safety_only", "harm_reduction"] }
+          }
+        },
+        "faith": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["description", "values", "default"],
+          "properties": {
+            "description": { "type": "string", "minLength": 1 },
+            "values": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "enum": ["neutral", "include"] }
+            },
+            "default": { "enum": ["neutral", "include"] }
+          }
+        },
+        "register": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["description", "humor", "slang", "default"],
+          "properties": {
+            "description": { "type": "string", "minLength": 1 },
+            "humor": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "enum": ["none", "light", "playful"] }
+            },
+            "slang": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "enum": ["none", "some", "lots"] }
+            },
+            "default": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["humor", "slang"],
+              "properties": {
+                "humor": { "enum": ["none", "light", "playful"] },
+                "slang": { "enum": ["none", "some", "lots"] }
+              }
+            }
+          }
+        },
+        "help_resources": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["description", "values", "default"],
+          "properties": {
+            "description": { "type": "string", "minLength": 1 },
+            "values": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "enum": ["none", "custom"] }
+            },
+            "default": { "enum": ["none", "custom"] }
+          }
+        },
+        "personal_details": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["description", "default"],
+          "properties": {
+            "description": { "type": "string", "minLength": 1 },
+            "default": { "type": "array" }
+          }
+        }
+      }
+    },
+    "ladder": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["substances", "sex_relationships"],
+        "properties": {
+          "substances": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "enum": ["omit", "safety_only", "abstain", "harm_reduction"] }
+          },
+          "sex_relationships": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "enum": ["omit", "safety_only", "harm_reduction"] }
+          }
+        }
+      }
+    },
+    "unlisted_band_default": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["substances", "sex_relationships"],
+      "properties": {
+        "substances": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["omit", "safety_only", "abstain", "harm_reduction"] }
+        },
+        "sex_relationships": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["omit", "safety_only", "harm_reduction"] }
+        }
+      }
+    }
+  }
+}

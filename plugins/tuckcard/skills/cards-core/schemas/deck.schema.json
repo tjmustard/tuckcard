@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tuckcard.local/schemas/deck.schema.json",
+  "title": "Tuckcard deck",
+  "description": "One deck file. SPEC.md section 6.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plugin_version",
+    "id",
+    "title",
+    "status",
+    "created",
+    "recipient",
+    "sender",
+    "policies",
+    "personal_details",
+    "categories",
+    "numbering",
+    "outputs",
+    "page_size",
+    "style",
+    "rules_snapshot",
+    "cards"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "plugin_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "title": { "type": "string", "minLength": 1 },
+    "status": {
+      "enum": ["intake", "researching", "drafting", "drafted", "reviewed", "rendered"]
+    },
+    "created": { "type": "string", "format": "date" },
+    "example": { "type": "boolean" },
+    "recipient": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "pill", "age_band", "description", "culture_notes"],
+      "properties": {
+        "kind": { "enum": ["person", "group"] },
+        "pill": { "type": "string", "minLength": 1 },
+        "age_band": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "description": { "type": "string", "minLength": 1 },
+        "culture_notes": { "type": ["string", "null"] }
+      }
+    },
+    "sender": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["voice", "pronouns", "signoff"],
+      "properties": {
+        "voice": {
+          "enum": ["parents", "one_person", "coach", "mentor", "manager", "self"]
+        },
+        "pronouns": { "type": "string", "minLength": 1 },
+        "signoff": { "type": ["string", "null"] }
+      }
+    },
+    "policies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["substances", "sex_relationships", "faith", "register", "help_resources"],
+      "properties": {
+        "substances": { "enum": ["omit", "safety_only", "abstain", "harm_reduction"] },
+        "sex_relationships": { "enum": ["omit", "safety_only", "harm_reduction"] },
+        "faith": { "enum": ["neutral", "include"] },
+        "register": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["humor", "slang"],
+          "properties": {
+            "humor": { "enum": ["none", "light", "playful"] },
+            "slang": { "enum": ["none", "some", "lots"] }
+          }
+        },
+        "help_resources": { "enum": ["none", "custom"] }
+      }
+    },
+    "personal_details": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "text", "confirmed"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^P-[0-9]{2,}$" },
+          "text": { "type": "string", "minLength": 1 },
+          "confirmed": { "type": "boolean" },
+          "group_level": { "type": "boolean" }
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "label", "color", "contexts"],
+        "properties": {
+          "key": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "label": { "type": "string", "minLength": 1 },
+          "color": { "type": "string", "minLength": 1 },
+          "contexts": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" }
+          }
+        }
+      }
+    },
+    "numbering": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "count"],
+      "properties": {
+        "mode": { "enum": ["weekly", "sequential"] },
+        "count": { "type": "integer", "minimum": 1 },
+        "week_rule": { "enum": ["contains_jan_1", "iso8601"] },
+        "week_start": { "enum": ["sunday", "monday"] }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["print_sheet", "pdf", "phone", "tablet", "png"] }
+    },
+    "page_size": { "enum": ["letter", "a4"] },
+    "style": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["layout", "preset", "theme", "tokens"],
+      "properties": {
+        "layout": { "enum": ["stacked", "notebook", "index"] },
+        "preset": { "type": "string", "minLength": 1 },
+        "theme": { "type": "string", "minLength": 1 },
+        "tokens": { "type": "object", "additionalProperties": true }
+      }
+    },
+    "rules_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "compiled_at", "plugin_version", "sha256"],
+      "properties": {
+        "file": { "type": "string", "minLength": 1 },
+        "compiled_at": { "type": "string", "format": "date-time" },
+        "plugin_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "sha256": { "type": "string", "pattern": "^(sha256:)?[a-f0-9]{64}$" }
+      }
+    },
+    "cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["n", "category", "title", "lines", "basis", "visibility", "approval"],
+        "properties": {
+          "n": { "type": "integer", "minimum": 1 },
+          "category": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+          "title": { "type": "string", "minLength": 1 },
+          "lines": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["text", "mark", "note"],
+              "properties": {
+                "text": { "type": "string", "minLength": 1 },
+                "mark": {
+                  "oneOf": [
+                    { "type": "null" },
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["target"],
+                      "properties": {
+                        "target": { "type": "string", "minLength": 1 },
+                        "occurrence": { "type": "integer", "minimum": 1, "default": 1 },
+                        "style": { "type": "string", "minLength": 1 }
+                      }
+                    }
+                  ]
+                },
+                "note": { "type": ["string", "null"] }
+              },
+              "if": {
+                "properties": { "mark": { "type": "object" } },
+                "required": ["mark"]
+              },
+              "then": {
+                "properties": { "note": { "type": "string", "minLength": 1 } }
+              }
+            }
+          },
+          "basis": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^R-[a-z0-9-]+-L?[0-9]{3}$" }
+          },
+          "visibility": { "enum": ["public", "private"] },
+          "approval": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["approved_hash", "approved_by", "approved_round", "linted_hash"],
+            "properties": {
+              "approved_hash": {
+                "type": "string",
+                "pattern": "^(sha256:)?[a-f0-9]{64}$"
+              },
+              "approved_by": { "enum": ["round", "hand-edit"] },
+              "approved_round": { "type": ["integer", "null"], "minimum": 0 },
+              "linted_hash": {
+                "type": "string",
+                "pattern": "^(sha256:)?[a-f0-9]{64}$"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "recipient": { "properties": { "kind": { "const": "group" } } } },
+        "required": ["recipient"]
+      },
+      "then": {
+        "properties": {
+          "personal_details": {
+            "items": {
+              "properties": { "group_level": { "const": true } },
+              "required": ["group_level"]
+            }
+          }
+        }
+      }
+    }
+  ]
+}

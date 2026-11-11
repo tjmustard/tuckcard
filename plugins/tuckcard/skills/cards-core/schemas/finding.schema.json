@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tuckcard.local/schemas/finding.schema.json",
+  "title": "Finding frontmatter",
+  "description": "YAML frontmatter of one finding in knowledge/findings/. SPEC.md section 5.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "claim",
+    "direction",
+    "scopes",
+    "grade",
+    "design",
+    "population",
+    "effect",
+    "distance",
+    "replication",
+    "source",
+    "verification",
+    "status",
+    "related"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[FL]-[0-9]{4}$" },
+    "claim": { "type": "string", "minLength": 1 },
+    "direction": {
+      "oneOf": [
+        { "type": "null" },
+        { "enum": ["supports", "caution", "mixed", "null"] }
+      ]
+    },
+    "scopes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^(core|safety/[a-z0-9-]+|age/[a-z0-9-]+|context/[a-z0-9-]+)$"
+      }
+    },
+    "grade": { "enum": ["A", "B", "C", "D", "E"] },
+    "design": { "type": "string", "minLength": 1 },
+    "population": { "type": "string", "minLength": 1 },
+    "effect": { "type": "string", "minLength": 1 },
+    "distance": { "enum": ["direct", "adjacent", "distal"] },
+    "replication": { "enum": ["replicated", "mixed", "failed", "unknown"] },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["citation", "doi", "pmid", "url"],
+      "properties": {
+        "citation": { "type": "string", "minLength": 1 },
+        "doi": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^10\\.[0-9]{4,9}/\\S+$" }
+          ]
+        },
+        "pmid": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "integer", "minimum": 1 }
+          ]
+        },
+        "url": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "format": "uri" }
+          ]
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exists",
+        "metadata_match",
+        "retraction",
+        "support",
+        "anchor",
+        "checked_on"
+      ],
+      "properties": {
+        "exists": { "enum": ["none", "fetch", "script"] },
+        "metadata_match": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "enum": ["title", "year", "first_author"] }
+        },
+        "retraction": { "enum": ["none", "correction", "concern", "retracted"] },
+        "support": { "enum": ["unchecked", "abstract", "full_text"] },
+        "anchor": { "type": "string", "pattern": "^(?:\\S+\\s*){0,15}$" },
+        "checked_on": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "format": "date" }
+          ]
+        }
+      }
+    },
+    "status": { "enum": ["provisional", "active", "contested", "quarantined"] },
+    "quarantine_reason": { "type": "string", "minLength": 1 },
+    "related": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[FL]-[0-9]{4}$" }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "status": { "const": "quarantined" } },
+        "required": ["status"]
+      },
+      "then": { "required": ["quarantine_reason"] }
+    }
+  ]
+}

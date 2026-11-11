@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tuckcard.local/schemas/rule_file.schema.json",
+  "title": "Rule file",
+  "description": "One scoped rule file in knowledge/rules/. SPEC.md section 4.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["scope", "status", "description", "rules"],
+  "properties": {
+    "scope": {
+      "type": "string",
+      "pattern": "^(core|safety/[a-z0-9<>-]+|age/[a-z0-9<>-]+|context/[a-z0-9<>-]+)$"
+    },
+    "status": { "enum": ["stub", "active"] },
+    "description": { "type": "string", "minLength": 1 },
+    "seed_questions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "defaults": { "type": "object", "additionalProperties": true },
+    "typical_relationship": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "minLength": 1 }
+      ]
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "type", "strength", "applies_to", "text", "why", "check"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^R-[a-z0-9<>-]+-L?[0-9]{3}$" },
+          "type": { "enum": ["do", "avoid", "must", "must_not", "format"] },
+          "strength": { "enum": ["must", "should"] },
+          "applies_to": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "enum": ["title", "lines", "notes"] }
+          },
+          "when": {
+            "oneOf": [
+              { "type": "null" },
+              { "type": "object", "additionalProperties": true }
+            ]
+          },
+          "overrides": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^R-[a-z0-9<>-]+-L?[0-9]{3}$" }
+          },
+          "text": { "type": "string", "minLength": 1 },
+          "why": { "type": "string", "minLength": 1 },
+          "cites": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^[FL]-[0-9]{4}$" }
+          },
+          "basis": { "const": "template" },
+          "check": { "enum": ["lint", "judge", "both"] },
+          "lint": {
+            "oneOf": [
+              { "type": "null" },
+              { "type": "object", "additionalProperties": true }
+            ]
+          },
+          "examples": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["bad", "good"],
+                "properties": {
+                  "bad": { "type": "string", "minLength": 1 },
+                  "good": { "type": "string", "minLength": 1 }
+                }
+              }
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "type": { "const": "format" } },
+              "required": ["type"]
+            },
+            "then": {
+              "required": ["basis"],
+              "properties": { "basis": { "const": "template" } },
+              "not": { "required": ["cites"] }
+            },
+            "else": {
+              "required": ["cites"],
+              "properties": { "cites": { "minItems": 1 } }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

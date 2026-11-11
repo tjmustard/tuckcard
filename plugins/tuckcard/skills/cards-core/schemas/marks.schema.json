@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tuckcard.local/schemas/marks.schema.json",
+  "title": "Mark styles",
+  "description": "marks.json: each mark style definition and the numbered badge. SPEC.md section 7.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["styles", "badge"],
+  "properties": {
+    "styles": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["shape"],
+        "properties": {
+          "shape": { "type": "string", "minLength": 1 },
+          "params": { "type": "object", "additionalProperties": true }
+        }
+      }
+    },
+    "badge": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["shape"],
+      "properties": {
+        "shape": { "const": "badge" },
+        "params": { "type": "object", "additionalProperties": true }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tuckcard.local/schemas/index.schema.json",
+  "title": "Finding index",
+  "description": "Generated knowledge/findings/index.yaml. SPEC.md section 5.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["findings"],
+  "properties": {
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "claim", "scopes", "grade", "direction", "status"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[FL]-[0-9]{4}$" },
+          "claim": { "type": "string", "minLength": 1 },
+          "scopes": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^(core|safety/[a-z0-9-]+|age/[a-z0-9-]+|context/[a-z0-9-]+)$"
+            }
+          },
+          "grade": { "enum": ["A", "B", "C", "D", "E"] },
+          "direction": {
+            "oneOf": [
+              { "type": "null" },
+              { "enum": ["supports", "caution", "mixed", "null"] }
+            ]
+          },
+          "status": { "enum": ["provisional", "active", "contested", "quarantined"] }
+        }
+      }
+    }
+  }
+}

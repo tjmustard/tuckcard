@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tuckcard.local/schemas/layout.schema.json",
+  "title": "Layout geometry",
+  "description": "One templates/<layout>/layout.json. The spec names layout geometry, font sizes, shrink steps and font floors but not their field names; this encoding is provisional until M3. See DECISIONS.md.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["regions", "font_sizes", "shrink_steps", "font_floors"],
+  "properties": {
+    "regions": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["x_in", "y_in", "width_in", "height_in"],
+        "properties": {
+          "x_in": { "type": "number", "minimum": 0 },
+          "y_in": { "type": "number", "minimum": 0 },
+          "width_in": { "type": "number", "minimum": 0 },
+          "height_in": { "type": "number", "minimum": 0 }
+        }
+      }
+    },
+    "font_sizes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "lines", "notes"],
+      "properties": {
+        "title": { "type": "number", "minimum": 0 },
+        "lines": { "type": "number", "minimum": 0 },
+        "notes": { "type": "number", "minimum": 0 }
+      }
+    },
+    "shrink_steps": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "lines", "notes"],
+      "properties": {
+        "title": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "number", "minimum": 0 }
+        },
+        "lines": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "number", "minimum": 0 }
+        },
+        "notes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "number", "minimum": 0 }
+        }
+      }
+    },
+    "font_floors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "lines", "notes"],
+      "properties": {
+        "title": { "type": "number", "minimum": 0 },
+        "lines": { "type": "number", "minimum": 0 },
+        "notes": { "type": "number", "minimum": 0 }
+      }
+    }
+  }
+}

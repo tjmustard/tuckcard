@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tuckcard.local/schemas/theme.schema.json",
+  "title": "Theme",
+  "description": "One file in themes/ or local/themes/. The spec names the shipped themes color, mono and dark but not the field names; this encoding is provisional until M3. See DECISIONS.md.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["name", "background", "ink", "muted", "category_palette", "mark_colors"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "background": { "type": "string", "minLength": 1 },
+    "ink": { "type": "string", "minLength": 1 },
+    "muted": { "type": "string", "minLength": 1 },
+    "category_palette": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "mark_colors": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tuckcard.local/schemas/gap.schema.json",
+  "title": "Gap entry",
+  "description": "One parsed entry from a knowledge/gaps Markdown file. SPEC.md section 5.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "question", "searches_tried", "what_turned_up", "date"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^G-[A-Za-z0-9<>_-]+-[0-9]{2,}$" },
+    "question": { "type": "string", "minLength": 1 },
+    "searches_tried": { "type": "string", "minLength": 1 },
+    "what_turned_up": { "type": "string", "minLength": 1 },
+    "date": {
+      "type": "string",
+      "pattern": "^([0-9]{4}-[0-9]{2}-[0-9]{2}|YYYY-MM-DD)$"
+    },
+    "next_idea": { "type": "string", "minLength": 1 }
+  }
+}

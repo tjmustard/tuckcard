@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tuckcard.local/schemas/preset.schema.json",
+  "title": "Style preset",
+  "description": "One file in presets/ or local/presets/. The spec names colors, fonts, corner radius, spacing, mark stroke weight and mark wobble but not their field names; this encoding is provisional until M3. See DECISIONS.md.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["name", "fonts", "mark_wobble", "corner_radius"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "fonts": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "lines", "notes"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1 },
+          "lines": { "type": "string", "minLength": 1 },
+          "notes": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "mark_wobble": { "type": "number", "minimum": 0 },
+    "corner_radius": { "type": "number", "minimum": 0 },
+    "mark_styles": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "tokens": { "type": "object", "additionalProperties": true }
+  }
+}

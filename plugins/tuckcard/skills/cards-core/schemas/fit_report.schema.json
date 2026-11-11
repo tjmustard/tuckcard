@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tuckcard.local/schemas/fit_report.schema.json",
+  "title": "Fit report",
+  "description": "Generated fit report from a render. SPEC.md section 7.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["deck_id", "renderer", "generated_at", "cards", "hand_edits", "private_omitted"],
+  "properties": {
+    "deck_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "renderer": { "enum": ["playwright", "pillow"] },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "layout": { "type": "string", "minLength": 1 },
+    "preset": { "type": "string", "minLength": 1 },
+    "theme": { "type": "string", "minLength": 1 },
+    "cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["n", "font_sizes", "shrunk", "failed"],
+        "properties": {
+          "n": { "type": "integer", "minimum": 1 },
+          "font_sizes": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["title", "lines", "notes"],
+            "properties": {
+              "title": { "type": "number", "minimum": 0 },
+              "lines": { "type": "number", "minimum": 0 },
+              "notes": { "type": "number", "minimum": 0 }
+            }
+          },
+          "shrunk": { "type": "boolean" },
+          "failed": { "type": "boolean" },
+          "hand_edited": { "type": "boolean" }
+        }
+      }
+    },
+    "hand_edits": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "integer", "minimum": 1 }
+    },
+    "private_omitted": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "integer", "minimum": 1 }
+    }
+  }
+}
