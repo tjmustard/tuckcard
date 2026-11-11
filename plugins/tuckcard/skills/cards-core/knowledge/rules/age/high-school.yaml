@@ -36,7 +36,7 @@ rules:
     overrides: []
     text: Treat ability as something that grows, and name that the people around the reader shape what feels possible.
     why: A national randomized trial found grade gains for lower-achieving students from a short mindset programme, with effects only where peer norms matched the message.
-    cites: [F-0044]
+    cites: [F-0004]
     check: judge
     lint: null
     examples:
@@ -51,7 +51,7 @@ rules:
     overrides: []
     text: Never promise that thinking differently about ability will raise the reader's grades.
     why: A meta-analysis of 43 intervention studies and 273 correlational studies found the overall effects of mindset were weak.
-    cites: [F-0045]
+    cites: [F-0003]
     check: judge
     lint: null
     examples:

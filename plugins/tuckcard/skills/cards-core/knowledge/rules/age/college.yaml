@@ -96,7 +96,7 @@ rules:
     overrides: []
     text: Do not promise that a change in how the reader thinks about ability will improve their marks.
     why: Two meta-analyses covering 273 correlational studies and 43 intervention studies found overall mindset effects were weak.
-    cites: [F-0045]
+    cites: [F-0003]
     check: judge
     lint: null
     examples:

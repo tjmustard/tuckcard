@@ -18,6 +18,9 @@ findings:
     claim: Across 273 studies and 365,915 students, the link between a growth mindset and academic achievement was weak, and across 43 intervention studies and 57,155 students the average effect of mindset interventions was also weak, with some benefit for low-income or academically at-risk students.
     scopes:
       - core
+      - age/high-school
+      - age/college
+      - context/academics
     grade: A
     direction: mixed
     status: active
@@ -25,6 +28,7 @@ findings:
     claim: In a national sample of United States secondary students, a short online growth mindset exercise raised grades for lower-achieving students and increased enrolment in advanced mathematics, and the grade effect appeared where peer norms matched the message.
     scopes:
       - core
+      - age/high-school
     grade: B
     direction: supports
     status: active
@@ -309,22 +313,6 @@ findings:
       - age/high-school
     grade: B
     direction: supports
-    status: active
-  - id: F-0044
-    claim: In a national randomized trial with secondary school students in the United States, a short online programme teaching that ability can be developed improved grades for lower-achieving students and raised enrolment in advanced mathematics, and the effects appeared where peer norms matched the message.
-    scopes:
-      - age/high-school
-    grade: B
-    direction: supports
-    status: active
-  - id: F-0045
-    claim: Two meta-analyses covering hundreds of studies found that the link between a growth mindset and academic achievement, and the effect of mindset interventions on achievement, were weak overall, though students at academic risk or from low socioeconomic backgrounds appeared to benefit more.
-    scopes:
-      - age/high-school
-      - age/college
-      - context/academics
-    grade: A
-    direction: caution
     status: active
   - id: F-0046
     claim: A systematic review of 22 studies of young people found that stigma and embarrassment, trouble recognising symptoms, and a preference for handling things alone were the main barriers to seeking help for mental health problems.

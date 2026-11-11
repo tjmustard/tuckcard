@@ -89,7 +89,7 @@ rules:
     overrides: []
     text: Never promise that a change in mindset or attitude will raise grades.
     why: Two meta-analyses covering 273 correlational studies and 43 intervention studies found overall mindset effects were weak.
-    cites: [F-0045]
+    cites: [F-0003]
     check: judge
     lint: null
     examples:
