@@ -303,7 +303,7 @@
     }
     return {
       layout: "stacked", card: { w: CARD_PX, h: CARD_PX },
-      labels: { header: headerText(card), watermark: String(card.n) },
+      labels: { header: headerText(card, style), watermark: String(card.n) },
       title: { x: titleReg.x, y: titleReg.y, runs: titleBlock.runs, size: titleSize,
         family: fonts.title, weight: weights.title, line_height: titleSize * lh.title,
         color: "var(--ink)" },
@@ -396,7 +396,7 @@
     }
     return {
       layout: "notebook", card: { w: CARD_PX, h: CARD_PX },
-      labels: { header: headerText(card), number: String(card.n) },
+      labels: { header: headerText(card, style), number: String(card.n) },
       title: { x: regs.title.x, y: regs.title.y, runs: titleBlock.runs, size: titleSize,
         family: fonts.title, weight: weights.title, line_height: titleLineH,
         color: "var(--ink)", highlight: highlight },
@@ -484,7 +484,7 @@
     }
     return {
       layout: "index", card: { w: CARD_PX, h: CARD_PX },
-      labels: { header: headerText(card), number: "No. " + card.n, try_this: "Try this" },
+      labels: { header: headerText(card, style), number: "No. " + card.n, try_this: "Try this" },
       band: { x: 0, y: 0, w: CARD_PX, h: regs.band.h },
       title: { x: regs.title.x, y: regs.title.y, runs: titleBlock.runs, size: titleSize,
         family: fonts.title, weight: weights.title, line_height: titleSize * lh.title,
@@ -535,9 +535,101 @@
       notes_height: Math.max(cursors[0], cursors[1]) - regs.notes.y };
   }
 
-  function headerText(card) {
+  var ELLIPSIS = "\u2026", ZWJ = "\u200d";
+  // render_core.HEADER_ASTRAL_ADVANCE: a code point above U+FFFF has its glyph
+  // in a system fallback the header face cannot report, so both engines reserve
+  // one fixed advance for it.
+  var HEADER_ASTRAL_ADVANCE = 14;
+  var HEADER_FAMILY = "Atkinson Hyperlegible", HEADER_WEIGHT = 700,
+      HEADER_SIZE = 11, HEADER_TRACKING = 1.6, HEADER_GAP = 8;
+
+  // render_core._header_zero_width: the joiner and the variation selectors draw
+  // nothing of their own. The browser gives them zero advance and Pillow gives
+  // them .notdef, so both engines count zero and let the tracking carry them.
+  function zeroWidth(point) {
+    return point === 0x200d || (point >= 0xfe00 && point <= 0xfe0f)
+      || (point >= 0xe0100 && point <= 0xe01ef);
+  }
+
+  // The header is drawn one glyph at a time at 11 px with 1.6 px of tracking,
+  // so each glyph is rounded the way render_core.tracked_width does. Both walk
+  // code points, never UTF-16 units, so an astral character counts once and is
+  // never split.
+  function trackedWidth(text) {
+    var points = Array.from(text);
+    var width = 0;
+    for (var i = 0; i < points.length; i++) {
+      var point = points[i].codePointAt(0);
+      width += zeroWidth(point) ? 0
+        : point > 0xffff ? HEADER_ASTRAL_ADVANCE
+        : Math.round(measureExact(points[i], HEADER_FAMILY, HEADER_WEIGHT, HEADER_SIZE));
+    }
+    return width + HEADER_TRACKING * points.length;
+  }
+
+  var CONTINUATION_RE = /(\p{M}|[\u200d\u20e3\ufe00-\ufe0f]|[\u{1f3fb}-\u{1f3ff}]|[\u{e0100}-\u{e01ef}])/u;
+  var REGIONAL_RE = /[\u{1f1e6}-\u{1f1ff}]/u;
+
+  // render_core._safe_cut in JavaScript: move a cut left until it splits no
+  // grapheme cluster. A cut is safe when the character after it is not a
+  // combining mark, variation selector, skin-tone modifier, keycap or joiner,
+  // when the character before it is not a joiner, and when it does not split a
+  // regional-indicator pair (a flag).
+  function safeCut(points, cut) {
+    while (cut > 0 && cut < points.length) {
+      var before = points[cut - 1], after = points[cut];
+      if (before === ZWJ || CONTINUATION_RE.test(after)) {
+        cut--;
+        continue;
+      }
+      if (REGIONAL_RE.test(before) && REGIONAL_RE.test(after)) {
+        var run = 0, index = cut - 1;
+        while (index >= 0 && REGIONAL_RE.test(points[index])) { run++; index--; }
+        if (run % 2) { cut--; continue; }
+      }
+      break;
+    }
+    return cut;
+  }
+
+  // render_core._trim_end: drop every ellipsis and collapse spaces, so the cut
+  // adds the only ellipsis the label ends with.
+  function trimEnd(text) {
+    return text.split(ELLIPSIS).join("").replace(/\s+/g, " ").trim();
+  }
+
+  // Stacked reserves the watermark's width, index the number's. Notebook draws
+  // its number on a higher baseline, so its header may use the whole region.
+  // DECISIONS.md D-030.
+  function headerRoom(card, style) {
+    var layout = style.layout;
+    var x = region(layout, "header").x;
+    var right;
+    if (style.layout_name === "stacked") {
+      right = CARD_PX - 26 - measure(String(card.n), "Archivo Black", 400, 64);
+    } else if (style.layout_name === "index") {
+      right = CARD_PX - 28 - trackedWidth("No. " + card.n);
+    } else {
+      return Math.round(layout.regions.header.width_in * PPI);
+    }
+    return Math.round(right - HEADER_GAP - x);
+  }
+
+  function headerText(card, style) {
     var label = card.category_label || (card.category || "").replace(/-/g, " ").replace(/\b\w/g, function (c) { return c.toUpperCase(); });
-    return label + (card.pill ? " · " + card.pill : "");
+    var pill = card.pill;
+    if (!pill) return label;
+    var full = label + " · " + pill;
+    var room = headerRoom(card, style);
+    if (trackedWidth(full.toUpperCase()) <= room) return full;
+    var fixed = label + " · ";
+    var points = Array.from(pill);
+    for (var cut = points.length; cut >= 0; cut--) {
+      var prefix = trimEnd(points.slice(0, safeCut(points, cut)).join(""));
+      var candidate = fixed + prefix + ELLIPSIS;
+      if (trackedWidth(candidate.toUpperCase()) <= room) return candidate;
+    }
+    return fixed + ELLIPSIS;
   }
 
   // ---------------------------------------------------------------- marks
