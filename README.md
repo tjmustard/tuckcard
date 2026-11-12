@@ -46,7 +46,7 @@ claude plugin install tuckcard@tuckcard
 Then check what arrived:
 
 ```sh
-claude plugin details tuckcard      # seven skills, about 400 always-on tokens
+claude plugin details tuckcard      # lists the seven skills
 ```
 
 Start with `cards-new` for a fresh deck, or open one of the examples to see what a finished deck looks like.
