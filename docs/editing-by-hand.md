@@ -65,7 +65,7 @@ When you edit a card's words, the card matches neither hash. Then:
 - The `cards-render` skill records `approved_by: hand-edit` in the deck for the cards the fit report names. No render script writes the deck.
 - The renderer never blocks. A hand-edited deck still renders, so you can see the change you made.
 
-To clear the flag, run `cards-review` on the deck. It lints the deck and does the judgment pass for rule fit and conflicts, and once the card passes, its approval record is rewritten with the new copy. Fixes to the copy still go back through `cards-draft`, because that is where the approval round happens.
+To clear the flag, run `cards-review`. It lints the deck and does the judgment pass for rule fit and conflicts, reports what it finds and sets the deck's status. It never edits cards or the approval record. That record is rewritten when the card is re-approved in a `cards-draft` round, which is where the approval happens.
 
 ## YAML and comments
 

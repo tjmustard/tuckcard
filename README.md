@@ -173,7 +173,7 @@ pip install -r requirements.txt -r requirements-dev.txt
 pytest -q
 ```
 
-`requirements.txt` pins the validation path (jsonschema, ruamel.yaml, pytest) and holds a Python 3.9 floor; `requirements-dev.txt` adds the rendering path (Pillow, Playwright). With the development set the suite is 275 tests; with `requirements.txt` alone it is 203 passing and 7 skipped, which are the tests that need Pillow and Playwright.
+`requirements.txt` pins the validation path (jsonschema, ruamel.yaml, pytest) and holds a Python 3.9 floor; `requirements-dev.txt` adds the rendering path (Pillow, Playwright). With the development set the suite is 282 tests; with `requirements.txt` alone it is 205 passing and 8 skipped, which are the tests that need Pillow and Playwright.
 
 CI runs on Ubuntu 24.04 with Python 3.9 and 3.12 and adds four checks of its own: both manifests parse; every font family ships a font file and its OFL license; no `deck.yaml` outside `examples/`, no bundle and nothing under `renders/` is committed; and every pinned dependency's license is permissive, with `THIRD_PARTY.md` current.
 
