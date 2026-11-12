@@ -47,8 +47,8 @@ def test_matching_is_case_insensitive_and_whole_word(tmp_path):
 
 
 def test_a_multi_word_term_matches_as_a_phrase(tmp_path):
-    listing = terms(tmp_path, "clear your plate")
-    target = write(tmp_path, "deck.md", "Please clear   your plate.\nClear the table.\n")
+    listing = terms(tmp_path, "purple lantern")
+    target = write(tmp_path, "deck.md", "A purple   lantern glowed.\nThe lantern is red.\n")
     assert pii_scan.main([str(target), "--terms", str(listing)]) == 1
 
 
