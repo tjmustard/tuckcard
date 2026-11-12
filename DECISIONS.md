@@ -361,3 +361,13 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 ## M6: examples
 
 M6 makes no deviation from `SPEC.md`. The examples are de-specified derivatives as decision C allows; the rules they cite are compiled from the shipped rule files with no rule widened to fit a card; and the private assets stayed outside the repo, with the PII terms list passed to `tools/pii_scan.py` by path. `DECISIONS.md` therefore gains no numbered entry for this milestone.
+
+## M7: high-school example
+
+### D-037: A mark that does not fit one line wraps, and a row outside its region is a failed fit
+
+**Deviation.** `SPEC.md` section 7 says nothing about a marked phrase wider than its line. The renderers kept a marked phrase on one line, and the fit report tested heights only, so a mark could be drawn outside its region while the card reported as fitting.
+
+**Decision.** Implementation reading, provisional pending the M7 gate answer; the person owns the choice. The gate asks whether a mark that cannot fit should break across rows, as it does now, or stay whole and shrink or fail. As implemented, a marked phrase is kept on one line only when it fits that line; otherwise it wraps with the line and the mark is drawn in parts. Both planners test every drawn row against its region, in notebook against the edge of the lines region rather than the start of the notes column, and a row that leaves its region makes the card a failed fit. A card that overflows may stay in a deck only if the fit report names it failed.
+
+**Why.** At `93529ec` the restyle pass drew 26 of 53 notebook cards past the lines edge while the report said they fitted, card 7 by 49 px. A report that says a card fits while its ink is outside the card is a false pass; wrapping the mark or reporting the failure are the honest outcomes.

@@ -13,6 +13,7 @@ The deck uses the stacked layout, the casual preset and the color theme. Its cat
 - No lint errors were raised at any point in the run, and none were silenced.
 - The review pass changed nine cards for voice and clarity (cards 6, 23, 28, 31, 34, 37, 44, 48 and 50). Those changes were approved in round 7 and re-linted; none of them was a lint finding.
 - Round 8 changed the marked phrase or wording on 23 cards so every text row stays inside the content width. At the time the wrapper kept a marked phrase together even when the phrase was wider than the line, so a long mark could be drawn past the card edge while the fit report still said the card fitted. The wrapper now wraps a long mark with its line and the fit report counts any row that leaves its region as a failure. The approved copy was left as approved.
+- The review pass ran before round 8. The shipped copy is the round-8 copy: approved in round 8 and linted, but not reviewed again. The deck ships with `status: drafted`, like the other examples.
 
 Remaining warning: none. Lint reports 0 errors and 0 warnings against the rules compiled for this age band.
 

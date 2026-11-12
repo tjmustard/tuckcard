@@ -14,7 +14,24 @@
 
 ---
 
-## What this is
+## 📖 Table of Contents
+
+- [🤔 What this is](#-what-this-is)
+- [📌 Status](#-status)
+- [📦 Install](#-install)
+- [🔁 Making a deck](#-making-a-deck)
+- [🎴 What a card is](#-what-a-card-is)
+- [🃏 The examples](#-the-examples)
+- [🎨 Looks](#-looks)
+- [📚 The knowledge behind the cards](#-the-knowledge-behind-the-cards)
+- [🧱 Repository layout](#-repository-layout)
+- [🔧 Developer setup](#-developer-setup)
+- [❗ Disclaimers](#-disclaimers)
+- [📄 License](#-license)
+
+---
+
+## 🤔 What this is
 
 You tell Claude who the cards are for: a third grader on a town team, a high-school junior, a nephew starting college, a team you coach. Tuckcard runs an intake interview, researches the age band and the contexts that apply (school, athletics, feelings, friendships), drafts the cards with you one category at a time, checks every card against the rules it was written from, and renders the deck as a print sheet, a PDF, lock screens and single-card images.
 
@@ -24,7 +41,7 @@ Two things make it more than a text generator.
 
 **The person is in the loop by construction.** Drafting happens in approval rounds, one category at a time, and the deck records which cards the person approved. A card edited by hand afterwards no longer matches its approval hash and is flagged rather than silently shipped.
 
-## Status
+## 📌 Status
 
 Tuckcard is at version 0.1.0 and is **not yet tagged for release**. What is true today:
 
@@ -34,7 +51,7 @@ Tuckcard is at version 0.1.0 and is **not yet tagged for release**. What is true
 - **The claude.ai half of the acceptance test has not been run.** It needs a paid account and a platform probe that has not happened. Treat claude.ai support as expected but unproven.
 - The public README, extending docs, hand-edit guide and release tag land with milestone M8.
 
-## Install
+## 📦 Install
 
 Requires Claude Code, and Python 3.9 or newer for the scripts the skills call.
 
@@ -51,7 +68,7 @@ claude plugin details tuckcard      # lists the seven skills
 
 Start with `cards-new` for a fresh deck, or open one of the examples to see what a finished deck looks like.
 
-## Making a deck
+## 🔁 Making a deck
 
 The skills are a chain, each naming the next. There is no orchestrator.
 
@@ -65,7 +82,7 @@ The skills are a chain, each naming the next. There is no orchestrator.
 | `cards-restyle` | Changes layout, preset, theme, colours, fonts or spacing, previewing one card before re-rendering everything. |
 | `cards-core` | The shared engine the others call: schemas, knowledge, rules, renderers, examples. Not invoked directly. |
 
-## What a card is
+## 🎴 What a card is
 
 A card is a record, not a picture. It has a number, a category, a title and a handful of lines, each optionally carrying a mark (a word to highlight) and a note (the aside underneath). It also carries the rules it was written from and the approval hash the person's sign-off produced.
 
@@ -85,7 +102,7 @@ A card is a record, not a picture. It has a number, a category, a title and a ha
 
 Cards are `public` or `private`. Private cards never reach the fridge sheet or the lock screens, which is the difference between a card for the wall and a card for a phone only that person sees.
 
-## The examples
+## 🃏 The examples
 
 Four fictional examples under `plugins/tuckcard/skills/cards-core/examples/`, 53 cards each, written in the parents' we/us voice. They exist so the repo has something real to lint, render and argue about. Three are de-specified derivatives of earlier decks rather than anybody's private deck; the high-school example was written fresh for this repository.
 
@@ -100,7 +117,7 @@ Each has a `README.md` listing the fixes applied during review and the warnings 
 
 The high-school example was written at M7 by running the plugin end to end on a fictional recipient, so the example and the acceptance test are the same artefact.
 
-## Looks
+## 🎨 Looks
 
 A deck picks one of each:
 
@@ -110,7 +127,7 @@ A deck picks one of each:
 
 Outputs are a printable sheet, a PDF, lock screens sized for phone and tablet, and single-card PNGs. Every render writes a fit report saying whether the copy fits its card, and the renderers are checked against each other so the HTML reference design and the Playwright and Pillow renderings do not drift.
 
-## The knowledge behind the cards
+## 📚 The knowledge behind the cards
 
 `knowledge/` holds the evidence side of the plugin:
 
@@ -121,7 +138,7 @@ Outputs are a printable sheet, a PDF, lock screens sized for phone and tablet, a
 
 Age bands and contexts carry their own policies: which sensitive topics are omitted, neutral or allowed, and the help-line rules. Help lines are off by default in a deck; when they are on, a number on a card must match a verified resource or lint fails.
 
-## Repository layout
+## 🧱 Repository layout
 
 ```
 .claude-plugin/          marketplace manifest
@@ -146,7 +163,7 @@ CHANGELOG.md             what changed, with evidence
 
 `tools/`, `tests/`, `reference/` and `docs/` never ship inside the plugin.
 
-## Developer setup
+## 🔧 Developer setup
 
 ```sh
 python3 -m venv .venv && . .venv/bin/activate
@@ -166,7 +183,7 @@ python plugins/tuckcard/skills/cards-core/scripts/lint.py deck.yaml --rules effe
 python plugins/tuckcard/skills/cards-core/scripts/validate.py deck.yaml
 ```
 
-## Disclaimers
+## ❗ Disclaimers
 
 1. These cards aren't therapy, counseling or medical advice. In a crisis, call or text 988 in the US, or your local emergency number.
 2. The cards are research-informed; no deck is claimed to improve outcomes.
@@ -174,6 +191,6 @@ python plugins/tuckcard/skills/cards-core/scripts/validate.py deck.yaml
 4. When writing for minors, the adult making the deck reviews every word.
 5. This project isn't affiliated with or endorsed by Anthropic.
 
-## License
+## 📄 License
 
 MIT for code, skills, docs, findings, rules and examples. Bundled fonts are under the SIL Open Font License 1.1, each with its license file.
