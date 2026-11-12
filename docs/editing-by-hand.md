@@ -61,14 +61,15 @@ A card keeps two hashes: `approved_hash`, the copy as the person approved it, an
 When you edit a card's words, the card matches neither hash. Then:
 
 - `lint.py` warns that the content matches neither approval hash and was edited since approval. It is a warning, not an error, so you can keep working.
-- `cards-render` compares each card against its hashes, records `approved_by: hand-edit` for the ones that changed, and the fit report lists those cards as edited by hand, not linted since, with a pointer to `cards-review`.
+- The render scripts compare each card against both hashes. A mismatch goes in the fit report's `hand_edits` list, with the note "Edited by hand, not linted since. Run cards-review on these cards to clear the flag."
+- The `cards-render` skill records `approved_by: hand-edit` in the deck for the cards the fit report names. No render script writes the deck.
 - The renderer never blocks. A hand-edited deck still renders, so you can see the change you made.
 
 To clear the flag, run `cards-review` on the deck. It lints the deck and does the judgment pass for rule fit and conflicts, and once the card passes, its approval record is rewritten with the new copy. Fixes to the copy still go back through `cards-draft`, because that is where the approval round happens.
 
 ## YAML and comments
 
-Scripts read YAML with the safe loader and write it with ruamel.yaml in block style, so output is stable and readable. Generated files are written whole from their inputs, which is another reason not to keep anything in them you want to persist: a comment there is gone at the next run. Your own files, the deck, rules, findings, themes and presets, are only ever read, never rewritten, so whatever you write in them stays exactly as you wrote it.
+Scripts read YAML with the safe loader and write it with ruamel.yaml in block style, so output is stable and readable. Generated files are written whole from their inputs, which is another reason not to keep anything in them you want to persist: a comment there is gone at the next run. Your own files are rewritten only by the skills or scripts that work on them, always with ruamel's round-trip writer, so comments and key order survive.
 
 ## If a check disagrees with your edit
 

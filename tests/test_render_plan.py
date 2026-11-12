@@ -482,5 +482,9 @@ def test_the_summary_names_the_cards_that_need_attention():
     summary = core.summary(report)
     assert "Shrunk to fit: cards 3." in summary
     assert "Still too long at the smallest size: cards 3." in summary
-    assert "Edited by hand since approval: cards 4." in summary
+    assert "These cards were edited by hand and not linted since: cards 4." in summary
+    assert "cards-review" in summary
     assert "Left out of fridge and lock-screen output for visibility: cards 5." in summary
+    assert report["hand_edits_note"] == (
+        "Edited by hand, not linted since. Run cards-review on these cards "
+        "to clear the flag.")

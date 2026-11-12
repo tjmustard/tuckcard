@@ -30,7 +30,6 @@ checks never fail the run; a skipped check is reported with its reason.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import re
 import sys
@@ -38,6 +37,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 import knowledge_files as files
+from approval_hash import card_content, card_hash, strip_hash  # noqa: F401 - re-exported
 import validate
 
 URL_RE = re.compile(r"https?://[^\s<>\"']+")
@@ -616,45 +616,6 @@ def check_repetition(cards: Sequence[Dict[str, Any]], examples: Dict[str, str],
 
 
 # ---------------------------------------------------------------- hand edits
-
-
-def card_content(card: Dict[str, Any]) -> Dict[str, Any]:
-    """The covered fields of SPEC.md section 6's approval hash."""
-    lines: List[Dict[str, Any]] = []
-    raw_lines = card.get("lines")
-    if isinstance(raw_lines, list):
-        for line in raw_lines:
-            if not isinstance(line, dict):
-                continue
-            mark = line.get("mark")
-            mark_data = None
-            if isinstance(mark, dict):
-                mark_data = {
-                    "target": mark.get("target"),
-                    "occurrence": mark.get("occurrence", 1),
-                }
-                if "style" in mark:
-                    mark_data["style"] = mark["style"]
-            lines.append({"text": line.get("text"), "mark": mark_data,
-                          "note": line.get("note")})
-    return {
-        "title": card.get("title"),
-        "lines": lines,
-        "category": card.get("category"),
-        "visibility": card.get("visibility"),
-    }
-
-
-def card_hash(card: Dict[str, Any]) -> str:
-    payload = json.dumps(card_content(card), sort_keys=True, ensure_ascii=False,
-                         separators=(",", ":")).encode("utf-8")
-    return hashlib.sha256(payload).hexdigest()
-
-
-def strip_hash(value: Any) -> Optional[str]:
-    if not isinstance(value, str):
-        return None
-    return value[7:] if value.startswith("sha256:") else value
 
 
 def check_hand_edits(cards: Sequence[Dict[str, Any]],

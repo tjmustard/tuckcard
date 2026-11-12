@@ -18,7 +18,7 @@ Ask for the year if the deck is weekly and the user hasn't said (default: the up
 
 ## 2. Pre-flight
 
-- Compare each card's content to its hashes. Cards matching neither `approved_hash` nor `linted_hash` were edited by hand: record `approved_by: hand-edit`, render them, and list them.
+- The render scripts compare each card's content to its hashes and list a mismatch in the fit report's `hand_edits`. Record `approved_by: hand-edit` in the deck for the cards that report names; no script writes the deck for you. Do not compute a hash yourself.
 - Leave `visibility: private` cards out of fridge-facing and lock-screen outputs.
 - Resolve the style: deck `style.layout`, `style.preset`, theme per output (print: `color` and `mono`; lock screens: `dark`; single PNGs: `color`) unless the deck overrides, plus any token overrides.
 

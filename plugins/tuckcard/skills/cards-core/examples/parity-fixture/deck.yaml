@@ -78,10 +78,10 @@ cards:
     basis: [R-core-001]
     visibility: public
     approval:
-      approved_hash: "1111111111111111111111111111111111111111111111111111111111111111"
+      approved_hash: "85d54570564165a2549f68e03bef915a5232794c2df888111d9ca4c3611584f8"
       approved_by: round
       approved_round: 3
-      linted_hash: "1111111111111111111111111111111111111111111111111111111111111111"
+      linted_hash: "85d54570564165a2549f68e03bef915a5232794c2df888111d9ca4c3611584f8"
   - n: 2
     category: habits
     title: Small steps, repeated
@@ -107,10 +107,10 @@ cards:
     basis: [R-core-001, R-high-school-001]
     visibility: public
     approval:
-      approved_hash: "2222222222222222222222222222222222222222222222222222222222222222"
+      approved_hash: "1665c7f2f4bbfc51176813c5c81e6c72538924814fef03853e891be7e709980d"
       approved_by: round
       approved_round: 3
-      linted_hash: "2222222222222222222222222222222222222222222222222222222222222222"
+      linted_hash: "1665c7f2f4bbfc51176813c5c81e6c72538924814fef03853e891be7e709980d"
   - n: 3
     category: growth
     title: A long card that will not fit at the smallest size
@@ -142,10 +142,10 @@ cards:
     basis: [R-core-001]
     visibility: public
     approval:
-      approved_hash: "3333333333333333333333333333333333333333333333333333333333333333"
+      approved_hash: "21a299770b4703eca5f1bbc7d82e855da547f797b765d3ae8d510d8be125c335"
       approved_by: round
       approved_round: 3
-      linted_hash: "3333333333333333333333333333333333333333333333333333333333333333"
+      linted_hash: "21a299770b4703eca5f1bbc7d82e855da547f797b765d3ae8d510d8be125c335"
   - n: 4
     category: habits
     title: One line edited by hand
@@ -171,7 +171,7 @@ cards:
     basis: [R-core-001]
     visibility: private
     approval:
-      approved_hash: "5555555555555555555555555555555555555555555555555555555555555555"
+      approved_hash: "3912bec5406086e2acc18db70541d4ef71538c477b5084bb4e5ed3e76a7c5b44"
       approved_by: round
       approved_round: 3
-      linted_hash: "5555555555555555555555555555555555555555555555555555555555555555"
+      linted_hash: "3912bec5406086e2acc18db70541d4ef71538c477b5084bb4e5ed3e76a7c5b44"
