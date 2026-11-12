@@ -390,6 +390,8 @@ M6 makes no deviation from `SPEC.md`. The examples are de-specified derivatives 
 
 **Decision.** Custom font files remain a fork-level change in 0.1.0. `cards-restyle` now names the nine shipped families and points at `docs/extending/new-preset.md`, which describes the fork path: add the font files and an `OFL.txt`, add the family to `FONT_FILES`, rerun `python tools/third_party.py`. Whether that deferral is acceptable for 0.1.0, or the capability must land before the release, is open and belongs to the maintainer at the M8 gate. This entry records the gap and the corrected wording; it does not settle the capability.
 
+**Why.** A skill that asks about a font's license implies the renderer will use that font. It stops instead, after the user has chosen and checked a license. The limit belongs in the skill and the docs, and the choice to keep it belongs in the decisions log rather than in a silent omission.
+
 **Settled at the M8 gate.** The maintainer answered on 2026-11-12: "Ship with only the nine. Document the limitation and that is users want to modify the repo in a fork they can to add their own fonts." The deferral is accepted, not left open. 0.1.0 ships the nine bundled families, the limitation is documented, and a user who wants other fonts adds them in a fork.
 
 **Evidence.** `preset.schema.json` requires only `type: string, minLength: 1` for `fonts.<layout>.<title|lines|notes>`, so a preset naming any family validates. `render_core.py` line 34 lists nine families as twelve faces, with the static bold faces named separately, and `resolve_family` raises `SystemExit("unknown font family: %s")` at line 66. `docs/extending/new-preset.md` already stated the limit; the `cards-restyle` line is corrected in the same commit.
