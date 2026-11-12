@@ -357,3 +357,7 @@ A numbered, append-only register of conscious deviations from `SPEC.md` or from 
 **Why.** The exact-match sentence in SPEC.md section 5 is overstated where a phone exists only in prose: until the field exists, such a number is compared as text, so the sentence promises more than the check can do. D-035 stays as the gap entry; this entry answers it.
 
 **Landed in M5.** The optional `phone` string is in `finding.schema.json`, `knowledge/findings/_TEMPLATE.md` shows it, and `lint.py` reads it first and falls back to the claim and anchor digits only when it is absent. A card number that appears in the prose but not in a present field fails, because the field is the exact source. A finding carries one number, so a source that publishes two current numbers cannot lend both to a card while it has a single DOI, because `promote.py` refuses a duplicate DOI; the second number needs its own citation, and the lint error says so when a resource carries a phone.
+
+## M6: examples
+
+M6 makes no deviation from `SPEC.md`. The examples are de-specified derivatives as decision C allows; the rules they cite are compiled from the shipped rule files with no rule widened to fit a card; and the private assets stayed outside the repo, with the PII terms list passed to `tools/pii_scan.py` by path. `DECISIONS.md` therefore gains no numbered entry for this milestone.
