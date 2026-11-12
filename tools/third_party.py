@@ -76,6 +76,18 @@ SPELLINGS = {
 PIN = re.compile(r"^\s*([A-Za-z0-9][A-Za-z0-9_.-]*)\s*==\s*([^\s;#]+)")
 
 
+def lookup_name(name: str) -> str:
+    """The name to ask the metadata index for, normalised the same way everywhere.
+
+    Python 3.9's ``metadata.distribution`` does not map ``.`` to ``-``, so a
+    pin written ``ruamel.yaml`` is not found when the installed distribution is
+    ``ruamel-yaml``. PEP 503 normalisation removes that difference, and the
+    tests call this helper so they resolve a pin the way the tool does.
+    """
+    return re.sub(r"[-_.]+", "-", name).lower()
+
+
+
 class ThirdPartyError(Exception):
     """A license problem, reported as one line by main."""
 
@@ -187,7 +199,7 @@ def resolve(pins: Iterable[Pin], lookup=None) -> List[Dependency]:
     rows: List[Dependency] = []
     for pin in pins:
         try:
-            distribution = lookup(pin.name)
+            distribution = lookup(lookup_name(pin.name))
         except metadata.PackageNotFoundError:
             raise ThirdPartyError(
                 "{} is pinned but not installed; run python -m pip install "

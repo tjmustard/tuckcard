@@ -33,7 +33,7 @@ def installed_everything():
     missing = []
     for pin in third_party.pinned_requirements(third_party.REQUIREMENTS):
         try:
-            metadata.distribution(pin.name)
+            metadata.distribution(third_party.lookup_name(pin.name))
         except metadata.PackageNotFoundError:
             missing.append(pin.name)
     return not missing
@@ -94,6 +94,23 @@ def test_a_distribution_with_no_license_fails():
     with pytest.raises(third_party.ThirdPartyError) as raised:
         third_party.license_label("libbare", Metadata({}))
     assert "no license" in str(raised.value)
+
+
+def test_family_spellings_normalise_to_one_lookup_name():
+    spellings = ("RuaMel.YAML", "ruamel_yaml", "ruamel-yaml", "ruamel..yaml")
+    assert {third_party.lookup_name(name) for name in spellings} == {"ruamel-yaml"}
+
+
+def test_resolution_looks_up_the_normalised_name():
+    seen = []
+
+    def lookup(name):
+        seen.append(name)
+        return Distribution("0.19.1", **{"License-Expression": "MIT"})
+
+    pins = [third_party.Pin("ruamel.yaml", "0.19.1", "requirements.txt")]
+    third_party.resolve(pins, lookup)
+    assert seen == ["ruamel-yaml"]
 
 
 def test_a_pinned_dependency_that_is_not_installed_fails():
