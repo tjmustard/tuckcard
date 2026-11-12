@@ -1024,6 +1024,7 @@ Every assumption raised during planning, with its outcome. "Revised" means a lat
 | BF | Three layouts ship: `stacked` (default), `notebook`, `index` | Confirmed |
 | BG | README keeps the 988 line in its disclaimer, since it addresses the adult installing the plugin | Default taken; maintainer can drop it |
 | BH | The earlier look is retired after the P3 comparison (six of seven signatures matched a commercial deck) | Confirmed |
+| BI | A marked phrase that cannot fit on one line wraps with the line, and any row that leaves its region makes the card a fit failure; a card that overflows may stay only if the report names it failed | Confirmed; both planners check width as well as height |
 
 ---
 

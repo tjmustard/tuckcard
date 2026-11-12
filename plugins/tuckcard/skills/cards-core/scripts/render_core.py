@@ -415,10 +415,35 @@ def _wrap(words: list[str], family: str, weight: int, size: float, max_width: fl
     Measuring the whole candidate line, rather than adding rounded word
     widths, keeps the fit decision within a fraction of a pixel of the
     browser's. Both renderers use the same rule; see DECISIONS.md D-027.
+
+    A marked phrase is kept together only when it fits a line of its own. When
+    it does, the whole phrase moves to the next line if the current line plus
+    the phrase would pass ``max_width``. A phrase wider than the line is wrapped
+    normally and marked in parts, so no mark is drawn outside its region.
     """
+    glue = set(glue)
+    chunk = None
+    if glue:
+        first, last = min(glue) - 1, max(glue) + 1
+        chunk_width = advance(" ".join(words[first:last]), family, weight, size)
+        if tail_index is not None and first <= tail_index < last:
+            chunk_width += tail_extra
+        if chunk_width <= max_width:
+            chunk = (first, last)
+        else:
+            glue = set()
     lines: list[list[int]] = []
     current: list[int] = []
     for i, _word in enumerate(words):
+        if chunk and i == chunk[0] and current:
+            joined = " ".join(words[j] for j in current + list(range(chunk[0], chunk[1])))
+            width = advance(joined, family, weight, size)
+            if tail_index is not None and chunk[0] <= tail_index < chunk[1]:
+                width += tail_extra
+            if width > max_width:
+                lines.append(current)
+                current = [i]
+                continue
         candidate = current + [i]
         text = " ".join(words[j] for j in candidate)
         width = advance(text, family, weight, size)
@@ -527,7 +552,7 @@ def _plan_stacked(card, style, with_marks):
             block = _stacked_body(body_lines, regions["body"], lines_family, lines_weight,
                                   line_size, notes_family, notes_weight, note_size,
                                   lh, gaps, spacing)
-            if block["height"] <= regions["body"]["h"]:
+            if block["height"] <= regions["body"]["h"] and block.get("fits_width", True):
                 chosen = (line_size, note_size, block)
                 break
         if chosen:
@@ -619,7 +644,8 @@ def _stacked_body(prepared, region, line_family, line_weight, line_size,
             cursor += gaps.get("note", 0) * spacing
         cursor += gaps.get("line", 0) * spacing
     return {"x": x, "y": region["y"], "rows": rows, "marks": marks,
-            "height": cursor - region["y"]}
+            "height": cursor - region["y"],
+            "fits_width": _rows_fit(rows, region["x"], width)}
 
 
 def style_note_indent(item):
@@ -628,6 +654,24 @@ def style_note_indent(item):
 
 def _line_has_mark(indices, span):
     return span is not None and indices[0] < span[1] and indices[-1] >= span[0]
+
+
+def _rows_fit(rows, origin_x, width):
+    """True when every drawn run ends inside its region.
+
+    A wrapped line can still overflow: one word may be wider than the region,
+    and a marked phrase used to drag past the edge. The fit report checks this
+    alongside height so a card that draws outside its region is a failure.
+
+    Run widths are stored as whole pixels, so ink may be up to half a pixel
+    wider than the number here. Half a pixel is the tolerance; it keeps a
+    rounding artefact from shrinking a card that is visibly inside its region.
+    """
+    for row in rows:
+        for run in row.get("runs") or []:
+            if row["x"] - origin_x + run["x"] + run["width"] > width + 0.5:
+                return False
+    return True
 
 
 def _block(text, family, weight, size, width, lh, mark_span, indent):
@@ -806,7 +850,9 @@ def _plan_notebook(card, style, with_marks):
                 break
             block = _notebook_body(prepared, regions, lines_family, lines_weight, line_size,
                                    notes_family, notes_weight, note_size, lh, reserve)
-            if block["line_height"] <= regions["lines"]["h"] and block["note_height"] <= regions["notes"]["h"]:
+            if (block["line_height"] <= regions["lines"]["h"]
+                    and block["note_height"] <= regions["notes"]["h"]
+                    and block.get("fits_width", True)):
                 chosen = (line_size, note_size, block)
                 break
         if chosen:
@@ -910,8 +956,11 @@ def _notebook_body(prepared, regions, line_family, line_weight, line_size,
         max_line = max(max_line, cursor - regions["lines"]["y"])
     for mark in marks:
         pass
+    line_limit = min(regions["lines"]["w"], regions["notes"]["x"] - regions["lines"]["x"])
     return {"lines": rows, "notes": notes, "marks": marks,
-            "line_height": max_line, "note_height": max_note}
+            "line_height": max_line, "note_height": max_note,
+            "fits_width": (_rows_fit(rows, regions["lines"]["x"], line_limit)
+                           and _rows_fit(notes, regions["notes"]["x"], regions["notes"]["w"]))}
 
 
 def _plan_index(card, style, with_marks):
@@ -939,7 +988,9 @@ def _plan_index(card, style, with_marks):
                 break
             block = _index_body(prepared, regions, lines_family, lines_weight, line_size,
                                 notes_family, notes_weight, note_size, lh, reserve)
-            if block["body_height"] <= regions["body"]["h"] and block["notes_height"] <= regions["notes"]["h"]:
+            if (block["body_height"] <= regions["body"]["h"]
+                    and block["notes_height"] <= regions["notes"]["h"]
+                    and block.get("fits_width", True)):
                 chosen = (line_size, note_size, block)
                 break
         if chosen:
@@ -1024,7 +1075,9 @@ def _index_body(prepared, regions, line_family, line_weight, line_size,
         cursors[col] = y + len(lines) * note_size * lh["notes"] + 4.0
     height = max(cursors) - regions["notes"]["y"]
     return {"body": body, "notes": note_rows, "body_height": cursor - regions["body"]["y"],
-            "notes_height": height}
+            "notes_height": height,
+            "fits_width": (_rows_fit(body, body_x, body_w)
+                           and _rows_fit(note_rows, regions["notes"]["x"], regions["notes"]["w"]))}
 
 
 # ---------------------------------------------------------------- shapes

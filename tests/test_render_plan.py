@@ -117,6 +117,64 @@ def test_the_long_card_fails_at_the_floor_not_below_it():
     assert plan["report"]["sizes"]["notes"] == style.layout["font_floors"]["notes"]
 
 
+def test_a_marked_phrase_wider_than_the_line_region_wraps_in_parts():
+    # Before the width check, the wrapper glued the whole phrase into one chunk
+    # and drew it through the notebook notes column while the report still said
+    # the card fitted. A phrase wider than the region now wraps normally.
+    style = core.Style("notebook", "casual", "color")
+    region = style.region("lines")
+    limit = min(region["w"], style.region("notes")["x"] - region["x"])
+    family, weight = style.font("lines")
+    size = style.layout["font_sizes"]["lines"]
+    phrase = "one two three four five six seven eight nine ten eleven twelve thirteen"
+    assert core.advance(phrase, family, weight, size) > limit
+
+    card = copy.deepcopy(by_n(1))
+    card["lines"] = [{"text": "Before " + phrase + " after.",
+                      "mark": {"target": phrase}, "note": None}]
+    plan = core.build_plan(card, style)
+    rows = plan["body"]["lines"]
+    outside = [row for row in rows for run in row["runs"]
+               if row["x"] - region["x"] + run["x"] + run["width"] > limit + 0.5]
+    assert not outside or plan["report"]["failed"] is True
+    assert plan["report"]["failed"] is False
+    marked_rows = [row for row in rows if any(run["marked"] for run in row["runs"])]
+    assert len(marked_rows) >= 2
+
+
+def test_the_restyled_card_seven_line_wraps_inside_the_notebook_region():
+    # The high-school card 7 line, in the style the restyle pass uses. At
+    # 93529ec the wrapper glued "where you are" and drew the line 49 px into
+    # the notes column while the report said it fitted. It now wraps.
+    style = core.Style("notebook", "professional", "mono")
+    region = style.region("lines")
+    limit = min(region["w"], style.region("notes")["x"] - region["x"])
+    card = copy.deepcopy(by_n(1))
+    card["lines"] = [{
+        "text": "Being bad at something says where you are, not where you stop.",
+        "mark": {"target": "where you are"},
+        "note": "a starting point can move"}]
+    plan = core.build_plan(card, style)
+    ends = [row["x"] - region["x"] + run["x"] + run["width"]
+            for row in plan["body"]["lines"] for run in row["runs"]]
+    assert max(ends) <= limit + 0.5
+    assert plan["report"]["failed"] is False
+
+
+def test_an_unbreakable_word_wider_than_the_region_is_a_failure():
+    style = core.Style("notebook", "casual", "color")
+    region = style.region("lines")
+    family, weight = style.font("lines")
+    size = style.layout["font_floors"]["lines"]
+    word = "supercalifragilisticexpialidocioussupercalifragilisticexpialidocious"
+    assert core.advance(word, family, weight, size) > region["w"]
+
+    card = copy.deepcopy(by_n(1))
+    card["lines"] = [{"text": word, "mark": {"target": word}, "note": None}]
+    plan = core.build_plan(card, style)
+    assert plan["report"]["failed"] is True
+
+
 def test_professional_draws_the_swash_as_a_straight_underline():
     style = core.Style("stacked", "professional", "color")
     plan = core.build_plan(by_n(1), style)

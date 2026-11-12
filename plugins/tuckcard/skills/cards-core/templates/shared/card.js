@@ -179,8 +179,32 @@
     // Decide on the exact width of the candidate line, the same rule as
     // render_core.py. Adding rounded word widths lets a fraction of a pixel
     // become a whole one and move a word to the next line. D-027.
+    //
+    // A marked phrase is kept together only when it fits a line of its own.
+    // When it does, the whole phrase moves to the next line if the current
+    // line plus the phrase would pass maxWidth. A phrase wider than the line
+    // wraps normally and is marked in parts, so no mark leaves its region.
+    glue = new Set(glue);
+    var chunk = null, chunkGlue = Array.from(glue);
+    if (chunkGlue.length) {
+      var first = Math.min.apply(null, chunkGlue) - 1;
+      var last = Math.max.apply(null, chunkGlue) + 1;
+      var chunkWidth = measureExact(words.slice(first, last).join(" "), family, weight, size);
+      if (tailIndex != null && tailIndex >= first && tailIndex < last) chunkWidth += (tailExtra || 0);
+      if (chunkWidth <= maxWidth) chunk = [first, last]; else glue = new Set();
+    }
     var lines = [], current = [];
     for (var i = 0; i < words.length; i++) {
+      if (chunk && i === chunk[0] && current.length) {
+        var joined = current.slice();
+        for (var c = chunk[0]; c < chunk[1]; c++) joined.push(c);
+        var chunkLine = measureExact(joined.map(function (j) { return words[j]; }).join(" "),
+          family, weight, size);
+        if (tailIndex != null && tailIndex >= chunk[0] && tailIndex < chunk[1]) chunkLine += (tailExtra || 0);
+        if (chunkLine > maxWidth) {
+          lines.push(current); current = [i]; continue;
+        }
+      }
       var candidate = current.concat([i]);
       var text = candidate.map(function (j) { return words[j]; }).join(" ");
       var width = measureExact(text, family, weight, size);
@@ -225,6 +249,20 @@
 
   function lineHasMark(indices, span) {
     return !!span && indices[0] < span[1] && indices[indices.length - 1] >= span[0];
+  }
+
+  // True when every drawn run ends inside its region. A wrapped line can still
+  // overflow: one word may be wider than the region, and a marked phrase used
+  // to drag past the edge. The fit report checks this alongside height.
+  // Run widths are stored as whole pixels, so ink may be half a pixel wider.
+  function rowsFit(rows, originX, width) {
+    for (var i = 0; i < rows.length; i++) {
+      var runs = rows[i].runs || [];
+      for (var j = 0; j < runs.length; j++) {
+        if (rows[i].x - originX + runs[j].x + runs[j].width > width + 0.5) return false;
+      }
+    }
+    return true;
   }
 
   function block(text, family, weight, size, maxWidth, lh) {
@@ -291,7 +329,7 @@
       for (var j = 0; j < noteSizes.length; j++) {
         if (noteSizes[j] < layout.font_floors.notes) break;
         var body = stackedBody(prepared, bodyReg, fonts, weights, lineSizes[i], noteSizes[j], lh, gaps, spacing);
-        if (body.height <= bodyReg.h) { chosen = { ls: lineSizes[i], ns: noteSizes[j], body: body }; break; }
+        if (body.height <= bodyReg.h && body.fits_width) { chosen = { ls: lineSizes[i], ns: noteSizes[j], body: body }; break; }
       }
       if (chosen) break;
     }
@@ -348,7 +386,8 @@
       }
       cursor += (gaps.line || 0) * spacing;
     });
-    return { rows: rows, marks: marks, height: cursor - reg.y };
+    return { rows: rows, marks: marks, height: cursor - reg.y,
+      fits_width: rowsFit(rows, reg.x, width) };
   }
 
   var NOTE_INDENT = 18;
@@ -371,7 +410,7 @@
       for (var j = 0; j < noteSizes.length; j++) {
         if (noteSizes[j] < layout.font_floors.notes) break;
         var body = notebookBody(prepared, regs, fonts, weights, lineSizes[i], noteSizes[j], lh, reserve);
-        if (body.line_height <= regs.lines.h && body.note_height <= regs.notes.h) {
+        if (body.line_height <= regs.lines.h && body.note_height <= regs.notes.h && body.fits_width) {
           chosen = { ls: lineSizes[i], ns: noteSizes[j], body: body }; break;
         }
       }
@@ -449,7 +488,9 @@
       cursor += 9 * (lineSize / 18);
       maxLine = Math.max(maxLine, cursor - regs.lines.y);
     });
-    return { lines: rows, notes: notes, marks: marks, line_height: maxLine, note_height: maxNote };
+    var lineLimit = Math.min(regs.lines.w, regs.notes.x - regs.lines.x);
+    return { lines: rows, notes: notes, marks: marks, line_height: maxLine, note_height: maxNote,
+      fits_width: rowsFit(rows, regs.lines.x, lineLimit) && rowsFit(notes, regs.notes.x, regs.notes.w) };
   }
 
   function planIndex(card, style) {
@@ -470,7 +511,7 @@
       for (var j = 0; j < noteSizes.length; j++) {
         if (noteSizes[j] < layout.font_floors.notes) break;
         var body = indexPart(prepared, regs, fonts, weights, lineSizes[i], noteSizes[j], lh, reserve);
-        if (body.body_height <= regs.body.h && body.notes_height <= regs.notes.h) {
+        if (body.body_height <= regs.body.h && body.notes_height <= regs.notes.h && body.fits_width) {
           chosen = { ls: lineSizes[i], ns: noteSizes[j], body: body }; break;
         }
       }
@@ -532,7 +573,9 @@
       cursors[col] = y + lines.length * noteSize * lh.notes + 4;
     });
     return { body: body, notes: noteRows, body_height: cursor - regs.body.y,
-      notes_height: Math.max(cursors[0], cursors[1]) - regs.notes.y };
+      notes_height: Math.max(cursors[0], cursors[1]) - regs.notes.y,
+      fits_width: rowsFit(body, regs.body.x, regs.body.w)
+        && rowsFit(noteRows, regs.notes.x, regs.notes.w) };
   }
 
   var ELLIPSIS = "\u2026", ZWJ = "\u200d";
