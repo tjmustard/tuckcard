@@ -81,7 +81,7 @@ python plugins/tuckcard/skills/cards-core/scripts/render_pillow.py \
 
 The nine shipped families are Archivo Black, Source Serif 4, Shantell Sans, Fraunces, Literata, Caveat, Atkinson Hyperlegible, Liberation Serif and Liberation Sans. All are under the SIL Open Font License 1.1, each with its license file.
 
-In this version a preset can only name those nine. The Pillow renderer holds one table of families, `FONT_FILES` in `render_core.py`, and a name outside it stops the render with `unknown font family`. Using a different font therefore needs a fork: add the font files and an `OFL.txt` under `fonts/<family>/`, add the family to `FONT_FILES`, and add it to `THIRD_PARTY.md` by rerunning `python tools/third_party.py`. The font must allow embedding.
+In this version a preset can only name those nine. The Pillow renderer holds one table of families, `FONT_FILES` in `render_core.py`, and a name outside it stops the render with `unknown font family`. Using a different font therefore needs a fork: add the font files and an `OFL.txt` under `fonts/<family>/`, add the family to `FONT_FILES`, and add it to `THIRD_PARTY.md` by rerunning `python tools/third_party.py`. The font must allow embedding. The limit and the open question for 0.1.0 are recorded as D-039 in `DECISIONS.md`.
 
 ## In a fork
 
