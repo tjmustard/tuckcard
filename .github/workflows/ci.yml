@@ -93,6 +93,9 @@ jobs:
           python -m pip install --requirement requirements.txt
           python -m pip install --requirement requirements-dev.txt
 
+      - name: Every license is permissive and THIRD_PARTY.md is current
+        run: python tools/third_party.py --check
+
       - name: Draw every card with Pillow, and run lint, bundle and env probe
         run: >-
           python -m pytest -q
@@ -102,3 +105,4 @@ jobs:
           tests/test_lint.py
           tests/test_bundle.py
           tests/test_env_probe.py
+          tests/test_third_party.py
