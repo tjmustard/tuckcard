@@ -1,0 +1,1773 @@
+schema_version: 1
+plugin_version: 0.1.0
+id: middle-school
+title: Middle School
+status: drafted
+created: '2026-11-12'
+example: true
+recipient:
+  kind: person
+  pill: Middle School
+  age_band: middle-school
+  description: A fictional eighth grader who plays a school sport and is figuring out friends, sleep and stress.
+  culture_notes:
+sender:
+  voice: parents
+  pronouns: they/them
+  signoff: With love
+policies:
+  substances: omit
+  sex_relationships: safety_only
+  faith: neutral
+  register:
+    humor: light
+    slang: some
+  help_resources: none
+personal_details:
+  - id: P-01
+    text: Plays on a school team.
+    confirmed: true
+  - id: P-02
+    text: Has a younger sister.
+    confirmed: true
+categories:
+  - key: growth
+    label: Growth
+    color: green
+    contexts:
+      - personal-growth
+  - key: game-day
+    label: Game Day
+    color: orange
+    contexts:
+      - athletics
+  - key: speak-up
+    label: Speak Up
+    color: blue
+    contexts: []
+  - key: school
+    label: School
+    color: purple
+    contexts:
+      - academics
+  - key: feelings
+    label: Feelings
+    color: pink
+    contexts:
+      - emotional-intelligence
+  - key: friends
+    label: Friends
+    color: teal
+    contexts:
+      - emotional-intelligence
+numbering:
+  mode: weekly
+  count: 53
+  week_rule: contains_jan_1
+  week_start: sunday
+outputs:
+  - print_sheet
+  - pdf
+  - phone
+  - tablet
+  - png
+page_size: letter
+style:
+  layout: notebook
+  preset: casual
+  theme: color
+  tokens: {}
+rules_snapshot:
+  file: effective-rules.yaml
+  compiled_at: '2026-11-12T00:00:00Z'
+  plugin_version: 0.1.0
+  sha256: '0000000000000000000000000000000000000000000000000000000000000000'
+cards:
+  - n: 1
+    category: growth
+    title: Show Up ANYWAY
+    lines:
+      - text: Motivation comes and goes.
+        mark:
+          target: Motivation
+        note: January hype is gone by Feb.
+      - text: Habits stick around.
+        mark:
+          target: Habits
+        note: Same time, same place, every day.
+      - text: Make it so small
+        mark:
+          target: small
+        note: Ten push-ups. One page. Start there.
+      - text: you can't talk yourself out of it,
+        mark:
+        note:
+      - text: then show up anyway.
+        mark:
+          target: anyway
+        note: Never miss twice in a row.
+    basis:
+      - R-personal-growth-003
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 32c730cca9618d9b228a5019d0dc6e196800b455594ab83cb7da3f4bcb872904
+      approved_by: round
+      approved_round: 3
+      linted_hash: 32c730cca9618d9b228a5019d0dc6e196800b455594ab83cb7da3f4bcb872904
+  - n: 2
+    category: game-day
+    title: Bad CALL
+    lines:
+      - text: Refs miss calls.
+        mark:
+          target: miss
+        note: So do players. So do you.
+      - text: You can't change it.
+        mark:
+          target: change
+        note: Arguing just earns you a technical.
+      - text: You control the next play.
+        mark:
+          target: control
+        note: Eyes up. Find your man. Go.
+      - text: Reset in one breath,
+        mark:
+          target: Reset
+        note: Touch your laces. Back in.
+      - text: and let your game do the talking.
+        mark:
+        note:
+    basis:
+      - R-athletics-002
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: e63f743a6c0ef8b58ac4d55d80d5b038ebfbce5ab1da250a24e3893589ffc301
+      approved_by: round
+      approved_round: 3
+      linted_hash: e63f743a6c0ef8b58ac4d55d80d5b038ebfbce5ab1da250a24e3893589ffc301
+  - n: 3
+    category: speak-up
+    title: Say It IN PERSON
+    lines:
+      - text: Hard conversations
+        mark:
+          target: Hard
+        note: Conflicts, apologies, bad news.
+      - text: don't belong in a text.
+        mark:
+          target: text
+        note: Tone gets lost. Screenshots last forever.
+      - text: Say it face to face,
+        mark:
+          target: face to face
+        note: Or a call, at minimum.
+      - text: calm and direct.
+        mark:
+          target: calm
+        note: Wait until you've cooled off.
+      - text: It's harder, and it works better.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: b7352570739239846770abec6d5dd38022063da30010438833929292bd37de55
+      approved_by: round
+      approved_round: 3
+      linted_hash: b7352570739239846770abec6d5dd38022063da30010438833929292bd37de55
+  - n: 4
+    category: school
+    title: Study SMARTER
+    lines:
+      - text: Rereading feels productive.
+        mark:
+          target: Rereading
+        note: Highlighting is mostly decoration.
+      - text: Testing yourself works.
+        mark:
+          target: Testing
+        note: Close the book. Write what you know.
+      - text: Space it out over days,
+        mark:
+          target: Space
+        note: 20 min a day beats one all-nighter.
+      - text: teach it to someone,
+        mark:
+          target: teach
+        note: Explain it to your sister.
+      - text: and sleep before the test.
+        mark:
+        note:
+    basis:
+      - R-academics-001
+      - R-academics-002
+    visibility: public
+    approval:
+      approved_hash: 1f4af3f2b9aa3758147f27a5ec0c0a157d93643cd9dee5ad88ff2441c06fec26
+      approved_by: round
+      approved_round: 3
+      linted_hash: 1f4af3f2b9aa3758147f27a5ec0c0a157d93643cd9dee5ad88ff2441c06fec26
+  - n: 5
+    category: feelings
+    title: Stress Can Be FUEL
+    lines:
+      - text: A little stress helps.
+        mark:
+          target: stress
+        note: Fast heart means fuel is on the way.
+      - text: It sharpens you up.
+        mark:
+          target: sharpens
+        note: Treat it like pregame nerves.
+      - text: Too much? Shrink the list.
+        mark:
+          target: Too much
+        note: Write every task down. Pick one.
+      - text: Move, sleep, and talk it out.
+        mark:
+          target: Move
+        note: Run around for ten minutes.
+      - text: Stress is fuel when you steer it.
+        mark:
+        note:
+    basis:
+      - R-personal-growth-006
+      - R-emotional-intelligence-001
+    visibility: public
+    approval:
+      approved_hash: 6955cc58bd8ea114def19f06b516445e2141e8fa6eb7ec1e2ce3dbfee11cfbb8
+      approved_by: round
+      approved_round: 3
+      linted_hash: 6955cc58bd8ea114def19f06b516445e2141e8fa6eb7ec1e2ce3dbfee11cfbb8
+  - n: 6
+    category: school
+    title: Grades Are DATA
+    lines:
+      - text: A grade is data.
+        mark:
+          target: data
+        note: Which topics cost you points?
+      - text: It shows what you know
+        mark:
+          target: know
+        note: Circle what you got right too.
+      - text: and what to work on next.
+        mark:
+          target: work on
+        note: Pick one topic. Fix it this week.
+      - text: Bad grade? Ask why.
+        mark:
+          target: Bad grade
+        note: Tell us before we see it online.
+      - text: You are more than a number.
+        mark:
+        note:
+    basis:
+      - R-middle-school-001
+      - R-academics-004
+    visibility: public
+    approval:
+      approved_hash: d2b77795465918e36656d86504a4276ea707670d55ed51d9ff03565d5b896bd5
+      approved_by: round
+      approved_round: 3
+      linted_hash: d2b77795465918e36656d86504a4276ea707670d55ed51d9ff03565d5b896bd5
+  - n: 7
+    category: friends
+    title: Crush CODE
+    lines:
+      - text: Got a crush? Normal.
+        mark:
+          target: crush
+        note: Everyone gets them. Even us, once.
+      - text: Be honest and kind.
+        mark:
+          target: honest
+        note: Say it yourself. No messengers.
+      - text: If it's a no, take it well.
+        mark:
+          target: no
+        note: '"Cool, no worries." Then let it go.'
+      - text: Keep their business private.
+        mark:
+          target: business
+        note: No screenshots. No group-chat reports.
+      - text: How you treat people says who you are.
+        mark:
+        note:
+    basis:
+      - R-core-008
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: e6da98d54cf030cfcfcb1abc85874202542af567abf3890e574a1188ca72bc47
+      approved_by: round
+      approved_round: 3
+      linted_hash: e6da98d54cf030cfcfcb1abc85874202542af567abf3890e574a1188ca72bc47
+  - n: 8
+    category: game-day
+    title: Lose WELL
+    lines:
+      - text: Losing stings. It should.
+        mark:
+          target: stings
+        note: Caring is a good sign.
+      - text: Shake hands and look up.
+        mark:
+        note:
+      - text: Skip the blame.
+        mark:
+          target: blame
+        note: Blame costs you the lesson.
+      - text: Watch the tape, find the fix,
+        mark:
+          target: tape
+        note: Ask what beat you.
+      - text: then get back to work.
+        mark:
+          target: work
+        note: Give yourself one night. Then go.
+    basis:
+      - R-athletics-001
+      - R-core-001
+    visibility: public
+    approval:
+      approved_hash: 16860107007806cb927a81c437b38cdcfed4db2470bd48ec18e8ddbbf6c1a42d
+      approved_by: round
+      approved_round: 3
+      linted_hash: 16860107007806cb927a81c437b38cdcfed4db2470bd48ec18e8ddbbf6c1a42d
+  - n: 9
+    category: feelings
+    title: The Spotlight EFFECT
+    lines:
+      - text: Feel like everyone noticed?
+        mark:
+          target: everyone
+        note: Tripped, blanked, bad haircut.
+      - text: Most people missed it.
+        mark:
+          target: missed
+        note: They're busy worrying about themselves.
+      - text: The rest forgot by lunch.
+        mark:
+          target: forgot
+        note: Can you remember their worst moment?
+      - text: Your brain shines a spotlight
+        mark:
+          target: spotlight
+        note: It's a real, studied brain glitch.
+      - text: that nobody else can see.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-001
+      - R-core-002
+    visibility: public
+    approval:
+      approved_hash: 7a344c8db51b8c1a241e7c310a4c9b950a25fecffdfd9b55b3684f82e32eeac0
+      approved_by: round
+      approved_round: 3
+      linted_hash: 7a344c8db51b8c1a241e7c310a4c9b950a25fecffdfd9b55b3684f82e32eeac0
+  - n: 10
+    category: speak-up
+    title: Talk to Us ANYTIME
+    lines:
+      - text: You can tell us anything.
+        mark:
+          target: anything
+        note: School, friends, online, a mistake.
+      - text: You won't get in trouble
+        mark:
+        note:
+      - text: for telling us.
+        mark:
+          target: telling
+        note: The telling part is always safe.
+      - text: We'd rather know.
+        mark:
+          target: know
+        note: Even if it's awkward. Especially then.
+      - text: Text, talk, or leave a note.
+        mark:
+          target: Text
+        note: Easier walking the dog? Say it there.
+    basis:
+      - R-middle-school-007
+      - R-abuse-bullying-unsafe-adults-001
+    visibility: public
+    approval:
+      approved_hash: 1bd9b83389bb8a7ca55828abbde2ca8eac1f6550cb4ca1c40d3b8334cc965365
+      approved_by: round
+      approved_round: 3
+      linted_hash: 1bd9b83389bb8a7ca55828abbde2ca8eac1f6550cb4ca1c40d3b8334cc965365
+  - n: 11
+    category: growth
+    title: Get Good at AWKWARD
+    lines:
+      - text: Anything new feels awkward.
+        mark:
+          target: new
+        note: New sport, new school, new people.
+      - text: That's the price of growing.
+        mark:
+          target: price
+        note: Nobody looks cool on day one.
+      - text: The kids who get good
+        mark:
+          target: good
+        note: Every senior was a clumsy freshman.
+      - text: kept going when it felt weird.
+        mark:
+          target: weird
+        note: Give it three weeks before you judge.
+      - text: Be willing to look like a beginner.
+        mark:
+        note:
+    basis:
+      - R-core-005
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: ada1b43405131d21a0109aee8e130cfb2031b4caef05cb86d5ba74f2ad7ed30d
+      approved_by: round
+      approved_round: 3
+      linted_hash: ada1b43405131d21a0109aee8e130cfb2031b4caef05cb86d5ba74f2ad7ed30d
+  - n: 12
+    category: game-day
+    title: Coaching Is a GIFT
+    lines:
+      - text: A coach who corrects you
+        mark:
+          target: corrects
+        note: Silence from a coach is worse.
+      - text: is investing in you.
+        mark:
+          target: investing
+        note: Coaches don't correct lost causes.
+      - text: Ask one question,
+        mark:
+          target: question
+        note: '"What should it look like?"'
+      - text: apply it next rep,
+        mark:
+          target: apply
+        note: Fix it on the very next rep.
+      - text: and thank them after practice.
+        mark:
+        note:
+    basis:
+      - R-athletics-002
+      - R-core-001
+    visibility: public
+    approval:
+      approved_hash: 9bff8be902a1c705e0f189df17b32806775520bc70707a80fade2907d0c62c24
+      approved_by: round
+      approved_round: 3
+      linted_hash: 9bff8be902a1c705e0f189df17b32806775520bc70707a80fade2907d0c62c24
+  - n: 13
+    category: school
+    title: Advocate for YOURSELF
+    lines:
+      - text: Nobody knows you're lost
+        mark:
+          target: lost
+        note: Teachers can't read minds.
+      - text: until you say something.
+        mark:
+          target: say
+        note: '"Can I come in at lunch for help?"'
+      - text: Send the email.
+        mark:
+          target: email
+        note: Polite. Specific. One question.
+      - text: Ask about the grade.
+        mark:
+          target: grade
+        note: '"What can I do to bring this up?"'
+      - text: Speaking up for yourself is a skill.
+        mark:
+        note:
+    basis:
+      - R-academics-004
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 744e8e4a3db6d3f4c5e1d059410be882e24a3b0750c23b5724ce58f016b11812
+      approved_by: round
+      approved_round: 3
+      linted_hash: 744e8e4a3db6d3f4c5e1d059410be882e24a3b0750c23b5724ce58f016b11812
+  - n: 14
+    category: friends
+    title: Be the UPSTANDER
+    lines:
+      - text: Someone's getting picked on?
+        mark:
+          target: picked on
+        note: Hallway, locker room, online.
+      - text: Don't just watch.
+        mark:
+          target: watch
+        note: Laughing along counts as joining.
+      - text: Step in, change the subject,
+        mark:
+          target: Step in
+        note: "\"Bro, that's not funny.\""
+      - text: or sit with them later.
+        mark:
+          target: sit with
+        note: Checking on them matters most.
+      - text: Tell an adult if it keeps happening.
+        mark:
+        note:
+    basis:
+      - R-abuse-bullying-unsafe-adults-003
+      - R-middle-school-007
+    visibility: public
+    approval:
+      approved_hash: 775087c2dedff10f6a7fcb17e9724d9b4574bb9aa6133c87f5a90b879f5b0725
+      approved_by: round
+      approved_round: 3
+      linted_hash: 775087c2dedff10f6a7fcb17e9724d9b4574bb9aa6133c87f5a90b879f5b0725
+  - n: 15
+    category: feelings
+    title: Ride the WAVE
+    lines:
+      - text: Every feeling is a wave.
+        mark:
+          target: wave
+        note: Anger, panic, cringe. All waves.
+      - text: It builds, it peaks,
+        mark:
+          target: builds
+        note: 'Notice it early: jaw, chest, fists.'
+      - text: and then it passes.
+        mark:
+          target: passes
+        note: Usually faster than you'd guess.
+      - text: Don't act at the top.
+        mark:
+          target: top
+        note: No texts, no comebacks, no decisions.
+      - text: Breathe, wait, then decide.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-001
+    visibility: public
+    approval:
+      approved_hash: dd1039e8093c361a1890c88faf59f2e40ae0eafe3651e44a2ed9173ac681e8e9
+      approved_by: round
+      approved_round: 3
+      linted_hash: dd1039e8093c361a1890c88faf59f2e40ae0eafe3651e44a2ed9173ac681e8e9
+  - n: 16
+    category: growth
+    title: Own IT
+    lines:
+      - text: When you mess up,
+        mark:
+          target: mess up
+        note: Everyone does. Adults too.
+      - text: skip the excuses.
+        mark:
+          target: excuses
+        note: '"But" cancels everything before it.'
+      - text: Say what happened,
+        mark:
+        note:
+      - text: fix what you can,
+        mark:
+          target: fix
+        note: Make it right before anyone asks.
+      - text: and own the rest.
+        mark:
+          target: own
+        note: Owning it fast earns trust back.
+    basis:
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 798200bf75b2bcc912f107ce479ebfc32d0ff7ff5b39e6def1e405ef3197e8d8
+      approved_by: round
+      approved_round: 3
+      linted_hash: 798200bf75b2bcc912f107ce479ebfc32d0ff7ff5b39e6def1e405ef3197e8d8
+  - n: 17
+    category: speak-up
+    title: Listen to UNDERSTAND
+    lines:
+      - text: Most people listen
+        mark:
+          target: listen
+        note: Phone down. Eyes up.
+      - text: just to reply.
+        mark:
+          target: reply
+        note: Planning a comeback? You missed it.
+      - text: Try listening to understand.
+        mark:
+          target: understand
+        note: 'Say it back: "So you mean..."'
+      - text: Ask one more question.
+        mark:
+          target: question
+        note: '"What do you mean by that?"'
+      - text: People open up to good listeners.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: 720548e2f4b413a294dbbc2959f137950278071e9e69c0b963a7d8c3c6a84c1e
+      approved_by: round
+      approved_round: 3
+      linted_hash: 720548e2f4b413a294dbbc2959f137950278071e9e69c0b963a7d8c3c6a84c1e
+  - n: 18
+    category: school
+    title: Focus MODE
+    lines:
+      - text: Your brain can't multitask.
+        mark:
+          target: multitask
+        note: It switches. Every switch costs you.
+      - text: Every ping pulls you out.
+        mark:
+          target: ping
+        note: Getting back in takes way longer.
+      - text: Phone in another room,
+        mark:
+          target: room
+        note: Out of sight, out of mind. Literally.
+      - text: one task at a time,
+        mark:
+          target: task
+        note: One thing, 25-minute timer.
+      - text: and the work goes way faster.
+        mark:
+        note:
+    basis:
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 0c8d9b16624f51595e9107868ed2acff32a5c021dc4a87e571cd3d9b6f2be64c
+      approved_by: round
+      approved_round: 3
+      linted_hash: 0c8d9b16624f51595e9107868ed2acff32a5c021dc4a87e571cd3d9b6f2be64c
+  - n: 19
+    category: game-day
+    title: Sleep Is TRAINING
+    lines:
+      - text: Recovery happens in bed.
+        mark:
+          target: Recovery
+        note: Meet tomorrow? Bed by ten.
+      - text: Short sleep makes you slower,
+        mark:
+          target: slower
+        note: Slower reactions, more injuries.
+      - text: weaker, and moody.
+        mark:
+          target: moody
+        note: Tired feels a lot like angry.
+      - text: Phone out an hour before bed.
+        mark:
+          target: out
+        note: Charge it in the kitchen.
+      - text: Sleep is part of the work.
+        mark:
+        note:
+    basis:
+      - R-middle-school-004
+      - R-athletics-004
+    visibility: public
+    approval:
+      approved_hash: 6de56e0d56efeda92f88b38fd50dad76dcd85e62153d4c439945b877d116bf21
+      approved_by: round
+      approved_round: 3
+      linted_hash: 6de56e0d56efeda92f88b38fd50dad76dcd85e62153d4c439945b877d116bf21
+  - n: 20
+    category: friends
+    title: Ask FIRST
+    lines:
+      - text: Ask before you touch,
+        mark:
+          target: Ask
+        note: Hugs, hands, anything. Just ask.
+      - text: post, or share their photo.
+        mark:
+          target: share
+        note: Their picture, their call.
+      - text: Only yes means yes.
+        mark:
+          target: yes
+        note: Silence or "I guess" isn't yes.
+      - text: A no is final.
+        mark:
+          target: no
+        note: Don't ask twice. Don't sulk.
+      - text: Respect makes you someone people trust.
+        mark:
+        note:
+    basis:
+      - R-sex-consent-online-001
+      - R-core-008
+    visibility: public
+    approval:
+      approved_hash: e0d31418bace50ef761ef44bc4bab859d020df56ccf318e3315b7b43469be49c
+      approved_by: round
+      approved_round: 3
+      linted_hash: e0d31418bace50ef761ef44bc4bab859d020df56ccf318e3315b7b43469be49c
+  - n: 21
+    category: speak-up
+    title: Disagree Without DISRESPECT
+    lines:
+      - text: You can disagree
+        mark:
+          target: disagree
+        note: With us, teachers, coaches, friends.
+      - text: and still show respect.
+        mark:
+          target: respect
+        note: Tone, eye contact, no eye rolls.
+      - text: Argue the idea,
+        mark:
+          target: idea
+        note: Never the person. No name-calling.
+      - text: let them finish first,
+        mark:
+          target: finish
+        note: 'Then: "I see it differently because..."'
+      - text: Agree to disagree is a win too.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: 6aa03c63c114f72f7940bdf80ee27253060f864dfb738080c4b1681f771d6a5a
+      approved_by: round
+      approved_round: 3
+      linted_hash: 6aa03c63c114f72f7940bdf80ee27253060f864dfb738080c4b1681f771d6a5a
+  - n: 22
+    category: game-day
+    title: Control What You CAN
+    lines:
+      - text: Refs, weather, the other team
+        mark:
+        note:
+      - text: aren't yours to control.
+        mark:
+          target: yours
+        note: Worrying about them wastes energy.
+      - text: Your effort,
+        mark:
+          target: effort
+        note: Distance? Chase your own PR.
+      - text: your prep,
+        mark:
+          target: prep
+        note: Sleep, water, bag packed the night before.
+      - text: your response. Own those.
+        mark:
+          target: response
+        note: Bad heat? Next one's yours.
+    basis:
+      - R-core-008
+      - R-middle-school-003
+    visibility: public
+    approval:
+      approved_hash: 0b0acb3901cc9142cc171f4604771674a57599051822e8f3e240e688659272d9
+      approved_by: round
+      approved_round: 3
+      linted_hash: 0b0acb3901cc9142cc171f4604771674a57599051822e8f3e240e688659272d9
+  - n: 23
+    category: feelings
+    title: Low DAYS
+    lines:
+      - text: Everyone has low days.
+        mark:
+          target: low
+        note: Tired, flat, nothing sounds fun.
+      - text: Get outside, eat, sleep,
+        mark:
+          target: outside
+        note: Sun and a walk help. Try it.
+      - text: text a friend back.
+        mark:
+        note:
+      - text: Lasts two weeks? Tell us.
+        mark:
+          target: two weeks
+        note: Or a coach, counselor, or doctor.
+      - text: Asking for help is strong.
+        mark:
+          target: Asking
+        note: 'Anytime, any hour: call a crisis line.'
+    basis:
+      - R-middle-school-007
+      - R-medical-claims-002
+    visibility: public
+    approval:
+      approved_hash: 8715b334dbb1148be5d3fbb160d5afbe95614e1d12c89e0c722e26344ec98dea
+      approved_by: round
+      approved_round: 3
+      linted_hash: 8715b334dbb1148be5d3fbb160d5afbe95614e1d12c89e0c722e26344ec98dea
+  - n: 24
+    category: school
+    title: Turn It IN
+    lines:
+      - text: Done beats perfect.
+        mark:
+          target: perfect
+        note: A B turned in beats an A at home.
+      - text: A zero hurts more
+        mark:
+          target: zero
+        note: One zero can drop you a full letter.
+      - text: than a rough draft ever will.
+        mark:
+        note:
+      - text: Check missing work weekly.
+        mark:
+          target: missing
+        note: Sunday night, check the portal.
+      - text: Finish the year strong.
+        mark:
+          target: strong
+        note: Last week counts as much as the first.
+    basis:
+      - R-academics-005
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 1c4db28e5acb9168377ef79d40d056d48386fbe425b95c0d5a6fa5b38d1cbfec
+      approved_by: round
+      approved_round: 3
+      linted_hash: 1c4db28e5acb9168377ef79d40d056d48386fbe425b95c0d5a6fa5b38d1cbfec
+  - n: 25
+    category: friends
+    title: Friendships CHANGE
+    lines:
+      - text: Friends drift. It happens.
+        mark:
+          target: drift
+        note: New school, new teams, new interests.
+      - text: Nobody has to be the bad guy.
+        mark:
+          target: bad guy
+        note: Growing apart is normal.
+      - text: Stay friendly,
+        mark:
+          target: friendly
+        note: Still say hi in the hall.
+      - text: make room for new people,
+        mark:
+          target: room
+        note: Join something new this fall.
+      - text: and keep the ones worth keeping.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-002
+      - R-core-008
+    visibility: public
+    approval:
+      approved_hash: b2b61e0beffef1197311e02f68ccaee85cfb7b202ea1d6bffc36c2313b547eed
+      approved_by: round
+      approved_round: 3
+      linted_hash: b2b61e0beffef1197311e02f68ccaee85cfb7b202ea1d6bffc36c2313b547eed
+  - n: 26
+    category: growth
+    title: Boss Your PHONE
+    lines:
+      - text: Your phone was designed
+        mark:
+          target: designed
+        note: Whole teams are paid to hook you.
+      - text: to keep you scrolling.
+        mark:
+          target: scrolling
+        note: Guess your screen time, then check.
+      - text: 'So you set the rules:'
+        mark:
+        note:
+      - text: phones off at dinner,
+        mark:
+          target: off
+        note: Charge it outside your room at night.
+      - text: real life first.
+        mark:
+          target: first
+        note: Homework, practice, people. Then phone.
+    basis:
+      - R-core-006
+      - R-middle-school-003
+    visibility: public
+    approval:
+      approved_hash: a22e8013e12fb76292e53d0ee905f4fa58f1c0003b37e174d7418d7b0bdd5962
+      approved_by: round
+      approved_round: 3
+      linted_hash: a22e8013e12fb76292e53d0ee905f4fa58f1c0003b37e174d7418d7b0bdd5962
+  - n: 27
+    category: speak-up
+    title: Tone MATTERS
+    lines:
+      - text: Texts have no tone.
+        mark:
+          target: tone
+        note: "\"K.\" can read like you're furious."
+      - text: Reread before you send.
+        mark:
+          target: Reread
+        note: Would it sound OK out loud?
+      - text: 'Same with your voice:'
+        mark:
+          target: voice
+        note: Sarcasm lands harder than you think.
+      - text: how you say it
+        mark:
+          target: how
+        note: Same words, calm voice, new result.
+      - text: changes what they hear.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: 0a2040109c81042156f773c9a4a01fc7daac4b152263af4a88956d8314611fb2
+      approved_by: round
+      approved_round: 3
+      linted_hash: 0a2040109c81042156f773c9a4a01fc7daac4b152263af4a88956d8314611fb2
+  - n: 28
+    category: feelings
+    title: Talk to Yourself Like a FRIEND
+    lines:
+      - text: Listen to how you talk to you.
+        mark:
+          target: talk
+        note: "\"I'm so stupid.\" Catch it."
+      - text: Would you say it to a friend?
+        mark:
+          target: friend
+        note: Or a teammate who just messed up?
+      - text: Then don't say it to you.
+        mark:
+        note:
+      - text: 'Swap it for something true:'
+        mark:
+          target: Swap
+        note: "\"I'm stupid\" becomes \"I rushed it.\""
+      - text: '"I can fix this."'
+        mark:
+          target: fix
+        note: Coach yourself like a good coach would.
+    basis:
+      - R-middle-school-002
+    visibility: public
+    approval:
+      approved_hash: 4da20bd118f738a410964b7b72a4dd888d1a2f987c64cc22e4735e9aae4d691d
+      approved_by: round
+      approved_round: 3
+      linted_hash: 4da20bd118f738a410964b7b72a4dd888d1a2f987c64cc22e4735e9aae4d691d
+  - n: 29
+    category: friends
+    title: Think Before You POST
+    lines:
+      - text: Everything can become a screenshot.
+        mark:
+          target: Everything
+        note: Chats, DMs, "private" stories.
+      - text: Forever.
+        mark:
+          target: Forever
+        note: Coaches and colleges look.
+      - text: Before you post or send,
+        mark:
+          target: send
+        note: No nudes. Ever. Even "just to one person."
+      - text: run the grandparent test.
+        mark:
+          target: grandparent
+        note: Would you show them? Then post it.
+      - text: If not, don't.
+        mark:
+        note:
+    basis:
+      - R-sex-consent-online-002
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 12c812f60954c0fea975566bf23bfbe7057681e7527904db602faeb6c958ef16
+      approved_by: round
+      approved_round: 3
+      linted_hash: 12c812f60954c0fea975566bf23bfbe7057681e7527904db602faeb6c958ef16
+  - n: 30
+    category: game-day
+    title: Lead from ANYWHERE
+    lines:
+      - text: No captain title needed.
+        mark:
+          target: captain
+        note: Leaders get picked after they lead.
+      - text: Be first to show up,
+        mark:
+          target: show up
+        note: Early to practice. Every time.
+      - text: last to complain,
+        mark:
+          target: complain
+        note: Complaining spreads faster than flu.
+      - text: loudest for the new guys.
+        mark:
+          target: new guys
+        note: "Team: learn every new guy's name."
+      - text: People follow what you do.
+        mark:
+        note:
+    basis:
+      - R-athletics-001
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 40bcaf8bf664d30806381f001dae5efae351a6f6260a64395bd626bfb4bac20e
+      approved_by: round
+      approved_round: 3
+      linted_hash: 40bcaf8bf664d30806381f001dae5efae351a6f6260a64395bd626bfb4bac20e
+  - n: 31
+    category: growth
+    title: When No One's WATCHING
+    lines:
+      - text: Character is what you do
+        mark:
+          target: Character
+        note: The real you, no one grading.
+      - text: when nobody's watching.
+        mark:
+        note:
+      - text: Finish the last rep,
+        mark:
+          target: last rep
+        note: Empty gym, full effort.
+      - text: hand back the extra change,
+        mark:
+          target: extra change
+        note: Cashier gave too much? Give it back.
+      - text: keep the promise.
+        mark:
+          target: promise
+        note: Do what you said you'd do.
+    basis:
+      - R-core-005
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 024ae13d83a903ceb7ea387626f2ab57eedee33184545dc6d9a1bafc291073fe
+      approved_by: round
+      approved_round: 3
+      linted_hash: 024ae13d83a903ceb7ea387626f2ab57eedee33184545dc6d9a1bafc291073fe
+  - n: 32
+    category: speak-up
+    title: Speak UP
+    lines:
+      - text: Something's off? Say so.
+        mark:
+          target: off
+        note: In class, on the team, in the group chat.
+      - text: Confused? Ask the question.
+        mark:
+          target: Confused
+        note: Half the class is wondering too.
+      - text: Unfair call? Say it calmly.
+        mark:
+          target: Unfair
+        note: Facts first, feelings second.
+      - text: Your voice counts.
+        mark:
+          target: voice
+        note: Order your own food. Make the call.
+      - text: Use it, or others decide for you.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-middle-school-007
+    visibility: public
+    approval:
+      approved_hash: 2ed995350fb52b611db969f0836e6f3b2ccae86800ed384b34697d609e32cd8d
+      approved_by: round
+      approved_round: 3
+      linted_hash: 2ed995350fb52b611db969f0836e6f3b2ccae86800ed384b34697d609e32cd8d
+  - n: 33
+    category: friends
+    title: Online BLACKMAIL
+    lines:
+      - text: Someone threatens to share
+        mark:
+          target: threatens
+        note: Photos, chats, anything. Real or fake.
+      - text: a photo unless you pay?
+        mark:
+          target: pay
+        note: Never pay. It doesn't stop them.
+      - text: Stop replying. Don't delete.
+        mark:
+          target: Stop
+        note: Screenshot the account and messages.
+      - text: Tell us right away.
+        mark:
+          target: Tell us
+        note: You're not in trouble. We'll fix it.
+      - text: It's not your fault. It's fixable.
+        mark:
+        note:
+    basis:
+      - R-sex-consent-online-002
+      - R-sex-consent-online-003
+    visibility: public
+    approval:
+      approved_hash: ac6137f3033cf93942b08686ff572d8befd73512dec14c013243a38633c31439
+      approved_by: round
+      approved_round: 3
+      linted_hash: ac6137f3033cf93942b08686ff572d8befd73512dec14c013243a38633c31439
+  - n: 34
+    category: growth
+    title: Fail FORWARD
+    lines:
+      - text: Every miss is data.
+        mark:
+          target: miss
+        note: Bad test, missed shot, lost match.
+      - text: Ask what went wrong,
+        mark:
+          target: what
+        note: '"I rushed" beats "I suck."'
+      - text: change one thing,
+        mark:
+          target: one thing
+        note: One fix at a time.
+      - text: and go again.
+        mark:
+          target: again
+        note: Great wrestlers lost a lot first.
+      - text: That's how failing moves you forward.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-middle-school-001
+    visibility: public
+    approval:
+      approved_hash: b92506debe6142ff0b2802646d3b3d9f040e31966fd5fa4390970ab87618cf65
+      approved_by: round
+      approved_round: 3
+      linted_hash: b92506debe6142ff0b2802646d3b3d9f040e31966fd5fa4390970ab87618cf65
+  - n: 35
+    category: speak-up
+    title: Ask, Don't ASSUME
+    lines:
+      - text: Late reply? Weird look?
+        mark:
+          target: Late
+        note: Usually busy, tired, or at practice.
+      - text: Don't fill in the story.
+        mark:
+          target: story
+        note: Your brain picks the worst version.
+      - text: 'Ask: "Hey, are we good?"'
+        mark:
+          target: Ask
+        note: Ten awkward seconds beats a week of drama.
+      - text: Most drama starts
+        mark:
+          target: drama
+        note: Rumors, group chats, "he said."
+      - text: with someone assuming.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-002
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: d304d0d56e167f91219764cb857e89ee1c13002f84514e4a1e643d76a2840e3b
+      approved_by: round
+      approved_round: 3
+      linted_hash: d304d0d56e167f91219764cb857e89ee1c13002f84514e4a1e643d76a2840e3b
+  - n: 36
+    category: feelings
+    title: Rejection HURTS
+    lines:
+      - text: Got cut? Got left on read?
+        mark:
+          target: cut
+        note: Every athlete gets cut from something.
+      - text: Rejection hurts.
+        mark:
+          target: hurts
+        note: Feel it. Faking fine takes longer.
+      - text: It's one no on one day.
+        mark:
+          target: no
+        note: One coach. One person. One moment.
+      - text: Find out what to work on,
+        mark:
+          target: Find out
+        note: Ask, "What would get me there?"
+      - text: and take your next shot.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-001
+      - R-core-002
+    visibility: public
+    approval:
+      approved_hash: 6267d977f3034c123c9f40df378e488b20ba415687e33190fce798c7ad740c7d
+      approved_by: round
+      approved_round: 3
+      linted_hash: 6267d977f3034c123c9f40df378e488b20ba415687e33190fce798c7ad740c7d
+  - n: 37
+    category: school
+    title: Plan the WEEK
+    lines:
+      - text: Sunday night, ten minutes.
+        mark:
+          target: Sunday
+        note: Same time every week.
+      - text: List the big stuff,
+        mark:
+          target: big stuff
+        note: Tests, projects, games, meets.
+      - text: then block time for it
+        mark:
+          target: block
+        note: Schedule it like a practice.
+      - text: before practice eats the week.
+        mark:
+        note:
+      - text: High school moves fast.
+        mark:
+          target: fast
+        note: Every grade from here counts.
+    basis:
+      - R-core-006
+      - R-academics-009
+    visibility: public
+    approval:
+      approved_hash: dbbd0293a9dd92a33128dd45bbb1d8d271f238ecee82a86d92eacccb7d24d589
+      approved_by: round
+      approved_round: 3
+      linted_hash: dbbd0293a9dd92a33128dd45bbb1d8d271f238ecee82a86d92eacccb7d24d589
+  - n: 38
+    category: friends
+    title: Have an EXIT PLAN
+    lines:
+      - text: Bad situation? Want out?
+        mark:
+          target: situation
+        note: Party, bus, sleepover, anywhere.
+      - text: Text us a "pineapple."
+        mark:
+          target: pineapple
+        note: Just the word. Nothing else.
+      - text: We'll call with an "emergency"
+        mark:
+          target: call
+        note: '"Sorry, family thing. Gotta go."'
+      - text: and come get you.
+        mark:
+          target: come get you
+        note: Any time. No questions asked.
+      - text: Blame us. That's what we're for.
+        mark:
+        note:
+    basis:
+      - R-abuse-bullying-unsafe-adults-001
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: fc7096b152bf6dcfab0f24cda1c7f18efa1db768bfc629420edc601d4cce69b5
+      approved_by: round
+      approved_round: 3
+      linted_hash: fc7096b152bf6dcfab0f24cda1c7f18efa1db768bfc629420edc601d4cce69b5
+  - n: 39
+    category: school
+    title: Start UGLY
+    lines:
+      - text: The hardest part is starting.
+        mark:
+          target: starting
+        note: Ten-minute timer. Go.
+      - text: So start ugly.
+        mark:
+          target: ugly
+        note: Every good essay was a bad draft first.
+      - text: A messy outline, one problem,
+        mark:
+        note:
+      - text: a rough first line.
+        mark:
+          target: first line
+        note: Write anything. Fix it later.
+      - text: Momentum does the rest.
+        mark:
+          target: Momentum
+        note: Once you start, you'll keep going.
+    basis:
+      - R-academics-007
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: c5466e2df6bba90d9370065a442f7231f449b49a4dd4b6f04e668129c84364ee
+      approved_by: round
+      approved_round: 3
+      linted_hash: c5466e2df6bba90d9370065a442f7231f449b49a4dd4b6f04e668129c84364ee
+  - n: 40
+    category: growth
+    title: Compare LESS
+    lines:
+      - text: Everyone posts their best.
+        mark:
+          target: posts
+        note: Nobody posts their worst day.
+      - text: You see your whole day.
+        mark:
+          target: whole
+        note: Their highlights vs. your bloopers.
+      - text: So race yesterday's you.
+        mark:
+          target: yesterday's
+        note: Log your own PRs, grades, reps.
+      - text: One percent better
+        mark:
+          target: better
+        note: 1% a day adds up fast.
+      - text: is the only race that counts.
+        mark:
+        note:
+    basis:
+      - R-core-002
+      - R-personal-growth-007
+    visibility: public
+    approval:
+      approved_hash: 479676263f4da447472fbe05ff01f218e70544ee4a3bce65ffa58da8ebfea828
+      approved_by: round
+      approved_round: 3
+      linted_hash: 479676263f4da447472fbe05ff01f218e70544ee4a3bce65ffa58da8ebfea828
+  - n: 41
+    category: speak-up
+    title: Real APOLOGY
+    lines:
+      - text: A real apology has no "but."
+        mark:
+          target: apology
+        note: No "if you were offended" either.
+      - text: Name exactly what you did,
+        mark:
+          target: exactly
+        note: '"I said that in front of everyone."'
+      - text: own how it landed,
+        mark:
+          target: landed
+        note: Impact matters more than intent.
+      - text: say how you'll fix it.
+        mark:
+          target: fix
+        note: Then follow through. That's the real part.
+      - text: Then give them time.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: 41cf5e26e19b61df2cccd268669990ab891c55c1e924bb8259bedc45b4351733
+      approved_by: round
+      approved_round: 3
+      linted_hash: 41cf5e26e19b61df2cccd268669990ab891c55c1e924bb8259bedc45b4351733
+  - n: 42
+    category: growth
+    title: Skill Is BUILT
+    lines:
+      - text: Talent is a head start.
+        mark:
+          target: Talent
+        note: It only gets you so far.
+      - text: Reps decide the rest.
+        mark:
+          target: Reps
+        note: Shots, laps, problems. Count them.
+      - text: Every skill you admire
+        mark:
+          target: admire
+        note: Ask how they got good. Listen.
+      - text: was built on boring days.
+        mark:
+          target: boring
+        note: Nobody films the boring days.
+      - text: Yours is under construction.
+        mark:
+        note:
+    basis:
+      - R-core-005
+    visibility: public
+    approval:
+      approved_hash: db1bdb12d324ff3b749eb04b90ee30535c62c283029d1b48911e5f9e92861980
+      approved_by: round
+      approved_round: 3
+      linted_hash: db1bdb12d324ff3b749eb04b90ee30535c62c283029d1b48911e5f9e92861980
+  - n: 43
+    category: school
+    title: Ask for Help EARLY
+    lines:
+      - text: Class not clicking?
+        mark:
+          target: clicking
+        note: Writing? Usually one weak skill. Find it.
+      - text: Get help in week two,
+        mark:
+          target: two
+        note: Small gaps are easy to fix early.
+      - text: not week nine.
+        mark:
+          target: nine
+        note: Late help means relearning a pile.
+      - text: Go to office hours,
+        mark:
+          target: hours
+        note: Bring a draft. Ask what to fix first.
+      - text: ask a friend, or ask us.
+        mark:
+        note:
+    basis:
+      - R-academics-007
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: dbce1c16f97fffa55516ac58c7ad6d36ccf3bfe323b51d84286e0fd99748bdf4
+      approved_by: round
+      approved_round: 3
+      linted_hash: dbce1c16f97fffa55516ac58c7ad6d36ccf3bfe323b51d84286e0fd99748bdf4
+  - n: 44
+    category: game-day
+    title: Next PLAY
+    lines:
+      - text: Dropped a pass?
+        mark:
+          target: pass
+        note: The next snap is coming. Be ready.
+      - text: Missed a shot?
+        mark:
+          target: shot
+        note: Shooters shoot. Take the next one.
+      - text: You get one breath
+        mark:
+          target: breath
+        note: In, out, flush it.
+      - text: to be mad about it.
+        mark:
+        note:
+      - text: Then it's next play.
+        mark:
+          target: next play
+        note: Great players have short memories.
+    basis:
+      - R-athletics-002
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 514337af2ab656416681f9435d4753808d6459a979056ce2463b5f15fcf5b183
+      approved_by: round
+      approved_round: 3
+      linted_hash: 514337af2ab656416681f9435d4753808d6459a979056ce2463b5f15fcf5b183
+  - n: 45
+    category: feelings
+    title: Name It to TAME IT
+    lines:
+      - text: "\"I'm fine\" isn't a feeling."
+        mark:
+          target: fine
+        note: Neither is "whatever."
+      - text: 'Get specific:'
+        mark:
+          target: specific
+        note: Embarrassed? Disrespected? Left out?
+      - text: Naming it takes the edge off.
+        mark:
+          target: edge
+        note: Labeling a feeling calms your brain.
+      - text: Say it to someone you trust,
+        mark:
+          target: Say it
+        note: Even just "I'm stressed about Friday."
+      - text: or write it down.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-001
+    visibility: public
+    approval:
+      approved_hash: 7206dd433e76fdef4b55b3ebb4d049fa3cbe1de55969224e1d24f8e51a97ccda
+      approved_by: round
+      approved_round: 3
+      linted_hash: 7206dd433e76fdef4b55b3ebb4d049fa3cbe1de55969224e1d24f8e51a97ccda
+  - n: 46
+    category: game-day
+    title: Pressure Is a PRIVILEGE
+    lines:
+      - text: Nervous before tryouts?
+        mark:
+          target: Nervous
+        note: Same feeling as excited. Call it that.
+      - text: Good. It means it matters.
+        mark:
+          target: matters
+        note: You only get nervous for big stuff.
+      - text: Pressure only shows up
+        mark:
+        note:
+      - text: where you've earned a shot.
+        mark:
+          target: earned
+        note: You put in the work to be here.
+      - text: So embrace it and compete.
+        mark:
+          target: embrace
+        note: Tryouts? Hustle is what coaches see.
+    basis:
+      - R-athletics-001
+      - R-emotional-intelligence-008
+    visibility: public
+    approval:
+      approved_hash: 0e3f511b0e1e4fdd7ba69e88fb00fea2da0b3c566c4d2738ebeacaa098ace52f
+      approved_by: round
+      approved_round: 3
+      linted_hash: 0e3f511b0e1e4fdd7ba69e88fb00fea2da0b3c566c4d2738ebeacaa098ace52f
+  - n: 47
+    category: friends
+    title: Pick Your PEOPLE
+    lines:
+      - text: Your people rub off on you.
+        mark:
+          target: people
+        note: Who makes you feel most like you?
+      - text: Pick friends who lift you up,
+        mark:
+          target: lift you up,
+        note: Real friends push you up, not down.
+      - text: be that friend back,
+        mark:
+          target: be that friend
+        note: Text first. Have their back.
+      - text: and when the drama starts,
+        mark:
+        note:
+      - text: you're allowed to walk away.
+        mark:
+          target: walk away.
+        note: Leaving the group chat counts.
+    basis:
+      - R-core-008
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: 9d5f1267ec49e779eb3a1710a86a1c10ee627cc433ac0a8e0b749b0e4d0a91f5
+      approved_by: round
+      approved_round: 3
+      linted_hash: 9d5f1267ec49e779eb3a1710a86a1c10ee627cc433ac0a8e0b749b0e4d0a91f5
+  - n: 48
+    category: speak-up
+    title: Say Thanks OUT LOUD
+    lines:
+      - text: Gratitude you don't say
+        mark:
+          target: Gratitude
+        note: Name one thing at dinner tonight.
+      - text: doesn't count for much.
+        mark:
+        note:
+      - text: Thank coaches, teachers, us.
+        mark:
+          target: coaches
+        note: Handshake after the season. Every one.
+      - text: Text the friend who showed up.
+        mark:
+          target: Text
+        note: '"Thanks for having my back today."'
+      - text: Be specific. It hits harder.
+        mark:
+          target: specific
+        note: '"Thanks for the ride at 6 a.m."'
+    basis:
+      - R-core-006
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: f6e4f45f6303115f9743a0aac76bdaf8aa07260f24c90f8c54a4bf56b599ed1d
+      approved_by: round
+      approved_round: 3
+      linted_hash: f6e4f45f6303115f9743a0aac76bdaf8aa07260f24c90f8c54a4bf56b599ed1d
+  - n: 49
+    category: school
+    title: The Tough TEACHER
+    lines:
+      - text: You won't click with everyone.
+        mark:
+          target: click
+        note: Future bosses will be like this too.
+      - text: You can still learn from them.
+        mark:
+          target: learn
+        note: Learn what they want. Deliver it.
+      - text: Stay respectful, do the work.
+        mark:
+          target: work
+        note: Make your work impossible to criticize.
+      - text: Still unclear? Ask them.
+        mark:
+          target: unclear
+        note: Ask, "What would an A look like?"
+      - text: Then bring us in if it's really unfair.
+        mark:
+        note:
+    basis:
+      - R-academics-004
+      - R-core-008
+    visibility: public
+    approval:
+      approved_hash: 28b3236cb2a9c2bca465b3c7bbe1bb1c669eac71345e785ed162c35598b04153
+      approved_by: round
+      approved_round: 3
+      linted_hash: 28b3236cb2a9c2bca465b3c7bbe1bb1c669eac71345e785ed162c35598b04153
+  - n: 50
+    category: game-day
+    title: Earn Your ROLE
+    lines:
+      - text: Not the role you wanted?
+        mark:
+          target: role
+        note: Every roster needs every role.
+      - text: Ask Coach what it takes.
+        mark:
+          target: takes
+        note: '"What do I need to do to play more?"'
+      - text: Dominate practice,
+        mark:
+          target: Dominate
+        note: Every practice is a tryout.
+      - text: be great at your job,
+        mark:
+          target: great
+        note: Scout team, relay leg, JV. Own it.
+      - text: and make Coach's choice hard.
+        mark:
+        note:
+    basis:
+      - R-athletics-001
+      - R-athletics-006
+    visibility: public
+    approval:
+      approved_hash: d6674b693ee1d03978ad0273ca64de3d6c09548aa62faf4149e95b457d34e7cc
+      approved_by: round
+      approved_round: 3
+      linted_hash: d6674b693ee1d03978ad0273ca64de3d6c09548aa62faf4149e95b457d34e7cc
+  - n: 51
+    category: feelings
+    title: Anger Is a SIGNAL
+    lines:
+      - text: Anger is a signal.
+        mark:
+          target: Anger
+        note: Useful info, loud delivery.
+      - text: "Ask what's under it:"
+        mark:
+          target: under
+        note: Hurt? Embarrassed? Scared? Disrespected?
+      - text: Hit the pause first.
+        mark:
+          target: pause
+        note: Walk, breathe, shoot around. Then talk.
+      - text: Then say the real thing.
+        mark:
+          target: real thing
+        note: '"I felt disrespected when..."'
+      - text: Strength is staying in control.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-001
+    visibility: public
+    approval:
+      approved_hash: ea04a3da350224753b069f08bc727980c9ce06b6b3ccacf206c7800991917c65
+      approved_by: round
+      approved_round: 3
+      linted_hash: ea04a3da350224753b069f08bc727980c9ce06b6b3ccacf206c7800991917c65
+  - n: 52
+    category: friends
+    title: Sisters FOREVER
+    lines:
+      - text: Your sister is watching you.
+        mark:
+          target: sister
+        note: She copies how you talk and act.
+      - text: Be the big sister you'd want.
+        mark:
+          target: want
+        note: Who did you look up to at her age?
+      - text: Include her sometimes,
+        mark:
+          target: Include
+        note: One round of cards counts.
+      - text: stick up for her always.
+        mark:
+          target: stick up
+        note: Tease at home, defend everywhere else.
+      - text: Teammates come and go. Sisters stay.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: 05080cf7e19746eb829d9b4bd6c1f14202a602eca6b76fa0d2ca062111238dd6
+      approved_by: round
+      approved_round: 3
+      linted_hash: 05080cf7e19746eb829d9b4bd6c1f14202a602eca6b76fa0d2ca062111238dd6
+  - n: 53
+    category: growth
+    title: Run the TAPE
+    lines:
+      - text: Athletes review the tape.
+        mark:
+          target: review
+        note: Scroll back to last January.
+      - text: 'Run it back on your year:'
+        mark:
+          target: year
+        note: What would you tell January-you?
+      - text: what worked,
+        mark:
+          target: worked
+        note: Keep doing it. Write it down.
+      - text: what didn't,
+        mark:
+          target: didn't
+        note: No shame. Just notes.
+      - text: and what you'll do next.
+        mark:
+        note:
+    basis:
+      - R-core-005
+      - R-personal-growth-007
+    visibility: public
+    approval:
+      approved_hash: 60d093e2110a1d6174b4ad5ae163c5e8bf7ea4de360cf25b6b728802c12dc2b3
+      approved_by: round
+      approved_round: 3
+      linted_hash: 60d093e2110a1d6174b4ad5ae163c5e8bf7ea4de360cf25b6b728802c12dc2b3

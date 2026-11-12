@@ -1,0 +1,1764 @@
+schema_version: 1
+plugin_version: 0.1.0
+id: college
+title: College
+status: drafted
+created: '2026-11-12'
+example: true
+recipient:
+  kind: person
+  pill: College
+  age_band: college
+  description: A fictional first-year student living away from home, in a demanding science major.
+  culture_notes:
+sender:
+  voice: parents
+  pronouns: they/them
+  signoff: With love
+policies:
+  substances: safety_only
+  sex_relationships: safety_only
+  faith: neutral
+  register:
+    humor: light
+    slang: some
+  help_resources: none
+personal_details:
+  - id: P-01
+    text: Lives in a shared student house.
+    confirmed: true
+  - id: P-02
+    text: Studies a science major.
+    confirmed: true
+categories:
+  - key: choices
+    label: Choices
+    color: red
+    contexts: []
+  - key: academics
+    label: Academics
+    color: purple
+    contexts:
+      - academics
+  - key: mind
+    label: Mind
+    color: pink
+    contexts:
+      - emotional-intelligence
+  - key: people
+    label: People
+    color: teal
+    contexts: []
+  - key: direction
+    label: Direction
+    color: blue
+    contexts:
+      - personal-growth
+  - key: life-skills
+    label: Life Skills
+    color: amber
+    contexts: []
+numbering:
+  mode: weekly
+  count: 53
+  week_rule: contains_jan_1
+  week_start: sunday
+outputs:
+  - print_sheet
+  - pdf
+  - phone
+  - tablet
+  - png
+page_size: letter
+style:
+  layout: index
+  preset: casual
+  theme: color
+  tokens: {}
+rules_snapshot:
+  file: effective-rules.yaml
+  compiled_at: '2026-11-12T00:00:00Z'
+  plugin_version: 0.1.0
+  sha256: '0000000000000000000000000000000000000000000000000000000000000000'
+cards:
+  - n: 1
+    category: choices
+    title: Never Drive BUZZED
+    lines:
+      - text: Buzzed is drunk.
+        mark:
+          target: Buzzed
+        note: Feeling fine is the trap.
+      - text: Weed counts too.
+        mark:
+          target: counts
+        note: High drivers react slower. Same rule.
+      - text: Planning to drink? Park it.
+        mark:
+          target: Park it
+        note: Leave the truck. Get it tomorrow.
+      - text: Never get in with a driver
+        mark:
+          target: driver
+        note: Call a ride or call us. We'll pay.
+      - text: who's been drinking.
+        mark:
+        note:
+    basis:
+      - R-alcohol-drugs-002
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: c074699896fa46069a56e3ca996c098a7f1f95d3fde3ee866d36012106b3318f
+      approved_by: round
+      approved_round: 3
+      linted_hash: c074699896fa46069a56e3ca996c098a7f1f95d3fde3ee866d36012106b3318f
+  - n: 2
+    category: academics
+    title: Go to Every CLASS
+    lines:
+      - text: Show up to every class.
+        mark:
+          target: every
+        note: Even the 8 a.m. Especially the 8 a.m.
+      - text: Each lecture costs you.
+        mark:
+          target: costs
+        note: Tuition divided by lectures. Ouch.
+      - text: Profs drop hints in class
+        mark:
+          target: hints
+        note: '"This will be on the exam." Write it down.'
+      - text: that never make the slides.
+        mark:
+          target: slides
+        note: Slides are a summary. Class is the lesson.
+      - text: Sit near the front.
+        mark:
+        note:
+    basis:
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: d27a172603ac0f059c851edd5598ef8ae624a537de7479c8cd0caabfa66bfc8e
+      approved_by: round
+      approved_round: 3
+      linted_hash: d27a172603ac0f059c851edd5598ef8ae624a537de7479c8cd0caabfa66bfc8e
+  - n: 3
+    category: mind
+    title: Chase the DAYLIGHT
+    lines:
+      - text: Winter days get short.
+        mark:
+          target: short
+        note: Dark at 4:30 drags anyone down.
+      - text: Get outside before noon.
+        mark:
+          target: outside
+        note: Walk to class the long way.
+      - text: Move every day.
+        mark:
+          target: Move
+        note: Gym, a run, a walk. Anything.
+      - text: Feeling flat for weeks?
+        mark:
+          target: flat
+        note: Winter slumps are real. Get checked.
+      - text: Tell someone. Tell us.
+        mark:
+        note:
+    basis:
+      - R-college-004
+      - R-emotional-intelligence-001
+    visibility: public
+    approval:
+      approved_hash: c094c3d903dd3d6819edc0bbdf7f4892cb9e07b1f6940b00fa229e4cd1dd924b
+      approved_by: round
+      approved_round: 3
+      linted_hash: c094c3d903dd3d6819edc0bbdf7f4892cb9e07b1f6940b00fa229e4cd1dd924b
+  - n: 4
+    category: people
+    title: Join a CLUB
+    lines:
+      - text: Pick one club this semester.
+        mark:
+          target: one
+        note: Chemistry, film, anything you like.
+      - text: Go three times
+        mark:
+          target: three
+        note: First time is awkward for everyone.
+      - text: before you decide.
+        mark:
+        note:
+      - text: Regulars become friends.
+        mark:
+          target: Regulars
+        note: Same faces, every week. That's how.
+      - text: And it looks good on a resume.
+        mark:
+          target: resume
+        note: Leadership roles open up by year two.
+    basis:
+      - R-core-006
+      - R-college-002
+    visibility: public
+    approval:
+      approved_hash: b9a34446491f84d5fe09c759eb3d99821280578d36b91540495d0439fc6a1a5a
+      approved_by: round
+      approved_round: 3
+      linted_hash: b9a34446491f84d5fe09c759eb3d99821280578d36b91540495d0439fc6a1a5a
+  - n: 5
+    category: academics
+    title: Go to Office HOURS
+    lines:
+      - text: Office hours are free help.
+        mark:
+          target: free
+        note: You're already paying for them.
+      - text: Most students never go.
+        mark:
+          target: never
+        note: Which means short lines for you.
+      - text: Bring a specific question.
+        mark:
+          target: specific
+        note: "\"I get to step 3, then I'm lost.\""
+      - text: Profs remember who shows up.
+        mark:
+          target: remember
+        note: That's your future rec letter.
+      - text: Go before you're desperate.
+        mark:
+        note:
+    basis:
+      - R-college-003
+      - R-academics-007
+    visibility: public
+    approval:
+      approved_hash: 1dc654210846147eb9092cfd3a21cc60e207f91f6b127910371a827c559f7019
+      approved_by: round
+      approved_round: 3
+      linted_hash: 1dc654210846147eb9092cfd3a21cc60e207f91f6b127910371a827c559f7019
+  - n: 6
+    category: direction
+    title: Land a Summer GIG
+    lines:
+      - text: Summer apps open now.
+        mark:
+          target: apps
+        note: Good internships fill early.
+      - text: Hit the career center.
+        mark:
+          target: career center
+        note: Free resume review. Use it.
+      - text: Apply to twenty, not two.
+        mark:
+          target: twenty
+        note: Rejections are normal. Volume wins.
+      - text: No internship? Any job counts.
+        mark:
+          target: Any job
+        note: Work ethic is the real resume.
+      - text: Start this week.
+        mark:
+        note:
+    basis:
+      - R-personal-growth-002
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: ddbc0afa8ec8f97446908e70ae8654c12b352b37d25faec71789569c978883f8
+      approved_by: round
+      approved_round: 3
+      linted_hash: ddbc0afa8ec8f97446908e70ae8654c12b352b37d25faec71789569c978883f8
+  - n: 7
+    category: choices
+    title: Consent Every TIME
+    lines:
+      - text: Ask. Every time.
+        mark:
+          target: Ask
+        note: '"You good?" Simple. Not awkward.'
+      - text: Only a clear yes is yes.
+        mark:
+          target: yes
+        note: Silence, maybe, or "I guess" means stop.
+      - text: Drunk can't consent.
+        mark:
+          target: Drunk
+        note: If they're wasted, the answer is no.
+      - text: Anyone can stop anytime.
+        mark:
+          target: stop
+        note: Midway counts. Stop means stop.
+      - text: That goes both ways.
+        mark:
+        note:
+    basis:
+      - R-sex-consent-online-001
+    visibility: public
+    approval:
+      approved_hash: 4c37e4730c09ab1510de342a67c9251d0a14eaa388f7e0edecd32377ca013f6f
+      approved_by: round
+      approved_round: 3
+      linted_hash: 4c37e4730c09ab1510de342a67c9251d0a14eaa388f7e0edecd32377ca013f6f
+  - n: 8
+    category: people
+    title: Date with RESPECT
+    lines:
+      - text: Say what you want.
+        mark:
+          target: want
+        note: Casual or serious. Just be clear.
+      - text: Treat them well,
+        mark:
+          target: well
+        note: Show up when you said. Text back.
+      - text: even after it ends.
+        mark:
+          target: ends
+        note: No trashing them. No screenshots.
+      - text: Breakups hurt.
+        mark:
+          target: Breakups
+        note: Lean on friends. Call us if it's bad.
+      - text: Respect is what people remember.
+        mark:
+        note:
+    basis:
+      - R-core-008
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: c3cacd73ed82f829fd038571d85c5f85507f18a4417957766bd4381549763300
+      approved_by: round
+      approved_round: 3
+      linted_hash: c3cacd73ed82f829fd038571d85c5f85507f18a4417957766bd4381549763300
+  - n: 9
+    category: mind
+    title: You BELONG
+    lines:
+      - text: They were all top students.
+        mark:
+          target: top
+        note: So feeling average here is normal.
+      - text: Feeling behind is common.
+        mark:
+          target: behind
+        note: Nearly everyone feels it. Few say it.
+      - text: They admitted you.
+        mark:
+          target: admitted
+        note: On purpose. You earned the spot.
+      - text: Ask how others are doing.
+        mark:
+          target: Ask
+        note: You'll hear "same" a lot.
+      - text: You belong here.
+        mark:
+        note:
+    basis:
+      - R-college-001
+      - R-core-002
+    visibility: public
+    approval:
+      approved_hash: e3d172fba1120317dca712015a1de30bc8db9559ab83ee0f742b7e303a74cd14
+      approved_by: round
+      approved_round: 3
+      linted_hash: e3d172fba1120317dca712015a1de30bc8db9559ab83ee0f742b7e303a74cd14
+  - n: 10
+    category: academics
+    title: Find Your Study GROUP
+    lines:
+      - text: Chemistry is a team sport.
+        mark:
+          target: team
+        note: Nobody aces it alone.
+      - text: Find three people
+        mark:
+          target: three
+        note: Small enough to actually work.
+      - text: who show up prepared.
+        mark:
+          target: prepared
+        note: Try every problem first. Then meet.
+      - text: Explain it to each other.
+        mark:
+          target: Explain
+        note: Teaching it is how you know it.
+      - text: Learn together. Turn in your own.
+        mark:
+        note:
+    basis:
+      - R-academics-001
+      - R-academics-002
+    visibility: public
+    approval:
+      approved_hash: d662775a53a8097f8967655cd0c3c75e827465b040ae02f5fd321a09ad72c41d
+      approved_by: round
+      approved_round: 3
+      linted_hash: d662775a53a8097f8967655cd0c3c75e827465b040ae02f5fd321a09ad72c41d
+  - n: 11
+    category: mind
+    title: See a COUNSELOR
+    lines:
+      - text: Counseling is free for you.
+        mark:
+          target: free
+        note: Usually covered by your fees. Check.
+      - text: Stressed, stuck, or sad?
+        mark:
+          target: stuck
+        note: You don't need a crisis to go.
+      - text: Book a session early.
+        mark:
+          target: Book
+        note: Wait times grow near finals.
+      - text: Can't wait? Call a crisis line.
+        mark:
+          target: Can't wait
+        note: Any hour, any reason.
+      - text: Asking is a strong move.
+        mark:
+        note:
+    basis:
+      - R-medical-claims-002
+      - R-college-007
+    visibility: public
+    approval:
+      approved_hash: 4255c61527ad95622028aa2e84c26191937d9b960296169469681bdf71b83491
+      approved_by: round
+      approved_round: 3
+      linted_hash: 4255c61527ad95622028aa2e84c26191937d9b960296169469681bdf71b83491
+  - n: 12
+    category: choices
+    title: Pace YOURSELF
+    lines:
+      - text: If you drink, eat first.
+        mark:
+          target: eat
+        note: Real food, not just chips.
+      - text: Water between every drink.
+        mark:
+          target: Water
+        note: One for one. Every round.
+      - text: Count your drinks.
+        mark:
+          target: Count
+        note: Shots and big cups add up fast.
+      - text: Know your stop point.
+        mark:
+          target: Know
+        note: Decide before, not after three.
+      - text: Or skip it. That's a choice too.
+        mark:
+        note:
+    basis:
+      - R-alcohol-drugs-002
+    visibility: public
+    approval:
+      approved_hash: 5fbfb6761cf1b8fec1fba9fc4ee14dccd5b009b12247a85eb87157c6cc9d1f49
+      approved_by: round
+      approved_round: 3
+      linted_hash: 5fbfb6761cf1b8fec1fba9fc4ee14dccd5b009b12247a85eb87157c6cc9d1f49
+  - n: 13
+    category: life-skills
+    title: The House Always WINS
+    lines:
+      - text: Betting apps are built to win.
+        mark:
+          target: built
+        note: The odds favor the house. Always.
+      - text: Promos are bait.
+        mark:
+          target: Promos
+        note: '"Free" bets exist to hook you.'
+      - text: Side bets with friends?
+        mark:
+          target: friends
+        note: Small and for fun, or not at all.
+      - text: Chasing losses is the trap.
+        mark:
+          target: Chasing
+        note: Down money? Walk away. Never double up.
+      - text: Watch the games. Keep your money.
+        mark:
+        note:
+    basis:
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: e036e6c731e8103d4093183e893b579436bec6e528f2bb1e488f7c44d5cc574b
+      approved_by: round
+      approved_round: 3
+      linted_hash: e036e6c731e8103d4093183e893b579436bec6e528f2bb1e488f7c44d5cc574b
+  - n: 14
+    category: direction
+    title: Major DOUBTS
+    lines:
+      - text: Doubting chemistry?
+        mark:
+          target: chemistry
+        note: Year one is the steepest part.
+      - text: Hard isn't the same as wrong.
+        mark:
+          target: wrong
+        note: Hate the work, or just the struggle?
+      - text: Talk to juniors first.
+        mark:
+          target: juniors
+        note: Ask what it's like after the weed-outs.
+      - text: Then decide, calmly.
+        mark:
+          target: decide
+        note: Switching is fine. Panic-switching isn't.
+      - text: Either way, you're learning.
+        mark:
+        note:
+    basis:
+      - R-college-001
+      - R-personal-growth-008
+    visibility: public
+    approval:
+      approved_hash: 13cd3d1cc15b989b3d5f8a90d7934782ba8a54b079a1c04ea59b6f9ba9b80620
+      approved_by: round
+      approved_round: 3
+      linted_hash: 13cd3d1cc15b989b3d5f8a90d7934782ba8a54b079a1c04ea59b6f9ba9b80620
+  - n: 15
+    category: people
+    title: Call HOME
+    lines:
+      - text: Call us this week.
+        mark:
+          target: Call
+        note: Not a text. A call.
+      - text: Ten minutes is plenty.
+        mark:
+          target: minutes
+        note: Walking to class works.
+      - text: Tell us one real thing.
+        mark:
+          target: real
+        note: A win, a struggle, a story.
+      - text: Ask about home too.
+        mark:
+          target: Ask
+        note: We have news too. And we miss you.
+      - text: We'll talk about it for days.
+        mark:
+        note:
+    basis:
+      - R-college-002
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 052f0afa832a3bca8b3c9e4f37579d9ff4e9e2ec27e53498a928a253b3eb4852
+      approved_by: round
+      approved_round: 3
+      linted_hash: 052f0afa832a3bca8b3c9e4f37579d9ff4e9e2ec27e53498a928a253b3eb4852
+  - n: 16
+    category: mind
+    title: Lonely in a CROWD
+    lines:
+      - text: Lonely in a crowd?
+        mark:
+          target: crowd
+        note: Busy campus, empty feeling. Common.
+      - text: Most people feel it.
+        mark:
+          target: feel
+        note: Few say it out loud.
+      - text: Invite one person to eat.
+        mark:
+          target: Invite
+        note: Dining hall, after class. Simple.
+      - text: Repeat next week.
+        mark:
+          target: Repeat
+        note: Friendship is reps, like anything.
+      - text: Still heavy after weeks? Call us.
+        mark:
+        note:
+    basis:
+      - R-college-002
+      - R-college-007
+    visibility: public
+    approval:
+      approved_hash: 5de483743c369e140e74b77d6895b8b0326b415604470364f88934bbf239c25f
+      approved_by: round
+      approved_round: 3
+      linted_hash: 5de483743c369e140e74b77d6895b8b0326b415604470364f88934bbf239c25f
+  - n: 17
+    category: academics
+    title: Free Help EVERYWHERE
+    lines:
+      - text: Campus is full of free help.
+        mark:
+          target: free
+        note: Already paid for. Use it.
+      - text: Tutoring centers,
+        mark:
+          target: Tutoring
+        note: Drop in for calc, physics, chem.
+      - text: the writing center,
+        mark:
+          target: writing
+        note: Even chemists write reports.
+      - text: TA sessions and review nights.
+        mark:
+          target: TA
+        note: Ask them the dumb question. They've heard it.
+      - text: Using help is what smart people do.
+        mark:
+        note:
+    basis:
+      - R-college-003
+      - R-academics-007
+    visibility: public
+    approval:
+      approved_hash: be6cd068e6f3ecf247835cbd3c676022e82833dcac4fe7de32efe5db252c802d
+      approved_by: round
+      approved_round: 3
+      linted_hash: be6cd068e6f3ecf247835cbd3c676022e82833dcac4fe7de32efe5db252c802d
+  - n: 18
+    category: choices
+    title: Always Bring PROTECTION
+    lines:
+      - text: Sex is your call.
+        mark:
+          target: call
+        note: Nobody else's timeline.
+      - text: If it happens, wrap it.
+        mark:
+          target: wrap it
+        note: Every time. Even "just this once."
+      - text: Free condoms on campus.
+        mark:
+          target: Free
+        note: Student health usually has them.
+      - text: Get tested. It's routine.
+        mark:
+          target: Get tested
+        note: Quick, private, often free.
+      - text: Consent first, always.
+        mark:
+        note:
+    basis:
+      - R-sex-consent-online-001
+    visibility: public
+    approval:
+      approved_hash: 1a0336b96665dfd4e82f243801fe0202d5721c73a234da20205a62ffa8d3f3b2
+      approved_by: round
+      approved_round: 3
+      linted_hash: 1a0336b96665dfd4e82f243801fe0202d5721c73a234da20205a62ffa8d3f3b2
+  - n: 19
+    category: direction
+    title: Find a MENTOR
+    lines:
+      - text: Find someone ahead of you.
+        mark:
+          target: ahead
+        note: A junior, a TA, a boss, a prof.
+      - text: Ask how they got there.
+        mark:
+          target: Ask
+        note: People love telling their story.
+      - text: Listen more than you talk.
+        mark:
+          target: Listen
+        note: Take notes. Seriously.
+      - text: Follow up with what you did.
+        mark:
+          target: Follow up
+        note: "\"I tried your advice. Here's what happened.\""
+      - text: That's how mentors stick around.
+        mark:
+        note:
+    basis:
+      - R-personal-growth-002
+      - R-core-005
+    visibility: public
+    approval:
+      approved_hash: 248d5716bca4d2d4e86392af02f2723b12c738326f3bb7632950e82f1b085c01
+      approved_by: round
+      approved_round: 3
+      linted_hash: 248d5716bca4d2d4e86392af02f2723b12c738326f3bb7632950e82f1b085c01
+  - n: 20
+    category: academics
+    title: Talk to Your ADVISOR
+    lines:
+      - text: Registration opens soon.
+        mark:
+          target: opens
+        note: Know your time slot. Be ready.
+      - text: Meet your advisor first.
+        mark:
+          target: advisor
+        note: Bring a draft schedule.
+      - text: Check your degree map.
+        mark:
+          target: degree map
+        note: Prereqs stack. Miss one, lose a semester.
+      - text: Have backups ready.
+        mark:
+          target: backups
+        note: Classes fill in minutes.
+      - text: Plan once. Save a semester.
+        mark:
+        note:
+    basis:
+      - R-college-003
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: c4152ba8eaf47668b077096309871eb7f6a1834d924e02e6b47792b61800c5ba
+      approved_by: round
+      approved_round: 3
+      linted_hash: c4152ba8eaf47668b077096309871eb7f6a1834d924e02e6b47792b61800c5ba
+  - n: 21
+    category: people
+    title: Look Out for EACH OTHER
+    lines:
+      - text: Friend had too much?
+        mark:
+          target: too much
+        note: Water, food, a ride home. Stay.
+      - text: Friend seems off lately?
+        mark:
+          target: off
+        note: Quiet, skipping class, not themselves.
+      - text: Ask them straight up.
+        mark:
+          target: Ask
+        note: '"You good? Really?" Then listen.'
+      - text: Walk them home at night.
+        mark:
+          target: Walk
+        note: Or use campus safe-ride.
+      - text: Good friends notice. Be one.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-002
+      - R-alcohol-drugs-002
+    visibility: public
+    approval:
+      approved_hash: eb45a7ddde324db464734a89901e82d9b6bbaf3d10aeab08c3a5212dadf6f248
+      approved_by: round
+      approved_round: 3
+      linted_hash: eb45a7ddde324db464734a89901e82d9b6bbaf3d10aeab08c3a5212dadf6f248
+  - n: 22
+    category: choices
+    title: Leave TOGETHER
+    lines:
+      - text: Arrive as a group,
+        mark:
+          target: Arrive
+        note: Agree on a plan before you go.
+      - text: leave as a group.
+        mark:
+          target: leave
+        note: Nobody walks home alone.
+      - text: Set a code word
+        mark:
+          target: code word
+        note: Means "get me out of here." Now.
+      - text: Phones charged, location on.
+        mark:
+          target: Phones
+        note: Share locations with your crew.
+      - text: Nobody gets left behind.
+        mark:
+        note:
+    basis:
+      - R-alcohol-drugs-002
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 4c881e0f9412bde76d518ebb8c3645caf6a7b6581d6258f974080ebb9f85d40c
+      approved_by: round
+      approved_round: 3
+      linted_hash: 4c881e0f9412bde76d518ebb8c3645caf6a7b6581d6258f974080ebb9f85d40c
+  - n: 23
+    category: mind
+    title: Name It to TAME IT
+    lines:
+      - text: '"Stressed" covers a lot.'
+        mark:
+          target: Stressed
+        note: Behind? Lonely? Scared? Burnt out?
+      - text: Get specific.
+        mark:
+          target: specific
+        note: The real word shrinks the feeling.
+      - text: Write it down
+        mark:
+          target: Write
+        note: Two lines in your notes app.
+      - text: or say it to someone.
+        mark:
+          target: say
+        note: Even "I'm off today" counts.
+      - text: We have this card too.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-001
+    visibility: public
+    approval:
+      approved_hash: d3f8943f603d30e55942928f2cd94c7a6466cf34b4db381b33b1f6e6d95a11c8
+      approved_by: round
+      approved_round: 3
+      linted_hash: d3f8943f603d30e55942928f2cd94c7a6466cf34b4db381b33b1f6e6d95a11c8
+  - n: 24
+    category: life-skills
+    title: Sleep Is a GRADE
+    lines:
+      - text: Sleep is when it sticks.
+        mark:
+          target: Sleep
+        note: Your brain files what you studied.
+      - text: All-nighters backfire.
+        mark:
+          target: All-nighters
+        note: Tired brains miss easy points.
+      - text: Same bedtime, most nights.
+        mark:
+          target: bedtime
+        note: Even on weekends. Close enough.
+      - text: Phone across the room.
+        mark:
+          target: Phone
+        note: Alarm still works from there.
+      - text: Rested beats crammed.
+        mark:
+        note:
+    basis:
+      - R-college-008
+      - R-college-009
+    visibility: public
+    approval:
+      approved_hash: 6c5f62d0d3775b901c87e38256ae8c746edf75db2c72b4dfba1914e3e45cf4cf
+      approved_by: round
+      approved_round: 3
+      linted_hash: 6c5f62d0d3775b901c87e38256ae8c746edf75db2c72b4dfba1914e3e45cf4cf
+  - n: 25
+    category: direction
+    title: Use Your SUMMER
+    lines:
+      - text: Summer is a long break.
+        mark:
+          target: long
+        note: Plenty of time if you plan it.
+      - text: Work, and save some.
+        mark:
+          target: Work
+        note: Any job. Show up early.
+      - text: Learn one real skill.
+        mark:
+          target: Learn
+        note: CAD, coding, welding, a language.
+      - text: Rest for real too.
+        mark:
+          target: Rest
+        note: Recharged beats burnt out in fall.
+      - text: Come back sharper.
+        mark:
+        note:
+    basis:
+      - R-personal-growth-002
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 52cf4408d964cdd20e263f05171ecbdce013ece27795a265ad0d8e7375c0d608
+      approved_by: round
+      approved_round: 3
+      linted_hash: 52cf4408d964cdd20e263f05171ecbdce013ece27795a265ad0d8e7375c0d608
+  - n: 26
+    category: life-skills
+    title: Make a BUDGET
+    lines:
+      - text: Know what comes in.
+        mark:
+          target: in
+        note: Paychecks, help from home, savings.
+      - text: Know what goes out.
+        mark:
+          target: out
+        note: Food delivery adds up the fastest.
+      - text: Save some first.
+        mark:
+          target: Save
+        note: Even 10% of every check.
+      - text: Check it weekly.
+        mark:
+          target: Check
+        note: An app or a note. Five minutes.
+      - text: Future you will thank you.
+        mark:
+        note:
+    basis:
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: c34dd0c1dc8196434d86c39565805ee303f160635ae17a6104fd36fcd41979bc
+      approved_by: round
+      approved_round: 3
+      linted_hash: c34dd0c1dc8196434d86c39565805ee303f160635ae17a6104fd36fcd41979bc
+  - n: 27
+    category: choices
+    title: Only Trust the PHARMACY
+    lines:
+      - text: Pills from friends? No.
+        mark:
+          target: Pills
+        note: Even "just Xanax" or "just Adderall."
+      - text: Fakes look exactly real.
+        mark:
+          target: Fakes
+        note: Many contain fentanyl.
+      - text: One pill can kill.
+        mark:
+          target: One
+        note: Fentanyl doesn't give second chances.
+      - text: Know where Narcan is.
+        mark:
+          target: Narcan
+        note: Free at many campuses. Learn to use it.
+      - text: Only take what a pharmacy gave you.
+        mark:
+        note:
+    basis:
+      - R-alcohol-drugs-001
+      - R-alcohol-drugs-002
+    visibility: public
+    approval:
+      approved_hash: 894313a0d2716717edcfa619be3544bda7da1823a7121e5e99e69d934b1ed46d
+      approved_by: round
+      approved_round: 3
+      linted_hash: 894313a0d2716717edcfa619be3544bda7da1823a7121e5e99e69d934b1ed46d
+  - n: 28
+    category: life-skills
+    title: Learn to COOK
+    lines:
+      - text: Learn five meals this summer.
+        mark:
+          target: five
+        note: Eggs, pasta, rice bowl, tacos, stir-fry.
+      - text: Cheap, fast, real food.
+        mark:
+          target: Cheap
+        note: Way cheaper than delivery.
+      - text: Ask for the family recipe.
+        mark:
+          target: family
+        note: The one you'll miss in the dorm.
+      - text: Protein with every meal.
+        mark:
+          target: Protein
+        note: Your legs need fuel.
+      - text: Future housemates will love you.
+        mark:
+        note:
+    basis:
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 20e9c8cd8f8cc2416fc1ada5ea7bb0d16a24f3b770ba2f054d8a9f4fe9a9d7b7
+      approved_by: round
+      approved_round: 3
+      linted_hash: 20e9c8cd8f8cc2416fc1ada5ea7bb0d16a24f3b770ba2f054d8a9f4fe9a9d7b7
+  - n: 29
+    category: direction
+    title: Your Own TIMELINE
+    lines:
+      - text: Everyone's posting internships.
+        mark:
+          target: posting
+        note: Highlights only. Never the rejections.
+      - text: Your path isn't a race.
+        mark:
+          target: race
+        note: Some figure it out at 19, some at 29.
+      - text: Compare to last year's you.
+        mark:
+          target: Compare
+        note: That's the only fair scoreboard.
+      - text: Keep stacking small wins.
+        mark:
+          target: stacking
+        note: Small wins compound.
+      - text: You're right on time.
+        mark:
+        note:
+    basis:
+      - R-core-002
+      - R-personal-growth-002
+    visibility: public
+    approval:
+      approved_hash: 83c817bb2204f39c5a44a8ba5ea3a2350d6833b095303df4831f758808bbe7b2
+      approved_by: round
+      approved_round: 3
+      linted_hash: 83c817bb2204f39c5a44a8ba5ea3a2350d6833b095303df4831f758808bbe7b2
+  - n: 30
+    category: life-skills
+    title: Your Truck, Your RULES
+    lines:
+      - text: Got a truck? You'll get asked.
+        mark:
+          target: asked
+        note: Rides, errands, airport runs. Every week.
+      - text: It's okay to say no.
+        mark:
+          target: no
+        note: "\"Can't today\" is a full answer."
+      - text: Split the gas.
+        mark:
+          target: gas
+        note: Normal, not rude. Pay apps work.
+      - text: Nobody else drives it.
+        mark:
+          target: Nobody
+        note: Your insurance, your problem.
+      - text: And you always drive sober.
+        mark:
+        note:
+    basis:
+      - R-core-008
+      - R-alcohol-drugs-002
+    visibility: public
+    approval:
+      approved_hash: 8854e566e14ece6238daf8389f339990862f35016f2d06d420d2b73e7c78c180
+      approved_by: round
+      approved_round: 3
+      linted_hash: 8854e566e14ece6238daf8389f339990862f35016f2d06d420d2b73e7c78c180
+  - n: 31
+    category: mind
+    title: Go for a RUN
+    lines:
+      - text: Stressed? Go run.
+        mark:
+          target: run
+        note: Club run, campus loop, a solo jog.
+      - text: Moving clears your head.
+        mark:
+          target: Moving
+        note: Sweat out the stress. It works.
+      - text: Group runs make friends.
+        mark:
+          target: Group
+        note: Same loop, same faces, new crew.
+      - text: Phone stays in the bag.
+        mark:
+          target: Phone
+        note: An hour fully off.
+      - text: Your reset button has a stride.
+        mark:
+        note:
+    basis:
+      - R-college-004
+      - R-emotional-intelligence-008
+    visibility: public
+    approval:
+      approved_hash: 3c303d7961656bd74bdd099bd0d1c39cc70e1a991ff8370bac7a946c6c0f0077
+      approved_by: round
+      approved_round: 3
+      linted_hash: 3c303d7961656bd74bdd099bd0d1c39cc70e1a991ff8370bac7a946c6c0f0077
+  - n: 32
+    category: life-skills
+    title: Pay It in FULL
+    lines:
+      - text: A card isn't free money.
+        mark:
+          target: free money
+        note: It's a loan, often at 20%+ interest.
+      - text: Pay it in full, monthly.
+        mark:
+          target: full
+        note: Then interest is zero.
+      - text: Set up autopay.
+        mark:
+          target: autopay
+        note: Never miss a due date.
+      - text: Build credit slowly.
+        mark:
+          target: Build
+        note: Small buys, paid off, every month.
+      - text: Good credit pays you back later.
+        mark:
+        note:
+    basis:
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 3c1089c9189c52f245058cc87b1bc4296fb516755ee2744a2c31f8fe404e4b20
+      approved_by: round
+      approved_round: 3
+      linted_hash: 3c1089c9189c52f245058cc87b1bc4296fb516755ee2744a2c31f8fe404e4b20
+  - n: 33
+    category: direction
+    title: Fail, Then ADJUST
+    lines:
+      - text: Bombed a class?
+        mark:
+          target: class
+        note: It happens to good students.
+      - text: Find the real reason.
+        mark:
+          target: real
+        note: Skipped class? No group? Started late?
+      - text: Change one habit.
+        mark:
+          target: Change
+        note: One fix you'll actually keep.
+      - text: Retake it stronger.
+        mark:
+          target: Retake
+        note: Ask your advisor about retake rules.
+      - text: Failing once doesn't make you a failure.
+        mark:
+        note:
+    basis:
+      - R-college-001
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 618d3d75966800a810d9de5e29c4bde2f84d5754bf96ed479dc28357ab7bfe41
+      approved_by: round
+      approved_round: 3
+      linted_hash: 618d3d75966800a810d9de5e29c4bde2f84d5754bf96ed479dc28357ab7bfe41
+  - n: 34
+    category: life-skills
+    title: Own Your HEALTH
+    lines:
+      - text: Book your own appointments.
+        mark:
+          target: Book
+        note: Doctor, dentist, eye exam. You make the call.
+      - text: Know your insurance.
+        mark:
+          target: insurance
+        note: Photo of the card in your phone.
+      - text: Refill before you run out.
+        mark:
+          target: Refill
+        note: Any meds. Set a reminder.
+      - text: Get the flu shot in fall.
+        mark:
+          target: flu shot
+        note: Free or cheap at student health.
+      - text: Nobody else tracks this now.
+        mark:
+        note:
+    basis:
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 70cc0a064ff717b8fd8e0887885b881026767d8f3dc94f23b2beb790bd276bac
+      approved_by: round
+      approved_round: 3
+      linted_hash: 70cc0a064ff717b8fd8e0887885b881026767d8f3dc94f23b2beb790bd276bac
+  - n: 35
+    category: mind
+    title: One Bad DAY
+    lines:
+      - text: Bad day? Bad week?
+        mark:
+          target: week
+        note: Rough stretches end. They do.
+      - text: It's one chapter.
+        mark:
+          target: one
+        note: Not the whole book.
+      - text: Sleep, eat, move.
+        mark:
+          target: Sleep
+        note: Boring basics fix more than you think.
+      - text: Text us. Anytime.
+        mark:
+          target: Text
+        note: Even just "rough day."
+      - text: Tomorrow resets the score.
+        mark:
+        note:
+    basis:
+      - R-college-007
+      - R-emotional-intelligence-001
+    visibility: public
+    approval:
+      approved_hash: 3b09d364a6f7687b85ae2d373097d05b7a37a6841cef35e35b63586cbb509bf9
+      approved_by: round
+      approved_round: 3
+      linted_hash: 3b09d364a6f7687b85ae2d373097d05b7a37a6841cef35e35b63586cbb509bf9
+  - n: 36
+    category: life-skills
+    title: Do Your Own LAUNDRY
+    lines:
+      - text: 'Sort: darks and lights.'
+        mark:
+          target: Sort
+        note: Or one cold load. It's fine.
+      - text: Cold water, most things.
+        mark:
+          target: Cold
+        note: Saves your clothes and your money.
+      - text: Don't overstuff the machine.
+        mark:
+          target: overstuff
+        note: Nothing gets clean that way.
+      - text: Move it when it's done.
+        mark:
+          target: Move
+        note: Nobody likes the guy who leaves it.
+      - text: Wash your sheets. Seriously.
+        mark:
+        note:
+    basis:
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 7f2cf3b29c06d746a55ce4d9b1f1e97826b57f9330a66f2a04e95da0ed116035
+      approved_by: round
+      approved_round: 3
+      linted_hash: 7f2cf3b29c06d746a55ce4d9b1f1e97826b57f9330a66f2a04e95da0ed116035
+  - n: 37
+    category: direction
+    title: Build SOMETHING
+    lines:
+      - text: Join a build team.
+        mark:
+          target: build
+        note: Rockets, bridges, solar racers, drones.
+      - text: Classes teach theory.
+        mark:
+          target: theory
+        note: Teams teach how stuff actually works.
+      - text: You'll break things.
+        mark:
+          target: break
+        note: That's how builders learn.
+      - text: Interviewers ask about it.
+        mark:
+          target: Interviewers
+        note: '"Tell me about a project" is coming.'
+      - text: Show up. They'll teach you.
+        mark:
+        note:
+    basis:
+      - R-core-005
+      - R-personal-growth-002
+    visibility: public
+    approval:
+      approved_hash: fe2fb72b8bf5ceb6268ebe945e10c1297a9af4264b77433692f920abfe45d9ec
+      approved_by: round
+      approved_round: 3
+      linted_hash: fe2fb72b8bf5ceb6268ebe945e10c1297a9af4264b77433692f920abfe45d9ec
+  - n: 38
+    category: people
+    title: Protect the FRIENDSHIP
+    lines:
+      - text: Living with a friend?
+        mark:
+          target: friend
+        note: Great, and harder than it sounds.
+      - text: Set rules in week one.
+        mark:
+          target: rules
+        note: Guests, sleep, mess, sharing food.
+      - text: Say small stuff early.
+        mark:
+          target: Say
+        note: Before it turns into big stuff.
+      - text: Make other friends too.
+        mark:
+          target: other
+        note: Space keeps the friendship healthy.
+      - text: The friendship matters more than the room.
+        mark:
+        note:
+    basis:
+      - R-college-002
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: 14920a96d0afb73c7d7445d0ef0d4ab02d7c4cf4f52d8fe2fc637ae76ce72eeb
+      approved_by: round
+      approved_round: 3
+      linted_hash: 14920a96d0afb73c7d7445d0ef0d4ab02d7c4cf4f52d8fe2fc637ae76ce72eeb
+  - n: 39
+    category: academics
+    title: Read the SYLLABUS
+    lines:
+      - text: Read every syllabus.
+        mark:
+          target: every
+        note: All the way through. Week one.
+      - text: Calendar every deadline.
+        mark:
+          target: Calendar
+        note: Exams, labs, drop date. All of it.
+      - text: Note how grades work.
+        mark:
+          target: grades
+        note: Know what's worth the most.
+      - text: Find the late policy.
+        mark:
+          target: Find
+        note: Before you need it.
+      - text: Ten minutes now saves a semester.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-college-003
+    visibility: public
+    approval:
+      approved_hash: af8db1ae57e04d740e570970492f1c80b960541b9006efd5f4469fe4aa9aacd4
+      approved_by: round
+      approved_round: 3
+      linted_hash: af8db1ae57e04d740e570970492f1c80b960541b9006efd5f4469fe4aa9aacd4
+  - n: 40
+    category: people
+    title: Branch OUT
+    lines:
+      - text: Know your floor.
+        mark:
+          target: floor
+        note: Door open, say hi to everyone.
+      - text: Sit with someone new.
+        mark:
+          target: someone new
+        note: In class, at lunch, at the game.
+      - text: Say yes to invites.
+        mark:
+          target: yes
+        note: Even when you'd rather stay in.
+      - text: Bring your housemate sometimes.
+        mark:
+          target: Bring
+        note: Grow the group together.
+      - text: More friends, less pressure on one.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-college-002
+    visibility: public
+    approval:
+      approved_hash: adb9209390485807137c8ac429792b35b130d46cb51282b6e58ae4ecaf1d5486
+      approved_by: round
+      approved_round: 3
+      linted_hash: adb9209390485807137c8ac429792b35b130d46cb51282b6e58ae4ecaf1d5486
+  - n: 41
+    category: choices
+    title: You Don't Have to DRINK
+    lines:
+      - text: You don't have to drink.
+        mark:
+          target: have to
+        note: Plenty of people don't.
+      - text: Hold a can if it helps.
+        mark:
+          target: can
+        note: Soda, water. Nobody checks.
+      - text: "\"I'm good\" is enough."
+        mark:
+          target: I'm good
+        note: No explanation needed.
+      - text: Real friends won't push.
+        mark:
+          target: won't push
+        note: The ones who do aren't your people.
+      - text: Your choice, every time.
+        mark:
+        note:
+    basis:
+      - R-alcohol-drugs-001
+      - R-core-008
+    visibility: public
+    approval:
+      approved_hash: 0842b187bbeb67488596a4ef9d8821207d4360496cb66971396dadc7b248b487
+      approved_by: round
+      approved_round: 3
+      linted_hash: 0842b187bbeb67488596a4ef9d8821207d4360496cb66971396dadc7b248b487
+  - n: 42
+    category: people
+    title: Call Us ANYTIME
+    lines:
+      - text: You can call us anytime.
+        mark:
+          target: anytime
+        note: 2 a.m. counts. We'll pick up.
+      - text: No judgment, no lecture.
+        mark:
+          target: judgment
+        note: We made plenty of dumb calls at 18.
+      - text: You won't be in trouble
+        mark:
+          target: trouble
+        note: Not for calling. Not ever.
+      - text: for asking for help.
+        mark:
+        note:
+      - text: We'll figure it out.
+        mark:
+          target: figure it out
+        note: Together beats alone and panicking.
+    basis:
+      - R-college-007
+      - R-emotional-intelligence-006
+    visibility: public
+    approval:
+      approved_hash: 533d81d7697cb5e5307b5cbda001da9306f67c296db2aa0b9f80e05d3eed79af
+      approved_by: round
+      approved_round: 3
+      linted_hash: 533d81d7697cb5e5307b5cbda001da9306f67c296db2aa0b9f80e05d3eed79af
+  - n: 43
+    category: mind
+    title: Homesick Is NORMAL
+    lines:
+      - text: Missing home is normal.
+        mark:
+          target: home
+        note: Even at the school you wanted most.
+      - text: It hits hardest around now.
+        mark:
+          target: hardest
+        note: The newness wears off. Then it lands.
+      - text: Call home on Sundays,
+        mark:
+          target: Call
+        note: A set time beats random guilt.
+      - text: then go do something here.
+        mark:
+          target: go do
+        note: Intramurals, a club, a pickup game.
+      - text: We miss you too.
+        mark:
+        note:
+    basis:
+      - R-college-001
+      - R-emotional-intelligence-001
+    visibility: public
+    approval:
+      approved_hash: 0cc68cbcea6eeb428c2dc7a784be642a9d047e55bcdcce762f6ee1a26fa59401
+      approved_by: round
+      approved_round: 3
+      linted_hash: 0cc68cbcea6eeb428c2dc7a784be642a9d047e55bcdcce762f6ee1a26fa59401
+  - n: 44
+    category: choices
+    title: Hand on Your CUP
+    lines:
+      - text: Pour your own drink.
+        mark:
+          target: own
+        note: Watch it poured, or open it yourself.
+      - text: Keep a hand on your cup.
+        mark:
+          target: hand
+        note: Set it down? It's gone. Get a new one.
+      - text: Skip the punch bowl.
+        mark:
+          target: punch
+        note: You can't know what's in it.
+      - text: Friend acting way off?
+        mark:
+          target: way off
+        note: Too drunk for what they drank. Act fast.
+      - text: Stay with them, get help.
+        mark:
+        note:
+    basis:
+      - R-alcohol-drugs-002
+    visibility: public
+    approval:
+      approved_hash: 81c26ba11e8a59cd76dc0a1c8dab3161fe5ea96c9d726b3345003b31e4152da0
+      approved_by: round
+      approved_round: 3
+      linted_hash: 81c26ba11e8a59cd76dc0a1c8dab3161fe5ea96c9d726b3345003b31e4152da0
+  - n: 45
+    category: academics
+    title: Bad Exam? REGROUP
+    lines:
+      - text: Chemistry midterms hurt.
+        mark:
+          target: midterms
+        note: Class averages can sit in the 60s.
+      - text: A bad score is data.
+        mark:
+          target: data
+        note: Which problems? Concept or careless?
+      - text: Go to office hours this week.
+        mark:
+          target: this week
+        note: Bring the exam. Ask what to fix.
+      - text: Rework every miss.
+        mark:
+          target: miss
+        note: Redo them cold, no notes.
+      - text: You belong here. Regroup.
+        mark:
+        note:
+    basis:
+      - R-academics-004
+      - R-college-001
+    visibility: public
+    approval:
+      approved_hash: a4f7cf9c56884ceb1cb4c15a7cc679601f4f079a52cd2c5eb9a7a17d7a477875
+      approved_by: round
+      approved_round: 3
+      linted_hash: a4f7cf9c56884ceb1cb4c15a7cc679601f4f079a52cd2c5eb9a7a17d7a477875
+  - n: 46
+    category: people
+    title: Go to the GAMES
+    lines:
+      - text: Student tickets are free.
+        mark:
+          target: free
+        note: Best deal on campus. Use it.
+      - text: Sit in the student section.
+        mark:
+          target: student section
+        note: Loud, packed, instant friends.
+      - text: Invite someone new.
+        mark:
+          target: Invite
+        note: The guy from lab. Someone on your floor.
+      - text: Cheering with strangers
+        mark:
+        note:
+      - text: turns them into friends.
+        mark:
+          target: friends
+        note: Then grab food after.
+    basis:
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: c5a604dbeeb33ca4d0e55180a4797bff25adffaa795d4226baa969f9e3e59489
+      approved_by: round
+      approved_round: 3
+      linted_hash: c5a604dbeeb33ca4d0e55180a4797bff25adffaa795d4226baa969f9e3e59489
+  - n: 47
+    category: academics
+    title: Know the DROP DATE
+    lines:
+      - text: Every class has a drop date.
+        mark:
+          target: drop date
+        note: Find it. Calendar it. Today.
+      - text: Drowning in one class?
+        mark:
+          target: one
+        note: 'Ask the prof first: "Can I still pass?"'
+      - text: Talk to your advisor
+        mark:
+          target: advisor
+        note: They've seen this a thousand times.
+      - text: before the deadline.
+        mark:
+          target: before
+        note: After it, your options shrink fast.
+      - text: A W beats a wrecked GPA.
+        mark:
+        note:
+    basis:
+      - R-college-003
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: d506ddd6d4f5b3a3272ccea4d919c8adde1882d7aef7780da25dadd16164ec3c
+      approved_by: round
+      approved_round: 3
+      linted_hash: d506ddd6d4f5b3a3272ccea4d919c8adde1882d7aef7780da25dadd16164ec3c
+  - n: 48
+    category: life-skills
+    title: Don't Drive DROWSY
+    lines:
+      - text: A long drive is no joke.
+        mark:
+          target: long
+        note: Leave rested, not after an all-nighter.
+      - text: Tired is as risky as drunk.
+        mark:
+          target: drunk
+        note: 24 hours awake is like a 0.10 BAC.
+      - text: Stop every two hours.
+        mark:
+          target: Stop
+        note: Gas, stretch, walk around.
+      - text: Eyes heavy? Nap.
+        mark:
+          target: Nap
+        note: 20 minutes in a safe lot. Seriously.
+      - text: Text us when you're there.
+        mark:
+        note:
+    basis:
+      - R-college-008
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 25221ed0fb6b4d2955f2da174fce6a87e493cdfd5f9e6d52251af996654b4f58
+      approved_by: round
+      approved_round: 3
+      linted_hash: 25221ed0fb6b4d2955f2da174fce6a87e493cdfd5f9e6d52251af996654b4f58
+  - n: 49
+    category: choices
+    title: Know the SIGNS
+    lines:
+      - text: Can't wake them up?
+        mark:
+          target: wake
+        note: Pale or blue skin, slow breathing too.
+      - text: Call an ambulance. Right now.
+        mark:
+          target: ambulance
+        note: Most schools protect the caller. Look up yours.
+      - text: Roll them on their side,
+        mark:
+          target: side
+        note: So they can't choke if they throw up.
+      - text: and stay with them.
+        mark:
+          target: stay
+        note: '"Sleep it off" is how people die.'
+      - text: Calling is never overreacting.
+        mark:
+        note:
+    basis:
+      - R-alcohol-drugs-002
+    visibility: public
+    approval:
+      approved_hash: bc55afde7cf734db012cd1e75a954be4f52201b7c81a46444405a801303a85e3
+      approved_by: round
+      approved_round: 3
+      linted_hash: bc55afde7cf734db012cd1e75a954be4f52201b7c81a46444405a801303a85e3
+  - n: 50
+    category: academics
+    title: Finals GAME PLAN
+    lines:
+      - text: Map every final.
+        mark:
+          target: Map
+        note: Date, time, room, what's covered.
+      - text: Work backward from each one.
+        mark:
+          target: backward
+        note: Hardest class gets the most hours.
+      - text: Practice old exams.
+        mark:
+          target: Practice
+        note: Timed. No notes. Like the real thing.
+      - text: Sleep beats one more hour.
+        mark:
+          target: Sleep
+        note: All-nighters cost you points.
+      - text: Then walk in ready.
+        mark:
+        note:
+    basis:
+      - R-academics-001
+      - R-college-008
+    visibility: public
+    approval:
+      approved_hash: 5f423f14fa64e65045e5742877ce2f75adfe0ab32093790e7d06b1f06c399d21
+      approved_by: round
+      approved_round: 3
+      linted_hash: 5f423f14fa64e65045e5742877ce2f75adfe0ab32093790e7d06b1f06c399d21
+  - n: 51
+    category: direction
+    title: Remember Your WHY
+    lines:
+      - text: One semester down.
+        mark:
+          target: semester
+        note: That's real. Take a second with it.
+      - text: You picked this school
+        mark:
+          target: school
+        note: Your first choice. Remember that?
+      - text: and this major for a reason.
+        mark:
+          target: major
+        note: Write the reason down. Keep it.
+      - text: Hard weeks make it blurry.
+        mark:
+        note:
+      - text: Hold on to your why.
+        mark:
+          target: why
+        note: It's what gets you through week 8.
+    basis:
+      - R-core-005
+      - R-personal-growth-002
+    visibility: public
+    approval:
+      approved_hash: d55d2f3fc2b7d261de01bef57ecc06f4a876400f78cfb842d61c561f2468359a
+      approved_by: round
+      approved_round: 3
+      linted_hash: d55d2f3fc2b7d261de01bef57ecc06f4a876400f78cfb842d61c561f2468359a
+  - n: 52
+    category: people
+    title: Home Feels DIFFERENT
+    lines:
+      - text: Home might feel different.
+        mark:
+          target: different
+        note: Your room, your town, even you.
+      - text: You changed. Rules didn't.
+        mark:
+          target: changed
+        note: Text if you'll be out late. Still.
+      - text: Help around the house,
+        mark:
+          target: Help
+        note: Dishes before anyone asks.
+      - text: see your old friends,
+        mark:
+          target: see
+        note: Some will feel the same. Some won't.
+      - text: and rest up for next semester.
+        mark:
+        note:
+    basis:
+      - R-core-008
+    visibility: public
+    approval:
+      approved_hash: e2e4a4ad2dbb1cf286a4c78373e412ff32f997683103340e54778262b9299b76
+      approved_by: round
+      approved_round: 3
+      linted_hash: e2e4a4ad2dbb1cf286a4c78373e412ff32f997683103340e54778262b9299b76
+  - n: 53
+    category: direction
+    title: Look How Far YOU'VE COME
+    lines:
+      - text: Look back a year.
+        mark:
+          target: year
+        note: First week vs. now. Feel that?
+      - text: You figured out a lot.
+        mark:
+          target: figured out
+        note: Classes, people, laundry, yourself.
+      - text: You survived the hard weeks.
+        mark:
+          target: survived
+        note: Name the hardest one. You got through.
+      - text: Write down three wins.
+        mark:
+          target: Write
+        note: Read them next time it's rough.
+      - text: We're proud of you. Keep going.
+        mark:
+        note:
+    basis:
+      - R-core-005
+      - R-personal-growth-007
+    visibility: public
+    approval:
+      approved_hash: 8ac84c0059c3a65eadc1f33e243560819d42018789c8bee9a11eed780f3bcd6d
+      approved_by: round
+      approved_round: 3
+      linted_hash: 8ac84c0059c3a65eadc1f33e243560819d42018789c8bee9a11eed780f3bcd6d
