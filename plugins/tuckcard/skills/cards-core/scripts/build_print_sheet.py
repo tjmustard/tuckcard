@@ -141,8 +141,9 @@ def _sheets(cards, page_size):
     return "\n".join(out)
 
 
-def build(deck: dict, out: Path, page_size: str | None = None) -> Path:
-    style = core.style_from_deck(deck)
+def build(deck: dict, out: Path, page_size: str | None = None,
+          overlays=None) -> Path:
+    style = core.style_from_deck(deck, overlays=overlays)
     cards = [c for c in core.deck_cards(deck) if c.get("visibility") != "private"]
     html = sheet_html(deck, cards, style, page_size or deck.get("page_size", "letter"))
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -155,9 +156,16 @@ def main(argv=None):
     parser.add_argument("--deck", required=True)
     parser.add_argument("--out", required=True)
     parser.add_argument("--page-size", choices=sorted(PAGE_SIZES))
+    parser.add_argument("--overlay", action="append", default=[],
+                        help="overlay folder laid out like local/ for themes "
+                             "and presets (repeatable; an overlay wins over "
+                             "cards-core)")
+    parser.add_argument("--no-default-overlay", action="store_true",
+                        help="do not add local/ when it exists")
     args = parser.parse_args(argv)
     deck = core.load_deck(Path(args.deck))
-    path = build(deck, Path(args.out), args.page_size)
+    path = build(deck, Path(args.out), args.page_size,
+                 core.overlay_roots(args.overlay, args.no_default_overlay))
     size = path.stat().st_size
     print("%s: %d bytes, %d font faces embedded"
           % (path, size, len(core.FONT_FILES)))

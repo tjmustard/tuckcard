@@ -91,8 +91,9 @@ def compose(browser, card, bundle, layout, page_size, card_px, path):
     return report
 
 
-def render_pdf(browser, deck, style, cards, out: Path, page_size: str):
-    sheet = build_print_sheet.build(deck, out.with_suffix(".sheet.html"), page_size)
+def render_pdf(browser, deck, style, cards, out: Path, page_size: str, overlays=None):
+    sheet = build_print_sheet.build(deck, out.with_suffix(".sheet.html"), page_size,
+                                    overlays)
     context = browser.new_context(viewport={"width": 1000, "height": 1200})
     page = context.new_page()
     page.goto(sheet.as_uri())
@@ -108,8 +109,9 @@ def render_pdf(browser, deck, style, cards, out: Path, page_size: str):
     return out.with_suffix(".sheet.html")
 
 
-def render_deck(deck, out_dir: Path, formats=("png",), page_size="letter"):
-    style = core.style_from_deck(deck)
+def render_deck(deck, out_dir: Path, formats=("png",), page_size="letter",
+                overlays=None):
+    style = core.style_from_deck(deck, overlays=overlays)
     cards = core.deck_cards(deck)
     bundle = core.style_bundle(style)
     # Chromium loads the print sheet by file URI, and a URI has to be
@@ -144,7 +146,8 @@ def render_deck(deck, out_dir: Path, formats=("png",), page_size="letter"):
                 written.append(path)
         if "pdf" in formats:
             path = out_dir / ("%s-print.pdf" % deck["id"])
-            sheet = render_pdf(browser, deck, style, visible, path, page_size)
+            sheet = render_pdf(browser, deck, style, visible, path, page_size,
+                               overlays)
             written.extend([path, sheet])
         if "sheet" in formats:
             path = out_dir / ("%s-print-sheet.html" % deck["id"])
@@ -172,11 +175,19 @@ def main(argv=None):
     parser.add_argument("--out", required=True)
     parser.add_argument("--format", default="png,phone,tablet,pdf,sheet")
     parser.add_argument("--page-size", default=None, choices=sorted(build_print_sheet.PAGE_SIZES))
+    parser.add_argument("--overlay", action="append", default=[],
+                        help="overlay folder laid out like local/ for themes "
+                             "and presets (repeatable; an overlay wins over "
+                             "cards-core)")
+    parser.add_argument("--no-default-overlay", action="store_true",
+                        help="do not add local/ when it exists")
     args = parser.parse_args(argv)
     deck = core.load_deck(Path(args.deck))
     formats = tuple(f.strip() for f in args.format.split(",") if f.strip())
     written, report = render_deck(deck, Path(args.out), formats,
-                                  args.page_size or deck.get("page_size", "letter"))
+                                  args.page_size or deck.get("page_size", "letter"),
+                                  core.overlay_roots(args.overlay,
+                                                     args.no_default_overlay))
     print(core.summary(report))
     for path in written:
         print(path)

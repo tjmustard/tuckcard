@@ -683,14 +683,15 @@ def check_hand_edits(cards: Sequence[Dict[str, Any]],
 
 
 def check_fit(deck: Dict[str, Any], cards: Sequence[Dict[str, Any]],
-              selected: Optional[set]) -> Tuple[List[Dict[str, Any]], List[str]]:
+              selected: Optional[set],
+              overlays: Optional[Sequence[Path]] = None) -> Tuple[List[Dict[str, Any]], List[str]]:
     try:
         import render_core  # noqa: PLC0415
     except Exception:  # noqa: BLE001 - Pillow or the shared module is missing
         return [], ["layout fit is skipped: the renderer needs Pillow"]
     findings: List[Dict[str, Any]] = []
     try:
-        style = render_core.style_from_deck(deck)
+        style = render_core.style_from_deck(deck, overlays=overlays)
     except Exception as error:  # noqa: BLE001
         return [], ["layout fit is skipped: {}".format(error)]
     for card in cards:
@@ -737,7 +738,8 @@ def parse_cards(value: Optional[str]) -> Optional[set]:
 
 def lint_deck(deck_path: Path, rules_path: Optional[Path], knowledge: Path,
               overlays: Sequence[Path], extra_findings: Sequence[Path],
-              selected: Optional[set]) -> Dict[str, Any]:
+              selected: Optional[set],
+              style_overlays: Optional[Sequence[Path]] = None) -> Dict[str, Any]:
     deck = files.load_yaml(deck_path)
     if not isinstance(deck, dict):
         raise SystemExit("{}: deck is not a mapping".format(deck_path))
@@ -779,7 +781,7 @@ def lint_deck(deck_path: Path, rules_path: Optional[Path], knowledge: Path,
         cards, example_lines(files.CORE_DIR / "examples", deck_path), selected))
     produced, edited = check_hand_edits(cards, selected)
     findings.extend(produced)
-    produced, fit_notes = check_fit(deck, cards, selected)
+    produced, fit_notes = check_fit(deck, cards, selected, style_overlays)
     findings.extend(produced)
     notes.extend(fit_notes)
 
@@ -842,6 +844,15 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         local = Path("local/knowledge")
         if local.is_dir():
             overlays.append(local)
+    # Themes and presets sit at <root>/themes and <root>/presets, so the style
+    # overlay root is the folder shaped like local/, not its knowledge folder.
+    # An explicit --overlay that names a knowledge folder maps to its parent.
+    style_overlays = [overlay.parent if overlay.name == "knowledge" else overlay
+                      for overlay in overlays]
+    if not args.no_default_overlay and not args.overlay:
+        local_root = Path("local")
+        if local_root.is_dir() and local_root not in style_overlays:
+            style_overlays.append(local_root)
     rules_path = Path(args.rules) if args.rules else None
     if rules_path is None:
         try:
@@ -855,6 +866,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     report = lint_deck(
         deck_path, rules_path, Path(args.knowledge), overlays,
         [Path(raw) for raw in args.findings], parse_cards(args.cards),
+        style_overlays,
     )
     if args.json:
         print(json.dumps(report, indent=2, ensure_ascii=False))

@@ -395,8 +395,9 @@ def write_pdf(deck, cards, style, path: Path, page_size: str = "letter"):
     return len(pages)
 
 
-def render_deck(deck, out_dir: Path, formats=("png",), page_size="letter"):
-    style = core.style_from_deck(deck)
+def render_deck(deck, out_dir: Path, formats=("png",), page_size="letter",
+                overlays=None):
+    style = core.style_from_deck(deck, overlays=overlays)
     cards = core.deck_cards(deck)
     out_dir.mkdir(parents=True, exist_ok=True)
     written = []
@@ -435,11 +436,19 @@ def main(argv=None):
     parser.add_argument("--format", default="png,phone,tablet,pdf",
                         help="comma-separated: png,phone,tablet,pdf")
     parser.add_argument("--page-size", default=None, choices=sorted(PAGE_SIZES))
+    parser.add_argument("--overlay", action="append", default=[],
+                        help="overlay folder laid out like local/ for themes "
+                             "and presets (repeatable; an overlay wins over "
+                             "cards-core)")
+    parser.add_argument("--no-default-overlay", action="store_true",
+                        help="do not add local/ when it exists")
     args = parser.parse_args(argv)
     deck = core.load_deck(Path(args.deck))
     formats = tuple(f.strip() for f in args.format.split(",") if f.strip())
     written, report = render_deck(deck, Path(args.out), formats,
-                                  args.page_size or deck.get("page_size", "letter"))
+                                  args.page_size or deck.get("page_size", "letter"),
+                                  core.overlay_roots(args.overlay,
+                                                     args.no_default_overlay))
     print(core.summary(report))
     for path in written:
         print(path)

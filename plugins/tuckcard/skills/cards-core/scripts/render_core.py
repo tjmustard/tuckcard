@@ -16,6 +16,7 @@ import math
 import re
 import unicodedata
 from pathlib import Path
+from typing import Sequence
 
 from PIL import ImageFont
 
@@ -325,13 +326,19 @@ def week_of(deck: dict, n: int) -> str:
 
 class Style:
     def __init__(self, layout: str, preset: str, theme: str, tokens: dict | None = None,
-                 root: Path = CORE):
-        self.root = root
+                 root: Path = CORE, overlays: Sequence[Path] | None = None):
+        self.root = Path(root)
+        if isinstance(overlays, (str, Path)):
+            overlays = [overlays]
+        # Overlay roots are shaped like local/: themes/<name>.json and
+        # presets/<name>.json. They are searched in the order given and win
+        # over cards-core when a name appears in both. See DECISIONS.md D-038.
+        self.overlays = [Path(overlay) for overlay in (overlays or [])]
         self.layout_name = layout
-        self.layout = load_json(root / "templates" / layout / "layout.json")
-        self.preset = load_json(root / "presets" / (preset + ".json"))
-        self.theme = load_json(root / "themes" / (theme + ".json"))
-        self.marks = load_json(root / "marks.json")
+        self.layout = load_json(self.root / "templates" / layout / "layout.json")
+        self.preset = self._style_json("presets", preset)
+        self.theme = self._style_json("themes", theme)
+        self.marks = load_json(self.root / "marks.json")
         self.tokens = dict(self.preset.get("tokens", {}))
         for key, value in (tokens or {}).items():
             if isinstance(value, dict) and isinstance(self.tokens.get(key), dict):
@@ -340,6 +347,18 @@ class Style:
                 self.tokens[key] = merged
             else:
                 self.tokens[key] = value
+
+    def _style_json(self, folder: str, name: str) -> dict:
+        tried = [overlay / folder / (name + ".json") for overlay in self.overlays]
+        shipped = self.root / folder / (name + ".json")
+        for path in tried:
+            if path.is_file():
+                return load_json(path)
+        if shipped.is_file():
+            return load_json(shipped)
+        raise FileNotFoundError("no {} named '{}': looked in {}".format(
+            folder[:-1], name,
+            " and ".join(str(path) for path in tried + [shipped])))
 
     def region(self, name: str) -> dict:
         r = self.layout["regions"][name]
@@ -1343,9 +1362,25 @@ def load_deck(path: Path):
         return yaml.load(handle)
 
 
-def style_from_deck(deck: dict, root: Path = CORE) -> Style:
+def style_from_deck(deck: dict, root: Path = CORE,
+                    overlays: Sequence[Path] | None = None) -> Style:
     style = deck["style"]
-    return Style(style["layout"], style["preset"], style["theme"], style.get("tokens"), root)
+    return Style(style["layout"], style["preset"], style["theme"],
+                 style.get("tokens"), root, overlays)
+
+
+def overlay_roots(explicit: Sequence[str], no_default: bool = False,
+                  default: str = "local") -> list[Path]:
+    """The overlay roots to search: the flags given, or ``local/`` if it exists.
+
+    Themes and presets sit at ``<root>/themes`` and ``<root>/presets``, so the
+    root is the folder shaped like ``local/``, not ``local/knowledge``. This
+    matches the default overlay the knowledge tools add for compile and lint.
+    """
+    roots = [Path(raw) for raw in explicit]
+    if not roots and not no_default and Path(default).is_dir():
+        roots.append(Path(default))
+    return roots
 
 
 def deck_cards(deck: dict) -> list[dict]:
