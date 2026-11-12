@@ -7,7 +7,7 @@
         <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"/></a>
         <img src="https://img.shields.io/badge/version-0.1.0-orange.svg" alt="Version"/>
         <img src="https://img.shields.io/badge/skills-7-informational.svg" alt="Skills"/>
-        <img src="https://img.shields.io/badge/examples-3%20%C2%B7%20159%20cards-indigo.svg" alt="Examples"/>
+        <img src="https://img.shields.io/badge/examples-4%20%C2%B7%20212%20cards-indigo.svg" alt="Examples"/>
         <img src="https://img.shields.io/badge/output-print%20%2B%20PDF%20%2B%20lock%20screen-amber.svg" alt="Output"/>
     </p>
 </div>
@@ -29,7 +29,7 @@ Two things make it more than a text generator.
 Tuckcard is at version 0.1.0 and is **not yet tagged for release**. What is true today:
 
 - The plugin installs from this repository's marketplace in Claude Code and lists seven skills. That path is tested.
-- Three example decks ship and are lint-clean, with their remaining warnings documented in each example's README.
+- Four example decks ship and are lint-clean, with their remaining warnings documented in each example's README.
 - The render path is covered by a parity check across 18 layout, preset and theme combinations.
 - **The claude.ai half of the acceptance test has not been run.** It needs a paid account and a platform probe that has not happened. Treat claude.ai support as expected but unproven.
 - The public README, extending docs, hand-edit guide and release tag land with milestone M8.
@@ -87,17 +87,18 @@ Cards are `public` or `private`. Private cards never reach the fridge sheet or t
 
 ## The examples
 
-Three fictional examples under `plugins/tuckcard/skills/cards-core/examples/`, 53 cards each, written in the parents' we/us voice. They exist so the repo has something real to lint, render and argue about, and they are de-specified derivatives rather than anybody's private deck.
+Four fictional examples under `plugins/tuckcard/skills/cards-core/examples/`, 53 cards each, written in the parents' we/us voice. They exist so the repo has something real to lint, render and argue about. Three are de-specified derivatives of earlier decks rather than anybody's private deck; the high-school example was written fresh for this repository.
 
 | Example | Audience in the deck |
 |---|---|
 | `grade-school` | A fictional third grader on a town team, learning to name feelings and keep trying. |
 | `middle-school` | The 13 to 14 band. |
 | `college` | A student leaving home for the first time. |
+| `high-school` | A fictional sophomore balancing school, a team and a weekend job. |
 
 Each has a `README.md` listing the fixes applied during review and the warnings that remain. There is also `parity-fixture`, a five-card deck that exists only so the renderers can be compared against each other.
 
-The high-school example is deliberately absent. It is written at M7 by running the plugin end to end on a fictional recipient, so the example and the acceptance test are the same artefact.
+The high-school example was written at M7 by running the plugin end to end on a fictional recipient, so the example and the acceptance test are the same artefact.
 
 ## Looks
 

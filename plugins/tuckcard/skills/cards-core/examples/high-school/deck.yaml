@@ -1,0 +1,1309 @@
+schema_version: 1
+plugin_version: 0.1.0
+id: high-school
+title: High School
+status: drafted
+created: '2026-11-12'
+example: true
+recipient:
+  kind: person
+  pill: Sophomore
+  age_band: high-school
+  description: A fictional sophomore balancing school, a team and a weekend job.
+  culture_notes:
+sender:
+  voice: parents
+  pronouns: they/them
+  signoff: With love
+policies:
+  substances: omit
+  sex_relationships: omit
+  faith: neutral
+  register:
+    humor: light
+    slang: some
+  help_resources: none
+personal_details:
+  - id: P-01
+    text: Plays on a school team.
+    confirmed: true
+  - id: P-02
+    text: Works a weekend job.
+    confirmed: true
+  - id: P-03
+    text: Takes a science class they find hard.
+    confirmed: true
+categories:
+  - key: school
+    label: School
+    color: blue
+    contexts:
+      - academics
+  - key: team
+    label: Game Day
+    color: orange
+    contexts:
+      - athletics
+  - key: feelings
+    label: Feelings
+    color: purple
+    contexts:
+      - emotional-intelligence
+  - key: friends
+    label: Friends
+    color: teal
+    contexts:
+      - emotional-intelligence
+  - key: growth
+    label: Growing Up
+    color: green
+    contexts:
+      - personal-growth
+  - key: home
+    label: At Home
+    color: pink
+    contexts: []
+numbering:
+  mode: weekly
+  count: 53
+  week_rule: contains_jan_1
+  week_start: sunday
+outputs:
+  - print_sheet
+  - pdf
+  - phone
+  - tablet
+  - png
+page_size: letter
+style:
+  layout: stacked
+  preset: casual
+  theme: color
+  tokens: {}
+rules_snapshot:
+  file: effective-rules.yaml
+  compiled_at: '2026-11-12T00:00:00Z'
+  plugin_version: 0.1.0
+  sha256: '0000000000000000000000000000000000000000000000000000000000000000'
+cards:
+  - n: 1
+    category: school
+    title: Close the Book
+    lines:
+      - text: Read your notes once, then close the book.
+        mark:
+          target: close the book
+        note: the page is a prop, not a crutch
+      - text: Write down everything you remember on a blank page.
+        mark:
+        note:
+      - text: Then open the notes and fill the gaps in another colour.
+        mark:
+        note:
+    basis:
+      - R-academics-001
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: e860549f0148bc7a0535bdc2f238995f446c91b648765ea121fbfa9108e35947
+      approved_by: round
+      approved_round: 1
+      linted_hash: e860549f0148bc7a0535bdc2f238995f446c91b648765ea121fbfa9108e35947
+  - n: 2
+    category: school
+    title: Mixed Set
+    lines:
+      - text: Do one from each section, not ten from one.
+        mark:
+          target: one from each section
+        note: mixing the kinds is the practice
+      - text: Switching feels harder because you have to choose what comes next.
+        mark:
+        note:
+      - text: Ten in a row feels smooth because the choosing is already done for you.
+        mark:
+        note:
+    basis:
+      - R-academics-002
+    visibility: public
+    approval:
+      approved_hash: 84a86ffd8c42ae08090302e86fb39a1524f2c6ad3ec69c2f60f1b17b456cd7fe
+      approved_by: round
+      approved_round: 1
+      linted_hash: 84a86ffd8c42ae08090302e86fb39a1524f2c6ad3ec69c2f60f1b17b456cd7fe
+  - n: 3
+    category: school
+    title: First Question
+    lines:
+      - text: When the paper lands, read the first question twice.
+        mark:
+          target: read the first question
+        note: once for the words, once for the ask
+      - text: Then write the next thing you can do, not the grade you need.
+        mark:
+          target: next thing you can do
+        note: one action you control
+      - text: The mark is one number. It is not the whole subject.
+        mark:
+        note:
+    basis:
+      - R-high-school-008
+      - R-academics-005
+    visibility: public
+    approval:
+      approved_hash: e73ad439d8a3938cd62122517f106e175ee0c4a7f2b54343de059d114fddde8f
+      approved_by: round
+      approved_round: 8
+      linted_hash: e73ad439d8a3938cd62122517f106e175ee0c4a7f2b54343de059d114fddde8f
+  - n: 4
+    category: school
+    title: Ask What Next
+    lines:
+      - text: Take the marked work to your teacher and ask one question.
+        mark:
+        note:
+      - text: 'Try: what should I do differently on the next piece?'
+        mark:
+          target: what should I do differently
+        note: about the work, not about you
+      - text: Then use one thing from the answer, not all of it at once.
+        mark:
+        note:
+    basis:
+      - R-academics-004
+    visibility: public
+    approval:
+      approved_hash: 89994bf4b5bec1e42c1bc1ac17a101544f5915a4363faa699cc80aa6dbf754c7
+      approved_by: round
+      approved_round: 1
+      linted_hash: 89994bf4b5bec1e42c1bc1ac17a101544f5915a4363faa699cc80aa6dbf754c7
+  - n: 5
+    category: school
+    title: Five Minutes
+    lines:
+      - text: 'The work you avoid: give it five minutes.'
+        mark:
+          target: five minutes
+        note: a first step, not the whole task
+      - text: Open the file, read the task, write one messy sentence.
+        mark:
+        note:
+      - text: You can stop at five. Starting is the part you are practising.
+        mark:
+        note:
+    basis:
+      - R-academics-007
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 3dda0802fea2958e273c5be4d12d1309a16245fbb1f99703e44a2de946ca5993
+      approved_by: round
+      approved_round: 8
+      linted_hash: 3dda0802fea2958e273c5be4d12d1309a16245fbb1f99703e44a2de946ca5993
+  - n: 6
+    category: school
+    title: Where It Shows Up
+    lines:
+      - text: Pick one idea from science class and find it in your week.
+        mark:
+        note:
+      - text: Bread rising. The push when you brake. Both are science.
+        mark:
+          target: The push when you brake
+        note: your example will beat ours
+      - text: A subject is easier to hold when it touches something you already know.
+        mark:
+        note:
+    basis:
+      - R-high-school-001
+      - R-core-005
+    visibility: public
+    approval:
+      approved_hash: bdb47a5125349558d2d2902fcefbe7c32e532c6d4c75f9b98c911f9fb63e3d44
+      approved_by: round
+      approved_round: 8
+      linted_hash: bdb47a5125349558d2d2902fcefbe7c32e532c6d4c75f9b98c911f9fb63e3d44
+  - n: 7
+    category: school
+    title: Not Fixed
+    lines:
+      - text: Being bad at something says where you are, not where you stop.
+        mark:
+          target: where you are
+        note: a starting point can move
+      - text: The people around you shape what feels possible. Find one who talks about getting better.
+        mark:
+        note:
+      - text: Thinking differently is not a grade promise. It changes what you are willing to try.
+        mark:
+        note:
+    basis:
+      - R-high-school-002
+      - R-high-school-003
+    visibility: public
+    approval:
+      approved_hash: a23fb50b29540f69ee0b2f5d2e075ba445051b9293b29212ea5816192a72cfd0
+      approved_by: round
+      approved_round: 8
+      linted_hash: a23fb50b29540f69ee0b2f5d2e075ba445051b9293b29212ea5816192a72cfd0
+  - n: 8
+    category: school
+    title: Phone at the Door
+    lines:
+      - text: At study time, phone in another room.
+        mark:
+          target: another room
+        note: out of reach beats face down
+      - text: Not because the phone is evil. Because every buzz makes you decide again.
+        mark:
+        note:
+      - text: Decide once at the start instead of thirty times.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-core-008
+    visibility: public
+    approval:
+      approved_hash: e8503b87399ded9855fc4feef069fc44c49daca6239f56bfd9d6ba487625c915
+      approved_by: round
+      approved_round: 8
+      linted_hash: e8503b87399ded9855fc4feef069fc44c49daca6239f56bfd9d6ba487625c915
+  - n: 9
+    category: school
+    title: One Box
+    lines:
+      - text: Write tomorrow's school list as one sentence.
+        mark:
+        note:
+      - text: Not the week. The first thing after breakfast.
+        mark:
+          target: after breakfast
+        note: a time and a place
+      - text: Cross it off when it is done, then stop looking at the list.
+        mark:
+        note:
+    basis:
+      - R-academics-009
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: eeab09743c9f2fcde4cb7bc1783974c85645dff8e9870b839c08f36b578d872c
+      approved_by: round
+      approved_round: 8
+      linted_hash: eeab09743c9f2fcde4cb7bc1783974c85645dff8e9870b839c08f36b578d872c
+  - n: 10
+    category: team
+    title: One Cue
+    lines:
+      - text: Pick three words to say before a skill.
+        mark:
+          target: three words
+        note: short enough to survive the whistle
+      - text: 'Pass: hands first. Shot: elbow, follow.'
+        mark:
+          target: elbow, follow
+        note: your words will be better
+      - text: Say it once, then play. A cue is a habit, not a spell.
+        mark:
+        note:
+    basis:
+      - R-athletics-002
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 3ef55470d7a9a010f5bf7df8fb1c37b37c8b7a82c00f6392c2662cb619c5a1c2
+      approved_by: round
+      approved_round: 8
+      linted_hash: 3ef55470d7a9a010f5bf7df8fb1c37b37c8b7a82c00f6392c2662cb619c5a1c2
+  - n: 11
+    category: team
+    title: Three Breaths
+    lines:
+      - text: Before training, take three slow breaths.
+        mark:
+        note:
+      - text: Count them. That is the whole practice.
+        mark:
+          target: the whole practice
+        note: attention is a skill you train
+      - text: Do it again next session. Short and repeatable beats long and rare.
+        mark:
+        note:
+    basis:
+      - R-athletics-003
+    visibility: public
+    approval:
+      approved_hash: c06db42f28bd277b9fbcd3de8f425ef6a7800d330636ff77a9d71ab0a8cb5c8d
+      approved_by: round
+      approved_round: 2
+      linted_hash: c06db42f28bd277b9fbcd3de8f425ef6a7800d330636ff77a9d71ab0a8cb5c8d
+  - n: 12
+    category: team
+    title: Sleep Is Part of It
+    lines:
+      - text: A bedtime is part of training.
+        mark:
+          target: part of training
+        note: rest is not the opposite of work
+      - text: Leave the phone outside the bed so the hour is yours.
+        mark:
+          target: outside the bed
+        note: one small move
+      - text: Sleep is not proof you care. It is what lets the body do the work.
+        mark:
+        note:
+    basis:
+      - R-high-school-004
+      - R-athletics-004
+    visibility: public
+    approval:
+      approved_hash: b101f571a142f7adf7deada3d157dad96d329e51df9c0bbab1baeed4c44161e8
+      approved_by: round
+      approved_round: 2
+      linted_hash: b101f571a142f7adf7deada3d157dad96d329e51df9c0bbab1baeed4c44161e8
+  - n: 13
+    category: team
+    title: Same Team
+    lines:
+      - text: A bad game does not change what you are worth to this team.
+        mark:
+          target: does not change
+        note: the scoreboard is not a verdict on you
+      - text: It changes what you practise next.
+        mark:
+        note:
+      - text: Ask what the game showed you, not what it said about you.
+        mark:
+        note:
+    basis:
+      - R-athletics-006
+      - R-athletics-005
+    visibility: public
+    approval:
+      approved_hash: d7b344704cacc547a328dae202246ddb85a87aff69e11e2908ce66e80f0c9a22
+      approved_by: round
+      approved_round: 2
+      linted_hash: d7b344704cacc547a328dae202246ddb85a87aff69e11e2908ce66e80f0c9a22
+  - n: 14
+    category: team
+    title: Ask the Coach
+    lines:
+      - text: If a soreness or a slump lasts more than a week, tell your coach.
+        mark:
+          target: more than a week
+        note: a rough number, not a rule
+      - text: For pain that worries you, ask a doctor or a counsellor, not a teammate.
+        mark:
+        note:
+      - text: Pushing through is not a personality. It is a decision you can change.
+        mark:
+        note:
+    basis:
+      - R-athletics-007
+    visibility: public
+    approval:
+      approved_hash: 17da26e43e31c021bc3a2a00a4f4c49f34e2389a872f1816c89059c5b48a7a81
+      approved_by: round
+      approved_round: 2
+      linted_hash: 17da26e43e31c021bc3a2a00a4f4c49f34e2389a872f1816c89059c5b48a7a81
+  - n: 15
+    category: team
+    title: The Season Is One Part
+    lines:
+      - text: The season sits inside your life, not against it.
+        mark:
+          target: inside your life
+        note: school and rest are not the enemy
+      - text: One night a week, do something that is not practice.
+        mark:
+          target: One night a week
+        note: choose it before the week fills up
+      - text: A team that needs you to drop everything is worth asking about.
+        mark:
+        note:
+    basis:
+      - R-athletics-008
+      - R-core-008
+    visibility: public
+    approval:
+      approved_hash: f1768caf383e1cac2ee3ae6c71b0bf60e50c57a736d514a41c49897889ea44bd
+      approved_by: round
+      approved_round: 8
+      linted_hash: f1768caf383e1cac2ee3ae6c71b0bf60e50c57a736d514a41c49897889ea44bd
+  - n: 16
+    category: team
+    title: Enjoy the Drill
+    lines:
+      - text: Pick the drill you like least and find one thing to get better at in it.
+        mark:
+          target: one thing
+        note: small enough to feel this week
+      - text: Not the score. The touch, the timing, the footwork.
+        mark:
+          target: The touch, the timing
+        note: small things you can feel
+      - text: Getting better is the point you can keep.
+        mark:
+        note:
+    basis:
+      - R-athletics-001
+    visibility: public
+    approval:
+      approved_hash: e022ba621224ddfe2625cf7433f9854e801aea32423b998fa06c242fdc9d27c4
+      approved_by: round
+      approved_round: 8
+      linted_hash: e022ba621224ddfe2625cf7433f9854e801aea32423b998fa06c242fdc9d27c4
+  - n: 17
+    category: team
+    title: One Play
+    lines:
+      - text: After a mistake, name the next play.
+        mark:
+          target: the next play
+        note: one action, now
+      - text: Not the last one. Not the whole game.
+        mark:
+        note:
+      - text: Then say it out loud so your body hears it.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-athletics-009
+    visibility: public
+    approval:
+      approved_hash: b6f3adc56b3c1f24a96a50d73d8e68ae9204578791d3a1e2f381bc37b3631bd5
+      approved_by: round
+      approved_round: 2
+      linted_hash: b6f3adc56b3c1f24a96a50d73d8e68ae9204578791d3a1e2f381bc37b3631bd5
+  - n: 18
+    category: team
+    title: Practice the Reset
+    lines:
+      - text: After a mistake, talk to yourself like a teammate.
+        mark:
+          target: teammate
+        note: would you say it out loud to them?
+      - text: 'Try: next ball.'
+        mark:
+        note:
+      - text: That is a skill you can practise, not a mood you have to wait for.
+        mark:
+        note:
+    basis:
+      - R-high-school-006
+      - R-athletics-002
+    visibility: public
+    approval:
+      approved_hash: 9749d90dadaad4d9db86c7009677a95f58b052a2bac9863076b116174d197eb6
+      approved_by: round
+      approved_round: 8
+      linted_hash: 9749d90dadaad4d9db86c7009677a95f58b052a2bac9863076b116174d197eb6
+  - n: 19
+    category: feelings
+    title: Name It Plain
+    lines:
+      - text: When a feeling is loud, give it a plain word.
+        mark:
+          target: a plain word
+        note: mad, sad, scared, embarrassed
+      - text: Write it in one line, not a story.
+        mark:
+        note:
+      - text: Naming it does not fix it. It gives you somewhere to stand.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-001
+      - R-emotional-intelligence-010
+    visibility: public
+    approval:
+      approved_hash: 3de5f5fc3b8effac7e87e6bdf1d29e99225a46f3dd2c3588d7bb799448328bf9
+      approved_by: round
+      approved_round: 3
+      linted_hash: 3de5f5fc3b8effac7e87e6bdf1d29e99225a46f3dd2c3588d7bb799448328bf9
+  - n: 20
+    category: feelings
+    title: What Would a Friend Say?
+    lines:
+      - text: Think of what you would say to a friend in this exact spot.
+        mark:
+          target: a friend
+        note: same words, same voice
+      - text: Then say it to yourself, out loud if you can.
+        mark:
+        note:
+      - text: You are allowed the kindness you hand out so easily.
+        mark:
+        note:
+    basis:
+      - R-high-school-006
+      - R-emotional-intelligence-007
+    visibility: public
+    approval:
+      approved_hash: 52177cdd1cb0c980bd60e8df3c70446e6d28fd02d065ce0bdbb17ba51cbf5b42
+      approved_by: round
+      approved_round: 8
+      linted_hash: 52177cdd1cb0c980bd60e8df3c70446e6d28fd02d065ce0bdbb17ba51cbf5b42
+  - n: 21
+    category: feelings
+    title: Tell One Person
+    lines:
+      - text: Do not carry a hard week alone.
+        mark:
+          target: alone
+        note: one person is enough to start
+      - text: Pick the person you would text at 9pm. Tell them one true sentence.
+        mark:
+        note:
+      - text: You do not need the whole story ready before you speak.
+        mark:
+        note:
+    basis:
+      - R-high-school-007
+      - R-emotional-intelligence-006
+    visibility: public
+    approval:
+      approved_hash: 080466cb1fa8648832889a46b3fce5137070716fad31a0df1a7d0867986ba5f1
+      approved_by: round
+      approved_round: 3
+      linted_hash: 080466cb1fa8648832889a46b3fce5137070716fad31a0df1a7d0867986ba5f1
+  - n: 22
+    category: feelings
+    title: Feelings Are a Skill
+    lines:
+      - text: Handling a feeling is taught, like a subject.
+        mark:
+          target: taught, like a subject
+        note: nobody is born knowing it
+      - text: Watch one person you trust do it. Ask them what they do.
+        mark:
+        note:
+      - text: Then try one small version yourself this week.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-003
+    visibility: public
+    approval:
+      approved_hash: a9c354dfe39d21d47c68cd963a311434aa29b31a748bfb40d7e14e2ed0a49ed3
+      approved_by: round
+      approved_round: 3
+      linted_hash: a9c354dfe39d21d47c68cd963a311434aa29b31a748bfb40d7e14e2ed0a49ed3
+  - n: 23
+    category: feelings
+    title: Tired Is a Feeling Too
+    lines:
+      - text: Some heavy days are a sleep problem wearing a feeling's coat.
+        mark:
+          target: a sleep problem
+        note: check the simple thing first
+      - text: Try one earlier night and see what the next day is like.
+        mark:
+        note:
+      - text: If the weight stays for weeks, tell a doctor, a counsellor or a trusted adult.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-006
+      - R-high-school-004
+      - R-medical-claims-002
+    visibility: public
+    approval:
+      approved_hash: dc1893036a2ef843b34174098dba43adbc4f4147ef4422b6fd0bab55789a79f3
+      approved_by: round
+      approved_round: 8
+      linted_hash: dc1893036a2ef843b34174098dba43adbc4f4147ef4422b6fd0bab55789a79f3
+  - n: 24
+    category: feelings
+    title: Put the Replay Down
+    lines:
+      - text: Replaying the same scene feels like work. It usually is not.
+        mark:
+          target: feels like work
+        note: the loop keeps the sting fresh
+      - text: When you catch the replay, name what you would do differently next time.
+        mark:
+        note:
+      - text: Then put it down until tomorrow.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-005
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: f6f445e31a84c3d7e5f1fa994405e78426267ad37bc922934ea2ea24e5a75406
+      approved_by: round
+      approved_round: 8
+      linted_hash: f6f445e31a84c3d7e5f1fa994405e78426267ad37bc922934ea2ea24e5a75406
+  - n: 25
+    category: feelings
+    title: Say It Out Loud
+    lines:
+      - text: Keeping a hard feeling from the people close to you is not strength.
+        mark:
+          target: not strength
+        note: hiding costs more than it saves
+      - text: Tell one of them what is actually going on.
+        mark:
+        note:
+      - text: You can ask for company without asking them to fix it.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-004
+      - R-high-school-007
+    visibility: public
+    approval:
+      approved_hash: 24bddc2deba0b5859163d912e1167e3ce6530d628ff105758d1b5ef19d20ad4c
+      approved_by: round
+      approved_round: 3
+      linted_hash: 24bddc2deba0b5859163d912e1167e3ce6530d628ff105758d1b5ef19d20ad4c
+  - n: 26
+    category: feelings
+    title: Ask What They Felt
+    lines:
+      - text: Guessing what someone felt is a skill you can practise.
+        mark:
+          target: a skill
+        note: not a talent some people have
+      - text: 'After a fight, ask: what was that like for you?'
+        mark:
+        note:
+      - text: Listen to the answer without planning your defence.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: ad68e01a544392a613566bfb85746c6d2867d5081a36135ec6eded5704f95dcb
+      approved_by: round
+      approved_round: 8
+      linted_hash: ad68e01a544392a613566bfb85746c6d2867d5081a36135ec6eded5704f95dcb
+  - n: 27
+    category: feelings
+    title: A Hard Week Is Not You
+    lines:
+      - text: A hard week is something that happened. It is not who you are.
+        mark:
+          target: something that happened
+        note: a week, not a verdict
+      - text: Write one thing you got through, even badly.
+        mark:
+        note:
+      - text: Keep the list where you can see it on the next hard day.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-007
+      - R-core-007
+    visibility: public
+    approval:
+      approved_hash: 61ddff6c0f91e6e65d085a930b566fdd3b5974381472c7236ebfacd80e9498b0
+      approved_by: round
+      approved_round: 3
+      linted_hash: 61ddff6c0f91e6e65d085a930b566fdd3b5974381472c7236ebfacd80e9498b0
+  - n: 28
+    category: friends
+    title: Save the Messages
+    lines:
+      - text: If messages turn cruel, do not delete them.
+        mark:
+          target: do not delete them
+        note: keep the evidence
+      - text: Screenshot the thread and the account name.
+        mark:
+        note:
+      - text: 'Tell a trusted adult: a parent, a coach or a school counsellor.'
+        mark:
+          target: trusted adult
+        note: more than one name is good
+      - text: Telling will not get you in trouble.
+        mark:
+        note:
+    basis:
+      - R-high-school-010
+      - R-abuse-bullying-unsafe-adults-001
+      - R-abuse-bullying-unsafe-adults-003
+    visibility: public
+    approval:
+      approved_hash: efc3f4ef23b80e25ba81d44c7b8aca0f05c99a1ec566c40d70a5ceaa1ed76a69
+      approved_by: round
+      approved_round: 8
+      linted_hash: efc3f4ef23b80e25ba81d44c7b8aca0f05c99a1ec566c40d70a5ceaa1ed76a69
+  - n: 29
+    category: friends
+    title: Not a Like Count
+    lines:
+      - text: How many people liked it is not a measure of you.
+        mark:
+          target: not a measure
+        note: the number is about the post, not the person
+      - text: Write the thing you would post if nobody could see the count.
+        mark:
+        note:
+      - text: Post that one instead.
+        mark:
+        note:
+    basis:
+      - R-high-school-009
+    visibility: public
+    approval:
+      approved_hash: c70fc23af96c3c9c672ca4da9d1e78b08612c9667c1423fb006f007b2b1c2ac7
+      approved_by: round
+      approved_round: 8
+      linted_hash: c70fc23af96c3c9c672ca4da9d1e78b08612c9667c1423fb006f007b2b1c2ac7
+  - n: 30
+    category: friends
+    title: Ask, Do Not Assume
+    lines:
+      - text: When a friend goes quiet, ask before you decide what it means.
+        mark:
+          target: ask before you decide
+        note: the story you invent is rarely the one
+      - text: 'Try: you have been quiet. What is going on?'
+        mark:
+        note:
+      - text: Then listen like you would want to be listened to.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: 8dccf67c8584267b6bd228ffa6aea96c833b0e30868988fd5b38cf3b5efbdde0
+      approved_by: round
+      approved_round: 4
+      linted_hash: 8dccf67c8584267b6bd228ffa6aea96c833b0e30868988fd5b38cf3b5efbdde0
+  - n: 31
+    category: friends
+    title: A Friend's Hard Day
+    lines:
+      - text: You do not have to fix a friend's bad day.
+        mark:
+          target: do not have to fix
+        note: company is the first thing
+      - text: Ask what would help, then do the small thing they name.
+        mark:
+        note:
+      - text: If they are in real danger, tell a trusted adult, even if they asked you not to.
+        mark:
+        note:
+      - text: You will not be in trouble for telling.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-002
+      - R-emotional-intelligence-006
+      - R-abuse-bullying-unsafe-adults-001
+      - R-abuse-bullying-unsafe-adults-002
+    visibility: public
+    approval:
+      approved_hash: f793a1a6e4e719144e3c4be2116b6ecf04c341deb47bb7de6e58ccb3badf9be1
+      approved_by: round
+      approved_round: 7
+      linted_hash: f793a1a6e4e719144e3c4be2116b6ecf04c341deb47bb7de6e58ccb3badf9be1
+  - n: 32
+    category: friends
+    title: Their Opinion Is Not a Mirror
+    lines:
+      - text: Someone else's opinion of you is information about them, not a mirror.
+        mark:
+          target: about them
+        note: it tells you what they look at
+      - text: Take the part that helps and leave the rest.
+        mark:
+        note:
+      - text: You do not have to argue with it to let it go.
+        mark:
+        note:
+    basis:
+      - R-core-002
+    visibility: public
+    approval:
+      approved_hash: 7e81915b5dd5db431eecab18d93fc6c01d147ed853dc99d7454bf24d435e2602
+      approved_by: round
+      approved_round: 8
+      linted_hash: 7e81915b5dd5db431eecab18d93fc6c01d147ed853dc99d7454bf24d435e2602
+  - n: 33
+    category: friends
+    title: Name the Thing
+    lines:
+      - text: An apology names the thing you did, not what kind of person you are.
+        mark:
+          target: the thing you did
+        note: the action, not a label
+      - text: 'Try: I took your hoodie without asking. I will ask next time.'
+        mark:
+        note:
+      - text: Then do the next-time part.
+        mark:
+        note:
+    basis:
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 2475c8e37d4971cd61e1fd0337c82cfbed405624e5c07057853a9b429b5ea809
+      approved_by: round
+      approved_round: 4
+      linted_hash: 2475c8e37d4971cd61e1fd0337c82cfbed405624e5c07057853a9b429b5ea809
+  - n: 34
+    category: friends
+    title: Do Not Add to It
+    lines:
+      - text: When a group chat turns on someone, do not add a joke to the pile.
+        mark:
+          target: a joke
+        note: the pile is the harm
+      - text: 'Say one plain line: not funny, leave them alone.'
+        mark:
+        note:
+      - text: Save the messages.
+        mark:
+        note:
+      - text: Tell a trusted adult if it keeps going.
+        mark:
+        note:
+    basis:
+      - R-high-school-010
+      - R-abuse-bullying-unsafe-adults-001
+      - R-abuse-bullying-unsafe-adults-003
+    visibility: public
+    approval:
+      approved_hash: 4dfad11ee249d44c6e7d89b748e76a99e36da2a1bc90b241f9b02456ef1fc445
+      approved_by: round
+      approved_round: 8
+      linted_hash: 4dfad11ee249d44c6e7d89b748e76a99e36da2a1bc90b241f9b02456ef1fc445
+  - n: 35
+    category: friends
+    title: One Friend, One Walk
+    lines:
+      - text: When your head is full, ask a friend to walk.
+        mark:
+          target: walk
+        note: side by side is easier than face to face
+      - text: You do not need a reason to ask.
+        mark:
+        note:
+      - text: Twenty minutes counts.
+        mark:
+        note:
+    basis:
+      - R-emotional-intelligence-006
+    visibility: public
+    approval:
+      approved_hash: 572ca320dacf448d13bd98bf57f2fe417edaaa55ea8cc36dff6162cf553c2a41
+      approved_by: round
+      approved_round: 8
+      linted_hash: 572ca320dacf448d13bd98bf57f2fe417edaaa55ea8cc36dff6162cf553c2a41
+  - n: 36
+    category: friends
+    title: Make the Plan First
+    lines:
+      - text: We should hang out becomes a plan when it has a day.
+        mark:
+          target: a day
+        note: a day and a time, not a maybe
+      - text: 'Text one friend: Saturday, 2pm, the park?'
+        mark:
+        note:
+      - text: If they say no, ask about next week instead of deciding they do not care.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-emotional-intelligence-002
+    visibility: public
+    approval:
+      approved_hash: 4c93a26528ab2975f08ec3f1e237528f1e764f6187fbd9804f430ade678c6d31
+      approved_by: round
+      approved_round: 4
+      linted_hash: 4c93a26528ab2975f08ec3f1e237528f1e764f6187fbd9804f430ade678c6d31
+  - n: 37
+    category: growth
+    title: Write It Down
+    lines:
+      - text: At lunch, pick one step and write it down.
+        mark:
+          target: write it down
+        note: paper beats memory
+      - text: Look at it again before bed.
+        mark:
+        note:
+      - text: One line is enough.
+        mark:
+        note:
+    basis:
+      - R-personal-growth-001
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 0b430d048aadf887e5737e06bc358d9198177652c27eda157a22487b65732931
+      approved_by: round
+      approved_round: 7
+      linted_hash: 0b430d048aadf887e5737e06bc358d9198177652c27eda157a22487b65732931
+  - n: 38
+    category: growth
+    title: Know When It Is Done
+    lines:
+      - text: A goal needs a finish line you can see.
+        mark:
+          target: a finish line you can see
+        note: not do better
+      - text: 'Try: run the loop twice without stopping, by Friday.'
+        mark:
+        note:
+      - text: Then you will know, and so will anyone watching.
+        mark:
+        note:
+    basis:
+      - R-personal-growth-002
+    visibility: public
+    approval:
+      approved_hash: cf26dde50b11bba913d209c8ce6c0d77ad4bd2bf4ca6d4b5052300b565a9c128
+      approved_by: round
+      approved_round: 5
+      linted_hash: cf26dde50b11bba913d209c8ce6c0d77ad4bd2bf4ca6d4b5052300b565a9c128
+  - n: 39
+    category: growth
+    title: Attach It to a Habit
+    lines:
+      - text: Put the new thing next to something you already do.
+        mark:
+          target: next to
+        note: after brushing, before the bus
+      - text: One missed day is a missed day, not a restart.
+        mark:
+          target: not a restart
+        note: you pick it up at the next anchor
+      - text: The old habit is the reminder.
+        mark:
+        note:
+    basis:
+      - R-personal-growth-003
+    visibility: public
+    approval:
+      approved_hash: 258ecdbe9b835375295170a5b7caa07c748cf285c626946c9198146c6d2ab9e3
+      approved_by: round
+      approved_round: 8
+      linted_hash: 258ecdbe9b835375295170a5b7caa07c748cf285c626946c9198146c6d2ab9e3
+  - n: 40
+    category: growth
+    title: Hours Are Not the Whole Story
+    lines:
+      - text: Practice hours help. They are not the whole story.
+        mark:
+          target: Practice hours
+        note: sleep, coaching and luck count too
+      - text: Two people can put in the same hours and end up in different places.
+        mark:
+        note:
+      - text: What you practise, and how, changes what the hours buy.
+        mark:
+        note:
+    basis:
+      - R-personal-growth-004
+    visibility: public
+    approval:
+      approved_hash: 5b5db8c158f419f547596915be2ba65106646e89f17ea244076135dcfcbd6ea9
+      approved_by: round
+      approved_round: 8
+      linted_hash: 5b5db8c158f419f547596915be2ba65106646e89f17ea244076135dcfcbd6ea9
+  - n: 41
+    category: growth
+    title: You Are Not a Score
+    lines:
+      - text: You are not a grit score, and neither is anyone else.
+        mark:
+          target: not a grit score
+        note: it is not a fixed trait
+      - text: A hard week says what you met, not what you are made of.
+        mark:
+        note:
+      - text: The next week can look different without you becoming a different person.
+        mark:
+        note:
+    basis:
+      - R-personal-growth-005
+    visibility: public
+    approval:
+      approved_hash: 4cafdd7d9c0a36177fd0316dda64cc76849a90c74f077f058265218aaa5a25f8
+      approved_by: round
+      approved_round: 5
+      linted_hash: 4cafdd7d9c0a36177fd0316dda64cc76849a90c74f077f058265218aaa5a25f8
+  - n: 42
+    category: growth
+    title: A Hard Week, Met
+    lines:
+      - text: A hard week is something your body and mind can meet.
+        mark:
+          target: can meet
+        note: not because the stress is good
+      - text: Sleep, food and one person who knows are not extras. They are the ground.
+        mark:
+        note:
+      - text: You do not have to call a hard week good to get through it.
+        mark:
+        note:
+    basis:
+      - R-personal-growth-006
+    visibility: public
+    approval:
+      approved_hash: 68d611845647bb754ddb09d9b3d52dfe9a71c40bd4e57e7ddbe67a3994a94dd3
+      approved_by: round
+      approved_round: 5
+      linted_hash: 68d611845647bb754ddb09d9b3d52dfe9a71c40bd4e57e7ddbe67a3994a94dd3
+  - n: 43
+    category: growth
+    title: One Thing Went Right
+    lines:
+      - text: Name one small thing that went right today.
+        mark:
+          target: one small thing
+        note: smaller than you think
+      - text: The bus was on time. You sent the text. You drank water.
+        mark:
+        note:
+      - text: You do not have to call the whole day good.
+        mark:
+        note:
+    basis:
+      - R-personal-growth-007
+    visibility: public
+    approval:
+      approved_hash: b76bf07c73803d3e27a1f041d285b10b4a039fa5d3452370c8fecf0df6338113
+      approved_by: round
+      approved_round: 5
+      linted_hash: b76bf07c73803d3e27a1f041d285b10b4a039fa5d3452370c8fecf0df6338113
+  - n: 44
+    category: growth
+    title: What Matters to You?
+    lines:
+      - text: What matters to you is yours to name, not ours to hand you.
+        mark:
+          target: yours to name
+        note: the answer can change
+      - text: Write three things you would protect if you could.
+        mark:
+        note:
+      - text: Look at the list in a month and see what moved.
+        mark:
+        note:
+    basis:
+      - R-personal-growth-008
+    visibility: public
+    approval:
+      approved_hash: f2f05a99fb2edf07c898b4926bc9a56085c31d3b5a8adeecdc7d8db15e9fa9da
+      approved_by: round
+      approved_round: 7
+      linted_hash: f2f05a99fb2edf07c898b4926bc9a56085c31d3b5a8adeecdc7d8db15e9fa9da
+  - n: 45
+    category: growth
+    title: The First Move
+    lines:
+      - text: When the whole plan feels heavy, cut it down to the first move.
+        mark:
+          target: the first move
+        note: one action you could do today
+      - text: Then do that, and let the next move wait.
+        mark:
+        note:
+      - text: A plan you can start beats a plan you can admire.
+        mark:
+        note:
+    basis:
+      - R-personal-growth-009
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 7c8248235a5727a7e98759ddb84030c994e4fdad710613def7b18e2bdf7daefa
+      approved_by: round
+      approved_round: 5
+      linted_hash: 7c8248235a5727a7e98759ddb84030c994e4fdad710613def7b18e2bdf7daefa
+  - n: 46
+    category: home
+    title: Phone Outside the Bed
+    lines:
+      - text: Leave your phone outside the bed tonight.
+        mark:
+          target: outside the bed
+        note: the hour before sleep is yours
+      - text: Plug it in across the room.
+        mark:
+        note:
+      - text: If you use it as an alarm, a clock in the room does the job.
+        mark:
+        note:
+    basis:
+      - R-high-school-004
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: dc8e10903845ebb7418516951ad8b32e7c3b6acba5c4316ec05cc9aef42b93d7
+      approved_by: round
+      approved_round: 6
+      linted_hash: dc8e10903845ebb7418516951ad8b32e7c3b6acba5c4316ec05cc9aef42b93d7
+  - n: 47
+    category: home
+    title: Tell Us the Real Thing
+    lines:
+      - text: When the answer is fine, fine is not the whole truth.
+        mark:
+          target: fine
+        note: the word that closes the door
+      - text: Tell us one real thing about your day, even if it is small.
+        mark:
+        note:
+      - text: You do not have to tell us everything to tell us something.
+        mark:
+        note:
+    basis:
+      - R-high-school-007
+      - R-core-008
+    visibility: public
+    approval:
+      approved_hash: dbf926b3fe2e0eba623b4c01d30943a560ba89c5ba2bf548c9bf402816bcac65
+      approved_by: round
+      approved_round: 6
+      linted_hash: dbf926b3fe2e0eba623b4c01d30943a560ba89c5ba2bf548c9bf402816bcac65
+  - n: 48
+    category: home
+    title: One Load, Then Done
+    lines:
+      - text: When you get home, do one household thing.
+        mark:
+          target: one household thing
+        note: dishes, bins, the load in the dryer
+      - text: Not the whole list. One thing.
+        mark:
+        note:
+      - text: Then start the thing you actually want to do.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-core-008
+    visibility: public
+    approval:
+      approved_hash: 3434e880b67f73891c463e755f945a243aa0b71d717370eb241c69c3524c1e6e
+      approved_by: round
+      approved_round: 7
+      linted_hash: 3434e880b67f73891c463e755f945a243aa0b71d717370eb241c69c3524c1e6e
+  - n: 49
+    category: home
+    title: Ask for the Ride
+    lines:
+      - text: If you need a ride, ask early and say why.
+        mark:
+          target: ask early
+        note: the night before beats the driveway
+      - text: We can say no and still help you find another way.
+        mark:
+        note:
+      - text: Asking is not nagging. It is planning.
+        mark:
+        note:
+    basis:
+      - R-core-008
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 1d2483998950a8a22f631838381138baa39578d5e1b00c385fced9b4a7a23d35
+      approved_by: round
+      approved_round: 6
+      linted_hash: 1d2483998950a8a22f631838381138baa39578d5e1b00c385fced9b4a7a23d35
+  - n: 50
+    category: home
+    title: A Messy Room Is Not You
+    lines:
+      - text: A messy room is a room, not a verdict on you.
+        mark:
+          target: not a verdict on you
+        note: the floor is not your character
+      - text: Before dinner, pick one surface and clear it.
+        mark:
+        note:
+      - text: The rest can wait until it has a home.
+        mark:
+        note:
+    basis:
+      - R-core-001
+      - R-core-006
+    visibility: public
+    approval:
+      approved_hash: 8eedaf9bde1b6ffa30e7a8f76f9ae56df573e021bec7d777d19357fdf089aa6f
+      approved_by: round
+      approved_round: 7
+      linted_hash: 8eedaf9bde1b6ffa30e7a8f76f9ae56df573e021bec7d777d19357fdf089aa6f
+  - n: 51
+    category: home
+    title: Say You Need a Night
+    lines:
+      - text: Some nights you need to be left alone. Say so.
+        mark:
+          target: Say so
+        note: alone for an hour is not the same as gone
+      - text: We will take the quiet as a request, not a door slam.
+        mark:
+        note:
+      - text: Then come back when you are ready.
+        mark:
+        note:
+    basis:
+      - R-high-school-007
+      - R-core-008
+    visibility: public
+    approval:
+      approved_hash: abbfd1b9e6ddfa8deab44592b2fa69194d1ae87664821126987ef01d48720a72
+      approved_by: round
+      approved_round: 6
+      linted_hash: abbfd1b9e6ddfa8deab44592b2fa69194d1ae87664821126987ef01d48720a72
+  - n: 52
+    category: home
+    title: Sunday Dinner Is Ours
+    lines:
+      - text: Sunday dinner is one hour that does not need a reason.
+        mark:
+          target: one hour
+        note: not a reward for the week
+      - text: Phones in the bowl, or not. Your call.
+        mark:
+        note:
+      - text: The point is the table, not the report card.
+        mark:
+        note:
+    basis:
+      - R-core-005
+      - R-core-003
+    visibility: public
+    approval:
+      approved_hash: 59445aab3e86fc34d30dbb5c7198eb009d734014d6597aeb821e70ed4fd1d9de
+      approved_by: round
+      approved_round: 8
+      linted_hash: 59445aab3e86fc34d30dbb5c7198eb009d734014d6597aeb821e70ed4fd1d9de
+  - n: 53
+    category: home
+    title: One Ask at a Time
+    lines:
+      - text: Ask us for one thing when you need something.
+        mark:
+          target: one thing
+        note: a list turns into a negotiation
+      - text: Say what it is, when you need it, and what happens if we cannot.
+        mark:
+        note:
+      - text: Then we can answer the actual question.
+        mark:
+        note:
+    basis:
+      - R-core-006
+      - R-core-009
+    visibility: public
+    approval:
+      approved_hash: 08bb1f0111277ae3b10e2822a7c0219750ad142805811e90f5aedd9be9d8f45f
+      approved_by: round
+      approved_round: 8
+      linted_hash: 08bb1f0111277ae3b10e2822a7c0219750ad142805811e90f5aedd9be9d8f45f
