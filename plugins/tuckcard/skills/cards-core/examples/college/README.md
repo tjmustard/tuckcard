@@ -14,6 +14,8 @@ No mapping from the real details to the fictional ones is stored in the reposito
 - A card title echoed a one-word title from the private reference list and was retitled "Fail, Then PIVOT".
 - Remaining warning, accepted and documented: card 53 has text that is shrunk to fit the index layout.
 
+Lint reports 0 errors and 1 warning against the rules compiled for this age band.
+
 ## Checking it
 
 Compile the rules for this deck, then lint against them:

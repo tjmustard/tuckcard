@@ -548,15 +548,15 @@ cards:
       - text: out like blowing bubbles.
         mark:
           target: bubbles
-        note: Slow and gentle so they don't pop.
+        note: Slow and gentle. It gets easier with practice.
     basis:
-      - R-emotional-intelligence-008
+      - R-emotional-intelligence-003
     visibility: public
     approval:
-      approved_hash: 2f32342156a409316d28372dc4c373b85e0e432b5f630f21244c3aefeeee9719
+      approved_hash: c9970c8f0c2c7110986136aa569d9f53222625cde64e62b6251d955b1b830467
       approved_by: round
       approved_round: 3
-      linted_hash: 2f32342156a409316d28372dc4c373b85e0e432b5f630f21244c3aefeeee9719
+      linted_hash: c9970c8f0c2c7110986136aa569d9f53222625cde64e62b6251d955b1b830467
   - n: 16
     category: growth
     title: Own Your OOPS
@@ -963,7 +963,6 @@ cards:
         mark:
         note:
     basis:
-      - R-emotional-intelligence-008
       - R-core-006
     visibility: public
     approval:
@@ -1121,7 +1120,6 @@ cards:
         note:
     basis:
       - R-emotional-intelligence-001
-      - R-emotional-intelligence-008
     visibility: public
     approval:
       approved_hash: aa45792c2ad65a9985f7e7454053d729d4ff63dec9e0f0e0ca98721bbbbd52a4
@@ -1534,7 +1532,6 @@ cards:
         note:
     basis:
       - R-athletics-003
-      - R-emotional-intelligence-008
     visibility: public
     approval:
       approved_hash: 7ae81f9265b7c434a7b7ebc7d9269b2dc62f6e10683b6e21839f62bd7832709d

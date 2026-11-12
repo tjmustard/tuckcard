@@ -1541,7 +1541,6 @@ cards:
         note: Tryouts? Hustle is what coaches see.
     basis:
       - R-athletics-001
-      - R-emotional-intelligence-008
     visibility: public
     approval:
       approved_hash: 0e3f511b0e1e4fdd7ba69e88fb00fea2da0b3c566c4d2738ebeacaa098ace52f

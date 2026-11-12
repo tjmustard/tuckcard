@@ -12,9 +12,12 @@ No mapping from the real details to the fictional ones is stored in the reposito
 
 - Card 23 ended with a help-line number. Help numbers and links must match a verified help-resource finding exactly, and none of the shipped findings prints that number, so the line now says "call a crisis line".
 - Card 47 had a marked word with no note. The card schema requires a note whenever a mark is set, so the mark was removed.
+- Card 46 cited a rule scoped to college readers. It now cites only the athletics rule that applies to this age band and matches the card's copy.
 - Remaining warnings, accepted and documented:
   - card 44 reuses one line verbatim from `examples/grade-school`
   - cards 11, 28 and 49 have text that is shrunk to fit the notebook layout
+
+Lint reports 0 errors and 4 warnings against the rules compiled for this age band.
 
 ## Checking it
 

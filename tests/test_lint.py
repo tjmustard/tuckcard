@@ -70,6 +70,21 @@ def test_the_planted_error_and_warning_are_caught(capsys):
     assert "warning: card 2 lines: line repeats card 1" in out
 
 
+def test_a_basis_id_missing_from_the_given_rules_is_an_error(tmp_path, capsys):
+    data = support.files.load_yaml(CLEAN)
+    number = data["cards"][0]["n"]
+    data["cards"][0]["basis"] = ["R-core-MISSING"]
+    path = tmp_path / "deck.yaml"
+    path.write_text(support.files.dump_yaml(data), encoding="utf-8")
+    code = lint.main([str(path), "--rules", str(RULES), "--findings", str(FINDINGS),
+                      "--no-default-overlay", "--json"])
+    report = json.loads(capsys.readouterr().out)
+    assert code == 1
+    assert any(item["check"] == "basis" and item.get("card") == number
+               and item.get("field") == "basis" and item.get("rule") == "R-core-MISSING"
+               for item in report["findings"])
+
+
 def test_json_report_names_the_findings_and_hand_edits(capsys):
     code = lint.main([str(PLANTED), "--rules", str(RULES), "--findings", str(FINDINGS),
                       "--no-default-overlay", "--json"])

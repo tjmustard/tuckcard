@@ -11,6 +11,7 @@ can decide without a judgment call:
 
 - schema and cross-file validity (delegated to ``validate.py``)
 - the ``lint`` pattern of every compiled rule with ``check: lint`` or ``both``
+- basis: every card basis id appears in the rules file lint was given
 - format limits and reading targets from the deck's age-band file
 - fit against the deck's layout, when Pillow is installed
 - help resources: every URL or phone number on a card must match a verified
@@ -174,6 +175,32 @@ def check_rules(rules: Iterable[Dict[str, Any]], cards: Sequence[Dict[str, Any]]
                         card=number, field=field, rule=rule.get("id"),
                         why=rule.get("why")))
     return findings, notes
+
+
+def check_basis(rules: Iterable[Dict[str, Any]], cards: Sequence[Dict[str, Any]],
+                selected: Optional[set]) -> List[Dict[str, Any]]:
+    """Every basis id must be in the compiled rules lint was given.
+
+    validate.py makes this check only when the deck's declared snapshot
+    resolves to a file. Examples compile to a temp path and ship no snapshot,
+    so lint repeats the check against the rules file it already loaded.
+    """
+    known = {rule.get("id") for rule in rules if isinstance(rule, dict)}
+    findings: List[Dict[str, Any]] = []
+    for card in cards:
+        number = card.get("n")
+        if selected is not None and number not in selected:
+            continue
+        basis = card.get("basis")
+        if not isinstance(basis, list):
+            continue
+        for rule_id in basis:
+            if rule_id not in known:
+                findings.append(finding(
+                    "error", "basis",
+                    "basis id is not in the rules compiled for this deck",
+                    card=number, field="basis", rule=rule_id))
+    return findings
 
 
 # ---------------------------------------------------------------- format
@@ -735,6 +762,7 @@ def lint_deck(deck_path: Path, rules_path: Optional[Path], knowledge: Path,
     produced, rule_notes = check_rules(rules, cards, selected)
     findings.extend(produced)
     notes.extend(rule_notes)
+    findings.extend(check_basis(rules, cards, selected))
 
     defaults, age_path = age_defaults(band, knowledge, overlays)
     findings.extend(check_format(cards, defaults, selected))

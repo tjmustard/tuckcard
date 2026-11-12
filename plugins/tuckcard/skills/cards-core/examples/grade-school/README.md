@@ -12,9 +12,12 @@ No mapping from the real details to the fictional ones is stored in the reposito
 
 - No errors. The deck validates as a deck and lints with 0 errors against the rules compiled for its age band.
 - Two card titles echoed titles from the private reference deck and were retitled: "Let It GO" and "Wrong Answers TEACH".
+- Cards 15, 28, 33 and 46 cited a rule scoped to college readers. Card 15 now cites the grade-school rule on learning and practising how to handle a feeling, and its last note says the practice gets easier. The other three drop that rule and keep a basis that applies to this age band.
 - Remaining warnings, accepted and documented:
   - card 42 reuses three lines verbatim from `examples/parity-fixture`
   - card 44 reuses one line verbatim from `examples/middle-school`
+
+Lint reports 0 errors and 4 warnings against the rules compiled for this age band.
 
 ## Checking it
 
