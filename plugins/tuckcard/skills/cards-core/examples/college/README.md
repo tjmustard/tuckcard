@@ -11,6 +11,7 @@ No mapping from the real details to the fictional ones is stored in the reposito
 ## Lint fixes applied
 
 - Card 11 ended with a help-line number and card 49 ended with an emergency number. Help numbers and links must match a verified help-resource finding exactly, and none of the shipped findings prints those numbers, so the lines now say "call a crisis line" and "call an ambulance".
+- A card title echoed a one-word title from the private reference list and was retitled "Fail, Then PIVOT".
 - Remaining warning, accepted and documented: card 53 has text that is shrunk to fit the index layout.
 
 ## Checking it

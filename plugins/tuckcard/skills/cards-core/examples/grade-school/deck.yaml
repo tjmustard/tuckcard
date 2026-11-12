@@ -1130,7 +1130,7 @@ cards:
       linted_hash: aa45792c2ad65a9985f7e7454053d729d4ff63dec9e0f0e0ca98721bbbbd52a4
   - n: 34
     category: growth
-    title: Mistakes Help You GROW
+    title: Wrong Answers TEACH
     lines:
       - text: Every mistake is a clue.
         mark:
@@ -1156,10 +1156,10 @@ cards:
       - R-core-006
     visibility: public
     approval:
-      approved_hash: 935309acab47742dc8369771d3803ffff64650d7d4d99788eb849e7790083d84
+      approved_hash: 09d1949dc1ebe86f7e4ec7550df1410fcfdf29ae231204d25d7638d81854d10a
       approved_by: round
       approved_round: 3
-      linted_hash: 935309acab47742dc8369771d3803ffff64650d7d4d99788eb849e7790083d84
+      linted_hash: 09d1949dc1ebe86f7e4ec7550df1410fcfdf29ae231204d25d7638d81854d10a
   - n: 35
     category: speak-up
     title: Say HELLO

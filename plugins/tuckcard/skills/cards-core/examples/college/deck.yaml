@@ -1098,7 +1098,7 @@ cards:
       linted_hash: 3c1089c9189c52f245058cc87b1bc4296fb516755ee2744a2c31f8fe404e4b20
   - n: 33
     category: direction
-    title: Fail, Then ADJUST
+    title: Fail, Then PIVOT
     lines:
       - text: Bombed a class?
         mark:
@@ -1124,10 +1124,10 @@ cards:
       - R-core-006
     visibility: public
     approval:
-      approved_hash: 618d3d75966800a810d9de5e29c4bde2f84d5754bf96ed479dc28357ab7bfe41
+      approved_hash: 982c29b5ede57cb665fd4a89a7275a5c02c659f933d3b34953bb88bdf4f94aaf
       approved_by: round
       approved_round: 3
-      linted_hash: 618d3d75966800a810d9de5e29c4bde2f84d5754bf96ed479dc28357ab7bfe41
+      linted_hash: 982c29b5ede57cb665fd4a89a7275a5c02c659f933d3b34953bb88bdf4f94aaf
   - n: 34
     category: life-skills
     title: Own Your HEALTH

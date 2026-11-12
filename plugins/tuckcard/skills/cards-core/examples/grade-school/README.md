@@ -11,7 +11,7 @@ No mapping from the real details to the fictional ones is stored in the reposito
 ## Lint fixes applied
 
 - No errors. The deck validates as a deck and lints with 0 errors against the rules compiled for its age band.
-- A card title that echoed a title from the private reference deck was retitled "Let It GO".
+- Two card titles echoed titles from the private reference deck and were retitled: "Let It GO" and "Wrong Answers TEACH".
 - Remaining warnings, accepted and documented:
   - card 42 reuses three lines verbatim from `examples/parity-fixture`
   - card 44 reuses one line verbatim from `examples/middle-school`
