@@ -46,6 +46,11 @@
       "uniqueItems": true,
       "items": { "type": "integer", "minimum": 1 }
     },
+    "hand_edits_note": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Present only when hand_edits is non-empty. The spec's wording, with the cards-review pointer. SPEC.md section 2, Approval enforcement."
+    },
     "private_omitted": {
       "type": "array",
       "uniqueItems": true,

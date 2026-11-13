@@ -15,7 +15,7 @@ Ask what the user wants, in their words, and map it to:
 - **Style preset:** `casual` or `professional` (fonts, corners, crisp vs. hand-drawn marks).
 - **Theme:** `color`, `mono`, `dark`, or a custom theme.
 - **Category colors.**
-- **Fonts:** from the shipped set, or one the user supplies. Ask about its license first; it must allow embedding (OFL or similar). On claude.ai the font file must be attached to the conversation.
+- **Fonts:** the nine shipped families only in this version: Archivo Black, Source Serif 4, Shantell Sans, Fraunces, Literata, Caveat, Atkinson Hyperlegible, Liberation Serif and Liberation Sans, each with its bold face where one ships. A different font stops the render with `unknown font family`; using one is a fork change, described in `docs/extending/new-preset.md`, where it must allow embedding and ships with its license file. `DECISIONS.md` D-039 records the deferral.
 - **Layout tokens:** corner radius, spacing, mark stroke weight, mark wobble (`0` = clean geometric marks).
 
 ## 2. Checks before previewing

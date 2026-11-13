@@ -43,13 +43,13 @@ Two things make it more than a text generator.
 
 ## 📌 Status
 
-Tuckcard is at version 0.1.0 and is **not yet tagged for release**. What is true today:
+Tuckcard is at version 0.1.0. What is true today:
 
 - The plugin installs from this repository's marketplace in Claude Code and lists seven skills. That path is tested.
 - Four example decks ship and are lint-clean, with their remaining warnings documented in each example's README.
 - The render path is covered by a parity check across 18 layout, preset and theme combinations.
 - **The claude.ai half of the acceptance test has not been run.** It needs a paid account and a platform probe that has not happened. Treat claude.ai support as expected but unproven.
-- The public README, extending docs, hand-edit guide and release tag land with milestone M8.
+- The extending guides, one page per extension recipe, and the hand-edit guide are in [`docs/`](docs/README.md).
 
 ## 📦 Install
 
@@ -155,6 +155,8 @@ plugins/tuckcard/
     cards-restyle/       change the look
 tests/                   schema fixtures, tool tests, example checks
 tools/                   development-only helpers, never shipped
+docs/                    extending guides and the hand-edit guide
+.github/                 issue template and CI workflows
 media/                   icons
 SPEC.md                  the design
 DECISIONS.md             every deviation from the spec, and why
@@ -171,9 +173,9 @@ pip install -r requirements.txt -r requirements-dev.txt
 pytest -q
 ```
 
-`requirements.txt` pins the validation path (jsonschema, ruamel.yaml, pytest) and holds a Python 3.9 floor; `requirements-dev.txt` adds the rendering path (Pillow, Playwright). With the development set the suite is 243 tests; with `requirements.txt` alone it is 188 passing and 3 module skips, which are the render modules that need Pillow and Playwright.
+`requirements.txt` pins the validation path (jsonschema, ruamel.yaml, pytest) and holds a Python 3.9 floor; `requirements-dev.txt` adds the rendering path (Pillow, Playwright). With the development set the suite is 282 tests; with `requirements.txt` alone it is 205 passing and 8 skipped, which are the tests that need Pillow and Playwright.
 
-CI runs on Ubuntu 24.04 with Python 3.9 and 3.12 and adds three checks of its own: both manifests parse, every font family ships a font file and its OFL license, and no `deck.yaml` outside `examples/`, no bundle and nothing under `renders/` is committed.
+CI runs on Ubuntu 24.04 with Python 3.9 and 3.12 and adds four checks of its own: both manifests parse; every font family ships a font file and its OFL license; no `deck.yaml` outside `examples/`, no bundle and nothing under `renders/` is committed; and every pinned dependency's license is permissive, with `THIRD_PARTY.md` current.
 
 Useful single commands:
 

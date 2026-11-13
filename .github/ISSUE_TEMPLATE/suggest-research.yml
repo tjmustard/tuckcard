@@ -1,0 +1,66 @@
+name: Suggest research
+description: Suggest a topic, age band or context that Tuckcard's knowledge should cover better.
+title: "[research] "
+labels: ["research"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to ask for research on something Tuckcard does not cover well. It is for the knowledge behind the cards: the findings and rules that card copy is written from.
+
+        Do not include a deck, card copy, a recipient's details or anything else about a real person. Issues are public. If someone is at immediate risk, contact local emergency services; this form is not a support channel.
+
+  - type: input
+    id: topic
+    attributes:
+      label: Topic
+      description: The subject you want covered, in a sentence. For example, "self-talk before a competition" or "handling a first bad grade".
+    validations:
+      required: true
+
+  - type: input
+    id: age_band
+    attributes:
+      label: Age band
+      description: One of grade-school, middle-school, high-school, college, adult, or the band you are proposing.
+      placeholder: high-school
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: The setting this belongs to, such as athletics, academics, managing a team, or a context that does not exist yet.
+      placeholder: athletics
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it matters
+      description: What a card should be able to say, and why the current knowledge does not support it. Describe the situation in general terms, not a specific person.
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: At least one DOI, PMID or URL that points at research on this topic. One per line. A source is a start, not a guarantee it will be used; findings are verified before they ship.
+      placeholder: |
+        10.1542/peds.2020-0123
+        https://example.org/article
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Before you submit
+      options:
+        - label: This issue contains no deck content, no recipient details and no other personal data.
+          required: true
+        - label: I have searched existing issues and the research gaps that are already recorded.
+          required: true
