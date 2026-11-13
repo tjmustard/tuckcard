@@ -7,7 +7,7 @@
         <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"/></a>
         <img src="https://img.shields.io/badge/version-0.1.0-orange.svg" alt="Version"/>
         <img src="https://img.shields.io/badge/skills-7-informational.svg" alt="Skills"/>
-        <img src="https://img.shields.io/badge/examples-4%20%C2%B7%20212%20cards-indigo.svg" alt="Examples"/>
+        <img src="https://img.shields.io/badge/examples-5%20%C2%B7%20265%20cards-indigo.svg" alt="Examples"/>
         <img src="https://img.shields.io/badge/output-print%20%2B%20PDF%20%2B%20lock%20screen-amber.svg" alt="Output"/>
     </p>
 </div>
@@ -46,7 +46,7 @@ Two things make it more than a text generator.
 Tuckcard is at version 0.1.0. What is true today:
 
 - The plugin installs from this repository's marketplace in Claude Code and lists seven skills. That path is tested.
-- Four example decks ship and are lint-clean, with their remaining warnings documented in each example's README.
+- Five example decks ship and are lint-clean, with their remaining warnings documented in each example's README.
 - The render path is covered by a parity check across 18 layout, preset and theme combinations.
 - **The claude.ai half of the acceptance test has not been run.** It needs a paid account and a platform probe that has not happened. Treat claude.ai support as expected but unproven.
 - The extending guides, one page per extension recipe, and the hand-edit guide are in [`docs/`](docs/README.md).
@@ -104,16 +104,19 @@ Cards are `public` or `private`. Private cards never reach the fridge sheet or t
 
 ## 🃏 The examples
 
-Four fictional examples under `plugins/tuckcard/skills/cards-core/examples/`, 53 cards each, written in the parents' we/us voice. They exist so the repo has something real to lint, render and argue about. Three are de-specified derivatives of earlier decks rather than anybody's private deck; the high-school example was written fresh for this repository.
+Five fictional examples under `plugins/tuckcard/skills/cards-core/examples/`, 53 cards each. Four are written in the parents' we/us voice; the adult one is written in a partner's I/me voice. They exist so the repo has something real to lint, render and argue about. Three are de-specified derivatives of earlier decks rather than anybody's private deck; the high-school and adult examples were written fresh for this repository.
 
-| Example | Audience in the deck |
-|---|---|
-| `grade-school` | A fictional third grader on a town team, learning to name feelings and keep trying. |
-| `middle-school` | The 13 to 14 band. |
-| `college` | A student leaving home for the first time. |
-| `high-school` | A fictional sophomore balancing school, a team and a weekend job. |
+| Example | Audience in the deck | Deck file | Sample PDF |
+|---|---|---|---|
+| `grade-school` | A fictional third grader on a town team, learning to name feelings and keep trying. | [`deck.yaml`](plugins/tuckcard/skills/cards-core/examples/grade-school/deck.yaml) | [PDF](media/examples/grade-school-print.pdf) |
+| `middle-school` | The 13 to 14 band. | [`deck.yaml`](plugins/tuckcard/skills/cards-core/examples/middle-school/deck.yaml) | [PDF](media/examples/middle-school-print.pdf) |
+| `high-school` | A fictional sophomore balancing school, a team and a weekend job. | [`deck.yaml`](plugins/tuckcard/skills/cards-core/examples/high-school/deck.yaml) | [PDF](media/examples/high-school-print.pdf) |
+| `college` | A student leaving home for the first time. | [`deck.yaml`](plugins/tuckcard/skills/cards-core/examples/college/deck.yaml) | [PDF](media/examples/college-print.pdf) |
+| `adult` | A fictional 38-year-old project manager with a team, a marriage, a child and a father who needs help. | [`deck.yaml`](plugins/tuckcard/skills/cards-core/examples/adult/deck.yaml) | [PDF](media/examples/adult-print.pdf) |
 
-Each has a `README.md` listing the fixes applied during review and the warnings that remain. There is also `parity-fixture`, a five-card deck that exists only so the renderers can be compared against each other.
+The deck files are YAML, because that is what the schemas, the tools and a hand edit all read; there is no JSON form of a deck. Each example has a `README.md` listing the fixes applied during review and the warnings that remain. There is also `parity-fixture`, a five-card deck that exists only so the renderers can be compared against each other.
+
+The sample PDFs under `media/examples/` are 150 dpi so the repository stays small. Render a deck yourself for a 300 dpi print copy. Private cards are left out of a print sheet by design, which is why the adult sample is shorter than the others.
 
 The high-school example was written at M7 by running the plugin end to end on a fictional recipient, so the example and the acceptance test are the same artefact.
 
@@ -132,7 +135,7 @@ Outputs are a printable sheet, a PDF, lock screens sized for phone and tablet, a
 `knowledge/` holds the evidence side of the plugin:
 
 - `findings/` records with sources, verification and a status: `active`, `contested`, `provisional` or `quarantined`. A retracted or corrected source quarantines its finding automatically.
-- `rules/` rule files, compiled into the rules a deck is linted against. The rule files total 101 rules; a deck compiles only the ones its age band and contexts apply, which is 54 for the grade-school example and 62 for the college example.
+- `rules/` rule files, compiled into the rules a deck is linted against. The rule files total 111 rules; a deck compiles only the ones its age band and contexts apply, which is 54 for the grade-school example, 62 for the college example and 51 for the adult example.
 - `gaps/` what the research does not answer. A gap is a written admission, not an empty folder.
 - `RESEARCH-GUIDE.md` the single source for how research is done, and `sources-allowlist.yaml` the domains a source may come from.
 
@@ -157,7 +160,7 @@ tests/                   schema fixtures, tool tests, example checks
 tools/                   development-only helpers, never shipped
 docs/                    extending guides and the hand-edit guide
 .github/                 issue template and CI workflows
-media/                   icons
+media/                   icons and sample PDFs
 SPEC.md                  the design
 DECISIONS.md             every deviation from the spec, and why
 CHANGELOG.md             what changed, with evidence
