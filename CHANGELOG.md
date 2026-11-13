@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog 1.0.0](https://keepachangelog.com/en/1.
 
 ## [Unreleased]
 
+### Added
+
+- The adult band is no longer a stub. `knowledge/rules/age/adult.yaml` carries ten rules, nine of them citing a finding and one a `format` rule on the template basis, and four new findings back them: F-0090 leader autonomy support at work, F-0091 social relationships and survival, F-0092 the joint seven-hour sleep recommendation and F-0093 what works in loneliness interventions. All four verify against Crossref. F-0093 keeps its citation year at 2011 while `source.year` stays empty, because Crossref reports the 2010 online-first date; the finding's Limits say so.
+- The adult example at `plugins/tuckcard/skills/cards-core/examples/adult`: 53 cards for a fictional 38-year-old project manager, `example: true`, in the index layout and the professional preset, with four cards marked `visibility: private`. It is written fresh rather than de-specified from an approved deck, and its README says that plainly, including that its `approval` block records one drafting pass and not a per-card owner round. Lint reports 0 errors and 0 warnings against the rules compiled for its age band; `validate.py` reports `valid (deck)`; `pytest -q` reports `277 passed, 4 skipped`. `tests/test_example_decks.py` now compiles and lints the adult example with the other four, and `docs/extending/new-age-band.md` no longer calls the shipped bands stubs.
+
 ## [0.1.0] - 2026-11-12
 
 ### Added

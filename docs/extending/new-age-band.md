@@ -2,7 +2,7 @@
 
 An age band is the file that says how a deck should read for its audience: how many words a title can hold, how many lines a card can take, how long a line can be, and what reading level to warn about. It also carries rules that only apply to that band.
 
-The five shipped bands are `grade-school`, `middle-school`, `high-school`, `college` and `adult`. Several ship as stubs in this version, with their limits unset.
+The five shipped bands are `grade-school`, `middle-school`, `high-school`, `college` and `adult`. All five ship with rules and an example deck; their reading limits are unset, so the word-level checks do not run for them.
 
 ## Where the file goes
 

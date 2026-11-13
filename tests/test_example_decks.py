@@ -12,7 +12,7 @@ import compile_rules
 import lint
 
 EXAMPLES = support.CORE / "examples"
-DECKS = ("grade-school", "middle-school", "college", "high-school")
+DECKS = ("grade-school", "middle-school", "college", "high-school", "adult")
 
 
 def compile_example(tmp_path, name):

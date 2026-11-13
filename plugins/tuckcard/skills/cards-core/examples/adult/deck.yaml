@@ -1,0 +1,1730 @@
+schema_version: 1
+plugin_version: 0.1.0
+id: adult
+title: Adult
+status: drafting
+created: '2026-11-13'
+example: true
+recipient:
+  kind: person
+  pill: Adult
+  age_band: adult
+  description: A fictional 38-year-old project manager, married, with one child 
+    in primary school and a father who has started needing help.
+  culture_notes:
+sender:
+  voice: one_person
+  pronouns: they/them
+  signoff: Yours
+policies:
+  substances: safety_only
+  sex_relationships: safety_only
+  faith: neutral
+  register:
+    humor: light
+    slang: some
+  help_resources: none
+personal_details:
+- id: P-01
+  text: Manages a team of eight.
+  confirmed: true
+- id: P-02
+  text: Married, with one child in primary school.
+  confirmed: true
+- id: P-03
+  text: A father who has started needing help.
+  confirmed: true
+- id: P-04
+  text: Commutes by train, forty minutes each way.
+  confirmed: true
+- id: P-05
+  text: Runs slowly, twice a week, and wants to keep doing it.
+  confirmed: true
+categories:
+- key: choices
+  label: Choices
+  color: red
+  contexts: []
+- key: work
+  label: Work
+  color: purple
+  contexts: []
+- key: mind
+  label: Mind
+  color: pink
+  contexts:
+  - emotional-intelligence
+- key: people
+  label: People
+  color: teal
+  contexts: []
+- key: direction
+  label: Direction
+  color: blue
+  contexts:
+  - personal-growth
+- key: life-skills
+  label: Life Skills
+  color: amber
+  contexts: []
+numbering:
+  mode: weekly
+  count: 53
+  week_rule: contains_jan_1
+  week_start: sunday
+outputs:
+- print_sheet
+- pdf
+- phone
+- tablet
+- png
+page_size: letter
+style:
+  layout: index
+  preset: professional
+  theme: color
+  tokens: {}
+rules_snapshot:
+  file: effective-rules.yaml
+  compiled_at: '2026-11-13T00:00:00Z'
+  plugin_version: 0.1.0
+  sha256: '0000000000000000000000000000000000000000000000000000000000000000'
+cards:
+- n: 1
+  category: choices
+  title: Sleep on the BIG ONE
+  lines:
+  - text: An offer that dies overnight
+    mark:
+      target: dies overnight
+    note: was a push, not an offer.
+  - text: Decide in the morning,
+    mark:
+      target: morning
+    note: not at 11pm with your phone in your hand.
+  - text: both paths on one page.
+    mark:
+      target: both paths
+    note: Two lines each. If you can't, it isn't ready.
+  - text: Then take the one you'd explain
+    mark:
+      target: explain
+    note: to your kid, or to the friend who saw you last year.
+  - text: at breakfast, not at dinner.
+    mark:
+    note:
+  basis:
+  - R-core-008
+  - R-core-006
+  - R-adult-001
+  visibility: public
+  approval:
+    approved_hash: 
+      bd860a848820261d51bad442c767c07e1ff6428a33978485eff7663a99e0820c
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      bd860a848820261d51bad442c767c07e1ff6428a33978485eff7663a99e0820c
+- n: 2
+  category: choices
+  title: 'Money: ONE NUMBER'
+  lines:
+  - text: Rent, food, the train, the bills.
+    mark:
+      target: Rent
+    note: Add the boring ones too. Boring is the point.
+  - text: That total is one number.
+    mark:
+      target: one number
+    note: Write it on the fridge. It is not a verdict.
+  - text: It's the floor under every choice,
+    mark:
+      target: floor
+    note: You decide from it, not about it.
+  - text: not a score about you.
+    mark:
+    note:
+  basis:
+  - R-core-006
+  - R-adult-001
+  visibility: public
+  approval:
+    approved_hash: 
+      fc075a8612967c7225c99c3ac0b1a8c109e0666e534d88ba61fe2adb80e452c0
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      fc075a8612967c7225c99c3ac0b1a8c109e0666e534d88ba61fe2adb80e452c0
+- n: 3
+  category: choices
+  title: Say NO Before YES
+  lines:
+  - text: Every yes spends a Tuesday.
+    mark:
+      target: spends
+    note: Open the calendar first, then answer.
+  - text: Look at the week first.
+    mark:
+      target: week
+    note: If the week is full, the answer is already no.
+  - text: I'll check and come back is an answer.
+    mark:
+      target: come back
+    note: It buys you the hour you need.
+  - text: A no now costs less than a yes
+    mark:
+      target: no now
+    note: the yes you break later costs more.
+  - text: you break later.
+    mark:
+    note:
+  basis:
+  - R-core-008
+  - R-adult-001
+  visibility: public
+  approval:
+    approved_hash: 
+      a6f65555cc4199bad6853c87a16c2db90627e32f092a580217cba68f02ee917b
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      a6f65555cc4199bad6853c87a16c2db90627e32f092a580217cba68f02ee917b
+- n: 4
+  category: choices
+  title: Two DRINKS Is a Plan
+  lines:
+  - text: Decide the number before you go.
+    mark:
+      target: before
+    note: Two drinks, then water. Say it in the taxi.
+  - text: Buzzed is still over the line,
+    mark:
+      target: Buzzed
+    note: feeling fine is not the same as being fine.
+  - text: so the car stays home.
+    mark:
+      target: car stays home
+    note: Leave it. Collect it tomorrow.
+  - text: If the night gets heavy,
+    mark:
+      target: heavy
+    note: name it to the person you came with. Out loud.
+  - text: say it out loud and go.
+    mark:
+    note:
+  basis:
+  - R-alcohol-drugs-002
+  - R-core-006
+  visibility: public
+  approval:
+    approved_hash: 
+      ef359de6b3224bfeb69ee321bd45e45f98283b1693bd7e54becf161ccf034abe
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      ef359de6b3224bfeb69ee321bd45e45f98283b1693bd7e54becf161ccf034abe
+- n: 5
+  category: choices
+  title: Don't Sign ANGRY
+  lines:
+  - text: Nothing about money is urgent
+    mark:
+      target: money
+    note: not a contract, not a cancellation, not a transfer.
+  - text: at 10pm on a bad day.
+    mark:
+      target: 10pm
+    note: Late and angry is how bad deals get signed.
+  - text: Close the page.
+    mark:
+      target: Close
+    note: Set a reminder for the morning.
+  - text: The document keeps.
+    mark:
+      target: keeps
+    note: It waited a month. It can wait a night.
+  basis:
+  - R-core-008
+  - R-adult-007
+  visibility: public
+  approval:
+    approved_hash: 
+      88ae261e04454325fe6d7a0f9ae566e0ec93a072526d136c3e382c215eb1a256
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      88ae261e04454325fe6d7a0f9ae566e0ec93a072526d136c3e382c215eb1a256
+- n: 6
+  category: choices
+  title: The Want That CAN WAIT
+  lines:
+  - text: Add it to a list, not a cart.
+    mark:
+      target: list
+    note: One list on your phone. No checkout.
+  - text: If you still want it in a week,
+    mark:
+      target: a week
+    note: most things fall off the list by Thursday.
+  - text: it earns the money.
+    mark:
+      target: earns
+    note: The ones that stay are the ones you use.
+  - text: The list is the test.
+    mark:
+    note:
+  basis:
+  - R-adult-007
+  - R-core-008
+  visibility: public
+  approval:
+    approved_hash: 
+      45faf455d68026952f9541d7b7b47b56f4684eb02b538c19c2ab09f56dd65ec4
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      45faf455d68026952f9541d7b7b47b56f4684eb02b538c19c2ab09f56dd65ec4
+- n: 7
+  category: choices
+  title: Ask what it COSTS You
+  lines:
+  - text: The price is not the money.
+    mark:
+      target: not the money
+    note: It's the Sunday, the sleep, the drive.
+  - text: It's the Sunday you lose
+    mark:
+      target: Sunday
+    note: and who picks up the slack at home.
+  - text: and the thing you won't do.
+    mark:
+      target: won't do
+    note: Name the trade before you say yes.
+  - text: Say the trade out loud.
+    mark:
+    note:
+  basis:
+  - R-core-005
+  - R-core-008
+  visibility: public
+  approval:
+    approved_hash: 
+      c1f5fe4e07e6a1c6b874d701f772fba35133d853a136591d7334f8e6cb5fc2ce
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      c1f5fe4e07e6a1c6b874d701f772fba35133d853a136591d7334f8e6cb5fc2ce
+- n: 8
+  category: choices
+  title: One YES a Week
+  lines:
+  - text: The week has room for one
+    mark:
+      target: one
+    note: one thing outside the usual. Not four.
+  - text: extra yes.
+    mark:
+      target: extra
+    note: A dinner, a match, a drive to see someone.
+  - text: Pick it on Sunday.
+    mark:
+      target: Sunday
+    note: Then the rest of the week can be ordinary.
+  - text: Everything else can wait.
+    mark:
+    note:
+  basis:
+  - R-core-008
+  - R-adult-001
+  visibility: public
+  approval:
+    approved_hash: 
+      89ebfe64879018c8ef265cc021c83e643dd0e3b052a7f33df674aafb86efa2df
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      89ebfe64879018c8ef265cc021c83e643dd0e3b052a7f33df674aafb86efa2df
+- n: 9
+  category: choices
+  title: Your PHONE Is Not a Rest
+  lines:
+  - text: Scrolling is not a break.
+    mark:
+      target: not a break
+    note: It costs the same attention it spends.
+  - text: Twenty minutes on the sofa,
+    mark:
+      target: sofa
+    note: no screen. That is the whole instruction.
+  - text: phone in the other room.
+    mark:
+      target: other room
+    note: Out of reach, not face down.
+  - text: Boredom comes back first.
+    mark:
+      target: Boredom
+    note: Let it. It turns into something else.
+  basis:
+  - R-core-006
+  - R-adult-007
+  visibility: public
+  approval:
+    approved_hash: 
+      9725846eda1ce5972e6ab51ccd6723d9e6d95bc6931ec5aeb0a22a7c154ebec4
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      9725846eda1ce5972e6ab51ccd6723d9e6d95bc6931ec5aeb0a22a7c154ebec4
+- n: 10
+  category: work
+  title: One THING Before Email
+  lines:
+  - text: Open the one thing first,
+    mark:
+      target: first
+    note: before the inbox, before the messages.
+  - text: ten minutes on it.
+    mark:
+      target: ten
+    note: The one you've been circling.
+  - text: The inbox will still be there,
+    mark:
+      target: still
+    note: nothing in it got worse in ten minutes.
+  - text: and now the day has a spine.
+    mark:
+      target: spine
+    note: One real thing beats a clean inbox.
+  basis:
+  - R-adult-007
+  - R-core-006
+  visibility: public
+  approval:
+    approved_hash: 
+      730bb180cc2da4293f009bf09b421fd4fbf074e29b3582003aafb9783d7b21f8
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      730bb180cc2da4293f009bf09b421fd4fbf074e29b3582003aafb9783d7b21f8
+- n: 11
+  category: work
+  title: Say the ASK Plainly
+  lines:
+  - text: Say what you need in one line.
+    mark:
+      target: one line
+    note: I need two more days on the report.
+  - text: Then say why, in one more.
+    mark:
+      target: why
+    note: The data came late and I don't want to guess.
+  - text: No apology paragraph.
+    mark:
+      target: apology
+    note: Sorry is fine once. Not five times.
+  - text: People can answer a clear ask.
+    mark:
+      target: answer
+    note: Vague asks get vague silence.
+  basis:
+  - R-core-006
+  - R-adult-001
+  visibility: public
+  approval:
+    approved_hash: 
+      5995dbf83b613c43e38f4252dcf76af1e82e7dd2b7549c4a0a53e4397ee01699
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      5995dbf83b613c43e38f4252dcf76af1e82e7dd2b7549c4a0a53e4397ee01699
+- n: 12
+  category: work
+  title: The Meeting CAN END
+  lines:
+  - text: The point has been made.
+    mark:
+      target: point
+    note: Twice, if you count the second time.
+  - text: Say it back in one line,
+    mark:
+      target: one line
+    note: So we're doing X by Friday.
+  - text: ask who does what,
+    mark:
+      target: who
+    note: Names, not roles.
+  - text: then let it end.
+    mark:
+      target: end
+    note: A shorter meeting is a gift to everyone in it.
+  basis:
+  - R-core-006
+  - R-adult-001
+  visibility: public
+  approval:
+    approved_hash: 
+      8f835eda0f22c77911148b50eeeb99f771c34d62a8c48fca3482aa376a658037
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      8f835eda0f22c77911148b50eeeb99f771c34d62a8c48fca3482aa376a658037
+- n: 13
+  category: work
+  title: Take the NOTE
+  lines:
+  - text: Feedback is information,
+    mark:
+      target: information
+    note: not a verdict on the year.
+  - text: even when it lands badly.
+    mark:
+      target: badly
+    note: Bad delivery doesn't make it wrong.
+  - text: Write the one useful line.
+    mark:
+      target: one useful
+    note: There is usually exactly one.
+  - text: Thank them for it,
+    mark:
+      target: Thank
+    note: then decide what to do with it.
+  - text: then decide.
+    mark:
+    note:
+  basis:
+  - R-adult-006
+  - R-core-001
+  visibility: public
+  approval:
+    approved_hash: 
+      35e18f11b0464186362fc91b549307bcbacc7d47bc05a0c7c77182dc2fd2d2c2
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      35e18f11b0464186362fc91b549307bcbacc7d47bc05a0c7c77182dc2fd2d2c2
+- n: 14
+  category: work
+  title: Leave on TIME
+  lines:
+  - text: The work expands to fill the night.
+    mark:
+      target: fill
+    note: It always has. It always will.
+  - text: Set the leaving time.
+    mark:
+      target: leaving time
+    note: Six, or whenever the train is.
+  - text: Say it out loud at four.
+    mark:
+      target: out loud
+    note: I'm off at six ends the silent negotiation.
+  - text: Tomorrow starts better
+    mark:
+      target: better
+    note: Not the version where you leave at nine.
+  - text: if tonight ends on time.
+    mark:
+    note:
+  basis:
+  - R-adult-002
+  - R-core-008
+  visibility: public
+  approval:
+    approved_hash: 
+      61ddf1a017846de463b618270b12a46e04214dbac39333c790be8a1841b7eae3
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      61ddf1a017846de463b618270b12a46e04214dbac39333c790be8a1841b7eae3
+- n: 15
+  category: work
+  title: Ask for the REASON
+  lines:
+  - text: When the order comes down,
+    mark:
+      target: order
+    note: a change you didn't ask for, a deadline moved.
+  - text: ask what it's for.
+    mark:
+      target: what it's for
+    note: What problem does this solve?
+  - text: A reason you can work with
+    mark:
+      target: work with
+    note: you can meet a goal. You can't meet a mood.
+  - text: is worth asking twice for.
+    mark:
+    note:
+  basis:
+  - R-adult-001
+  - R-core-005
+  visibility: public
+  approval:
+    approved_hash: 
+      54a97b93ebf50193c9a169ddbde26d0eb37a2a5830ea4133e39859be677bd10c
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      54a97b93ebf50193c9a169ddbde26d0eb37a2a5830ea4133e39859be677bd10c
+- n: 16
+  category: work
+  title: Your TEAM Is Not You
+  lines:
+  - text: You cannot do all eight jobs.
+    mark:
+      target: eight
+    note: The team of eight. Yours is one of them.
+  - text: Hand it over with the reason,
+    mark:
+      target: reason
+    note: This matters because the client sees it.
+  - text: not just the task.
+    mark:
+      target: not just
+    note: People carry a why. They drop a what.
+  - text: Then let them do it their way.
+    mark:
+    note:
+  basis:
+  - R-adult-001
+  - R-adult-002
+  visibility: public
+  approval:
+    approved_hash: 
+      94dff134ce6d5e34e7aec2b47c359a727eee6bdc4caeb34010639e16c8e693ea
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      94dff134ce6d5e34e7aec2b47c359a727eee6bdc4caeb34010639e16c8e693ea
+- n: 17
+  category: work
+  title: The BAD WEEK
+  lines:
+  - text: A bad week is a week.
+    mark:
+      target: week
+    note: Not a verdict on your career.
+  - text: What would you tell a friend
+    mark:
+      target: friend
+    note: the one who missed the deadline too?
+  - text: who had your week?
+    mark:
+      target: your week
+    note: Say that version in the mirror.
+  - text: Write the next step,
+    mark:
+      target: next step
+    note: one line. Tomorrow, not the quarter.
+  - text: not the post-mortem.
+    mark:
+    note:
+  basis:
+  - R-adult-006
+  - R-core-007
+  visibility: private
+  approval:
+    approved_hash: 
+      9db5cbb292ec1f720f175946acadd23de8d666e04557e44db1bc22758a4593fc
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      9db5cbb292ec1f720f175946acadd23de8d666e04557e44db1bc22758a4593fc
+- n: 18
+  category: work
+  title: Eight Hours IS a Shift
+  lines:
+  - text: You are not on at nine.
+    mark:
+      target: not on
+    note: Or at ten, or in the bath.
+  - text: The message can wait an hour.
+    mark:
+      target: hour
+    note: Almost all of them can.
+  - text: Answer once, in the morning,
+    mark:
+      target: morning
+    note: with a coffee, not with dread.
+  - text: when you're actually there.
+    mark:
+    note:
+  basis:
+  - R-adult-002
+  - R-core-008
+  visibility: public
+  approval:
+    approved_hash: 
+      93b3103aa07502e7360c03da638b4a909171592ad0f75c7aa4384d4533eac496
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      93b3103aa07502e7360c03da638b4a909171592ad0f75c7aa4384d4533eac496
+- n: 19
+  category: mind
+  title: Racing Heart, READY
+  lines:
+  - text: Fast heart, dry mouth.
+    mark:
+      target: Fast heart
+    note: That's the body loading up, not breaking.
+  - text: Your body is getting ready
+    mark:
+      target: ready
+    note: blood to the legs, air to the lungs.
+  - text: for the thing in front of you.
+    mark:
+      target: thing
+    note: It does this before the good ones too.
+  - text: Let it finish its job.
+    mark:
+    note:
+  basis:
+  - R-adult-009
+  visibility: public
+  approval:
+    approved_hash: 
+      dea8737813a956aded238b037a4ed48c101690cdcdeb6eb975be4f8ef63f5e05
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      dea8737813a956aded238b037a4ed48c101690cdcdeb6eb975be4f8ef63f5e05
+- n: 20
+  category: mind
+  title: Name It ONE WORD
+  lines:
+  - text: Say the feeling in one word.
+    mark:
+      target: one word
+    note: Tired. Angry. Scared. Left out.
+  - text: Out loud, or in the notes app.
+    mark:
+      target: notes app
+    note: Both count.
+  - text: A named thing gets smaller.
+    mark:
+      target: smaller
+    note: Not gone. Smaller.
+  - text: Then do the next small thing.
+    mark:
+      target: next small thing
+    note: Tea, shower, one message.
+  basis:
+  - R-emotional-intelligence-001
+  - R-core-006
+  visibility: public
+  approval:
+    approved_hash: 
+      183eed3e996478864f87ec50f5539814483f3c6e9ebf6f0b230e93e6a8c00282
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      183eed3e996478864f87ec50f5539814483f3c6e9ebf6f0b230e93e6a8c00282
+- n: 21
+  category: mind
+  title: The 3AM STORY
+  lines:
+  - text: At 3am the story writes itself.
+    mark:
+      target: story
+    note: They're going to fire me.
+  - text: It has no evidence yet.
+    mark:
+      target: no evidence
+    note: That's what makes it convincing at 3am.
+  - text: 'Write it down, then ask:'
+    mark:
+      target: ask
+    note: What would prove this? What would disprove it?
+  - text: Is this a fact or a rehearsal?
+    mark:
+      target: rehearsal
+    note: Most nights it's a rehearsal.
+  basis:
+  - R-adult-004
+  - R-emotional-intelligence-005
+  visibility: private
+  approval:
+    approved_hash: 
+      8ef7a494d50774b4f1e852fa7ecc331f1ae8993e12ff530ffa477d1da9902fba
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      8ef7a494d50774b4f1e852fa7ecc331f1ae8993e12ff530ffa477d1da9902fba
+- n: 22
+  category: mind
+  title: You'd Say it to a FRIEND
+  lines:
+  - text: You made a mistake today.
+    mark:
+      target: mistake
+    note: The one you keep replaying.
+  - text: "You'd say to a friend:"
+    mark:
+      target: friend
+    note: That's rough. What do you need?
+  - text: That's rough. What do you need?
+    mark:
+      target: need
+    note: Not a lecture. Not a rating.
+  - text: Say that to yourself,
+    mark:
+      target: yourself
+    note: use their voice if yours is too loud.
+  - text: in their voice.
+    mark:
+    note:
+  basis:
+  - R-adult-006
+  visibility: public
+  approval:
+    approved_hash: 
+      6a7c69cb0c48b8db298c74d0b18bee2fb8b2e89bc537a80e01274ad8a18bb146
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      6a7c69cb0c48b8db298c74d0b18bee2fb8b2e89bc537a80e01274ad8a18bb146
+- n: 23
+  category: mind
+  title: What Went RIGHT
+  lines:
+  - text: One small thing went right.
+    mark:
+      target: right
+    note: The email you sent. The walk you took.
+  - text: Name it before bed.
+    mark:
+      target: before bed
+    note: Say it out loud, or write one line.
+  - text: Not the whole day.
+    mark:
+      target: whole day
+    note: The day can have been bad and this still true.
+  - text: The one thing.
+    mark:
+    note:
+  basis:
+  - R-personal-growth-007
+  visibility: public
+  approval:
+    approved_hash: 
+      7f909531338968eb8f5d01629658bec71d56e3b13f925e4a95b6fcbd000169c6
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      7f909531338968eb8f5d01629658bec71d56e3b13f925e4a95b6fcbd000169c6
+- n: 24
+  category: mind
+  title: Don't Replay the SCENE
+  lines:
+  - text: Replaying it doesn't finish it.
+    mark:
+      target: finish
+    note: Same scene, same ending, same stomach.
+  - text: Ten times through changes nothing,
+    mark:
+      target: Ten
+    note: except how you sleep.
+  - text: Ask the one question,
+    mark:
+      target: one question
+    note: What will I do differently next time?
+  - text: then close the tab.
+    mark:
+      target: close the tab
+    note: Literally. Put it down.
+  basis:
+  - R-emotional-intelligence-005
+  - R-core-006
+  visibility: public
+  approval:
+    approved_hash: 
+      d96eccc9ab63a4cc70b4b20ec47bf0ee8b7736733754200a1c88b9c782aec332
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      d96eccc9ab63a4cc70b4b20ec47bf0ee8b7736733754200a1c88b9c782aec332
+- n: 25
+  category: mind
+  title: Tell SOMEONE
+  lines:
+  - text: A feeling kept inside grows.
+    mark:
+      target: grows
+    note: Not because it's true. Because it's alone.
+  - text: Tell one person today.
+    mark:
+      target: one person
+    note: 'Text is enough: rough day, can I lean on you?'
+  - text: Someone who asks.
+    mark:
+      target: asks
+    note: Not the group chat. One person.
+  - text: You've carried it long enough.
+    mark:
+    note:
+  basis:
+  - R-emotional-intelligence-004
+  - R-adult-003
+  visibility: private
+  approval:
+    approved_hash: 
+      da4bbf093bd11b2122fffa2929a1cd3634bc5d062bcb305aa03cc7b27e0d8596
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      da4bbf093bd11b2122fffa2929a1cd3634bc5d062bcb305aa03cc7b27e0d8596
+- n: 26
+  category: mind
+  title: Rest Is NOT a Reward
+  lines:
+  - text: Rest is not the prize for finishing.
+    mark:
+      target: prize
+    note: There is always one more thing.
+  - text: It's part of the work.
+    mark:
+      target: part
+    note: Tired judgment is worse judgment.
+  - text: Take the twenty minutes
+    mark:
+      target: twenty
+    note: before you're too far gone to enjoy it.
+  - text: like it counts.
+    mark:
+      target: counts
+    note: It does.
+  basis:
+  - R-adult-002
+  - R-core-008
+  visibility: public
+  approval:
+    approved_hash: 
+      4ec79630b23b45eaed40f5e9952f48103ee7fbfc9a5d26ffc3e774ac3d0ffe94
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      4ec79630b23b45eaed40f5e9952f48103ee7fbfc9a5d26ffc3e774ac3d0ffe94
+- n: 27
+  category: people
+  title: One NAME, Not Everyone
+  lines:
+  - text: Reach out more is not a plan.
+    mark:
+      target: not a plan
+    note: It's a wish with a committee attached.
+  - text: Pick one person.
+    mark:
+      target: one person
+    note: The one who answers when you're quiet.
+  - text: Text them a sentence,
+    mark:
+      target: sentence
+    note: Thinking of you. Fancy a walk Saturday?
+  - text: today, not eventually.
+    mark:
+      target: today
+    note: Today is the whole trick.
+  basis:
+  - R-adult-003
+  - R-adult-004
+  visibility: public
+  approval:
+    approved_hash: 
+      d1a630335081c1d6a1c798adb4f946d8d46dd36dfb1b60941dd5a61309750e0a
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      d1a630335081c1d6a1c798adb4f946d8d46dd36dfb1b60941dd5a61309750e0a
+- n: 28
+  category: people
+  title: Not a PROJECT
+  lines:
+  - text: You cannot optimise a person.
+    mark:
+      target: optimise
+    note: Not their calendar, not their career.
+  - text: Ask what they need.
+    mark:
+      target: need
+    note: Believe the answer, even "nothing".
+  - text: Then stop fixing.
+    mark:
+      target: stop
+    note: Being heard feels like love too.
+  - text: Love is often just being there.
+    mark:
+    note:
+  basis:
+  - R-adult-002
+  - R-emotional-intelligence-002
+  visibility: public
+  approval:
+    approved_hash: 
+      40961a6740e1a8fcb596309177b5404ea380e89d2edc152c0e6fa3fb27eb50b9
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      40961a6740e1a8fcb596309177b5404ea380e89d2edc152c0e6fa3fb27eb50b9
+- n: 29
+  category: people
+  title: Ask, Don't FIX
+  lines:
+  - text: When they tell you the problem,
+    mark:
+      target: problem
+    note: the one at work, or the one with their sister.
+  - text: ask what they want.
+    mark:
+      target: want
+    note: Do you want ideas, or just to say it?
+  - text: Most days, they want to say it.
+    mark:
+      target: say it
+    note: Ideas land better after the person feels heard.
+  - text: Then listen to the whole thing.
+    mark:
+      target: whole
+    note: No interrupting with a better version.
+  basis:
+  - R-emotional-intelligence-002
+  visibility: public
+  approval:
+    approved_hash: 
+      2f4ba4540ca37cebf971e5f2085492481f14e7059d104f01ee92624b00575c6c
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      2f4ba4540ca37cebf971e5f2085492481f14e7059d104f01ee92624b00575c6c
+- n: 30
+  category: people
+  title: The CALL to Your Father
+  lines:
+  - text: He's told you he's fine.
+    mark:
+      target: fine
+    note: He said it twice, which means he isn't.
+  - text: Ring him, not the group chat.
+    mark:
+      target: Ring
+    note: His voice tells you more than a text.
+  - text: Ask about the small things.
+    mark:
+      target: small
+    note: The garden, the bus, the neighbour's dog.
+  - text: Then say you love him.
+    mark:
+      target: love
+    note: Out loud. He'll be awkward. Say it anyway.
+  basis:
+  - R-adult-003
+  visibility: public
+  approval:
+    approved_hash: 
+      a0da01db7f5b780faf6e144357977974c3e1a1c88919876b10de092e2c804fe0
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      a0da01db7f5b780faf6e144357977974c3e1a1c88919876b10de092e2c804fe0
+- n: 31
+  category: people
+  title: Say the THANK YOU
+  lines:
+  - text: Say the specific thank you.
+    mark:
+      target: specific
+    note: Not thanks for everything.
+  - text: Name the thing they did.
+    mark:
+      target: thing
+    note: Thanks for driving me at 6am on Tuesday.
+  - text: Name what it made possible.
+    mark:
+      target: possible
+    note: I got there calm because of you.
+  - text: People remember that version.
+    mark:
+    note:
+  basis:
+  - R-core-001
+  - R-core-006
+  visibility: public
+  approval:
+    approved_hash: 
+      52711121d020d0875310503533a5d693509d1c58f09144930ebe6bd88134e395
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      52711121d020d0875310503533a5d693509d1c58f09144930ebe6bd88134e395
+- n: 32
+  category: people
+  title: Let Them Be RIGHT
+  lines:
+  - text: You don't have to win it.
+    mark:
+      target: win
+    note: Not the traffic argument. Not the sister one.
+  - text: Being right is not the goal.
+    mark:
+      target: not the goal
+    note: Being close tomorrow is.
+  - text: Say, I see it differently,
+    mark:
+      target: differently
+    note: then stop. Let the sentence sit.
+  - text: then let it be.
+    mark:
+    note:
+  basis:
+  - R-core-008
+  - R-emotional-intelligence-002
+  visibility: public
+  approval:
+    approved_hash: 
+      2f001efc043c18062c4454c3cbfcc69542f6c3497428ad7a7dad4f49351f8ce4
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      2f001efc043c18062c4454c3cbfcc69542f6c3497428ad7a7dad4f49351f8ce4
+- n: 33
+  category: people
+  title: Your CHILD Is Watching
+  lines:
+  - text: They learn from the Tuesday.
+    mark:
+      target: Tuesday
+    note: Not the talk. The ordinary evening.
+  - text: How you speak when you're tired,
+    mark:
+      target: tired
+    note: on the phone, about the neighbour.
+  - text: how you handle a mistake.
+    mark:
+      target: mistake
+    note: I got that wrong, sorry. They hear it.
+  - text: Worth is not earned.
+    mark:
+      target: not earned
+    note: Not yours, not theirs, not ever.
+  - text: Show them that.
+    mark:
+    note:
+  basis:
+  - R-shame-conditional-worth-001
+  - R-adult-008
+  visibility: public
+  approval:
+    approved_hash: 
+      fb03f582d0c071f0add8cb5842b4eb2d819f6d4fe7cb843388c7adae01658a65
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      fb03f582d0c071f0add8cb5842b4eb2d819f6d4fe7cb843388c7adae01658a65
+- n: 34
+  category: people
+  title: The FRIEND Who Asks
+  lines:
+  - text: Someone asks how you are.
+    mark:
+      target: asks
+    note: The one who pauses for the answer.
+  - text: Fine ends it.
+    mark:
+      target: Fine
+    note: It's the polite door.
+  - text: Say one true sentence.
+    mark:
+      target: 'true'
+    note: Actually, work's been rough.
+  - text: See if they stay.
+    mark:
+      target: stay
+    note: The right ones always do.
+  basis:
+  - R-adult-004
+  - R-adult-003
+  visibility: public
+  approval:
+    approved_hash: 
+      c358e486de5eed9cfe95a3a9adab7d6935d9c81e17b4d288ce6dcf08d095738c
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      c358e486de5eed9cfe95a3a9adab7d6935d9c81e17b4d288ce6dcf08d095738c
+- n: 35
+  category: people
+  title: Ten MINUTES Together
+  lines:
+  - text: Ten minutes, no phone.
+    mark:
+      target: Ten
+    note: The dinner table. The car. The walk.
+  - text: Ask one real question.
+    mark:
+      target: real
+    note: What was the best bit of today?
+  - text: Listen to the whole answer.
+    mark:
+      target: whole
+    note: Not the first half while you plan your reply.
+  - text: That is the whole card.
+    mark:
+    note:
+  basis:
+  - R-core-006
+  visibility: public
+  approval:
+    approved_hash: 
+      3b8ca5a851475191f71729bfbd04db5d48e3a37de013df46c9264416c0a26db2
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      3b8ca5a851475191f71729bfbd04db5d48e3a37de013df46c9264416c0a26db2
+- n: 36
+  category: direction
+  title: One SMALL Step
+  lines:
+  - text: The thing has been sitting for weeks.
+    mark:
+      target: sitting
+    note: The form, the call, the plan.
+  - text: Make the first step smaller.
+    mark:
+      target: smaller
+    note: Open the form. That's it.
+  - text: Small enough to dislike less.
+    mark:
+      target: dislike less
+    note: You don't need to want to. Just start.
+  - text: Then do that one.
+    mark:
+    note:
+  basis:
+  - R-adult-007
+  - R-personal-growth-001
+  visibility: public
+  approval:
+    approved_hash: 
+      3887ee80fe49b3fb9599d870e987ce1ef53e6d78d28a630218deb967b5c56808
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      3887ee80fe49b3fb9599d870e987ce1ef53e6d78d28a630218deb967b5c56808
+- n: 37
+  category: direction
+  title: What You'd Do for FREE
+  lines:
+  - text: Look at what you do for free.
+    mark:
+      target: for free
+    note: The thing that eats a Saturday gladly.
+  - text: That's your reason,
+    mark:
+      target: reason
+    note: not the job title, not the salary.
+  - text: even if the job pays you.
+    mark:
+      target: pays
+    note: Reasons survive a bad week. Titles don't.
+  - text: Keep it somewhere close.
+    mark:
+    note:
+  basis:
+  - R-core-005
+  - R-adult-001
+  visibility: public
+  approval:
+    approved_hash: 
+      7aab12aa159b82eac74555e99f769d2e692d35d0809644581d0de3121a66ddf0
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      7aab12aa159b82eac74555e99f769d2e692d35d0809644581d0de3121a66ddf0
+- n: 38
+  category: direction
+  title: Write the GOAL Down
+  lines:
+  - text: A goal you can't see is a mood.
+    mark:
+      target: mood
+    note: Written down, it becomes a decision.
+  - text: Write one line.
+    mark:
+      target: one line
+    note: Run the 10k in September.
+  - text: Write how you'll know.
+    mark:
+      target: know
+    note: A date, a number, a thing you can point at.
+  - text: Then put it where you look.
+    mark:
+      target: where you look
+    note: The mirror, the fridge, the door.
+  basis:
+  - R-personal-growth-002
+  visibility: public
+  approval:
+    approved_hash: 
+      5f840ecdec1ee6dd74baf3b362952e87f57e84d22acfecc9e6512613b8c78f1c
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      5f840ecdec1ee6dd74baf3b362952e87f57e84d22acfecc9e6512613b8c78f1c
+- n: 39
+  category: direction
+  title: Attach It to MONDAY
+  lines:
+  - text: New things need an anchor.
+    mark:
+      target: anchor
+    note: A habit holds onto something already there.
+  - text: Use the Monday train.
+    mark:
+      target: train
+    note: Forty minutes, twice a day, already yours.
+  - text: Read one page, write one line.
+    mark:
+      target: one
+    note: Small enough to survive a bad week.
+  - text: Missing a day is not a reset.
+    mark:
+      target: not a reset
+    note: The next day still counts.
+  basis:
+  - R-personal-growth-003
+  - R-adult-007
+  visibility: public
+  approval:
+    approved_hash: 
+      87ab71b4acca529a5ab1e757dbb089e8e7be241e39b2c4dfcc04329dec7764ed
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      87ab71b4acca529a5ab1e757dbb089e8e7be241e39b2c4dfcc04329dec7764ed
+- n: 40
+  category: direction
+  title: Your Values, YOUR Call
+  lines:
+  - text: Nobody can pick your values.
+    mark:
+      target: Nobody
+    note: Not your manager, not your father.
+  - text: Write the three that matter.
+    mark:
+      target: three
+    note: Family, craft, honesty. Whatever is true.
+  - text: Test them against a week.
+    mark:
+      target: Test
+    note: What did you say yes to that fought them?
+  - text: The answer is yours.
+    mark:
+    note:
+  basis:
+  - R-personal-growth-008
+  - R-core-008
+  visibility: public
+  approval:
+    approved_hash: 
+      8d6b9780f25bca342bd7fb136d340440d43ff0f21f8cf90c34d321b86e60c0e3
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      8d6b9780f25bca342bd7fb136d340440d43ff0f21f8cf90c34d321b86e60c0e3
+- n: 41
+  category: direction
+  title: Progress Is NOT a Line
+  lines:
+  - text: Progress is not a straight line.
+    mark:
+      target: not a straight line
+    note: It's a staircase with a stuck step.
+  - text: Some weeks go backwards.
+    mark:
+      target: backwards
+    note: Illness, a bad month, a new job.
+  - text: Look at the quarter, not the day.
+    mark:
+      target: quarter
+    note: A day is weather. A quarter is climate.
+  - text: Then take the next step.
+    mark:
+    note:
+  basis:
+  - R-core-007
+  - R-personal-growth-003
+  visibility: public
+  approval:
+    approved_hash: 
+      2f7c3f10a7f8a35b2c846d71791e69b2544ffb3ecab17f550f838c11893074a0
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      2f7c3f10a7f8a35b2c846d71791e69b2544ffb3ecab17f550f838c11893074a0
+- n: 42
+  category: direction
+  title: The MISSED Day
+  lines:
+  - text: You missed a day.
+    mark:
+      target: missed
+    note: Or three. It happens.
+  - text: It's not the end of it.
+    mark:
+      target: not the end
+    note: It's a gap, not a verdict.
+  - text: Do the smallest version today.
+    mark:
+      target: smallest
+    note: Five minutes counts. Zero doesn't.
+  - text: The streak is not the point.
+    mark:
+      target: streak
+    note: The thing you're building is.
+  basis:
+  - R-personal-growth-003
+  - R-adult-006
+  visibility: private
+  approval:
+    approved_hash: 
+      fb1efa6d4928ca875ba51f3287b4dd14ef0ac611db776ea3425ea761e658c914
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      fb1efa6d4928ca875ba51f3287b4dd14ef0ac611db776ea3425ea761e658c914
+- n: 43
+  category: direction
+  title: Learn One THING
+  lines:
+  - text: Pick one thing to get better at.
+    mark:
+      target: one
+    note: Not a list. One.
+  - text: Give it fifteen minutes.
+    mark:
+      target: fifteen
+    note: On the train, before the inbox.
+  - text: Compare you to last month.
+    mark:
+      target: last month
+    note: Not to the person in the video.
+  - text: That's the only fair comparison.
+    mark:
+      target: only fair
+    note: Everyone else is on chapter nine.
+  basis:
+  - R-core-002
+  - R-adult-001
+  visibility: public
+  approval:
+    approved_hash: 
+      53f2d653970ce085722cb18d675212f49941b1ba46d7d5bd3053784181481751
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      53f2d653970ce085722cb18d675212f49941b1ba46d7d5bd3053784181481751
+- n: 44
+  category: direction
+  title: What Next, NOT When
+  lines:
+  - text: Ask what's next, not when.
+    mark:
+      target: next
+    note: The when is a trap you set for yourself.
+  - text: The plan can move.
+    mark:
+      target: move
+    note: The direction doesn't have to.
+  - text: Write the next move, not the deadline.
+    mark:
+      target: move
+    note: One sentence. Do it this week.
+  - text: Then take it.
+    mark:
+    note:
+  basis:
+  - R-personal-growth-002
+  - R-core-007
+  visibility: public
+  approval:
+    approved_hash: 
+      5586147f466100ed11e6ceecb465461138bef5d55e881b24b2c8d972b0826ea7
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      5586147f466100ed11e6ceecb465461138bef5d55e881b24b2c8d972b0826ea7
+- n: 45
+  category: life-skills
+  title: Seven HOURS
+  lines:
+  - text: Seven hours is the number.
+    mark:
+      target: Seven
+    note: Eighteen to sixty. That's you.
+  - text: A run of short nights is a debt.
+    mark:
+      target: debt
+    note: Not a personality. A balance.
+  - text: Pay it back at the weekend.
+    mark:
+      target: Pay it back
+    note: An early night, not a lie-in marathon.
+  - text: The phone charges in the kitchen.
+    mark:
+      target: kitchen
+    note: Out of the bedroom. Charger and all.
+  basis:
+  - R-adult-005
+  visibility: public
+  approval:
+    approved_hash: 
+      2140160ceac185716d9f7a35452baa400bc6f18253a6ffc456f031dd495bc7eb
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      2140160ceac185716d9f7a35452baa400bc6f18253a6ffc456f031dd495bc7eb
+- n: 46
+  category: life-skills
+  title: Eat Before the MEETING
+  lines:
+  - text: Hungry is not a state to present in.
+    mark:
+      target: Hungry
+    note: The 2pm meeting after no lunch.
+  - text: Eat something before.
+    mark:
+      target: before
+    note: Even a sandwich in the lift.
+  - text: You'll hear more of the room.
+    mark:
+      target: hear
+    note: Hunger makes everyone sound hostile.
+  - text: Food is fuel, not a test.
+    mark:
+      target: not a test
+    note: No scoring. No guilt. No rules.
+  basis:
+  - R-eating-body-image-002
+  - R-core-006
+  visibility: public
+  approval:
+    approved_hash: 
+      4f03b677bbb8c8d5692db535895c2f44def97cb653fea7af599a0e564d7edc59
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      4f03b677bbb8c8d5692db535895c2f44def97cb653fea7af599a0e564d7edc59
+- n: 47
+  category: life-skills
+  title: Move so You CAN
+  lines:
+  - text: Move for what it lets you do.
+    mark:
+      target: lets you do
+    note: The stairs without stopping. The kid on your shoulders.
+  - text: Two slow runs are enough.
+    mark:
+      target: Two
+    note: Twice a week. Keep it easy.
+  - text: Not to fix a body.
+    mark:
+      target: Not to fix
+    note: Bodies are not problems to solve.
+  - text: To keep the one you have.
+    mark:
+      target: keep
+    note: Working, mostly, for a long time.
+  basis:
+  - R-eating-body-image-002
+  - R-eating-body-image-001
+  visibility: public
+  approval:
+    approved_hash: 
+      d3721e933904d9c70f1369f06ceded1452ba82b69f1b7dbebdd20b312f7850d7
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      d3721e933904d9c70f1369f06ceded1452ba82b69f1b7dbebdd20b312f7850d7
+- n: 48
+  category: life-skills
+  title: Book the DOCTOR
+  lines:
+  - text: Book the appointment.
+    mark:
+      target: Book
+    note: The one you keep postponing.
+  - text: Write down what's been happening.
+    mark:
+      target: happening
+    note: Two lines. Dates help.
+  - text: Ask what it could be.
+    mark:
+      target: could be
+    note: Not what it is. That takes tests.
+  - text: Go back if it does not settle.
+    mark:
+      target: Go back
+    note: Twice is not fussing.
+  basis:
+  - R-medical-claims-002
+  - R-medical-claims-001
+  visibility: public
+  approval:
+    approved_hash: 
+      16504d8d25ea29c40e96825e6108d111c06531405456091b056a81bbe5f360e7
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      16504d8d25ea29c40e96825e6108d111c06531405456091b056a81bbe5f360e7
+- n: 49
+  category: life-skills
+  title: Admin in ONE SIT
+  lines:
+  - text: The admin pile grows in the dark.
+    mark:
+      target: dark
+    note: The insurance, the school form, the tax thing.
+  - text: Book thirty minutes.
+    mark:
+      target: thirty
+    note: Tuesday at eight. On the calendar, like a meeting.
+  - text: Do the three that matter.
+    mark:
+      target: three
+    note: The rest can keep.
+  - text: Close the laptop. Done.
+    mark:
+      target: Done
+    note: Half a pile is progress. It counts.
+  basis:
+  - R-adult-007
+  - R-personal-growth-001
+  visibility: public
+  approval:
+    approved_hash: 
+      33e2c8b65585aec8749795accf236c89968a1bece146cd9cba3fdda0d12a27e0
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      33e2c8b65585aec8749795accf236c89968a1bece146cd9cba3fdda0d12a27e0
+- n: 50
+  category: life-skills
+  title: Sunday NIGHT Reset
+  lines:
+  - text: Before the week starts,
+    mark:
+      target: Before
+    note: Sunday, after the kids are down.
+  - text: look at the week once.
+    mark:
+      target: once
+    note: Ten minutes. Calendar, not feelings.
+  - text: Move the clash.
+    mark:
+      target: clash
+    note: The 9am you can't make. Fix it Sunday.
+  - text: Then stop looking at it.
+    mark:
+      target: stop
+    note: The week can start without another look.
+  basis:
+  - R-core-006
+  - R-adult-007
+  visibility: public
+  approval:
+    approved_hash: 
+      a987fd2901b719eabc8b26563042927cbb4c62d4cca83f5f849bee00fd3f3ca1
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      a987fd2901b719eabc8b26563042927cbb4c62d4cca83f5f849bee00fd3f3ca1
+- n: 51
+  category: life-skills
+  title: Screens DOWN at Ten
+  lines:
+  - text: Put the phone down at ten.
+    mark:
+      target: ten
+    note: Not off. Down. Different room.
+  - text: The feed will keep.
+    mark:
+      target: keep
+    note: Nothing on it needs you tonight.
+  - text: Read something dull instead.
+    mark:
+      target: dull
+    note: Dull is the point. Dull gets you to sleep.
+  - text: Morning-you says thanks.
+    mark:
+    note:
+  basis:
+  - R-adult-005
+  - R-core-006
+  visibility: public
+  approval:
+    approved_hash: 
+      ca88b4ce7fc01b6a1630ea8729957e39b12c240c6476f8ec8b0e48877b3b2e88
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      ca88b4ce7fc01b6a1630ea8729957e39b12c240c6476f8ec8b0e48877b3b2e88
+- n: 52
+  category: life-skills
+  title: The House Can WAIT
+  lines:
+  - text: The house will be untidy.
+    mark:
+      target: untidy
+    note: It's a house with people in it.
+  - text: The floor can wait until Saturday.
+    mark:
+      target: wait
+    note: Guests don't remember the floor.
+  - text: Sit down with them instead.
+    mark:
+      target: Sit
+    note: Fifteen minutes. They'll remember that.
+  - text: You are not being graded on it.
+    mark:
+    note:
+  basis:
+  - R-adult-002
+  - R-core-008
+  visibility: public
+  approval:
+    approved_hash: 
+      719c6d774b81def026eb1ea0a867327b15fcf940245fca6b1a49d90d4b730407
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      719c6d774b81def026eb1ea0a867327b15fcf940245fca6b1a49d90d4b730407
+- n: 53
+  category: life-skills
+  title: Ask for HELP Early
+  lines:
+  - text: Ask before it's an emergency.
+    mark:
+      target: before
+    note: Not when the deadline is tonight.
+  - text: Say what you need,
+    mark:
+      target: what you need
+    note: Two hours of quiet on Thursday.
+  - text: and who could give it.
+    mark:
+      target: who
+    note: Name them. Not someone.
+  - text: People say yes more than you think.
+    mark:
+    note:
+  basis:
+  - R-adult-003
+  - R-core-006
+  visibility: public
+  approval:
+    approved_hash: 
+      fc0b4a64f0c0b3a989a84e4734b5b99606f6077c60d7732874a4ffb478700431
+    approved_by: round
+    approved_round: 1
+    linted_hash: 
+      fc0b4a64f0c0b3a989a84e4734b5b99606f6077c60d7732874a4ffb478700431
