@@ -1,8 +1,9 @@
-# Age band (SPEC.md Section 4). Ships as a stub in v1.
+# Age band (SPEC.md Section 4). Seeded 2026-11-13 at the person's request, from
+# findings F-0090 to F-0093 and the core pool.
 # The policy ladder for this band lives in ../policies.yaml.
 scope: age/adult
-status: stub
-description: Adults, including teams of professionals. Stub in v1.
+status: active
+description: Adults in work and family life, roughly 25 to 65 — a manager, a partner, someone caring for a child or a parent, and getting older themselves.
 defaults:
   reading:                # set during seeding, word-level targets for lint
     max_avg_syllables_per_word: null
@@ -12,4 +13,153 @@ defaults:
     max_title_words: null
     max_lines: null
     max_words_per_line: null
-rules: []
+rules:
+  - id: R-adult-001
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Give the reader their own reason for a task, in their words, instead of the obligation.
+    why: A meta-analysis of 72 studies with 32,870 employees found support for a person's own reasons and input went with autonomous motivation and better wellbeing.
+    cites: [F-0090]
+    check: judge
+    lint: null
+    examples:
+      bad: "You have to get through the backlog."
+      good: "The backlog is not the point. The point is the hour you get back when it is done."
+
+  - id: R-adult-002
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not make a manager's or a partner's support sound like a reward for output.
+    why: Across 128 experiments, expecting a tangible reward for taking part, finishing or doing well reduced intrinsic motivation for the activity.
+    cites: [F-0007]
+    check: judge
+    lint: null
+    examples:
+      bad: "Do this and you will earn the praise."
+      good: "The help is not the prize for finishing. It is there while you work."
+
+  - id: R-adult-003
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Name one person to contact rather than telling the reader to reach out to people.
+    why: A meta-analysis of 148 prospective studies with 308,849 adults found stronger social relationships went with about a 50 percent higher survival likelihood.
+    cites: [F-0091]
+    check: judge
+    lint: null
+    examples:
+      bad: "Stay connected with friends."
+      good: "Text the one person who asks how you are. Two sentences is enough."
+
+  - id: R-adult-004
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: When a card is about feeling isolated, go after the story the reader is telling themselves.
+    why: Among 20 randomized loneliness intervention studies, the approaches that addressed maladaptive social cognition worked best and added contact did least.
+    cites: [F-0093]
+    check: judge
+    lint: null
+    examples:
+      bad: "Join a club and you will feel better."
+      good: "\"Nobody wants to hear from me\" is a guess. Test it with one message."
+
+  - id: R-adult-005
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Give seven hours as the number, and treat a run of short nights as a debt to repay rather than a personal failing.
+    why: A joint consensus panel of the American Academy of Sleep Medicine and the Sleep Research Society recommends seven or more hours a night for adults aged 18 to 60.
+    cites: [F-0092]
+    check: judge
+    lint: null
+    examples:
+      bad: "Sleep when the work is done."
+      good: "Seven hours. Two short nights in a row is a debt the weekend can pay."
+
+  - id: R-adult-006
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: Give the reader the sentence they would say to a friend who made the same mistake.
+    why: A meta-analysis of 20 samples found a large inverse association between self-compassion and psychopathology.
+    cites: [F-0053]
+    check: judge
+    lint: null
+    examples:
+      bad: "You should have known better."
+      good: "You would not say that to a friend. Say the friend version."
+
+  - id: R-adult-007
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: For the task the reader keeps avoiding, make the first step smaller and less unpleasant.
+    why: A meta-analysis of 691 correlations found procrastination was predicted most strongly by task aversiveness and low self-efficacy.
+    cites: [F-0054]
+    check: judge
+    lint: null
+    examples:
+      bad: "Just clear the whole inbox."
+      good: "Open the inbox and answer the top one. That is the task."
+
+  - id: R-adult-008
+    type: avoid
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Do not tell an adult their worth was earned by the achievement, or lost by the miss.
+    why: In a three-generation study and a study of college students, parents' conditional regard was associated with worse outcomes for the recipient.
+    cites: [F-0022]
+    check: judge
+    lint: null
+    examples:
+      bad: "You are only as good as your last quarter."
+      good: "A missed quarter is a quarter. It is not the person."
+
+  - id: R-adult-009
+    type: do
+    strength: should
+    applies_to: [lines]
+    when: null
+    overrides: []
+    text: A card can describe a racing heart or a tight chest as the body getting ready for a demand.
+    why: Three studies found a stress-is-enhancing mindset could be changed by short clips and went with better performance and less anxiety.
+    cites: [F-0085]
+    check: judge
+    lint: null
+    examples:
+      bad: "Your nerves are a warning sign."
+      good: "Fast heart, dry mouth: that is the body loading up for the meeting."
+
+  - id: R-adult-010
+    type: format
+    strength: should
+    applies_to: [title, lines]
+    when: null
+    overrides: []
+    text: Keep each line to one idea, in words the reader would say out loud at work or at home.
+    why: Two ideas in one line split attention, and formal wording reads as a memo from HR.
+    basis: template
+    check: judge
+    lint: null
+    examples:
+      bad: "Leverage your support network to optimize outcomes."
+      good: "Ask one person for one thing."
